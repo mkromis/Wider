@@ -35,7 +35,7 @@ namespace Wide.Core.TextDocument
         /// <summary>
         /// The old text which was last saved
         /// </summary>
-        protected string OldText;
+        protected String OldText;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TextModel" /> class.
@@ -57,9 +57,9 @@ namespace Wide.Core.TextDocument
         /// </summary>
         /// <value><c>true</c> if this instance is dirty; otherwise, <c>false</c>.</value>
         [Browsable(false)]
-        public override bool IsDirty
+        public override Boolean IsDirty
         {
-            get { return base.IsDirty; }
+            get => base.IsDirty;
             protected internal set
             {
                 base.IsDirty = value;
@@ -82,24 +82,18 @@ namespace Wide.Core.TextDocument
         /// </summary>
         /// <param name="sender">The sender - a text editor instance.</param>
         /// <param name="eventArgs">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void DocumentOnTextChanged(object sender, EventArgs eventArgs)
-        {
-            IsDirty = (OldText != Document.Text);
-        }
+        private void DocumentOnTextChanged(Object sender, EventArgs eventArgs) => IsDirty = (OldText != Document.Text);
 
         /// <summary>
         /// Documents the property changed.
         /// </summary>
         /// <param name="sender">The sender - a text model instance.</param>
         /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
-        private void DocumentPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            RaisePropertyChanged("Document");
-        }
+        private void DocumentPropertyChanged(Object sender, PropertyChangedEventArgs e) => RaisePropertyChanged("Document");
 
-        internal void SetLocation(object location)
+        internal void SetLocation(Object location)
         {
-            this.Location = location;
+            Location = location;
             RaisePropertyChanged("Location");
         }
     }

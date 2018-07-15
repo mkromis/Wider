@@ -18,28 +18,29 @@ using Wide.Interfaces.Events;
 using Wide.Interfaces.Settings;
 using Wide.Interfaces.Services;
 using System.Collections.Generic;
+using System;
 
 namespace Wide.Core.Settings
 {
     internal class ToolbarPositionSettings : AbstractSettings, IToolbarPositionSettings
     {
         private AbstractToolbar _toolTray;
-        private Dictionary<string, ToolbarSettingItem> _loadDict;
+        private Dictionary<String, ToolbarSettingItem> _loadDict;
 
         public ToolbarPositionSettings(IEventAggregator eventAggregator, IToolbarService toolbarService)
         {
             eventAggregator.GetEvent<WindowClosingEvent>().Subscribe(SaveToolbarPositions);
             _toolTray = toolbarService as AbstractToolbar;
-            _loadDict = new Dictionary<string, ToolbarSettingItem>();
+            _loadDict = new Dictionary<String, ToolbarSettingItem>();
 
-            if (this.Toolbars != null && this.Toolbars.Count > 0)
+            if (Toolbars != null && Toolbars.Count > 0)
             {
-                foreach (var setting in this.Toolbars)
+                foreach (ToolbarSettingItem setting in Toolbars)
                 {
                     _loadDict[setting.Header] = setting;
                 }
 
-                for (int i = 0; i < _toolTray.Children.Count; i++)
+                for (Int32 i = 0; i < _toolTray.Children.Count; i++)
                 {
                     AbstractToolbar tb = _toolTray.Children[i] as AbstractToolbar;
                     if (_loadDict.ContainsKey(tb.Header))
@@ -56,8 +57,8 @@ namespace Wide.Core.Settings
 
         private void SaveToolbarPositions(Window window)
         {
-            this.Toolbars = new List<ToolbarSettingItem>();
-            for (int i = 0; i < _toolTray.Children.Count; i++)
+            Toolbars = new List<ToolbarSettingItem>();
+            for (Int32 i = 0; i < _toolTray.Children.Count; i++)
             {
                 AbstractToolbar tb = _toolTray.Children[i] as AbstractToolbar;
                 Toolbars.Add(new ToolbarSettingItem(tb));
@@ -70,11 +71,14 @@ namespace Wide.Core.Settings
         {
             get
             {
-                if ((List<ToolbarSettingItem>) this["Toolbars"] == null)
+                if ((List<ToolbarSettingItem>)this["Toolbars"] == null)
+                {
                     this["Toolbars"] = new List<ToolbarSettingItem>();
-                return (List<ToolbarSettingItem>) this["Toolbars"];
+                }
+
+                return (List<ToolbarSettingItem>)this["Toolbars"];
             }
-            set { this["Toolbars"] = value; }
+            set => this["Toolbars"] = value;
         }
     }
 }

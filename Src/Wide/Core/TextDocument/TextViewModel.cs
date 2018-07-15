@@ -38,19 +38,16 @@ namespace Wide.Core.TextDocument
         /// The title of the document
         /// </summary>
         /// <value>The tool tip.</value>
-        public override string Tooltip
+        public override String Tooltip
         {
-            get { return Model.Location as String; }
-            protected set { base.Tooltip = value; }
+            get => Model.Location as String;
+            protected set => base.Tooltip = value;
         }
 
         /// <summary>
         /// The content ID - unique value for each document. For TextViewModels, the contentID is "FILE:##:" + location of the file.
         /// </summary>
         /// <value>The content id.</value>
-        public override string ContentId
-        {
-            get { return "FILE:##:" + Tooltip; }
-        }
+        public override String ContentId => "FILE:##:" + Tooltip;
     }
 }

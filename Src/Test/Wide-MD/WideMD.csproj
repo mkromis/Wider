@@ -126,6 +126,10 @@
       <Name>Wide</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\WideMD.Core\WideMD.Core.csproj">
+      <Project>{a6dac5fb-29a1-4579-a828-f133d9abbdd2}</Project>
+      <Name>WideMD.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

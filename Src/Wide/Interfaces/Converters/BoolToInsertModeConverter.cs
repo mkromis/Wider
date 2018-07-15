@@ -19,20 +19,19 @@ namespace Wide.Interfaces.Converters
     {
         #region IValueConverter Members
 
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public Object Convert(Object value, Type targetType, Object parameter, System.Globalization.CultureInfo culture)
         {
-            bool? actValue = value as bool?;
+            Boolean? actValue = value as Boolean?;
             if (actValue == null)
+            {
                 return null;
+            }
 
             return actValue == false ? "INS" : "OVR";
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter,
-                                  System.Globalization.CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
+        public Object ConvertBack(Object value, Type targetType, Object parameter,
+                                  System.Globalization.CultureInfo culture) => throw new NotImplementedException();
 
         #endregion
     }

@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Windows;
 
 namespace Wide.Splash.Behaviours
@@ -22,17 +23,11 @@ namespace Wide.Splash.Behaviours
         #region Dependency Properties
 
         public static readonly DependencyProperty EnabledProperty = DependencyProperty.RegisterAttached(
-            "Enabled", typeof (bool), typeof (SplashBehaviour), new PropertyMetadata(OnEnabledChanged));
+            "Enabled", typeof (Boolean), typeof (SplashBehaviour), new PropertyMetadata(OnEnabledChanged));
 
-        public static bool GetEnabled(DependencyObject d)
-        {
-            return (bool) d.GetValue(EnabledProperty);
-        }
+        public static Boolean GetEnabled(DependencyObject d) => (Boolean)d.GetValue(EnabledProperty);
 
-        public static void SetEnabled(DependencyObject d, bool value)
-        {
-            d.SetValue(EnabledProperty, value);
-        }
+        public static void SetEnabled(DependencyObject d, Boolean value) => d.SetValue(EnabledProperty, value);
 
         #endregion
 
@@ -40,14 +35,13 @@ namespace Wide.Splash.Behaviours
 
         private static void OnEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
         {
-            var splash = d as Window;
-            if (splash != null && args.NewValue is bool && (bool) args.NewValue)
+            if (d is Window splash && args.NewValue is Boolean && (Boolean)args.NewValue)
             {
                 splash.Closed += (s, e) =>
-                                     {
-                                         splash.DataContext = null;
-                                         splash.Dispatcher.InvokeShutdown();
-                                     };
+                {
+                    splash.DataContext = null;
+                    splash.Dispatcher.InvokeShutdown();
+                };
                 splash.MouseDoubleClick += (s, e) => splash.Close();
                 splash.MouseLeftButtonDown += (s, e) => splash.DragMove();
             }

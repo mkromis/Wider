@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Configuration;
 using System.Windows;
 using Microsoft.Practices.Prism.Events;
@@ -20,10 +21,8 @@ namespace Wide.Core.Settings
 {
     internal class WindowPositionSettings : AbstractSettings, IWindowPositionSettings
     {
-        public WindowPositionSettings(IEventAggregator eventAggregator)
-        {
+        public WindowPositionSettings(IEventAggregator eventAggregator) => 
             eventAggregator.GetEvent<WindowClosingEvent>().Subscribe(SaveWindowPositions);
-        }
 
         private void SaveWindowPositions(Window window)
         {
@@ -40,42 +39,42 @@ namespace Wide.Core.Settings
 
         [UserScopedSetting()]
         [DefaultSettingValue("0")]
-        public double Left
+        public Double Left
         {
-            get { return (double) this["Left"]; }
-            set { this["Left"] = value; }
+            get => (Double)this["Left"];
+            set => this["Left"] = value;
         }
 
         [UserScopedSetting()]
         [DefaultSettingValue("0")]
-        public double Top
+        public Double Top
         {
-            get { return (double) this["Top"]; }
-            set { this["Top"] = value; }
+            get => (Double)this["Top"];
+            set => this["Top"] = value;
         }
 
         [UserScopedSetting()]
         [DefaultSettingValue("600")]
-        public double Height
+        public Double Height
         {
-            get { return (double) this["Height"]; }
-            set { this["Height"] = value; }
+            get => (Double)this["Height"];
+            set => this["Height"] = value;
         }
 
         [UserScopedSetting()]
         [DefaultSettingValue("800")]
-        public double Width
+        public Double Width
         {
-            get { return (double) this["Width"]; }
-            set { this["Width"] = value; }
+            get => (Double)this["Width"];
+            set => this["Width"] = value;
         }
 
         [UserScopedSetting()]
         [DefaultSettingValue("Maximized")]
         public WindowState State
         {
-            get { return (WindowState) this["State"]; }
-            set { this["State"] = value; }
+            get => (WindowState)this["State"];
+            set => this["State"] = value;
         }
     }
 }

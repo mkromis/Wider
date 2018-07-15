@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -107,24 +108,15 @@ namespace Wide.Interfaces
         /// Gets the menu.
         /// </summary>
         /// <value>The menu.</value>
-        public IList<AbstractCommandable> Menus
-        {
-            get { return _menus.Children; }
-        }
+        public IList<AbstractCommandable> Menus => _menus.Children;
 
         /// <summary>
         /// Gets the tool bar tray.
         /// </summary>
         /// <value>The tool bar tray.</value>
-        public ToolBarTray ToolBarTray
-        {
-            get { return (_toolbarService as IToolbarService).ToolBarTray; }
-        }
+        public ToolBarTray ToolBarTray => (_toolbarService as IToolbarService).ToolBarTray;
 
-        public IStatusbarService StatusBar
-        {
-            get { return _statusbarService; }
-        }
+        public IStatusbarService StatusBar => _statusbarService;
 
         #endregion
 
@@ -136,8 +128,8 @@ namespace Wide.Interfaces
         /// <value>The documents.</value>
         public virtual ObservableCollection<ContentViewModel> Documents
         {
-            get { return _docs; }
-            set { _docs = value; }
+            get => _docs;
+            set => _docs = value;
         }
 
         /// <summary>
@@ -146,8 +138,8 @@ namespace Wide.Interfaces
         /// <value>The tools.</value>
         public virtual ObservableCollection<ToolViewModel> Tools
         {
-            get { return _tools; }
-            set { _tools = value; }
+            get => _tools;
+            set => _tools = value;
         }
 
         /// <summary>
@@ -156,7 +148,7 @@ namespace Wide.Interfaces
         /// <value>The active document.</value>
         public virtual ContentViewModel ActiveDocument
         {
-            get { return _activeDocument; }
+            get => _activeDocument;
             set
             {
                 if (_activeDocument != value)
@@ -174,10 +166,7 @@ namespace Wide.Interfaces
         /// Gets the title of the application.
         /// </summary>
         /// <value>The title.</value>
-        public virtual string Title
-        {
-            get { return "Wide"; }
-        }
+        public virtual String Title => "Wide";
 
         /// <summary>
         /// Gets the icon of the application.
@@ -190,9 +179,9 @@ namespace Wide.Interfaces
         /// </summary>
         /// <param name="e">The <see cref="CancelEventArgs" /> instance containing the event data.</param>
         /// <returns><c>true</c> if the application is closing, <c>false</c> otherwise</returns>
-        public virtual bool Closing(CancelEventArgs e)
+        public virtual System.Boolean Closing(CancelEventArgs e)
         {
-            for (int i = 0; i < Documents.Count; i++)
+            for (Int32 i = 0; i < Documents.Count; i++)
             {
                 ContentViewModel vm = Documents[i];
                 if (vm.Model.IsDirty)
@@ -225,32 +214,32 @@ namespace Wide.Interfaces
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
-        private void _menus_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            RaisePropertyChanged("Menus");
-        }
+        private void _menus_PropertyChanged(Object sender, PropertyChangedEventArgs e) => RaisePropertyChanged("Menus");
 
 
-        protected void Docs_CollectionChanged(object sender,
-                                              System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        protected void Docs_CollectionChanged(Object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.OldItems != null)
             {
                 foreach (INotifyPropertyChanged item in e.OldItems)
+                {
                     item.PropertyChanged -= ModelChangedEventHandler;
+                }
             }
 
             if (e.NewItems != null)
             {
                 foreach (INotifyPropertyChanged item in e.NewItems)
+                {
                     item.PropertyChanged += ModelChangedEventHandler;
+                }
             }
 
             if (e.Action == NotifyCollectionChangedAction.Remove)
             {
                 if (_docs.Count == 0)
                 {
-                    this.ActiveDocument = null;
+                    ActiveDocument = null;
                 }
             }
         }
@@ -260,7 +249,7 @@ namespace Wide.Interfaces
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
-        protected virtual void ModelChangedEventHandler(object sender, PropertyChangedEventArgs e)
+        protected virtual void ModelChangedEventHandler(Object sender, PropertyChangedEventArgs e)
         {
             _commandManager.Refresh();
             _menus.Refresh();

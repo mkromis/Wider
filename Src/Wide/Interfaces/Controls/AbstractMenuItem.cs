@@ -29,7 +29,7 @@ namespace Wide.Interfaces.Controls
         /// <summary>
         /// The static separator count
         /// </summary>
-        protected static int sepCount = 1;
+        protected static Int32 sepCount = 1;
 
         #endregion
 
@@ -43,7 +43,7 @@ namespace Wide.Interfaces.Controls
         /// <summary>
         /// Is the menu checked
         /// </summary>
-        protected bool _isChecked;
+        protected Boolean _isChecked;
 
         #endregion
 
@@ -53,7 +53,7 @@ namespace Wide.Interfaces.Controls
         /// Gets a value indicating whether this instance is separator.
         /// </summary>
         /// <value><c>true</c> if this instance is separator; otherwise, <c>false</c>.</value>
-        public virtual bool IsSeparator { get; internal set; }
+        public virtual Boolean IsSeparator { get; internal set; }
 
         /// <summary>
         /// Gets the icon of the menu.
@@ -65,12 +65,12 @@ namespace Wide.Interfaces.Controls
         /// Gets the tool tip.
         /// </summary>
         /// <value>The tool tip.</value>
-        public virtual string ToolTip
+        public virtual String ToolTip
         {
             get
             {
-                string value = Header.Replace("_", "");
-                if (!string.IsNullOrEmpty(InputGestureText))
+                String value = Header.Replace("_", "");
+                if (!String.IsNullOrEmpty(InputGestureText))
                 {
                     value += " " + InputGestureText;
                 }
@@ -82,33 +82,33 @@ namespace Wide.Interfaces.Controls
         /// Gets the header of the menu.
         /// </summary>
         /// <value>The header.</value>
-        public virtual string Header { get; protected internal set; }
+        public virtual String Header { get; protected internal set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is checkable.
         /// </summary>
         /// <value><c>true</c> if this instance is checkable; otherwise, <c>false</c>.</value>
-        public virtual bool IsCheckable { get; protected internal set; }
+        public virtual Boolean IsCheckable { get; protected internal set; }
 
         /// <summary>
         /// Gets a value indicating whether this instance is visible.
         /// </summary>
         /// <value><c>true</c> if this instance is visible; otherwise, <c>false</c>.</value>
-        public virtual bool IsVisible { get; protected internal set; }
+        public virtual Boolean IsVisible { get; protected internal set; }
 
         /// <summary>
         /// Gets a value indicating whether to hide this menu item when disabled.
         /// </summary>
         /// <value><c>true</c> if this instance should be hidden when disabled; otherwise, <c>false</c>.</value>
-        public virtual bool HideDisabled { get; protected internal set; }
+        public virtual Boolean HideDisabled { get; protected internal set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is checked.
         /// </summary>
         /// <value><c>true</c> if this instance is checked; otherwise, <c>false</c>.</value>
-        public virtual bool IsChecked
+        public virtual Boolean IsChecked
         {
-            get { return _isChecked; }
+            get => _isChecked;
             protected internal set
             {
                 _isChecked = value;
@@ -124,10 +124,7 @@ namespace Wide.Interfaces.Controls
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-        public override string ToString()
-        {
-            return Header;
-        }
+        public override String ToString() => Header;
 
         /// <summary>
         /// Adds the specified item.
@@ -135,7 +132,7 @@ namespace Wide.Interfaces.Controls
         /// <param name="item">The item.</param>
         /// <returns><c>true</c> if successfully added, <c>false</c> otherwise</returns>
         /// <exception cref="System.ArgumentException">Expected a AbstractMenuItem as the argument. Only Menu's can be added within a Menu.</exception>
-        public override string Add(AbstractCommandable item)
+        public override String Add(AbstractCommandable item)
         {
             if (item.GetType().IsAssignableFrom(typeof (AbstractMenuItem)))
             {
@@ -147,12 +144,12 @@ namespace Wide.Interfaces.Controls
 
         public virtual void Refresh()
         {
-            this.RaisePropertyChanged("Header");
-            this.RaisePropertyChanged("Command");
-            this.RaisePropertyChanged("Children");
-            this.RaisePropertyChanged("Icon");
-            this.RaisePropertyChanged("ToolTip");
-            this.RaisePropertyChanged("IsVisible");
+            RaisePropertyChanged("Header");
+            RaisePropertyChanged("Command");
+            RaisePropertyChanged("Children");
+            RaisePropertyChanged("Icon");
+            RaisePropertyChanged("ToolTip");
+            RaisePropertyChanged("IsVisible");
         }
 
         #endregion
@@ -168,8 +165,8 @@ namespace Wide.Interfaces.Controls
         /// <param name="command">The command.</param>
         /// <param name="gesture">The gesture.</param>
         /// <param name="isCheckable">if set to <c>true</c> acts as a checkable menu.</param>
-        protected AbstractMenuItem(string header, int priority, ImageSource icon = null, ICommand command = null,
-                                   KeyGesture gesture = null, bool isCheckable = false, bool hideDisabled = false)
+        protected AbstractMenuItem(String header, Int32 priority, ImageSource icon = null, ICommand command = null,
+                                   KeyGesture gesture = null, Boolean isCheckable = false, Boolean hideDisabled = false)
         {
             Priority = priority;
             IsSeparator = false;

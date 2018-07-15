@@ -26,10 +26,10 @@ namespace Wide.Interfaces.Themes
         public VS2010()
         {
             UriList = new List<Uri>
-                          {
-                              new Uri("pack://application:,,,/Xceed.Wpf.AvalonDock.Themes.VS2010;component/Theme.xaml"),
-                              new Uri("pack://application:,,,/Wide;component/Interfaces/Styles/VS2010/Theme.xaml")
-                          };
+            {
+                new Uri("pack://application:,,,/Xceed.Wpf.AvalonDock.Themes.VS2010;component/Theme.xaml"),
+                new Uri("pack://application:,,,/Wide;component/Interfaces/Styles/VS2010/Theme.xaml")
+            };
         }
 
         #region ITheme Members
@@ -44,10 +44,7 @@ namespace Wide.Interfaces.Themes
         /// The name of the theme - "VS2010"
         /// </summary>
         /// <value>The name.</value>
-        public string Name
-        {
-            get { return "VS2010"; }
-        }
+        public String Name => "VS2010";
 
         #endregion
     }

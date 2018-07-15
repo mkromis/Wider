@@ -59,11 +59,11 @@ namespace Wide.Core.Services
 
         #region IContentHandler Members
 
-        public ContentViewModel NewContent(object parameter)
+        public ContentViewModel NewContent(Object parameter)
         {
-            var vm = _container.Resolve<TextViewModel>();
-            var model = _container.Resolve<TextModel>();
-            var view = _container.Resolve<TextView>();
+            TextViewModel vm = _container.Resolve<TextViewModel>();
+            TextModel model = _container.Resolve<TextModel>();
+            TextView view = _container.Resolve<TextView>();
 
             _loggerService.Log("Creating a new simple file using AllFileHandler", LogCategory.Info, LogPriority.Low);
 
@@ -86,10 +86,9 @@ namespace Wide.Core.Services
         /// </summary>
         /// <param name="info">The string containing the file location</param>
         /// <returns>True, if the file exists - false otherwise</returns>
-        public bool ValidateContentType(object info)
+        public Boolean ValidateContentType(Object info)
         {
-            var location = info as string;
-            if (location != null)
+            if (info is String location)
             {
                 return File.Exists(location);
             }
@@ -101,13 +100,13 @@ namespace Wide.Core.Services
         /// </summary>
         /// <param name="contentId">The content ID which needs to be validated</param>
         /// <returns>True, if valid from content ID - false, otherwise</returns>
-        public bool ValidateContentFromId(string contentId)
+        public Boolean ValidateContentFromId(String contentId)
         {
-            string[] split = Regex.Split(contentId, ":##:");
+            String[] split = Regex.Split(contentId, ":##:");
             if (split.Count() == 2)
             {
-                string identifier = split[0];
-                string path = split[1];
+                String identifier = split[0];
+                String path = split[1];
                 if (identifier == "FILE" && File.Exists(path))
                 {
                     return true;
@@ -121,14 +120,13 @@ namespace Wide.Core.Services
         /// </summary>
         /// <param name="info">The string location of the file</param>
         /// <returns>The <see cref="TextViewModel"/> for the file.</returns>
-        public ContentViewModel OpenContent(object info)
+        public ContentViewModel OpenContent(Object info)
         {
-            var location = info as string;
-            if (location != null)
+            if (info is String location)
             {
-                var vm = _container.Resolve<TextViewModel>();
-                var model = _container.Resolve<TextModel>();
-                var view = _container.Resolve<TextView>();
+                TextViewModel vm = _container.Resolve<TextViewModel>();
+                TextModel model = _container.Resolve<TextModel>();
+                TextView view = _container.Resolve<TextView>();
 
                 //Model details
                 model.SetLocation(info);
@@ -163,13 +161,13 @@ namespace Wide.Core.Services
         /// </summary>
         /// <param name="contentId">The content ID</param>
         /// <returns></returns>
-        public ContentViewModel OpenContentFromId(string contentId)
+        public ContentViewModel OpenContentFromId(String contentId)
         {
-            string[] split = Regex.Split(contentId, ":##:");
+            String[] split = Regex.Split(contentId, ":##:");
             if (split.Count() == 2)
             {
-                string identifier = split[0];
-                string path = split[1];
+                String identifier = split[0];
+                String path = split[1];
                 if (identifier == "FILE" && File.Exists(path))
                 {
                     return OpenContent(path);
@@ -184,27 +182,24 @@ namespace Wide.Core.Services
         /// <param name="contentViewModel">This needs to be a TextViewModel that needs to be saved</param>
         /// <param name="saveAs">Pass in true if you need to Save As?</param>
         /// <returns>true, if successful - false, otherwise</returns>
-        public virtual bool SaveContent(ContentViewModel contentViewModel, bool saveAs = false)
+        public virtual Boolean SaveContent(ContentViewModel contentViewModel, Boolean saveAs = false)
         {
-            var textViewModel = contentViewModel as TextViewModel;
 
-            if (textViewModel == null)
+            if (!(contentViewModel is TextViewModel textViewModel))
             {
                 _loggerService.Log("ContentViewModel needs to be a TextViewModel to save details", LogCategory.Exception,
                                    LogPriority.High);
                 throw new ArgumentException("ContentViewModel needs to be a TextViewModel to save details");
             }
 
-            var textModel = textViewModel.Model as TextModel;
-
-            if (textModel == null)
+            if (!(textViewModel.Model is TextModel textModel))
             {
                 _loggerService.Log("TextViewModel does not have a TextModel which should have the text",
                                    LogCategory.Exception, LogPriority.High);
                 throw new ArgumentException("TextViewModel does not have a TextModel which should have the text");
             }
 
-            var location = textModel.Location as string;
+            String location = textModel.Location as String;
 
             if (location == null)
             {
@@ -215,7 +210,9 @@ namespace Wide.Core.Services
             if (saveAs)
             {
                 if (location != null)
+                {
                     _dialog.InitialDirectory = Path.GetDirectoryName(location);
+                }
 
                 _dialog.CheckPathExists = true;
                 _dialog.DefaultExt = "txt";

@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Collections.Generic;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Unity;
@@ -21,7 +22,7 @@ namespace WideMD
 {
     internal class MDBootstrapper : WideBootstrapper
     {
-        public MDBootstrapper(bool isMetro = true)
+        public MDBootstrapper(Boolean isMetro = true)
             : base(isMetro)
         {
         }
@@ -43,7 +44,7 @@ namespace WideMD
 
         protected override IModuleCatalog CreateModuleCatalog()
         {
-            var catalog = new MultipleDirectoryModuleCatalog(new List<string>() {@".", @".\External", @".\Internal"});
+            MultipleDirectoryModuleCatalog catalog = new MultipleDirectoryModuleCatalog(new List<String>() {@".", @".\External", @".\Internal"});
             return catalog;
         }
     }

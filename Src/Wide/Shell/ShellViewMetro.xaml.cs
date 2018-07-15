@@ -51,10 +51,12 @@ namespace Wide.Shell
             dockManager.DocumentContextMenu = _docContextMenu;
             _docContextMenu.ContextMenuOpening += _docContextMenu_ContextMenuOpening;
             _docContextMenu.Opened += _docContextMenu_Opened;
-            _itemSourceBinding = new MultiBinding();
-            _itemSourceBinding.Converter = new DocumentContextMenuMixingConverter();
-            var origModel = new Binding(".");
-            var docMenus = new Binding("Model.Menus");
+            _itemSourceBinding = new MultiBinding
+            {
+                Converter = new DocumentContextMenuMixingConverter()
+            };
+            Binding origModel = new Binding(".");
+            Binding docMenus = new Binding("Model.Menus");
             _itemSourceBinding.Bindings.Add(origModel);
             _itemSourceBinding.Bindings.Add(docMenus);
             origModel.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
@@ -67,49 +69,46 @@ namespace Wide.Shell
 
         public void LoadLayout()
         {
-            var layoutSerializer = new XmlLayoutSerializer(dockManager);
+            XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(dockManager);
             layoutSerializer.LayoutSerializationCallback += (s, e) =>
-                                                                {
-                                                                    var anchorable = e.Model as LayoutAnchorable;
-                                                                    var document = e.Model as LayoutDocument;
-                                                                    _workspace =
-                                                                        _container.Resolve<AbstractWorkspace>();
+            {
+                _workspace = _container.Resolve<AbstractWorkspace>();
 
-                                                                    if (anchorable != null)
-                                                                    {
-                                                                        ToolViewModel model =
-                                                                            _workspace.Tools.FirstOrDefault(
-                                                                                f => f.ContentId == e.Model.ContentId);
-                                                                        if (model != null)
-                                                                        {
-                                                                            e.Content = model;
-                                                                            model.IsVisible = anchorable.IsVisible;
-                                                                            model.IsActive = anchorable.IsActive;
-                                                                            model.IsSelected = anchorable.IsSelected;
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            e.Cancel = true;
-                                                                        }
-                                                                    }
-                                                                    if (document != null)
-                                                                    {
-                                                                        var fileService =
-                                                                            _container.Resolve<IOpenDocumentService>();
-                                                                        ContentViewModel model =
-                                                                            fileService.OpenFromID(e.Model.ContentId);
-                                                                        if (model != null)
-                                                                        {
-                                                                            e.Content = model;
-                                                                            model.IsActive = document.IsActive;
-                                                                            model.IsSelected = document.IsSelected;
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            e.Cancel = true;
-                                                                        }
-                                                                    }
-                                                                };
+                if (e.Model is LayoutAnchorable anchorable)
+                {
+                    ToolViewModel model =
+                        _workspace.Tools.FirstOrDefault(
+                            f => f.ContentId == e.Model.ContentId);
+                    if (model != null)
+                    {
+                        e.Content = model;
+                        model.IsVisible = anchorable.IsVisible;
+                        model.IsActive = anchorable.IsActive;
+                        model.IsSelected = anchorable.IsSelected;
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                    }
+                }
+                if (e.Model is LayoutDocument document)
+                {
+                    IOpenDocumentService fileService =
+                        _container.Resolve<IOpenDocumentService>();
+                    ContentViewModel model =
+                        fileService.OpenFromID(e.Model.ContentId);
+                    if (model != null)
+                    {
+                        e.Content = model;
+                        model.IsActive = document.IsActive;
+                        model.IsSelected = document.IsSelected;
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                    }
+                }
+            };
             try
             {
                 layoutSerializer.Deserialize(AppDomain.CurrentDomain.BaseDirectory + Path.DirectorySeparatorChar + "AvalonDock.Layout.config");
@@ -121,7 +120,7 @@ namespace Wide.Shell
 
         public void SaveLayout()
         {
-            var layoutSerializer = new XmlLayoutSerializer(dockManager);
+            XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(dockManager);
             layoutSerializer.Serialize(AppDomain.CurrentDomain.BaseDirectory + Path.DirectorySeparatorChar + "AvalonDock.Layout.config");
         }
 
@@ -129,21 +128,16 @@ namespace Wide.Shell
 
         #region Events
 
-        private void _docContextMenu_Opened(object sender, RoutedEventArgs e)
-        {
-            RefreshMenuBinding();
-        }
+        private void _docContextMenu_Opened(Object sender, RoutedEventArgs e) => RefreshMenuBinding();
 
-        private void _docContextMenu_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        private void _docContextMenu_ContextMenuOpening(Object sender, ContextMenuEventArgs e)
         {
             /* When you right click a document - move the focus to that document, so that commands on the context menu
              * which are based on the ActiveDocument work correctly. Example: Save.
              */
-            LayoutDocumentItem doc = _docContextMenu.DataContext as LayoutDocumentItem;
-            if (doc != null)
+            if (_docContextMenu.DataContext is LayoutDocumentItem doc)
             {
-                ContentViewModel model = doc.Model as ContentViewModel;
-                if (model != null && model != dockManager.ActiveContent)
+                if (doc.Model is ContentViewModel model && model != dockManager.ActiveContent)
                 {
                     dockManager.ActiveContent = model;
                 }
@@ -167,9 +161,9 @@ namespace Wide.Shell
             _docContextMenu.ItemContainerStyle = FindResource("MetroMenuStyle") as Style;
         }
 
-        private void Window_Closing_1(object sender, CancelEventArgs e)
+        private void Window_Closing_1(Object sender, CancelEventArgs e)
         {
-            var workspace = DataContext as IWorkspace;
+            IWorkspace workspace = DataContext as IWorkspace;
             if (!workspace.Closing(e))
             {
                 e.Cancel = true;
@@ -178,13 +172,12 @@ namespace Wide.Shell
             _eventAggregator.GetEvent<WindowClosingEvent>().Publish(this);
         }
 
-        private void ContentControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void ContentControl_IsVisibleChanged(Object sender, DependencyPropertyChangedEventArgs e)
         {
             //HACK: Refresh the content control because in AutoHide mode this disappears. Needs to be fixed in AvalonDock.
-            ContentControl c = sender as ContentControl;
-            if (c != null)
+            if (sender is ContentControl c)
             {
-                var backup = c.Content;
+                Object backup = c.Content;
                 c.Content = null;
                 c.Content = backup;
             }
@@ -199,7 +192,9 @@ namespace Wide.Shell
             get
             {
                 if (_logger == null)
+                {
                     _logger = _container.Resolve<ILoggerService>();
+                }
 
                 return _logger;
             }

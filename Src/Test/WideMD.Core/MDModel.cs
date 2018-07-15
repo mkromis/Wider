@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using Wide.Core.TextDocument;
 using Wide.Interfaces.Services;
 
@@ -29,22 +30,19 @@ namespace WideMD.Core
         {
         }
 
-        internal void SetLocation(object location)
+        internal void SetLocation(Object location)
         {
-            this.Location = location;
+            Location = location;
             RaisePropertyChanged("Location");
         }
 
-        internal void SetDirty(bool value)
-        {
-            this.IsDirty = value;
-        }
+        internal void SetDirty(Boolean value) => IsDirty = value;
 
-        public string HTMLResult { get; set; }
+        public String HTMLResult { get; set; }
 
-        public void SetHtml(string transform)
+        public void SetHtml(String transform)
         {
-            this.HTMLResult = transform;
+            HTMLResult = transform;
             RaisePropertyChanged("HTMLResult");
         }
     }

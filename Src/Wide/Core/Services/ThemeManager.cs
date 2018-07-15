@@ -30,7 +30,7 @@ namespace Wide.Core.Services
         /// <summary>
         /// Dictionary of different themes
         /// </summary>
-        private static readonly Dictionary<string, ITheme> ThemeDictionary = new Dictionary<string, ITheme>();
+        private static readonly Dictionary<String, ITheme> ThemeDictionary = new Dictionary<String, ITheme>();
 
         /// <summary>
         /// The injected event aggregator
@@ -71,7 +71,7 @@ namespace Wide.Core.Services
         /// </summary>
         /// <param name="name">The name of the theme</param>
         /// <returns>true if the new theme is set, false otherwise</returns>
-        public bool SetCurrent(string name)
+        public Boolean SetCurrent(String name)
         {
             if (ThemeDictionary.ContainsKey(name))
             {
@@ -125,7 +125,7 @@ namespace Wide.Core.Services
         /// </summary>
         /// <param name="theme">The theme to add</param>
         /// <returns>true, if successful - false, otherwise</returns>
-        public bool AddTheme(ITheme theme)
+        public Boolean AddTheme(ITheme theme)
         {
             if (!ThemeDictionary.ContainsKey(theme.Name))
             {

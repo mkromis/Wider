@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Configuration;
 using Microsoft.Practices.Prism.Events;
 using Wide.Interfaces;
@@ -20,23 +21,20 @@ namespace Wide.Core.Settings
 {
     internal class ThemeSettings : AbstractSettings, IThemeSettings
     {
-        public ThemeSettings(IEventAggregator eventAggregator)
-        {
-            eventAggregator.GetEvent<ThemeChangeEvent>().Subscribe(NewSelectedTheme);
-        }
+        public ThemeSettings(IEventAggregator eventAggregator) => eventAggregator.GetEvent<ThemeChangeEvent>().Subscribe(NewSelectedTheme);
 
         private void NewSelectedTheme(ITheme theme)
         {
-            this.SelectedTheme = theme.Name;
-            this.Save();
+            SelectedTheme = theme.Name;
+            Save();
         }
 
         [UserScopedSetting()]
         [DefaultSettingValue("Dark")]
-        public string SelectedTheme
+        public String SelectedTheme
         {
-            get { return (string) this["SelectedTheme"]; }
-            set { this["SelectedTheme"] = value; }
+            get => (String)this["SelectedTheme"];
+            set => this["SelectedTheme"] = value;
         }
     }
 }

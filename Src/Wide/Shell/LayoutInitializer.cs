@@ -24,14 +24,13 @@ namespace Wide.Shell
     {
         #region ILayoutUpdateStrategy Members
 
-        public bool BeforeInsertAnchorable(LayoutRoot layout, LayoutAnchorable anchorableToShow, ILayoutContainer destinationContainer)
+        public Boolean BeforeInsertAnchorable(LayoutRoot layout, LayoutAnchorable anchorableToShow, ILayoutContainer destinationContainer)
         {
-            var tool = anchorableToShow.Content as ITool;
-            if (tool != null)
+            if (anchorableToShow.Content is ITool tool)
             {
-                var preferredLocation = tool.PreferredLocation;
-                string paneName = GetPaneName(preferredLocation);
-                var toolsPane = layout.Descendents().OfType<LayoutAnchorablePane>().FirstOrDefault(d => d.Name == paneName);
+                PaneLocation preferredLocation = tool.PreferredLocation;
+                String paneName = GetPaneName(preferredLocation);
+                LayoutAnchorablePane toolsPane = layout.Descendents().OfType<LayoutAnchorablePane>().FirstOrDefault(d => d.Name == paneName);
                 if (toolsPane == null)
                 {
                     switch (preferredLocation)
@@ -56,7 +55,7 @@ namespace Wide.Shell
             return false;
         }
 
-        private static string GetPaneName(PaneLocation location)
+        private static String GetPaneName(PaneLocation location)
         {
             switch (location)
             {
@@ -72,14 +71,19 @@ namespace Wide.Shell
         }
 
         private static LayoutAnchorablePane CreateAnchorablePane(LayoutRoot layout, Orientation orientation,
-            string paneName, InsertPosition position)
+            String paneName, InsertPosition position)
         {
-            var parent = layout.Descendents().OfType<LayoutPanel>().First(d => d.Orientation == orientation);
-            var toolsPane = new LayoutAnchorablePane { Name = paneName };
+            LayoutPanel parent = layout.Descendents().OfType<LayoutPanel>().First(d => d.Orientation == orientation);
+            LayoutAnchorablePane toolsPane = new LayoutAnchorablePane { Name = paneName };
             if (position == InsertPosition.Start)
+            {
                 parent.InsertChildAt(0, toolsPane);
+            }
             else
+            {
                 parent.Children.Add(toolsPane);
+            }
+
             return toolsPane;
         }
 
@@ -92,11 +96,9 @@ namespace Wide.Shell
         public void AfterInsertAnchorable(LayoutRoot layout, LayoutAnchorable anchorableShown)
         {
             // If this is the first anchorable added to this pane, then use the preferred size.
-            var tool = anchorableShown.Content as ITool;
-            if (tool != null)
+            if (anchorableShown.Content is ITool tool)
             {
-                var anchorablePane = anchorableShown.Parent as LayoutAnchorablePane;
-                if (anchorablePane != null && anchorablePane.ChildrenCount == 1)
+                if (anchorableShown.Parent is LayoutAnchorablePane anchorablePane && anchorablePane.ChildrenCount == 1)
                 {
                     switch (tool.PreferredLocation)
                     {
@@ -114,10 +116,7 @@ namespace Wide.Shell
             }
         }
 
-        public bool BeforeInsertDocument(LayoutRoot layout, LayoutDocument anchorableToShow, ILayoutContainer destinationContainer)
-        {
-            return false;
-        }
+        public Boolean BeforeInsertDocument(LayoutRoot layout, LayoutDocument anchorableToShow, ILayoutContainer destinationContainer) => false;
 
         public void AfterInsertDocument(LayoutRoot layout, LayoutDocument anchorableShown)
         {

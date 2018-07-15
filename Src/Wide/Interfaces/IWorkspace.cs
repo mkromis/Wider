@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Media;
@@ -37,7 +38,7 @@ namespace Wide.Interfaces
         /// Gets the title of the application.
         /// </summary>
         /// <value>The title.</value>
-        string Title { get; }
+        String Title { get; }
 
         /// <summary>
         /// Gets the icon of the application.
@@ -50,6 +51,6 @@ namespace Wide.Interfaces
         /// </summary>
         /// <param name="e">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
         /// <returns><c>true</c> if the application is closing, <c>false</c> otherwise</returns>
-        bool Closing(CancelEventArgs e);
+        Boolean Closing(CancelEventArgs e);
     }
 }

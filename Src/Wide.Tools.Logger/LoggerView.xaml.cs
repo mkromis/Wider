@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.ComponentModel;
 using System.Windows.Controls;
 using Wide.Interfaces;
@@ -21,20 +22,14 @@ namespace Wide.Tools.Logger
     /// </summary>
     internal partial class LoggerView : UserControl, IContentView, INotifyPropertyChanged
     {
-        public LoggerView()
-        {
-            InitializeComponent();
-        }
+        public LoggerView() => InitializeComponent();
 
         /// <summary>
         /// Should be called when a property value has changed
         /// </summary>
         /// <param name="propertyName">The property name</param>
-        protected virtual void RaisePropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
+        protected virtual void RaisePropertyChanged(String propertyName) => 
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

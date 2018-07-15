@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Diagnostics;
 using System.Reflection;
 using Microsoft.Practices.Prism.Events;
@@ -38,10 +39,7 @@ namespace Wide.Core.Services
         /// The NLogService constructor
         /// </summary>
         /// <param name="aggregator">The injected event aggregator</param>
-        public NLogService(IEventAggregator aggregator)
-        {
-            _aggregator = aggregator;
-        }
+        public NLogService(IEventAggregator aggregator) => _aggregator = aggregator;
 
         #region ILoggerService Members
 
@@ -51,13 +49,13 @@ namespace Wide.Core.Services
         /// <param name="message">A message to log</param>
         /// <param name="category">The category of logging</param>
         /// <param name="priority">The priority of logging</param>
-        public void Log(string message, LogCategory category, LogPriority priority)
+        public void Log(String message, LogCategory category, LogPriority priority)
         {
             Message = message;
             Category = category;
             Priority = priority;
 
-            var trace = new StackTrace();
+            StackTrace trace = new StackTrace();
             StackFrame frame = trace.GetFrame(1); // 0 will be the inner-most method
             MethodBase method = frame.GetMethod();
 
@@ -70,7 +68,7 @@ namespace Wide.Core.Services
         /// <summary>
         /// The message which was last logged using the service
         /// </summary>
-        public string Message { get; internal set; }
+        public String Message { get; internal set; }
 
         /// <summary>
         /// The log message's category

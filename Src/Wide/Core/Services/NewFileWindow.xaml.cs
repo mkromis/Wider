@@ -23,23 +23,20 @@ namespace Wide.Core.Services
     /// </summary>
     internal partial class NewFileWindow : Window
     {
-        public NewFileWindow()
-        {
-            InitializeComponent();
-        }
+        public NewFileWindow() => InitializeComponent();
 
-        private void listBoxItem_DoubleClick(object sender, MouseButtonEventArgs e)
+        private void ListBoxItem_DoubleClick(System.Object sender, MouseButtonEventArgs e)
         {
-            this.NewContent = (sender as ListBoxItem).DataContext as NewContentAttribute;
-            this.DialogResult = true;
+            NewContent = (sender as ListBoxItem).DataContext as NewContentAttribute;
+            DialogResult = true;
         }
 
         public NewContentAttribute NewContent { get; private set; }
 
-        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void Button_Click(System.Object sender, System.Windows.RoutedEventArgs e)
         {
-            this.NewContent = this.listView.SelectedItem as NewContentAttribute;
-            this.DialogResult = true;
+            NewContent = listView.SelectedItem as NewContentAttribute;
+            DialogResult = true;
         }
     }
 }

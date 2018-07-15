@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Windows.Input;
 
 namespace Wide.Interfaces.Services
@@ -25,14 +26,14 @@ namespace Wide.Interfaces.Services
         /// <param name="name">The name.</param>
         /// <param name="command">The command.</param>
         /// <returns><c>true</c> if successfully added the command, <c>false</c> otherwise</returns>
-        bool RegisterCommand(string name, ICommand command);
+        Boolean RegisterCommand(String name, ICommand command);
 
         /// <summary>
         /// Gets the command.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <returns>ICommand.</returns>
-        ICommand GetCommand(string name);
+        ICommand GetCommand(String name);
 
         /// <summary>
         /// Refreshes this instance.

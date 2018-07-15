@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -39,10 +40,9 @@ namespace Wide.Core.Services
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns><c>true</c> if successfully added, <c>false</c> otherwise</returns>
-        public override string Add(AbstractCommandable item)
+        public override String Add(AbstractCommandable item)
         {
-            AbstractToolbar tb = item as AbstractToolbar;
-            if (tb != null)
+            if (item is AbstractToolbar tb)
             {
                 tb.IsCheckable = true;
                 tb.IsChecked = true;
@@ -59,28 +59,29 @@ namespace Wide.Core.Services
             {
                 if (tray == null)
                 {
-                    tray = new ToolBarTray();
-                    tray.ContextMenu = new ContextMenu();
+                    tray = new ToolBarTray
+                    {
+                        ContextMenu = new ContextMenu()
+                    };
                     tray.ContextMenu.ItemsSource = _children;
                     IAddChild child = tray;
-                    foreach (var node in this.Children)
+                    foreach (AbstractCommandable node in Children)
                     {
-                        var value = node as AbstractToolbar;
-                        if (value != null)
+                        if (node is AbstractToolbar value)
                         {
-                            var tb = new ToolBar();
-                            var t =
+                            ToolBar tb = new ToolBar();
+                            DataTemplateSelector t =
                                 Application.Current.MainWindow.FindResource("toolBarItemTemplateSelector") as
                                 DataTemplateSelector;
                             tb.SetValue(ItemsControl.ItemTemplateSelectorProperty, t);
 
                             //Set the necessary bindings
-                            var bandBinding = new Binding("Band");
-                            var bandIndexBinding = new Binding("BandIndex");
-                            var visibilityBinding = new Binding("IsChecked")
-                                                        {
-                                                            Converter = btv
-                                                        };
+                            Binding bandBinding = new Binding("Band");
+                            Binding bandIndexBinding = new Binding("BandIndex");
+                            Binding visibilityBinding = new Binding("IsChecked")
+                            {
+                                Converter = btv
+                            };
 
                             bandBinding.Source = value;
                             bandIndexBinding.Source = value;
@@ -110,14 +111,14 @@ namespace Wide.Core.Services
             {
                 if (tray == null)
                 {
-                    tray = this.ToolBarTray;
+                    tray = ToolBarTray;
                 }
                 if (menuItem == null)
                 {
                     menuItem = new MenuItemViewModel("_Toolbars", 100);
-                    foreach (var value in tray.ContextMenu.ItemsSource)
+                    foreach (Object value in tray.ContextMenu.ItemsSource)
                     {
-                        var menu = value as AbstractMenuItem;
+                        AbstractMenuItem menu = value as AbstractMenuItem;
                         menuItem.Add(menu);
                     }
                 }

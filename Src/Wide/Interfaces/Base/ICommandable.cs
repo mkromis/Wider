@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Windows.Input;
 
 namespace Wide.Interfaces
@@ -29,12 +30,12 @@ namespace Wide.Interfaces
         /// Gets the command parameter.
         /// </summary>
         /// <value>The command parameter.</value>
-        object CommandParameter { get; }
+        Object CommandParameter { get; }
 
         /// <summary>
         /// Gets the input gesture text.
         /// </summary>
         /// <value>The input gesture text.</value>
-        string InputGestureText { get; }
+        String InputGestureText { get; }
     }
 }

@@ -46,49 +46,47 @@ namespace Wide.Shell
 
         public void LoadLayout()
         {
-            var layoutSerializer = new XmlLayoutSerializer(dockManager);
+            XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(dockManager);
             layoutSerializer.LayoutSerializationCallback += (s, e) =>
-                                                                {
-                                                                    var anchorable = e.Model as LayoutAnchorable;
-                                                                    var document = e.Model as LayoutDocument;
-                                                                    _workspace =
-                                                                        _container.Resolve<AbstractWorkspace>();
+            {
+                _workspace =
+                    _container.Resolve<AbstractWorkspace>();
 
-                                                                    if (anchorable != null)
-                                                                    {
-                                                                        ToolViewModel model =
-                                                                            _workspace.Tools.FirstOrDefault(
-                                                                                f => f.ContentId == e.Model.ContentId);
-                                                                        if (model != null)
-                                                                        {
-                                                                            e.Content = model;
-                                                                            model.IsVisible = anchorable.IsVisible;
-                                                                            model.IsActive = anchorable.IsActive;
-                                                                            model.IsSelected = anchorable.IsSelected;
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            e.Cancel = true;
-                                                                        }
-                                                                    }
-                                                                    if (document != null)
-                                                                    {
-                                                                        var fileService =
-                                                                            _container.Resolve<IOpenDocumentService>();
-                                                                        ContentViewModel model =
-                                                                            fileService.OpenFromID(e.Model.ContentId);
-                                                                        if (model != null)
-                                                                        {
-                                                                            e.Content = model;
-                                                                            model.IsActive = document.IsActive;
-                                                                            model.IsSelected = document.IsSelected;
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            e.Cancel = true;
-                                                                        }
-                                                                    }
-                                                                };
+                if (e.Model is LayoutAnchorable anchorable)
+                {
+                    ToolViewModel model =
+                        _workspace.Tools.FirstOrDefault(
+                            f => f.ContentId == e.Model.ContentId);
+                    if (model != null)
+                    {
+                        e.Content = model;
+                        model.IsVisible = anchorable.IsVisible;
+                        model.IsActive = anchorable.IsActive;
+                        model.IsSelected = anchorable.IsSelected;
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                    }
+                }
+                if (e.Model is LayoutDocument document)
+                {
+                    IOpenDocumentService fileService =
+                        _container.Resolve<IOpenDocumentService>();
+                    ContentViewModel model =
+                        fileService.OpenFromID(e.Model.ContentId);
+                    if (model != null)
+                    {
+                        e.Content = model;
+                        model.IsActive = document.IsActive;
+                        model.IsSelected = document.IsSelected;
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                    }
+                }
+            };
             try
             {
                 layoutSerializer.Deserialize(@".\AvalonDock.Layout.config");
@@ -100,15 +98,15 @@ namespace Wide.Shell
 
         public void SaveLayout()
         {
-            var layoutSerializer = new XmlLayoutSerializer(dockManager);
+            XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(dockManager);
             layoutSerializer.Serialize(@".\AvalonDock.Layout.config");
         }
 
         #endregion
 
-        private void Window_Closing_1(object sender, CancelEventArgs e)
+        private void Window_Closing_1(Object sender, CancelEventArgs e)
         {
-            var workspace = DataContext as IWorkspace;
+            IWorkspace workspace = DataContext as IWorkspace;
             if (!workspace.Closing(e))
             {
                 e.Cancel = true;
@@ -117,12 +115,15 @@ namespace Wide.Shell
             _eventAggregator.GetEvent<WindowClosingEvent>().Publish(this);
         }
 
-        private void dockManager_ActiveContentChanged(object sender, EventArgs e)
+        private void DockManager_ActiveContentChanged(Object sender, EventArgs e)
         {
             DockingManager manager = sender as DockingManager;
             ContentViewModel cvm = manager.ActiveContent as ContentViewModel;
             _eventAggregator.GetEvent<ActiveContentChangedEvent>().Publish(cvm);
-            if (cvm != null) Logger.Log("Active document changed to " + cvm.Title, LogCategory.Info, LogPriority.None);
+            if (cvm != null)
+            {
+                Logger.Log("Active document changed to " + cvm.Title, LogCategory.Info, LogPriority.None);
+            }
         }
 
         private ILoggerService Logger
@@ -130,7 +131,9 @@ namespace Wide.Shell
             get
             {
                 if (_logger == null)
+                {
                     _logger = _container.Resolve<ILoggerService>();
+                }
 
                 return _logger;
             }

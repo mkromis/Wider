@@ -10,6 +10,8 @@
 
 #endregion
 
+using System;
+
 namespace Wide.Interfaces.Services
 {
     /// <summary>
@@ -44,7 +46,7 @@ namespace Wide.Interfaces.Services
         /// Gets the message which just got logged.
         /// </summary>
         /// <value>The message.</value>
-        string Message { get; }
+        String Message { get; }
 
         /// <summary>
         /// Gets the category of logging.
@@ -64,6 +66,6 @@ namespace Wide.Interfaces.Services
         /// <param name="message">The message.</param>
         /// <param name="category">The logging category.</param>
         /// <param name="priority">The logging priority.</param>
-        void Log(string message, LogCategory category, LogPriority priority);
+        void Log(String message, LogCategory category, LogPriority priority);
     }
 }

@@ -17,10 +17,10 @@ namespace Wide.Interfaces.Settings
 {
     internal interface IWindowPositionSettings
     {
-        double Height { get; }
-        double Left { get; }
+        Double Height { get; }
+        Double Left { get; }
         WindowState State { get; }
-        double Top { get; }
-        double Width { get; }
+        Double Top { get; }
+        Double Width { get; }
     }
 }

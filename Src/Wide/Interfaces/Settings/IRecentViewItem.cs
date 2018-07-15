@@ -16,7 +16,7 @@ namespace Wide.Interfaces.Settings
 {
     public interface IRecentViewItem
     {
-        string ContentID { get; }
-        string DisplayValue { get; }
+        String ContentID { get; }
+        String DisplayValue { get; }
     }
 }

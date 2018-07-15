@@ -30,8 +30,9 @@ namespace Wide.Interfaces.Controls
         /// <param name="isCheckable">if set to <c>true</c> does nothing in the case of toolbar - default value is false.</param>
         /// <param name="container">The container.</param>
         /// <exception cref="System.ArgumentException">Header cannot be SEP for a Toolbar</exception>
-        protected AbstractToolbar(string header, int priority, ImageSource icon = null, ICommand command = null,
-                                  bool isCheckable = false, IUnityContainer container = null)
+        protected AbstractToolbar(
+            String header, Int32 priority, ImageSource icon = null, ICommand command = null,
+            Boolean isCheckable = false, IUnityContainer container = null)
             : base(header, priority, icon, command, null, isCheckable)
         {
             Priority = priority;
@@ -55,13 +56,13 @@ namespace Wide.Interfaces.Controls
         /// Gets or sets the band number for the toolbar in the toolbar tray.
         /// </summary>
         /// <value>The band.</value>
-        public int Band { get; set; }
+        public Int32 Band { get; set; }
 
         /// <summary>
         /// Gets or sets the band index of the toolbar in the toolbar tray.
         /// </summary>
         /// <value>The index of the band.</value>
-        public int BandIndex { get; set; }
+        public Int32 BandIndex { get; set; }
 
         public override void Refresh()
         {
