@@ -16,6 +16,6 @@ namespace Wide.Interfaces.Settings
 {
     public interface IThemeSettings
     {
-        string SelectedTheme { get; }
+        String SelectedTheme { get; }
     }
 }

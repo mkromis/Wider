@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.ComponentModel;
 using System.Windows.Controls;
 using Xceed.Wpf.Toolkit.PropertyGrid;
@@ -26,11 +27,11 @@ namespace Wide.Interfaces.Settings
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractSettings"/> class.
         /// </summary>
-        protected AbstractSettingsItem(string title, AbstractSettings settings) : base()
+        protected AbstractSettingsItem(String title, AbstractSettings settings) : base()
         {
-            this.Title = title;
-            this.Key = title;
-            this._appSettings = settings;
+            Title = title;
+            Key = title;
+            _appSettings = settings;
         }
 
         #endregion
@@ -42,7 +43,7 @@ namespace Wide.Interfaces.Settings
         /// </summary>
         /// <value>The title.</value>
         [Browsable(false)]
-        public string Title { get; protected set; }
+        public String Title { get; protected set; }
 
         /// <summary>
         /// Gets the view that displays the setting.
@@ -55,10 +56,10 @@ namespace Wide.Interfaces.Settings
             {
                 if (_appSettings != null)
                 {
-                    var p = ContentControl.Content as PropertyGrid;
+                    PropertyGrid p = ContentControl.Content as PropertyGrid;
                     p.SelectedObject = _appSettings;
                     p.SelectedObjectName = "";
-                    p.SelectedObjectTypeName = this.Title;
+                    p.SelectedObjectTypeName = Title;
                     return ContentControl;
                 }
                 if (Children.Count > 0)
@@ -109,12 +110,11 @@ namespace Wide.Interfaces.Settings
         #region Static
 
         //Singleton which can be reused
-        private static readonly ContentControl ContentControl = new ContentControl()
-                                                                    {
-                                                                        Content =
-                                                                            new PropertyGrid
-                                                                                {ShowSearchBox = false}
-                                                                    };
+        private static readonly ContentControl ContentControl = 
+            new ContentControl()
+            {
+                Content = new PropertyGrid {ShowSearchBox = false}
+            };
 
         #endregion
 

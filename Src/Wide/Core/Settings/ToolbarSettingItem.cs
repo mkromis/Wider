@@ -26,34 +26,25 @@ namespace Wide.Core.Settings
 
         public ToolbarSettingItem(IToolbar toolbar)
         {
-            this.BandIndex = toolbar.BandIndex;
-            this.Band = toolbar.Band;
-            this.Header = toolbar.Header;
-            this.IsChecked = toolbar.IsChecked;
+            BandIndex = toolbar.BandIndex;
+            Band = toolbar.Band;
+            Header = toolbar.Header;
+            IsChecked = toolbar.IsChecked;
         }
 
-        public int Band { get; set; }
+        public Int32 Band { get; set; }
 
-        public int BandIndex { get; set; }
+        public Int32 BandIndex { get; set; }
 
-        public string Header { get; set; }
+        public String Header { get; set; }
 
-        public bool IsChecked { get; set; }
+        public Boolean IsChecked { get; set; }
 
-        public override bool Equals(object obj)
-        {
-            ToolbarSettingItem item = obj as ToolbarSettingItem;
-            return (item != null) && Header.Equals(item.Header);
-        }
+        public override Boolean Equals(Object obj) => 
+            (obj is ToolbarSettingItem item) && Header.Equals(item.Header);
 
-        public override int GetHashCode()
-        {
-            return Header.GetHashCode();
-        }
+        public override Int32 GetHashCode() => Header.GetHashCode();
 
-        public override string ToString()
-        {
-            return Header.ToString();
-        }
+        public override String ToString() => Header.ToString();
     }
 }

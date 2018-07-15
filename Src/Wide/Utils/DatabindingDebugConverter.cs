@@ -26,16 +26,12 @@ namespace Wide.Utils
     /// </summary>
     public class DatabindingDebugConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
+        public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture) =>
             //Debugger.Break();
-            return value;
-        }
+            value;
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
+        public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture) =>
             //Debugger.Break();
-            return value;
-        }
+            value;
     }
 }

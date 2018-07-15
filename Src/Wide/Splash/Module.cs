@@ -52,49 +52,45 @@ namespace Wide.Splash
 
         public void Initialize()
         {
-            Dispatcher.CurrentDispatcher.BeginInvoke(
-                (Action) (() =>
-                              {
-                                  Shell.Show();
-                                  EventAggregator.GetEvent<SplashCloseEvent>().Publish(new SplashCloseEvent());
-                              }));
+            Dispatcher.CurrentDispatcher.BeginInvoke((Action) (() =>
+            {
+                Shell.Show();
+                EventAggregator.GetEvent<SplashCloseEvent>().Publish(new SplashCloseEvent());
+            }));
 
             WaitForCreation = new AutoResetEvent(false);
 
-            ThreadStart showSplash =
-                () =>
-                    {
-                        Dispatcher.CurrentDispatcher.BeginInvoke(
-                            (Action) (() =>
-                                          {
-                                              Container.RegisterType<SplashViewModel, SplashViewModel>();
-                                              ISplashView iSplashView;
-                                              try
-                                              {
-                                                  //The end user might have set a splash view - try to use that
-                                                  iSplashView = Container.Resolve<ISplashView>();
-                                              }
-                                              catch (Exception)
-                                              {
-                                                  Container.RegisterType<ISplashView, SplashView>();
-                                                  iSplashView = Container.Resolve<ISplashView>();
-                                              }
-                                              var splash = iSplashView as Window;
-                                              if (splash != null)
-                                              {
-                                                  EventAggregator.GetEvent<SplashCloseEvent>().Subscribe(
-                                                      e_ => splash.Dispatcher.BeginInvoke((Action) splash.Close),
-                                                      ThreadOption.PublisherThread, true);
+            void showSplash()
+            {
+                Dispatcher.CurrentDispatcher.BeginInvoke((Action)(() =>
+               {
+                   Container.RegisterType<SplashViewModel, SplashViewModel>();
+                   ISplashView iSplashView;
+                   try
+                   {
+                        //The end user might have set a splash view - try to use that
+                        iSplashView = Container.Resolve<ISplashView>();
+                   }
+                   catch (Exception)
+                   {
+                       Container.RegisterType<ISplashView, SplashView>();
+                       iSplashView = Container.Resolve<ISplashView>();
+                   }
+                   if (iSplashView is Window splash)
+                   {
+                       EventAggregator.GetEvent<SplashCloseEvent>().Subscribe(
+                           e_ => splash.Dispatcher.BeginInvoke((Action)splash.Close),
+                           ThreadOption.PublisherThread, true);
 
-                                                  splash.Show();
-                                                  WaitForCreation.Set();
-                                              }
-                                          }));
+                       splash.Show();
+                       WaitForCreation.Set();
+                   }
+               }));
 
-                        Dispatcher.Run();
-                    };
+                Dispatcher.Run();
+            }
 
-            var thread = new Thread(showSplash) {Name = "Splash Thread", IsBackground = true};
+            Thread thread = new Thread(showSplash) {Name = "Splash Thread", IsBackground = true};
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
 

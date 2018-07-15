@@ -38,11 +38,8 @@ namespace Wide.Interfaces
         /// Should be called when a property value has changed
         /// </summary>
         /// <param name="propertyName">The property name</param>
-        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName="")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
+        protected virtual void RaisePropertyChanged([CallerMemberName] String propertyName = "") => 
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
 
         /// <summary>
@@ -52,13 +49,8 @@ namespace Wide.Interfaces
         /// <param name="newValue">The new value.</param>
         /// <param name="description">The description.</param>
         /// <param name="propertyName">Name of the property.</param>
-        protected virtual void RaisePropertyChangedWithValues(object oldValue, object newValue, string description, [CallerMemberName] string propertyName = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedExtendedEventArgs(propertyName, oldValue, newValue, description));
-            }
-        }
+        protected virtual void RaisePropertyChangedWithValues(Object oldValue, Object newValue, String description, [CallerMemberName] String propertyName = "") => 
+            PropertyChanged?.Invoke(this, new PropertyChangedExtendedEventArgs(propertyName, oldValue, newValue, description));
 
     }
 }

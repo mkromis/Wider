@@ -19,14 +19,8 @@ namespace Wide.Core.Settings
     /// </summary>
     internal partial class SettingsWindow : Window
     {
-        public SettingsWindow()
-        {
-            InitializeComponent();
-        }
+        public SettingsWindow() => InitializeComponent();
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.DialogResult = true;
-        }
+        private void Button_Click(System.Object sender, RoutedEventArgs e) => DialogResult = true;
     }
 }

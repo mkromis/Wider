@@ -22,27 +22,17 @@ namespace Wide.Core.Settings
     {
         public RecentViewItem()
         {
-            this.DisplayValue = "";
-            this.ContentID = "";
+            DisplayValue = "";
+            ContentID = "";
         }
 
-        public string DisplayValue { get; set; }
-        public string ContentID { get; set; }
+        public String DisplayValue { get; set; }
+        public String ContentID { get; set; }
 
-        public override bool Equals(object obj)
-        {
-            RecentViewItem item = obj as RecentViewItem;
-            return (item != null) && ContentID.Equals(item.ContentID);
-        }
+        public override Boolean Equals(Object obj) => (obj is RecentViewItem item) && ContentID.Equals(item.ContentID);
 
-        public override int GetHashCode()
-        {
-            return ContentID.GetHashCode();
-        }
+        public override Int32 GetHashCode() => ContentID.GetHashCode();
 
-        public override string ToString()
-        {
-            return ContentID.ToString();
-        }
+        public override String ToString() => ContentID.ToString();
     }
 }

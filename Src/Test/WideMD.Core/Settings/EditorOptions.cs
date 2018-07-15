@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.ComponentModel;
 using System.Configuration;
 using System.Windows.Media;
@@ -19,17 +20,12 @@ namespace WideMD.Core.Settings
 {
     internal class EditorOptions : AbstractSettings
     {
-        private static EditorOptions settings = new EditorOptions();
-
         private EditorOptions()
         {
         }
 
         [Browsable(false)]
-        public static EditorOptions Default
-        {
-            get { return settings; }
-        }
+        public static EditorOptions Default { get; } = new EditorOptions();
 
         [UserScopedSetting()]
         [DefaultSettingValue("White")]
@@ -38,8 +34,8 @@ namespace WideMD.Core.Settings
         [Description("The background color of the text editor")]
         public SolidColorBrush BackgroundColor
         {
-            get { return (SolidColorBrush) this["BackgroundColor"]; }
-            set { this["BackgroundColor"] = value; }
+            get => (SolidColorBrush)this["BackgroundColor"];
+            set => this["BackgroundColor"] = value;
         }
 
         [UserScopedSetting()]
@@ -49,8 +45,8 @@ namespace WideMD.Core.Settings
         [Description("The foreground color of the text editor")]
         public SolidColorBrush ForegroundColor
         {
-            get { return (SolidColorBrush) this["ForegroundColor"]; }
-            set { this["ForegroundColor"] = value; }
+            get => (SolidColorBrush)this["ForegroundColor"];
+            set => this["ForegroundColor"] = value;
         }
 
         [UserScopedSetting()]
@@ -58,10 +54,10 @@ namespace WideMD.Core.Settings
         [Category("Format")]
         [DisplayName("Display line numbers?")]
         [Description("Set to Yes to show line numbers on the text editor")]
-        public bool ShowLineNumbers
+        public Boolean ShowLineNumbers
         {
-            get { return (bool) this["ShowLineNumbers"]; }
-            set { this["ShowLineNumbers"] = value; }
+            get => (Boolean)this["ShowLineNumbers"];
+            set => this["ShowLineNumbers"] = value;
         }
 
         [UserScopedSetting()]
@@ -69,10 +65,10 @@ namespace WideMD.Core.Settings
         [Category("Format")]
         [DisplayName("Word wrap?")]
         [Description("Set to Yes to wrap words in a line on the text editor")]
-        public bool WordWrap
+        public Boolean WordWrap
         {
-            get { return (bool) this["WordWrap"]; }
-            set { this["WordWrap"] = value; }
+            get => (Boolean)this["WordWrap"];
+            set => this["WordWrap"] = value;
         }
 
         [UserScopedSetting()]
@@ -82,8 +78,8 @@ namespace WideMD.Core.Settings
         [Description("Select the font to use in the text editor")]
         public FontFamily FontFamily
         {
-            get { return (FontFamily) this["FontFamily"]; }
-            set { this["FontFamily"] = value; }
+            get => (FontFamily)this["FontFamily"];
+            set => this["FontFamily"] = value;
         }
 
         [UserScopedSetting()]
@@ -91,19 +87,19 @@ namespace WideMD.Core.Settings
         [Category("Format")]
         [DisplayName("Size")]
         [Description("Select the size to use for the font in the text editor")]
-        public int FontSize
+        public Int32 FontSize
         {
-            get { return (int) this["FontSize"]; }
-            set { this["FontSize"] = value; }
+            get => (Int32)this["FontSize"];
+            set => this["FontSize"] = value;
         }
 
         [UserScopedSetting()]
         [DefaultSettingValue("true")]
         [Browsable(false)]
-        public bool LivePreview
+        public Boolean LivePreview
         {
-            get { return (bool) this["LivePreview"]; }
-            set { this["LivePreview"] = value; }
+            get => (Boolean)this["LivePreview"];
+            set => this["LivePreview"] = value;
         }
     }
 }

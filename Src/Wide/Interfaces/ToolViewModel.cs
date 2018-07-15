@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Media;
@@ -24,12 +25,12 @@ namespace Wide.Interfaces
     {
         #region Members
 
-        protected string _contentId = null;
-        protected bool _isActive = false;
-        protected bool _isSelected = false;
-        private bool _isVisible = true;
+        protected String _contentId = null;
+        protected Boolean _isActive = false;
+        protected Boolean _isSelected = false;
+        private Boolean _isVisible = true;
 
-        protected string _title = null;
+        protected String _title = null;
 
         #endregion
 
@@ -38,14 +39,14 @@ namespace Wide.Interfaces
         /// <summary>
         /// The name of the tool
         /// </summary>
-        public string Name { get; protected set; }
+        public String Name { get; protected set; }
 
         /// <summary>
         /// The visibility of the tool
         /// </summary>
-        public bool IsVisible
+        public Boolean IsVisible
         {
-            get { return _isVisible; }
+            get => _isVisible;
             set
             {
                 if (_isVisible != value)
@@ -65,19 +66,12 @@ namespace Wide.Interfaces
         /// <summary>
         /// Prefered width
         /// </summary>
-        public virtual double PreferredWidth
-        {
-            get { return 200; }
-        }
+        public virtual Double PreferredWidth => 200;
 
         /// <summary>
         /// prefered height
         /// </summary>
-        public virtual double PreferredHeight
-        {
-            get { return 200; }
-        }
-
+        public virtual Double PreferredHeight => 200;
 
         /// <summary>
         /// The content model
@@ -95,9 +89,9 @@ namespace Wide.Interfaces
         /// The title of the document
         /// </summary>
         /// <value>The title.</value>
-        public virtual string Title
+        public virtual String Title
         {
-            get { return _title; }
+            get => _title;
             protected set
             {
                 if (_title != value)
@@ -108,10 +102,7 @@ namespace Wide.Interfaces
             }
         }
 
-        public IReadOnlyList<string> Menus
-        {
-            get { return new List<string>() {"a", "b", "c"}; }
-        }
+        public IReadOnlyList<String> Menus => new List<String>() { "a", "b", "c" };
 
         /// <summary>
         /// The image source that can be used as an icon in the tab
@@ -123,9 +114,9 @@ namespace Wide.Interfaces
         /// The content ID - unique value for each document
         /// </summary>
         /// <value>The content id.</value>
-        public virtual string ContentId
+        public virtual String ContentId
         {
-            get { return _contentId; }
+            get => _contentId;
             protected set
             {
                 if (_contentId != value)
@@ -140,9 +131,9 @@ namespace Wide.Interfaces
         /// Is the document selected
         /// </summary>
         /// <value><c>true</c> if this instance is selected; otherwise, <c>false</c>.</value>
-        public virtual bool IsSelected
+        public virtual Boolean IsSelected
         {
-            get { return _isSelected; }
+            get => _isSelected;
             set
             {
                 if (_isSelected != value)
@@ -157,9 +148,9 @@ namespace Wide.Interfaces
         /// Is the document active
         /// </summary>
         /// <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value>
-        public virtual bool IsActive
+        public virtual Boolean IsActive
         {
-            get { return _isActive; }
+            get => _isActive;
             set
             {
                 if (_isActive != value)

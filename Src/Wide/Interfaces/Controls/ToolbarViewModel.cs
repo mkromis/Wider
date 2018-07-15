@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Practices.Unity;
@@ -34,8 +35,9 @@ namespace Wide.Interfaces.Controls
         /// <param name="isCheckable">if set to <c>true</c> does nothing in the case of toolbar - default value is false.</param>
         /// <param name="container">The container.</param>
         /// <exception cref="System.ArgumentException">Header cannot be SEP for a Toolbar</exception>
-        public ToolbarViewModel(string header, int priority, ImageSource icon = null, ICommand command = null,
-                                bool isCheckable = false, IUnityContainer container = null)
+        public ToolbarViewModel(
+            String header, Int32 priority, ImageSource icon = null, ICommand command = null,
+            Boolean isCheckable = false, IUnityContainer container = null)
             : base(header, priority, icon, command, isCheckable, container)
         {
         }

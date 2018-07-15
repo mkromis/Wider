@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Practices.Unity;
@@ -34,8 +35,8 @@ namespace Wide.Interfaces.Controls
         /// <param name="isCheckable">if set to <c>true</c> this menu acts as a checkable menu.</param>
         /// <param name="hideDisabled">if set to <c>true</c> this menu is not visible when disabled.</param>
         /// <param name="container">The container.</param>
-        public MenuItemViewModel(string header, int priority, ImageSource icon = null, ICommand command = null,
-                                 KeyGesture gesture = null, bool isCheckable = false, bool hideDisabled = false,
+        public MenuItemViewModel(String header, Int32 priority, ImageSource icon = null, ICommand command = null,
+                                 KeyGesture gesture = null, Boolean isCheckable = false, Boolean hideDisabled = false,
                                  IUnityContainer container = null)
             : base(header, priority, icon, command, gesture, isCheckable, hideDisabled)
         {
@@ -50,29 +51,26 @@ namespace Wide.Interfaces.Controls
         /// </summary>
         /// <param name="priority">The priority.</param>
         /// <returns>AbstractMenuItem.</returns>
-        public static AbstractMenuItem Separator(int priority)
-        {
-            return new MenuItemViewModel("SEP", priority);
-        }
+        public static AbstractMenuItem Separator(Int32 priority) => new MenuItemViewModel("SEP", priority);
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is checkable.
         /// </summary>
         /// <value><c>true</c> if this instance is checkable; otherwise, <c>false</c>.</value>
-        public new bool IsCheckable
+        public new Boolean IsCheckable
         {
-            get { return base.IsCheckable; }
-            set { base.IsCheckable = value; }
+            get => base.IsCheckable;
+            set => base.IsCheckable = value;
         }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is checked.
         /// </summary>
         /// <value><c>true</c> if this instance is checked; otherwise, <c>false</c>.</value>
-        public new bool IsChecked
+        public new Boolean IsChecked
         {
-            get { return base.IsChecked; }
-            set { base.IsChecked = value; }
+            get => base.IsChecked;
+            set => base.IsChecked = value;
         }
 
         #endregion

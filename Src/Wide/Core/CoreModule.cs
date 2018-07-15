@@ -54,11 +54,6 @@ namespace Wide.Core
         private readonly IUnityContainer _container;
 
         /// <summary>
-        /// The event aggregator
-        /// </summary>
-        private IEventAggregator _eventAggregator;
-
-        /// <summary>
         /// The constructor of the CoreModule
         /// </summary>
         /// <param name="container">The injected container used in the application</param>
@@ -66,16 +61,13 @@ namespace Wide.Core
         public CoreModule(IUnityContainer container, IEventAggregator eventAggregator)
         {
             _container = container;
-            _eventAggregator = eventAggregator;
+            EventAggregator = eventAggregator;
         }
 
         /// <summary>
         /// The event aggregator pattern
         /// </summary>
-        private IEventAggregator EventAggregator
-        {
-            get { return _eventAggregator; }
-        }
+        private IEventAggregator EventAggregator { get; }
 
         #region IModule Members
 
@@ -105,25 +97,25 @@ namespace Wide.Core
             _container.RegisterType<IToolbarService, ToolbarService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IMenuService, MenuItemViewModel>(new ContainerControlledLifetimeManager(),
                                                                      new InjectionConstructor(
-                                                                         new InjectionParameter(typeof (string),
+                                                                         new InjectionParameter(typeof (String),
                                                                                                 "$MAIN$"),
-                                                                         new InjectionParameter(typeof (int), 1),
+                                                                         new InjectionParameter(typeof (Int32), 1),
                                                                          new InjectionParameter(
                                                                              typeof (ImageSource), null),
                                                                          new InjectionParameter(typeof (ICommand),
                                                                                                 null),
                                                                          new InjectionParameter(
                                                                              typeof (KeyGesture), null),
-                                                                         new InjectionParameter(typeof (bool), false),
-                                                                         new InjectionParameter(typeof (bool), false),
+                                                                         new InjectionParameter(typeof (Boolean), false),
+                                                                         new InjectionParameter(typeof (Boolean), false),
                                                                          new InjectionParameter(
                                                                              typeof (IUnityContainer), _container)));
             _container.RegisterType<ToolbarViewModel>(
-                new InjectionConstructor(new InjectionParameter(typeof (string), "$MAIN$"),
-                                         new InjectionParameter(typeof (int), 1),
+                new InjectionConstructor(new InjectionParameter(typeof (String), "$MAIN$"),
+                                         new InjectionParameter(typeof (Int32), 1),
                                          new InjectionParameter(typeof (ImageSource), null),
                                          new InjectionParameter(typeof (ICommand), null),
-                                         new InjectionParameter(typeof (bool), false),
+                                         new InjectionParameter(typeof (Boolean), false),
                                          new InjectionParameter(typeof (IUnityContainer), _container)));
 
             _container.RegisterType<ISettingsManager, SettingsManager>(new ContainerControlledLifetimeManager());
@@ -153,7 +145,7 @@ namespace Wide.Core
             }
 
             //Register a default file opener
-            var registry = _container.Resolve<IContentHandlerRegistry>();
+            IContentHandlerRegistry registry = _container.Resolve<IContentHandlerRegistry>();
             registry.Register(_container.Resolve<AllFileHandler>());
         }
 
@@ -164,11 +156,11 @@ namespace Wide.Core
         /// </summary>
         private void AppCommands()
         {
-            var manager = _container.Resolve<ICommandManager>();
-            var registry = _container.Resolve<IContentHandlerRegistry>();
+            ICommandManager manager = _container.Resolve<ICommandManager>();
+            IContentHandlerRegistry registry = _container.Resolve<IContentHandlerRegistry>();
 
             //TODO: Check if you can hook up to the Workspace.ActiveDocument.CloseCommand
-            var closeCommand = new DelegateCommand<object>(CloseDocument, CanExecuteCloseDocument);
+            DelegateCommand<Object> closeCommand = new DelegateCommand<Object>(CloseDocument, CanExecuteCloseDocument);
             manager.RegisterCommand("CLOSE", closeCommand);
 
             
@@ -219,11 +211,12 @@ namespace Wide.Core
         /// </summary>
         /// <param name="obj">The obj.</param>
         /// <returns><c>true</c> if this instance can execute close document; otherwise, <c>false</c>.</returns>
-        private bool CanExecuteCloseDocument(object obj)
+        private Boolean CanExecuteCloseDocument(Object obj)
         {
-            ContentViewModel vm = obj as ContentViewModel;
-            if (vm != null)
+            if (obj is ContentViewModel vm)
+            {
                 return true;
+            }
 
             IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
             return workspace.ActiveDocument != null;
@@ -232,22 +225,23 @@ namespace Wide.Core
         /// <summary>
         /// CloseDocument method that gets called when the Close command gets executed.
         /// </summary>
-        private void CloseDocument(object obj)
+        private void CloseDocument(Object obj)
         {
             IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
             ILoggerService logger = _container.Resolve<ILoggerService>();
             IMenuService menuService = _container.Resolve<IMenuService>();
 
             CancelEventArgs e = obj as CancelEventArgs;
-            ContentViewModel activeDocument = obj as ContentViewModel;
 
-            if (activeDocument == null)
+            if (!(obj is ContentViewModel activeDocument))
+            {
                 activeDocument = workspace.ActiveDocument;
+            }
 
             if (activeDocument.Handler != null && activeDocument.Model.IsDirty)
             {
                 //means the document is dirty - show a message box and then handle based on the user's selection
-                var res = MessageBox.Show(string.Format("Save changes for document '{0}'?", activeDocument.Title),
+                MessageBoxResult res = MessageBox.Show(String.Format("Save changes for document '{0}'?", activeDocument.Title),
                                           "Are you sure?", MessageBoxButton.YesNoCancel);
 
                 //Pressed Yes
@@ -283,7 +277,7 @@ namespace Wide.Core
             {
                 logger.Log("Closing document " + activeDocument.Model.Location, LogCategory.Info, LogPriority.None);
                 workspace.Documents.Remove(activeDocument);
-                _eventAggregator.GetEvent<ClosedContentEvent>().Publish(activeDocument);
+                EventAggregator.GetEvent<ClosedContentEvent>().Publish(activeDocument);
                 menuService.Refresh();
             }
             else
@@ -293,7 +287,7 @@ namespace Wide.Core
                 if (activeDocument.Model.Location == null)
                 {
                     workspace.Documents.Remove(activeDocument);
-                    _eventAggregator.GetEvent<ClosedContentEvent>().Publish(activeDocument);
+                    EventAggregator.GetEvent<ClosedContentEvent>().Publish(activeDocument);
                 }
             }
         }

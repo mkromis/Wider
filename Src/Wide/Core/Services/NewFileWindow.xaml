@@ -33,7 +33,7 @@
                         </ListBox.ItemTemplate>
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="{x:Type ListBoxItem}">
-                                <EventSetter Event="MouseDoubleClick" Handler="listBoxItem_DoubleClick" />
+                                <EventSetter Event="MouseDoubleClick" Handler="ListBoxItem_DoubleClick" />
                             </Style>
                         </ListBox.ItemContainerStyle>
                     </ListBox>

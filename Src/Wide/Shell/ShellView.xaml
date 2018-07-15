@@ -89,7 +89,7 @@
             <avalonDock:DockingManager x:Name="dockManager" AnchorablesSource="{Binding Tools}"
                                        DocumentsSource="{Binding Documents}"
                                        ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource ActiveDocumentConverter}}" 
-                                       ActiveContentChanged="dockManager_ActiveContentChanged">
+                                       ActiveContentChanged="DockManager_ActiveContentChanged">
                 <!--<avalonDock:DockingManager.Theme>
                     <avalonDock:VS2012Theme />
                 </avalonDock:DockingManager.Theme>-->

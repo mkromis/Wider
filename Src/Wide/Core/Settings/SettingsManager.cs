@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Wide.Interfaces.Settings;
@@ -24,10 +25,7 @@ namespace Wide.Core.Settings
         /// <summary>
         /// Initializes a new instance of the <see cref="WideSettingsManager"/> class.
         /// </summary>
-        public SettingsManager() : base("", null)
-        {
-            SettingsCommand = new DelegateCommand(OpenSettings);
-        }
+        public SettingsManager() : base("", null) => SettingsCommand = new DelegateCommand(OpenSettings);
 
         /// <summary>
         /// Gets the settings menu.
@@ -37,16 +35,18 @@ namespace Wide.Core.Settings
 
         private void OpenSettings()
         {
-            SettingsWindow window = new SettingsWindow();
-            window.DataContext = this;
-            bool? result = window.ShowDialog();
+            SettingsWindow window = new SettingsWindow
+            {
+                DataContext = this
+            };
+            Boolean? result = window.ShowDialog();
             if (result == true)
             {
-                this.Save();
+                Save();
             }
             else
             {
-                this.Reset();
+                Reset();
             }
         }
     }

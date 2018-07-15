@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Wide.Interfaces.Services;
@@ -25,27 +26,27 @@ namespace Wide.Interfaces
         /// <summary>
         /// The line number
         /// </summary>
-        private int? _lineNumber;
+        private Int32? _lineNumber;
         /// <summary>
         /// The insert mode
         /// </summary>
-        private bool? _insertMode;
+        private Boolean? _insertMode;
         /// <summary>
         /// The col position
         /// </summary>
-        private int? _colPosition;
+        private Int32? _colPosition;
         /// <summary>
         /// The char position
         /// </summary>
-        private int? _charPosition;
+        private Int32? _charPosition;
         /// <summary>
         /// The p max
         /// </summary>
-        private uint _pMax;
+        private UInt32 _pMax;
         /// <summary>
         /// The _p val
         /// </summary>
-        private uint _pVal;
+        private UInt32 _pVal;
         /// <summary>
         /// The _foreground
         /// </summary>
@@ -57,7 +58,7 @@ namespace Wide.Interfaces
         /// <summary>
         /// The _show progress
         /// </summary>
-        private bool _showProgress;
+        private Boolean _showProgress;
         /// <summary>
         /// The _anim image
         /// </summary>
@@ -65,21 +66,18 @@ namespace Wide.Interfaces
         /// <summary>
         /// The _is frozen
         /// </summary>
-        private bool _isFrozen;
+        private Boolean _isFrozen;
         /// <summary>
         /// The _text
         /// </summary>
-        private string _text;
+        private String _text;
         #endregion
 
         #region CTOR
         /// <summary>
         /// Initializes a new instance of the <see cref="WideStatusbar"/> class.
         /// </summary>
-        public WideStatusbar()
-        {
-            Clear();
-        }
+        public WideStatusbar() => Clear();
         #endregion
 
         #region IStatusbarService members
@@ -88,7 +86,7 @@ namespace Wide.Interfaces
         /// </summary>
         /// <param name="image">The image.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
-        public bool Animation(Image image)
+        public Boolean Animation(Image image)
         {
             AnimationImage = image;
             return true;
@@ -98,7 +96,7 @@ namespace Wide.Interfaces
         /// Clears this status bar.
         /// </summary>
         /// <returns><c>true</c> if successfully, <c>false</c> otherwise</returns>
-        public bool Clear()
+        public Boolean Clear()
         {
             Foreground = Brushes.White;
             Background = (SolidColorBrush) new BrushConverter().ConvertFrom("#FF007ACC");
@@ -117,18 +115,15 @@ namespace Wide.Interfaces
         /// Freezes the output.
         /// </summary>
         /// <returns><c>true</c> if frozen, <c>false</c> otherwise</returns>
-        public bool FreezeOutput()
-        {
-            return IsFrozen;
-        }
+        public Boolean FreezeOutput() => IsFrozen;
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is frozen.
         /// </summary>
         /// <value><c>true</c> if this instance is frozen; otherwise, <c>false</c>.</value>
-        public bool IsFrozen
+        public Boolean IsFrozen
         {
-            get { return _isFrozen; }
+            get => _isFrozen;
             set
             {
                 _isFrozen = value;
@@ -140,9 +135,9 @@ namespace Wide.Interfaces
         /// Gets or sets the text.
         /// </summary>
         /// <value>The text.</value>
-        public string Text
+        public String Text
         {
-            get { return _text; }
+            get => _text;
             set
             {
                 _text = value;
@@ -156,7 +151,7 @@ namespace Wide.Interfaces
         /// <value>The foreground.</value>
         public Brush Foreground
         {
-            get { return _foreground; }
+            get => _foreground;
             set
             {
                 _foreground = value;
@@ -170,7 +165,7 @@ namespace Wide.Interfaces
         /// <value>The background.</value>
         public Brush Background
         {
-            get { return _background; }
+            get => _background;
             set
             {
                 _background = value;
@@ -182,9 +177,9 @@ namespace Wide.Interfaces
         /// Gets or sets a value indicating whether [insert mode].
         /// </summary>
         /// <value><c>null</c> if [insert mode] contains no value, <c>true</c> if [insert mode]; otherwise, <c>false</c>.</value>
-        public bool? InsertMode
+        public Boolean? InsertMode
         {
-            get { return _insertMode; }
+            get => _insertMode;
             set
             {
                 _insertMode = value;
@@ -196,9 +191,9 @@ namespace Wide.Interfaces
         /// Gets or sets the line number.
         /// </summary>
         /// <value>The line number.</value>
-        public int? LineNumber
+        public Int32? LineNumber
         {
-            get { return _lineNumber; }
+            get => _lineNumber;
             set
             {
                 _lineNumber = value;
@@ -210,9 +205,9 @@ namespace Wide.Interfaces
         /// Gets or sets the char position.
         /// </summary>
         /// <value>The char position.</value>
-        public int? CharPosition
+        public Int32? CharPosition
         {
-            get { return _charPosition; }
+            get => _charPosition;
             set
             {
                 _charPosition = value;
@@ -224,9 +219,9 @@ namespace Wide.Interfaces
         /// Gets or sets the col position.
         /// </summary>
         /// <value>The col position.</value>
-        public int? ColPosition
+        public Int32? ColPosition
         {
-            get { return _colPosition; }
+            get => _colPosition;
             set
             {
                 _colPosition = value;
@@ -241,7 +236,7 @@ namespace Wide.Interfaces
         /// <param name="current">The current.</param>
         /// <param name="total">The total.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
-        public bool Progress(bool On, uint current, uint total)
+        public Boolean Progress(Boolean On, UInt32 current, UInt32 total)
         {
             ShowProgressBar = On;
             ProgressMaximum = total;
@@ -253,9 +248,9 @@ namespace Wide.Interfaces
         /// Gets or sets the progress maximum.
         /// </summary>
         /// <value>The progress maximum.</value>
-        public uint ProgressMaximum
+        public UInt32 ProgressMaximum
         {
-            get { return _pMax; }
+            get => _pMax;
             set
             {
                 _pMax = value;
@@ -267,9 +262,9 @@ namespace Wide.Interfaces
         /// Gets or sets the progress value.
         /// </summary>
         /// <value>The progress value.</value>
-        public uint ProgressValue
+        public UInt32 ProgressValue
         {
-            get { return _pVal; }
+            get => _pVal;
             set
             {
                 _pVal = value;
@@ -282,9 +277,9 @@ namespace Wide.Interfaces
         /// Gets or sets a value indicating whether [show progress bar].
         /// </summary>
         /// <value><c>true</c> if [show progress bar]; otherwise, <c>false</c>.</value>
-        public bool ShowProgressBar
+        public Boolean ShowProgressBar
         {
-            get { return _showProgress; }
+            get => _showProgress;
             set
             {
                 _showProgress = value;
@@ -298,7 +293,7 @@ namespace Wide.Interfaces
         /// <value>The animation image.</value>
         public Image AnimationImage
         {
-            get { return _animImage; }
+            get => _animImage;
             set
             {
                 _animImage = value;

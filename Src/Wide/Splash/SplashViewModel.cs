@@ -21,24 +21,22 @@ namespace Wide.Splash
     {
         #region Declarations
 
-        private string _status;
+        private String _status;
 
         #endregion
 
         #region CTOR
 
-        public SplashViewModel(IEventAggregator eventAggregator_)
-        {
+        public SplashViewModel(IEventAggregator eventAggregator_) => 
             eventAggregator_.GetEvent<SplashMessageUpdateEvent>().Subscribe(e_ => UpdateMessage(e_.Message));
-        }
 
         #endregion
 
         #region Public Properties
 
-        public string Status
+        public String Status
         {
-            get { return _status; }
+            get => _status;
             set
             {
                 _status = value;
@@ -50,14 +48,14 @@ namespace Wide.Splash
 
         #region Private Methods
 
-        private void UpdateMessage(string message)
+        private void UpdateMessage(String message)
         {
-            if (string.IsNullOrEmpty(message))
+            if (String.IsNullOrEmpty(message))
             {
                 return;
             }
 
-            Status = string.Concat(Environment.NewLine, message, "...") + Status;
+            Status = String.Concat(Environment.NewLine, message, "...") + Status;
         }
 
         #endregion

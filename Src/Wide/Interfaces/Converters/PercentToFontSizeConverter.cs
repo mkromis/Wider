@@ -23,10 +23,10 @@ namespace Wide.Interfaces.Converters
     {
         #region IValueConverter Members
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
         {
             //For now lets assume 12.00 to be 100%
-            var fsize = value as double?;
+            Double? fsize = value as Double?;
             if (fsize != null)
             {
                 return ((fsize/12.00)*100) + " %";
@@ -34,14 +34,14 @@ namespace Wide.Interfaces.Converters
             return "100 %";
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
         {
-            double rValue = 12.0;
+            Double rValue = 12.0;
             if (value != null)
             {
-                var final = value as string;
+                String final = value as String;
                 final = final.Replace("%", "");
-                if (double.TryParse(final, out rValue))
+                if (Double.TryParse(final, out rValue))
                 {
                     rValue = (rValue/100.0)*12;
                 }

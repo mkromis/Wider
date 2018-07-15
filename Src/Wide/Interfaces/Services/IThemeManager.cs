@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Collections.ObjectModel;
 
 namespace Wide.Interfaces.Services
@@ -30,14 +31,14 @@ namespace Wide.Interfaces.Services
         /// </summary>
         /// <param name="theme">The theme to add</param>
         /// <returns><c>true</c> if successful, <c>false</c> otherwise</returns>
-        bool AddTheme(ITheme theme);
+        Boolean AddTheme(ITheme theme);
 
         /// <summary>
         /// Called to set the current theme from the list of themes
         /// </summary>
         /// <param name="name">The name of the theme</param>
         /// <returns><c>true</c> if successful, <c>false</c> otherwise</returns>
-        bool SetCurrent(string name);
+        Boolean SetCurrent(String name);
 
         /// <summary>
         /// Returns the current theme set in the theme manager
