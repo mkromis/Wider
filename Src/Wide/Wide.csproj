@@ -157,6 +157,7 @@
     <Compile Include="Interfaces\IShell.cs" />
     <Compile Include="Interfaces\IWorkspace.cs" />
     <Compile Include="Interfaces\Settings\ISettingsManager.cs" />
+    <Compile Include="Interfaces\Themes\VS2010.cs" />
     <Compile Include="Interfaces\ToolModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -177,7 +178,6 @@
     <Compile Include="Interfaces\Themes\DarkTheme.cs" />
     <Compile Include="Interfaces\Themes\DefaultTheme.cs" />
     <Compile Include="Interfaces\Themes\LightTheme.cs" />
-    <Compile Include="Interfaces\Themes\VS2010.cs" />
     <Compile Include="Interfaces\Converters\PercentToFontSizeConverter.cs" />
     <Compile Include="Interfaces\ToolViewModel.cs" />
     <Compile Include="Interfaces\ViewModelBase.cs" />
