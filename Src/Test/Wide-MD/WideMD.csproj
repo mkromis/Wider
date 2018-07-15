@@ -34,9 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AvalonDock.Themes.VS2012">
-      <HintPath>..\..\..\Libs\AvalonDock.Themes.VS2012.dll</HintPath>
-    </Reference>
     <Reference Include="ICSharpCode.AvalonEdit">
       <HintPath>..\..\..\Libs\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
