@@ -19,7 +19,6 @@ namespace Wide.Tools.Logger
 {
     internal class LoggerModel : ToolModel
     {
-
         public String Text { get; private set; }
 
         public void AddLog(ILoggerService logger)

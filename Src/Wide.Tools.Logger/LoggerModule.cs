@@ -28,7 +28,6 @@ namespace Wide.Tools.Logger
         private IEventAggregator EventAggregator => _container.Resolve<IEventAggregator>();
 
         #region IModule Members
-
         public void Initialize()
         {
             EventAggregator.GetEvent<SplashMessageUpdateEvent>()
@@ -37,7 +36,6 @@ namespace Wide.Tools.Logger
             IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
             workspace.Tools.Add(_container.Resolve<LoggerViewModel>());
         }
-
         #endregion
     }
 }

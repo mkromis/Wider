@@ -12,6 +12,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -23,8 +24,7 @@ namespace Wide.Interfaces.Converters
 {
     internal class DocumentContextMenuMixingConverter : IMultiValueConverter
     {
-        public Object Convert(Object[] values, Type targetType, Object parameter,
-                              System.Globalization.CultureInfo culture)
+        public Object Convert(Object[] values, Type targetType, Object parameter, CultureInfo culture)
         {
             AbstractMenuItem root = new MenuItemViewModel("$CROOT$", 1);
             Int32 i = 1;
@@ -58,8 +58,7 @@ namespace Wide.Interfaces.Converters
             return root.Children;
         }
 
-        public Object[] ConvertBack(Object value, Type[] targetTypes, Object parameter,
-                                    System.Globalization.CultureInfo culture) => 
+        public Object[] ConvertBack(Object value, Type[] targetTypes, Object parameter, CultureInfo culture) => 
             throw new NotImplementedException();
 
         private AbstractMenuItem FromMenuItem(MenuItem item, LayoutDocumentItem doc, Int32 priority)
@@ -112,9 +111,10 @@ namespace Wide.Interfaces.Converters
                     }
                 }
 
-                MenuItemViewModel model = new MenuItemViewModel(item.Header.ToString(), priority,
-                                                                item.Icon != null ? (item.Icon as Image).Source : null,
-                                                                cmd, null, false, hideDisabled);
+                MenuItemViewModel model = new MenuItemViewModel(
+                    item.Header.ToString(), priority,
+                    item.Icon != null ? (item.Icon as Image).Source : null,
+                    cmd, null, false, hideDisabled);
                 return model;
             }
             return null;

@@ -110,12 +110,11 @@ namespace Wide.Interfaces.Settings
         #region Static
 
         //Singleton which can be reused
-        private static readonly ContentControl ContentControl = new ContentControl()
-                                                                    {
-                                                                        Content =
-                                                                            new PropertyGrid
-                                                                                {ShowSearchBox = false}
-                                                                    };
+        private static readonly ContentControl ContentControl = 
+            new ContentControl()
+            {
+                Content = new PropertyGrid {ShowSearchBox = false}
+            };
 
         #endregion
 
