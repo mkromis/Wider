@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Windows.Input;
 namespace Wide.Interfaces.Services
 {
@@ -23,14 +24,14 @@ namespace Wide.Interfaces.Services
         /// </summary>
         /// <param name="handler">The content handler</param>
         /// <returns><c>true</c> if successful, <c>false</c> otherwise</returns>
-        bool Register(IContentHandler handler);
+        Boolean Register(IContentHandler handler);
 
         /// <summary>
         /// Unregisters a content handler
         /// </summary>
         /// <param name="handler">The handler to remove</param>
         /// <returns><c>true</c> if successfully unregistered, <c>false</c> otherwise</returns>
-        bool Unregister(IContentHandler handler);
+        Boolean Unregister(IContentHandler handler);
 
         /// <summary>
         /// Returns a content view model for the specified object which needs to be displayed as a document
@@ -38,7 +39,7 @@ namespace Wide.Interfaces.Services
         /// </summary>
         /// <param name="info">The object which needs to be displayed as a document in Wide</param>
         /// <returns>The content view model for the given info</returns>
-        ContentViewModel GetViewModel(object info);
+        ContentViewModel GetViewModel(Object info);
 
         /// <summary>
         /// Returns a content view model for the specified contentID which needs to be displayed as a document
@@ -46,7 +47,7 @@ namespace Wide.Interfaces.Services
         /// </summary>
         /// <param name="contentId">The contentID which needs to be displayed as a document in Wide</param>
         /// <returns>The content view model for the given info</returns>
-        ContentViewModel GetViewModelFromContentId(string contentId);
+        ContentViewModel GetViewModelFromContentId(String contentId);
 
         /// <summary>
         /// Gets the command which provides the option to create a new document.

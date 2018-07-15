@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -46,13 +47,14 @@ namespace Wide.Interfaces.Controls
         /// <param name="item">The data object for which to select the template.</param>
         /// <param name="container">The data-bound object.</param>
         /// <returns>Returns a <see cref="T:System.Windows.DataTemplate" /> or null. The default value is null.</returns>
-        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        public override DataTemplate SelectTemplate(Object item, DependencyObject container)
         {
-            var toolBarItem = item as AbstractMenuItem;
-            if (toolBarItem != null && !toolBarItem.IsSeparator)
+            if (item is AbstractMenuItem toolBarItem && !toolBarItem.IsSeparator)
             {
                 if (toolBarItem.Children.Count > 0)
+                {
                     return ComboBoxTemplate;
+                }
 
                 return ButtonTemplate;
             }

@@ -28,6 +28,6 @@ namespace Wide.Interfaces
         /// <summary>
         /// The name of the theme
         /// </summary>
-        string Name { get; }
+        String Name { get; }
     }
 }

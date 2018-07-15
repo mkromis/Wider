@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Collections.ObjectModel;
 
 namespace Wide.Interfaces
@@ -30,27 +31,27 @@ namespace Wide.Interfaces
         /// Gets the priority of this instance.
         /// </summary>
         /// <value>The priority.</value>
-        int Priority { get; }
+        Int32 Priority { get; }
 
         /// <summary>
         /// Adds the specified item.
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns>A GUID string for the menu</returns>
-        string Add(T item);
+        String Add(T item);
 
         /// <summary>
         /// Removes the item with the GUID.
         /// </summary>
         /// <param name="GuidString">The unique GUID set for the menu available for the creator.</param>
         /// <returns><c>true</c> if successfully removed, <c>false</c> otherwise</returns>
-        bool Remove(string GuidString);
+        Boolean Remove(String GuidString);
 
         /// <summary>
         /// Gets the specified node in the tree with this key.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>`0.</returns>
-        T Get(string key);
+        T Get(String key);
     }
 }

@@ -30,20 +30,16 @@ namespace WideMD.Core
         public MDView(IStatusbarService statusbar)
         {
             _md = new Markdown();
-            this._statusbar = statusbar;
+            _statusbar = statusbar;
             InitializeComponent();
             textEditor.TextArea.Caret.PositionChanged += Caret_PositionChanged;
         }
 
-        private void Caret_PositionChanged(object sender, EventArgs e)
-        {
-            Update();
-        }
+        private void Caret_PositionChanged(Object sender, EventArgs e) => Update();
 
-        private void textEditor_TextChanged(object sender, EventArgs e)
+        private void TextEditor_TextChanged(Object sender, EventArgs e)
         {
-            var model = this.DataContext as MDModel;
-            if (model != null)
+            if (DataContext is MDModel model)
             {
                 model.SetHtml(_md.Transform(textEditor.Text));
             }
@@ -56,7 +52,9 @@ namespace WideMD.Core
             _statusbar.CharPosition = textEditor.CaretOffset;
             _statusbar.InsertMode = false;
             if (t == null || !t.IsAlive)
+            {
                 Run();
+            }
         }
 
         private void Run()
@@ -65,9 +63,9 @@ namespace WideMD.Core
             t.Start();
         }
 
-        private void SimpleRun(object obj)
+        private void SimpleRun(Object obj)
         {
-            uint i = 0;
+            UInt32 i = 0;
             while (i < 1000)
             {
                 _statusbar.Progress(true, i, 1000);

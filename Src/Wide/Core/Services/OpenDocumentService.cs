@@ -91,22 +91,22 @@ namespace Wide.Core.Services
         /// </summary>
         /// <param name="location">The optional object to open</param>
         /// <returns>A document which was added to the workspace as a content view model</returns>
-        public ContentViewModel Open(object location = null)
+        public ContentViewModel Open(Object location = null)
         {
-            bool? result;
+            Boolean? result;
             ContentViewModel returnValue = null;
 
             if (location == null)
             {
                 _dialog.Filter = "";
-                string sep = "";
-                var attributes =
+                String sep = "";
+                List<FileContentAttribute> attributes =
                     _handler.ContentHandlers.SelectMany(
                         handler =>
                         (FileContentAttribute[])
                         (handler.GetType()).GetCustomAttributes(typeof (FileContentAttribute), true)).ToList();
                 attributes.Sort((attribute, contentAttribute) => attribute.Priority - contentAttribute.Priority);
-                foreach (var contentAttribute in attributes)
+                foreach (FileContentAttribute contentAttribute in attributes)
                 {
                     _dialog.Filter = String.Format("{0}{1}{2} ({3})|{3}", _dialog.Filter, sep, contentAttribute.Display,
                                                    contentAttribute.Extension);
@@ -121,7 +121,7 @@ namespace Wide.Core.Services
                 result = true;
             }
 
-            if (result == true && !string.IsNullOrWhiteSpace(location.ToString()))
+            if (result == true && !String.IsNullOrWhiteSpace(location.ToString()))
             {
                 //Let the handler figure out which view model to return
                 if (_handler != null)
@@ -183,7 +183,7 @@ namespace Wide.Core.Services
         /// <param name="contentID">The contentID to open</param>
         /// <param name="makeActive">if set to <c>true</c> makes the new document as the active document.</param>
         /// <returns>A document which was added to the workspace as a content view model</returns>
-        public ContentViewModel OpenFromID(string contentID, bool makeActive = false)
+        public ContentViewModel OpenFromID(String contentID, Boolean makeActive = false)
         {
             //Let the handler figure out which view model to return
             ContentViewModel openValue = _handler.GetViewModelFromContentId(contentID);
@@ -202,7 +202,9 @@ namespace Wide.Core.Services
                                         LogPriority.Low);
 
                             if (makeActive)
+                            {
                                 _workspace.ActiveDocument = contentViewModel;
+                            }
 
                             return contentViewModel;
                         }
@@ -217,7 +219,9 @@ namespace Wide.Core.Services
                 _workspace.Documents.Add(openValue);
 
                 if (makeActive)
+                {
                     _workspace.ActiveDocument = openValue;
+                }
 
                 //Add it to the recent documents opened
                 _recentSettings.Update(openValue);

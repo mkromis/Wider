@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -18,17 +19,17 @@ namespace Wide.Interfaces.Services
 {
     public interface IStatusbarService
     {
-        bool Animation(Image image);
-        bool Clear();
-        bool FreezeOutput();
-        bool IsFrozen { get; }
-        string Text { get; set; }
+        Boolean Animation(Image image);
+        Boolean Clear();
+        Boolean FreezeOutput();
+        Boolean IsFrozen { get; }
+        String Text { get; set; }
         Brush Foreground { get; set; }
         Brush Background { get; set; }
-        bool? InsertMode { get; set; }
-        int? LineNumber { get; set; }
-        int? CharPosition { get; set; }
-        int? ColPosition { get; set; }
-        bool Progress(bool On, uint current, uint total);
+        Boolean? InsertMode { get; set; }
+        Int32? LineNumber { get; set; }
+        Int32? CharPosition { get; set; }
+        Int32? ColPosition { get; set; }
+        Boolean Progress(Boolean On, UInt32 current, UInt32 total);
     }
 }

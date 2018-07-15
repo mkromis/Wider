@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Windows.Controls;
 using Wide.Interfaces.Controls;
 
@@ -31,21 +32,21 @@ namespace Wide.Interfaces.Services
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns><c>true</c> if successfully added, <c>false</c> otherwise</returns>
-        string Add(AbstractCommandable item);
+        String Add(AbstractCommandable item);
 
         /// <summary>
         /// Removes the specified key.
         /// </summary>
         /// <param name="GUID">The GUID.</param>
         /// <returns><c>true</c> if successfully removed, <c>false</c> otherwise</returns>
-        bool Remove(string GUID);
+        Boolean Remove(String GUID);
 
         /// <summary>
         /// Gets the specified toolbar using the key.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>AbstractCommandable.</returns>
-        AbstractCommandable Get(string key);
+        AbstractCommandable Get(String key);
 
         /// <summary>
         /// Gets the right click menu.

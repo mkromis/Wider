@@ -21,18 +21,22 @@ namespace Wide.Shell
     {
         #region IValueConverter Members
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
         {
             if (value is ContentViewModel)
+            {
                 return value;
+            }
 
             return Binding.DoNothing;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
         {
             if (value is ContentViewModel)
+            {
                 return value;
+            }
 
             return Binding.DoNothing;
         }

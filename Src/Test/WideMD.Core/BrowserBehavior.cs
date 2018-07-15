@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -19,27 +20,22 @@ namespace WideMD.Core
     {
         public static readonly DependencyProperty HtmlProperty = DependencyProperty.RegisterAttached(
             "Html",
-            typeof (string),
+            typeof (String),
             typeof (BrowserBehavior),
             new FrameworkPropertyMetadata(OnHtmlChanged));
 
-        [AttachedPropertyBrowsableForType(typeof (WebBrowser))]
-        public static string GetHtml(WebBrowser d)
-        {
-            return (string) d.GetValue(HtmlProperty);
-        }
+        [AttachedPropertyBrowsableForType(typeof(WebBrowser))]
+        public static System.String GetHtml(WebBrowser d) => (String)d.GetValue(HtmlProperty);
 
-        public static void SetHtml(WebBrowser d, string value)
-        {
-            d.SetValue(HtmlProperty, value);
-        }
+        public static void SetHtml(WebBrowser d, String value) => d.SetValue(HtmlProperty, value);
 
         private static void OnHtmlChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
-            WebBrowser webBrowser = dependencyObject as WebBrowser;
-            string value = e.NewValue as string;
-            if (webBrowser != null && string.IsNullOrEmpty(value) == false)
+            String value = e.NewValue as String;
+            if (dependencyObject is WebBrowser webBrowser && String.IsNullOrEmpty(value) == false)
+            {
                 webBrowser.NavigateToString(value);
+            }
         }
     }
 }

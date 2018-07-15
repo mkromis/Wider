@@ -33,10 +33,7 @@ namespace Wide.Interfaces
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractPrioritizedTree{T}"/> class.
         /// </summary>
-        protected AbstractPrioritizedTree()
-        {
-            _children = new ObservableCollection<T>();
-        }
+        protected AbstractPrioritizedTree() => _children = new ObservableCollection<T>();
 
         #region IPrioritizedTree<T> Members
 
@@ -45,7 +42,7 @@ namespace Wide.Interfaces
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns><c>true</c> if successfully added, <c>false</c> otherwise</returns>
-        public virtual string Add(T item)
+        public virtual String Add(T item)
         {
             _children.Add(item);
             item.GuidString = Guid.NewGuid().ToString();
@@ -58,7 +55,7 @@ namespace Wide.Interfaces
         /// </summary>
         /// <param name="GuidString">The unique GUID set for the menu available for the creator.</param>
         /// <returns><c>true</c> if successfully removed, <c>false</c> otherwise</returns>
-        public virtual bool Remove(string GuidString)
+        public virtual Boolean Remove(String GuidString)
         {
             IEnumerable<T> items = _children.Where(f => f.GuidString == GuidString);
             if (items.Any())
@@ -75,7 +72,7 @@ namespace Wide.Interfaces
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>`0.</returns>
-        public virtual T Get(string key)
+        public virtual T Get(String key)
         {
             IEnumerable<T> items = _children.Where(f => f.Key == key);
             if (items.Any())
@@ -94,9 +91,10 @@ namespace Wide.Interfaces
         {
             get
             {
-                IOrderedEnumerable<T> order = from c in _children
-                                              orderby c.Priority
-                                              select c;
+                IOrderedEnumerable<T> order = 
+                    from c in _children
+                    orderby c.Priority
+                    select c;
                 return new ReadOnlyObservableCollection<T>(new ObservableCollection<T>(order.ToList()));
             }
         }
@@ -106,16 +104,16 @@ namespace Wide.Interfaces
         /// </summary>
         /// <value>The priority.</value>
         [Browsable(false)]
-        public virtual int Priority { get; protected set; }
+        public virtual Int32 Priority { get; protected set; }
 
         /// <summary>
         /// Gets the key.
         /// </summary>
         /// <value>The key.</value>
         [Browsable(false)]
-        public virtual string Key { get; protected set; }
+        public virtual String Key { get; protected set; }
 
-        protected string GuidString { get; set; }
+        protected String GuidString { get; set; }
 
         #endregion
     }

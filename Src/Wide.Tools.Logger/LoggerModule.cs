@@ -23,22 +23,16 @@ namespace Wide.Tools.Logger
     {
         private readonly IUnityContainer _container;
 
-        public LoggerModule(IUnityContainer container)
-        {
-            _container = container;
-        }
+        public LoggerModule(IUnityContainer container) => _container = container;
 
-        private IEventAggregator EventAggregator
-        {
-            get { return _container.Resolve<IEventAggregator>(); }
-        }
+        private IEventAggregator EventAggregator => _container.Resolve<IEventAggregator>();
 
         #region IModule Members
 
         public void Initialize()
         {
-            EventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(new SplashMessageUpdateEvent
-                                                                             {Message = "Loading Logger Module"});
+            EventAggregator.GetEvent<SplashMessageUpdateEvent>()
+                .Publish(new SplashMessageUpdateEvent {Message = "Loading Logger Module"});
             _container.RegisterType<LoggerViewModel>();
             IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
             workspace.Tools.Add(_container.Resolve<LoggerViewModel>());

@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Windows.Input;
 
 namespace Wide.Interfaces
@@ -42,13 +43,13 @@ namespace Wide.Interfaces
         /// Gets or sets the command parameter.
         /// </summary>
         /// <value>The command parameter.</value>
-        public virtual object CommandParameter { get; set; }
+        public virtual Object CommandParameter { get; set; }
 
         /// <summary>
         /// Gets the input gesture text.
         /// </summary>
         /// <value>The input gesture text.</value>
-        public string InputGestureText { get; internal set; }
+        public String InputGestureText { get; internal set; }
 
         #endregion
     }

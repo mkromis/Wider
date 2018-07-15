@@ -10,15 +10,14 @@
 
 #endregion
 
+using System;
 using Wide.Interfaces.Settings;
 
 namespace WideMD.Core.Settings
 {
     public class MDSettingsItem : AbstractSettingsItem
     {
-        public MDSettingsItem(string title, int priority, AbstractSettings settings) : base(title, settings)
-        {
-            this.Priority = priority;
-        }
+        public MDSettingsItem(String title, Int32 priority, AbstractSettings settings) : base(title, settings) => 
+            Priority = priority;
     }
 }

@@ -22,13 +22,17 @@ namespace Wide.Shell
 
         public DataTemplate ToolViewTemplate { get; set; }
 
-        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        public override DataTemplate SelectTemplate(System.Object item, DependencyObject container)
         {
             if (item is ContentViewModel)
+            {
                 return ContentViewTemplate;
+            }
 
             if (item is ToolViewModel)
+            {
                 return ToolViewTemplate;
+            }
 
             return base.SelectTemplate(item, container);
         }

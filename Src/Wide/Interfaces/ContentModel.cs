@@ -20,16 +20,16 @@ namespace Wide.Interfaces
     [Serializable]
     public abstract class ContentModel : ViewModelBase
     {
-        protected bool _isDirty;
-        protected object _location;
+        protected Boolean _isDirty;
+        protected Object _location;
 
         /// <summary>
         /// The document location - could be a file location/server object etc.
         /// </summary>
         [Browsable(false)]
-        public virtual object Location 
-        { 
-            get { return _location; }
+        public virtual Object Location
+        {
+            get => _location;
             protected set { _location = value; RaisePropertyChanged("Location"); }
         }
 
@@ -37,9 +37,9 @@ namespace Wide.Interfaces
         /// Is the document dirty - does it need to be saved?
         /// </summary>
         [Browsable(false)]
-        public virtual bool IsDirty
+        public virtual Boolean IsDirty
         {
-            get { return _isDirty; }
+            get => _isDirty;
             protected internal set
             {
                 _isDirty = value;

@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Windows;
 using Microsoft.Practices.Unity;
 using Wide.Interfaces;
@@ -28,20 +29,20 @@ namespace WideMD
             base.OnStartup(e);
             b = new MDBootstrapper();
             b.Run();
-            var shell = b.Container.Resolve<IShell>();
+            IShell shell = b.Container.Resolve<IShell>();
             (shell as Window).Loaded += App_Loaded;
             (shell as Window).Unloaded += App_Unloaded;
         }
 
-        void App_Unloaded(object sender, System.EventArgs e)
+        void App_Unloaded(Object sender, System.EventArgs e)
         {
-            var shell = b.Container.Resolve<IShell>();
+            IShell shell = b.Container.Resolve<IShell>();
             shell.SaveLayout();
         }
 
-        void App_Loaded(object sender, RoutedEventArgs e)
+        void App_Loaded(Object sender, RoutedEventArgs e)
         {
-            var shell = b.Container.Resolve<IShell>();
+            IShell shell = b.Container.Resolve<IShell>();
             shell.LoadLayout();
         }
     }

@@ -26,10 +26,10 @@ namespace Wide.Interfaces.Themes
         public DefaultTheme()
         {
             UriList = new List<Uri>
-                          {
-                              new Uri("pack://application:,,,/Wide;component/Interfaces/Styles/VS2012/DarkTheme.xaml"),
-                              new Uri("pack://application:,,,/AvalonDock.Themes.VS2012;component/DarkTheme.xaml")
-                          };
+            {
+                new Uri("pack://application:,,,/Wide;component/Interfaces/Styles/VS2012/DarkTheme.xaml"),
+                new Uri("pack://application:,,,/AvalonDock.Themes.VS2012;component/DarkTheme.xaml")
+            };
         }
 
         #region ITheme Members
@@ -44,10 +44,7 @@ namespace Wide.Interfaces.Themes
         /// The name of the theme - "Default"
         /// </summary>
         /// <value>The name.</value>
-        public string Name
-        {
-            get { return "Default"; }
-        }
+        public String Name => "Default";
 
         #endregion
     }
