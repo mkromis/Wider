@@ -4,7 +4,6 @@
                       xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
                       xmlns:local="clr-namespace:Wide.Shell" 
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-                      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
                       xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
                       xmlns:Converter="clr-namespace:Wide.Interfaces.Converters"
                       xmlns:Utils="clr-namespace:Wide.Utils"
@@ -16,6 +15,7 @@
                       ResizeMode="CanResizeWithGrip"
                       GlowBrush="{Binding ElementName=WideStatusBar, Path=Background}"
                       Closing="Window_Closing_1">
+                      <!--xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"-->
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -40,10 +40,10 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <i:Interaction.Behaviors>
-        <behaviours:BorderlessWindowBehavior ResizeWithGrip="True" AllowsTransparency="False" />
-        <behaviours:GlowWindowBehavior />
-    </i:Interaction.Behaviors>
+    <!--<i:Interaction.Behaviors>-->
+        <!--<behaviours:BorderlessWindowBehavior ResizeWithGrip="True" AllowsTransparency="False" />-->
+        <!--<behaviours:GlowWindowBehavior />-->
+    <!--</i:Interaction.Behaviors>-->
 
     <Border>
         <DockPanel>

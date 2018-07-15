@@ -28,7 +28,7 @@ namespace Wide.Interfaces.Themes
             UriList = new List<Uri>
             {
                 new Uri("pack://application:,,,/Wide;component/Interfaces/Styles/VS2012/DarkTheme.xaml"),
-                new Uri("pack://application:,,,/AvalonDock.Themes.VS2012;component/DarkTheme.xaml")
+                //new Uri("pack://application:,,,/AvalonDock.Themes.VS2012;component/DarkTheme.xaml")
             };
         }
 
