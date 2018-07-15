@@ -55,10 +55,6 @@
       <HintPath>..\..\Libs\Microsoft.Practices.Unity.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="NLog">
-      <HintPath>..\..\Libs\NLog.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
