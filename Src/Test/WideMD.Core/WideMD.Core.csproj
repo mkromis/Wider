@@ -39,9 +39,6 @@
       <HintPath>..\..\..\Libs\ICSharpCode.AvalonEdit.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="MarkdownSharp">
-      <HintPath>..\Lib\MarkdownSharp.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Practices.Prism">
       <HintPath>..\..\..\Libs\Microsoft.Practices.Prism.dll</HintPath>
       <Private>False</Private>
@@ -139,6 +136,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\Play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MarkdownSharp">
+      <Version>1.13.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
