@@ -217,8 +217,7 @@ namespace Wide.Interfaces
         private void _menus_PropertyChanged(Object sender, PropertyChangedEventArgs e) => RaisePropertyChanged("Menus");
 
 
-        protected void Docs_CollectionChanged(Object sender,
-                                              NotifyCollectionChangedEventArgs e)
+        protected void Docs_CollectionChanged(Object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.OldItems != null)
             {

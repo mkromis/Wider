@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.ComponentModel;
 using System.Windows.Controls;
 using Wide.Interfaces;
@@ -27,7 +28,7 @@ namespace Wide.Tools.Logger
         /// Should be called when a property value has changed
         /// </summary>
         /// <param name="propertyName">The property name</param>
-        protected virtual void RaisePropertyChanged(System.String propertyName) => 
+        protected virtual void RaisePropertyChanged(String propertyName) => 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         public event PropertyChangedEventHandler PropertyChanged;
