@@ -23,15 +23,14 @@ namespace Wide.Interfaces.Converters
 {
     internal class DocumentContextMenuMixingConverter : IMultiValueConverter
     {
-        public object Convert(object[] values, Type targetType, object parameter,
+        public Object Convert(Object[] values, Type targetType, Object parameter,
                               System.Globalization.CultureInfo culture)
         {
             AbstractMenuItem root = new MenuItemViewModel("$CROOT$", 1);
-            LayoutDocumentItem doc = values[0] as LayoutDocumentItem;
-            int i = 1;
+            Int32 i = 1;
             IReadOnlyCollection<AbstractMenuItem> menus = values[1] as IReadOnlyCollection<AbstractMenuItem>;
             ContextMenu cm;
-            if (doc != null)
+            if (values[0] is LayoutDocumentItem doc)
             {
                 try
                 {
@@ -59,15 +58,13 @@ namespace Wide.Interfaces.Converters
             return root.Children;
         }
 
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter,
-                                    System.Globalization.CultureInfo culture)
-        {
+        public Object[] ConvertBack(Object value, Type[] targetTypes, Object parameter,
+                                    System.Globalization.CultureInfo culture) => 
             throw new NotImplementedException();
-        }
 
-        private AbstractMenuItem FromMenuItem(MenuItem item, LayoutDocumentItem doc, int priority)
+        private AbstractMenuItem FromMenuItem(MenuItem item, LayoutDocumentItem doc, Int32 priority)
         {
-            bool hideDisabled = false;
+            Boolean hideDisabled = false;
             if (item != null)
             {
                 ICommand cmd = null;

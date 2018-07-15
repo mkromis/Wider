@@ -11,6 +11,7 @@
 #endregion
 
 using Microsoft.Practices.Prism.Events;
+using System;
 
 namespace Wide.Interfaces.Events
 {
@@ -19,6 +20,6 @@ namespace Wide.Interfaces.Events
     /// </summary>
     public class SplashMessageUpdateEvent : CompositePresentationEvent<SplashMessageUpdateEvent>
     {
-        public string Message { get; set; }
+        public String Message { get; set; }
     }
 }

@@ -10,6 +10,8 @@
 
 #endregion
 
+using System;
+
 namespace Wide.Interfaces.Services
 {
     /// <summary>
@@ -22,7 +24,7 @@ namespace Wide.Interfaces.Services
         /// </summary>
         /// <param name="location">The location.</param>
         /// <returns>ContentViewModel.</returns>
-        ContentViewModel Open(object location = null);
+        ContentViewModel Open(Object location = null);
 
         /// <summary>
         /// Opens from content from an ID.
@@ -30,6 +32,6 @@ namespace Wide.Interfaces.Services
         /// <param name="contentID">The content ID.</param>
         /// <param name="makeActive">if set to <c>true</c> makes the new document as the active document.</param>
         /// <returns>ContentViewModel.</returns>
-        ContentViewModel OpenFromID(string contentID, bool makeActive = false);
+        ContentViewModel OpenFromID(String contentID, Boolean makeActive = false);
     }
 }

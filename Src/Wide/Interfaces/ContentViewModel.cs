@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Controls;
@@ -31,7 +32,7 @@ namespace Wide.Interfaces
         /// <summary>
         /// The static count value for "Untitled" number.
         /// </summary>
-        protected static int Count = 1;
+        protected static System.Int32 Count = 1;
 
         /// <summary>
         /// The model
@@ -46,17 +47,17 @@ namespace Wide.Interfaces
         /// <summary>
         /// The content id of the document
         /// </summary>
-        protected string _contentId = null;
+        protected String _contentId = null;
 
         /// <summary>
         /// Is the document active
         /// </summary>
-        protected bool _isActive = false;
+        protected Boolean _isActive = false;
 
         /// <summary>
         /// Is the document selected
         /// </summary>
-        protected bool _isSelected = false;
+        protected Boolean _isSelected = false;
 
         /// <summary>
         /// The logger instance
@@ -66,12 +67,12 @@ namespace Wide.Interfaces
         /// <summary>
         /// The title of the document
         /// </summary>
-        protected string _title = null;
+        protected String _title = null;
 
         /// <summary>
         /// The tool tip to display on the document
         /// </summary>
-        protected string _tooltip = null;
+        protected String _tooltip = null;
 
         /// <summary>
         /// The workspace instance
@@ -100,7 +101,7 @@ namespace Wide.Interfaces
             _commandManager = commandManager;
             _logger = logger;
             _menuService = menuService;
-            CloseCommand = new DelegateCommand<object>(Close, CanClose);
+            CloseCommand = new DelegateCommand<Object>(Close, CanClose);
         }
 
         #endregion
@@ -119,7 +120,7 @@ namespace Wide.Interfaces
         /// <value>The model.</value>
         public virtual ContentModel Model
         {
-            get { return _model; }
+            get => _model;
             protected internal set
             {
                 if (_model != null)
@@ -149,8 +150,10 @@ namespace Wide.Interfaces
             get
             {
                 AbstractMenuItem item = _menuService.Get("_File").Get("_Save") as AbstractMenuItem;
-                List<AbstractMenuItem> items = new List<AbstractMenuItem>();
-                items.Add(item);
+                List<AbstractMenuItem> items = new List<AbstractMenuItem>
+                {
+                    item
+                };
                 return items.AsReadOnly();
             }
         }
@@ -159,7 +162,7 @@ namespace Wide.Interfaces
         /// The title of the document
         /// </summary>
         /// <value>The title.</value>
-        public virtual string Title
+        public virtual String Title
         {
             get
             {
@@ -183,9 +186,9 @@ namespace Wide.Interfaces
         /// The tool tip of the document
         /// </summary>
         /// <value>The tool tip.</value>
-        public virtual string Tooltip
+        public virtual String Tooltip
         {
-            get { return _tooltip; }
+            get => _tooltip;
             protected set
             {
                 if (_tooltip != value)
@@ -206,9 +209,9 @@ namespace Wide.Interfaces
         /// The content ID - unique value for each document
         /// </summary>
         /// <value>The content id.</value>
-        public virtual string ContentId
+        public virtual String ContentId
         {
-            get { return _contentId; }
+            get => _contentId;
             protected set
             {
                 if (_contentId != value)
@@ -223,9 +226,9 @@ namespace Wide.Interfaces
         /// Is the document selected
         /// </summary>
         /// <value><c>true</c> if this document is selected; otherwise, <c>false</c>.</value>
-        public virtual bool IsSelected
+        public virtual Boolean IsSelected
         {
-            get { return _isSelected; }
+            get => _isSelected;
             set
             {
                 if (_isSelected != value)
@@ -240,9 +243,9 @@ namespace Wide.Interfaces
         /// Is the document active
         /// </summary>
         /// <value><c>true</c> if this document is active; otherwise, <c>false</c>.</value>
-        public virtual bool IsActive
+        public virtual Boolean IsActive
         {
-            get { return _isActive; }
+            get => _isActive;
             set
             {
                 if (_isActive != value)
@@ -268,7 +271,7 @@ namespace Wide.Interfaces
         /// </summary>
         /// <param name="obj">The object.</param>
         /// <returns><c>true</c> if this instance can close; otherwise, <c>false</c>.</returns>
-        protected virtual bool CanClose(object obj)
+        protected virtual Boolean CanClose(Object obj)
         {
             return (obj != null)
                        ? _commandManager.GetCommand("CLOSE").CanExecute(obj)
@@ -279,7 +282,7 @@ namespace Wide.Interfaces
         /// Closes this instance.
         /// </summary>
         /// <param name="obj">The object.</param>
-        protected virtual void Close(object obj)
+        protected virtual void Close(Object obj)
         {
             if (obj != null)
             {
@@ -292,7 +295,7 @@ namespace Wide.Interfaces
         }
 
 
-        protected virtual void Model_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        protected virtual void Model_PropertyChanged(Object sender, PropertyChangedEventArgs e)
         {
             RaisePropertyChanged("Model");
             RaisePropertyChanged("Title");

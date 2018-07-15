@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Windows;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.UnityExtensions;
@@ -22,14 +23,11 @@ namespace Wide.Shell
 {
     public class WideBootstrapper : UnityBootstrapper
     {
-        public static bool IsMetro { get; protected set; }
+        public static Boolean IsMetro { get; protected set; }
 
-        public WideBootstrapper(bool isMetro = true)
-        {
-            IsMetro = isMetro;
-        }
+        public WideBootstrapper(Boolean isMetro = true) => IsMetro = isMetro;
 
-        public bool HideSplashWindow { get; set; }
+        public Boolean HideSplashWindow { get; set; }
 
         //If you want your own splash window - inherit from the bootstrapper and register type ISplashView
         protected override void InitializeModules()
@@ -68,10 +66,7 @@ namespace Wide.Shell
             base.ConfigureContainer();
         }
 
-        protected override DependencyObject CreateShell()
-        {
-            return (DependencyObject) Container.Resolve<IShell>();
-        }
+        protected override DependencyObject CreateShell() => (DependencyObject)Container.Resolve<IShell>();
 
         protected override void InitializeShell()
         {

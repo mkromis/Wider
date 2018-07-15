@@ -20,9 +20,6 @@ namespace Wide.Core.TextDocument
     /// </summary>
     public partial class TextView : IContentView
     {
-        public TextView()
-        {
-            InitializeComponent();
-        }
+        public TextView() => InitializeComponent();
     }
 }

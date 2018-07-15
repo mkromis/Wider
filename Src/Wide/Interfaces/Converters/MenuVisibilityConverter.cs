@@ -21,27 +21,30 @@ namespace Wide.Interfaces.Converters
     {
         #region IValueConverter Members
 
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public Object Convert(Object value, Type targetType, Object parameter, System.Globalization.CultureInfo culture)
         {
-            AbstractMenuItem menu = value as AbstractMenuItem;
 
-            if (menu == null)
+            if (!(value is AbstractMenuItem menu))
+            {
                 return Visibility.Hidden;
+            }
 
             if (menu.Command != null && menu.Command.CanExecute(null) == false && menu.HideDisabled == true)
+            {
                 return Visibility.Collapsed;
+            }
 
             if (menu.Children.Count > 0 || menu.Command != null || menu.IsCheckable == true)
+            {
                 return Visibility.Visible;
+            }
 
             return Visibility.Collapsed;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter,
-                                  System.Globalization.CultureInfo culture)
-        {
+        public Object ConvertBack(Object value, Type targetType, Object parameter,
+                                  System.Globalization.CultureInfo culture) => 
             throw new NotImplementedException();
-        }
 
         #endregion
     }

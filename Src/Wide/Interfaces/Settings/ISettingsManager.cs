@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.Windows.Input;
 
 namespace Wide.Interfaces.Settings
@@ -27,20 +28,20 @@ namespace Wide.Interfaces.Settings
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns>The GUID for the item added which needs to be used to remove the item</returns>
-        string Add(AbstractSettingsItem item);
+        String Add(AbstractSettingsItem item);
 
         /// <summary>
         /// Removes the specified key.
         /// </summary>
         /// <param name="GuidString">The unique GUID set for the menu available for the creator.</param>
         /// <returns><c>true</c> if successfully removed, <c>false</c> otherwise</returns>
-        bool Remove(string GuidString);
+        Boolean Remove(String GuidString);
 
         /// <summary>
         /// Gets the node with the specified key.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>`0.</returns>
-        AbstractSettingsItem Get(string key);
+        AbstractSettingsItem Get(String key);
     }
 }

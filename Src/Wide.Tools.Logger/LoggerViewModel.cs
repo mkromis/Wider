@@ -24,7 +24,7 @@ namespace Wide.Tools.Logger
         private readonly IUnityContainer _container;
         private readonly LoggerModel _model;
         private readonly LoggerView _view;
-        private IWorkspace _workspace;
+        private readonly IWorkspace _workspace;
 
         public LoggerViewModel(IUnityContainer container, AbstractWorkspace workspace)
         {
@@ -37,22 +37,18 @@ namespace Wide.Tools.Logger
             Model = _model;
             IsVisible = false;
 
-            _view = new LoggerView();
-            _view.DataContext = _model;
+            _view = new LoggerView
+            {
+                DataContext = _model
+            };
             View = _view;
 
             _aggregator = _container.Resolve<IEventAggregator>();
             _aggregator.GetEvent<LogEvent>().Subscribe(AddLog);
         }
 
-        private void AddLog(ILoggerService logger)
-        {
-            _model.AddLog(logger);
-        }
+        private void AddLog(ILoggerService logger) => _model.AddLog(logger);
 
-        public override PaneLocation PreferredLocation
-        {
-            get { return PaneLocation.Bottom; }
-        }
+        public override PaneLocation PreferredLocation => PaneLocation.Bottom;
     }
 }

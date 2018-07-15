@@ -23,48 +23,47 @@ namespace Wide.Interfaces.Settings
     {
         #region Member
 
-        protected Dictionary<string, object> Backup;
+        protected Dictionary<String, Object> Backup;
 
         #endregion
 
         #region CTOR
 
-        protected AbstractSettings()
-        {
-            Backup = new Dictionary<string, object>();
-        }
+        protected AbstractSettings() => Backup = new Dictionary<String, Object>();
 
         #endregion
 
         #region Methods
 
-        protected virtual void UpdateBackup([CallerMemberName] string propertyName = "")
+        protected virtual void UpdateBackup([CallerMemberName] String propertyName = "")
         {
-            if (propertyName == null || string.IsNullOrEmpty(propertyName) == true)
+            if (propertyName == null || String.IsNullOrEmpty(propertyName) == true)
             {
                 throw new ArgumentException("Error handling null property for object");
             }
 
             if (Backup.ContainsKey(propertyName))
+            {
                 Backup.Remove(propertyName);
+            }
+
             Backup.Add(propertyName, this[propertyName]);
         }
 
-        protected virtual void ApplyDefault([CallerMemberName] string propertyName = "")
+        protected virtual void ApplyDefault([CallerMemberName] String propertyName = "")
         {
-            if (propertyName == null || string.IsNullOrEmpty(propertyName) == true)
+            if (propertyName == null || String.IsNullOrEmpty(propertyName) == true)
             {
                 throw new ArgumentException("Error handling null property for object");
             }
 
-            PropertyInfo prop = this.GetType().GetProperty(propertyName);
+            PropertyInfo prop = GetType().GetProperty(propertyName);
             if (prop.GetCustomAttributes(true).Length > 0)
             {
-                object[] defaultValueAttribute = prop.GetCustomAttributes(typeof (DefaultValueAttribute), true);
+                Object[] defaultValueAttribute = prop.GetCustomAttributes(typeof (DefaultValueAttribute), true);
                 if (defaultValueAttribute != null)
                 {
-                    DefaultValueAttribute defaultValue = defaultValueAttribute[0] as DefaultValueAttribute;
-                    if (defaultValue != null)
+                    if (defaultValueAttribute[0] is DefaultValueAttribute defaultValue)
                     {
                         prop.SetValue(this, defaultValue.Value, null);
                     }
@@ -77,15 +76,9 @@ namespace Wide.Interfaces.Settings
         #region IDataErrorInfo
 
         [Browsable(false)]
-        public virtual string Error
-        {
-            get { return null; }
-        }
+        public virtual String Error => null;
 
-        string IDataErrorInfo.this[string columnName]
-        {
-            get { return null; }
-        }
+        String IDataErrorInfo.this[String columnName] => null;
 
         #endregion
     }

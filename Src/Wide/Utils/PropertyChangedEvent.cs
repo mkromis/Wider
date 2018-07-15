@@ -1,14 +1,16 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace Wide.Utils
 {
     public class PropertyChangedExtendedEventArgs : PropertyChangedEventArgs
     {
-        public virtual object OldValue { get; private set; }
-        public virtual object NewValue { get; private set; }
-        public virtual string Description { get; private set; }
+        public virtual Object OldValue { get; private set; }
+        public virtual Object NewValue { get; private set; }
+        public virtual String Description { get; private set; }
 
-        public PropertyChangedExtendedEventArgs(string propertyName, object oldValue, object newValue, string description) : base(propertyName)
+        public PropertyChangedExtendedEventArgs(String propertyName, Object oldValue, Object newValue, String description) 
+            : base(propertyName)
         {
             OldValue = oldValue;
             NewValue = newValue;

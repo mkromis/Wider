@@ -19,14 +19,8 @@ namespace Wide.Interfaces.Converters
 {
     public class NullToBooleanConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return (value != null);
-        }
+        public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture) => (value != null);
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
+        public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture) => null;
     }
 }

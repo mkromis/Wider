@@ -55,11 +55,11 @@ namespace WideMD.Core
 
         #region IContentHandler Members
 
-        public ContentViewModel NewContent(object parameter)
+        public ContentViewModel NewContent(Object parameter)
         {
-            var vm = _container.Resolve<MDViewModel>();
-            var model = _container.Resolve<MDModel>();
-            var view = _container.Resolve<MDView>();
+            MDViewModel vm = _container.Resolve<MDViewModel>();
+            MDModel model = _container.Resolve<MDModel>();
+            MDView view = _container.Resolve<MDView>();
 
             //Model details
             _loggerService.Log("Creating a new simple file using MDHandler", LogCategory.Info, LogPriority.Low);
@@ -83,12 +83,11 @@ namespace WideMD.Core
         /// </summary>
         /// <param name="info">The string containing the file location</param>
         /// <returns>True, if the file exists and has a .md extension - false otherwise</returns>
-        public bool ValidateContentType(object info)
+        public Boolean ValidateContentType(Object info)
         {
-            string location = info as string;
-            string extension = "";
+            String extension = "";
 
-            if (location == null)
+            if (!(info is String location))
             {
                 return false;
             }
@@ -102,14 +101,13 @@ namespace WideMD.Core
         /// </summary>
         /// <param name="info">The string location of the file</param>
         /// <returns>The <see cref="MDViewModel"/> for the file.</returns>
-        public ContentViewModel OpenContent(object info)
+        public ContentViewModel OpenContent(Object info)
         {
-            var location = info as string;
-            if (location != null)
+            if (info is String location)
             {
                 MDViewModel vm = _container.Resolve<MDViewModel>();
-                var model = _container.Resolve<MDModel>();
-                var view = _container.Resolve<MDView>();
+                MDModel model = _container.Resolve<MDModel>();
+                MDView view = _container.Resolve<MDView>();
 
                 //Model details
                 model.SetLocation(info);
@@ -139,13 +137,13 @@ namespace WideMD.Core
             return null;
         }
 
-        public ContentViewModel OpenContentFromId(string contentId)
+        public ContentViewModel OpenContentFromId(String contentId)
         {
-            string[] split = Regex.Split(contentId, ":##:");
+            String[] split = Regex.Split(contentId, ":##:");
             if (split.Count() == 2)
             {
-                string identifier = split[0];
-                string path = split[1];
+                String identifier = split[0];
+                String path = split[1];
                 if (identifier == "FILE" && File.Exists(path))
                 {
                     return OpenContent(path);
@@ -160,27 +158,25 @@ namespace WideMD.Core
         /// <param name="contentViewModel">This needs to be a TextViewModel that needs to be saved</param>
         /// <param name="saveAs">Pass in true if you need to Save As?</param>
         /// <returns>true, if successful - false, otherwise</returns>
-        public virtual bool SaveContent(ContentViewModel contentViewModel, bool saveAs = false)
+        public virtual Boolean SaveContent(ContentViewModel contentViewModel, Boolean saveAs = false)
         {
-            var mdViewModel = contentViewModel as MDViewModel;
-
-            if (mdViewModel == null)
+            if (!(contentViewModel is MDViewModel mdViewModel))
             {
-                _loggerService.Log("ContentViewModel needs to be a MDViewModel to save details", LogCategory.Exception,
-                                   LogPriority.High);
+                _loggerService.Log(
+                    "ContentViewModel needs to be a MDViewModel to save details", LogCategory.Exception,
+                    LogPriority.High);
                 throw new ArgumentException("ContentViewModel needs to be a MDViewModel to save details");
             }
 
-            var mdModel = mdViewModel.Model as MDModel;
-
-            if (mdModel == null)
+            if (!(mdViewModel.Model is MDModel mdModel))
             {
-                _loggerService.Log("MDViewModel does not have a MDModel which should have the text",
-                                   LogCategory.Exception, LogPriority.High);
+                _loggerService.Log(
+                    "MDViewModel does not have a MDModel which should have the text",
+                    LogCategory.Exception, LogPriority.High);
                 throw new ArgumentException("MDViewModel does not have a MDModel which should have the text");
             }
 
-            var location = mdModel.Location as string;
+            String location = mdModel.Location as String;
 
             if (location == null)
             {
@@ -191,7 +187,9 @@ namespace WideMD.Core
             if (saveAs)
             {
                 if (location != null)
+                {
                     _dialog.InitialDirectory = Path.GetDirectoryName(location);
+                }
 
                 _dialog.CheckPathExists = true;
                 _dialog.DefaultExt = "md";
@@ -240,13 +238,13 @@ namespace WideMD.Core
         /// </summary>
         /// <param name="contentId">The content ID which needs to be validated</param>
         /// <returns>True, if valid from content ID - false, otherwise</returns>
-        public bool ValidateContentFromId(string contentId)
+        public Boolean ValidateContentFromId(String contentId)
         {
-            string[] split = Regex.Split(contentId, ":##:");
+            String[] split = Regex.Split(contentId, ":##:");
             if (split.Count() == 2)
             {
-                string identifier = split[0];
-                string path = split[1];
+                String identifier = split[0];
+                String path = split[1];
                 if (identifier == "FILE" && ValidateContentType(path))
                 {
                     return true;

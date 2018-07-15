@@ -16,6 +16,7 @@ using Microsoft.Practices.Unity;
 using Microsoft.Practices.Prism.Events;
 using Wide.Interfaces.Controls;
 using Wide.Interfaces.Events;
+using System;
 
 namespace Wide.Interfaces.Controls
 {
@@ -37,9 +38,10 @@ namespace Wide.Interfaces.Controls
         /// <param name="isCheckable">if set to <c>true</c> this menu acts as a checkable menu.</param>
         /// <param name="hideDisabled">if set to <c>true</c> this menu is not visible when disabled.</param>
         /// <param name="container">The container.</param>
-        public SaveAsMenuItemViewModel(string header, int priority, ImageSource icon = null, ICommand command = null,
-                                 KeyGesture gesture = null, bool isCheckable = false, bool hideDisabled = false,
-                                 IUnityContainer container = null)
+        public SaveAsMenuItemViewModel(
+            String header, Int32 priority, ImageSource icon = null, ICommand command = null,
+            KeyGesture gesture = null, Boolean isCheckable = false, Boolean hideDisabled = false,
+            IUnityContainer container = null)
             : base(header, priority, icon, command, gesture, isCheckable, hideDisabled)
         {
             if (container != null)
@@ -54,10 +56,12 @@ namespace Wide.Interfaces.Controls
         {
             if (cvm != null)
             {
-                this.Header = "Save " + cvm.Title + " As...";
+                Header = "Save " + cvm.Title + " As...";
             }
             else
-            { this.Header = "Save As..."; }
+            {
+                Header = "Save As...";
+            }
         }
     }
 }

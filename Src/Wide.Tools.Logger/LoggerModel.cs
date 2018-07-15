@@ -10,6 +10,7 @@
 
 #endregion
 
+using System;
 using System.ComponentModel;
 using Wide.Interfaces;
 using Wide.Interfaces.Services;
@@ -18,16 +19,12 @@ namespace Wide.Tools.Logger
 {
     internal class LoggerModel : ToolModel
     {
-        private string _text;
 
-        public string Text
-        {
-            get { return _text; }
-        }
+        public String Text { get; private set; }
 
         public void AddLog(ILoggerService logger)
         {
-            _text = logger.Message + "\n" + _text;
+            Text = logger.Message + "\n" + Text;
             RaisePropertyChanged("Text");
         }
     }

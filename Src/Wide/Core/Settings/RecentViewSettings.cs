@@ -19,23 +19,24 @@ using Wide.Interfaces.Controls;
 using Wide.Interfaces.Services;
 using Wide.Interfaces.Settings;
 using Microsoft.Practices.Unity;
+using System;
 
 namespace Wide.Core.Settings
 {
     internal class RecentViewSettings : AbstractSettings, IRecentViewSettings
     {
         private AbstractMenuItem recentMenu;
-        private List<string> menuGuids;
-        private DelegateCommand<string> recentOpen;
+        private List<String> menuGuids;
+        private readonly DelegateCommand<String> recentOpen;
         private IOpenDocumentService fileService;
         private IUnityContainer _container;
 
         public RecentViewSettings(IUnityContainer container)
         {
             recentMenu = new MenuItemViewModel("Recentl_y opened..", 100);
-            menuGuids = new List<string>();
-            recentOpen = new DelegateCommand<string>(ExecuteMethod);
-            this._container = container;
+            menuGuids = new List<String>();
+            recentOpen = new DelegateCommand<String>(ExecuteMethod);
+            _container = container;
         }
 
         [UserScopedSetting()]
@@ -43,42 +44,47 @@ namespace Wide.Core.Settings
         {
             get
             {
-                if ((List<RecentViewItem>) this["ActualRecentItems"] == null)
-                    this["ActualRecentItems"] = new List<RecentViewItem>((int) TotalItems);
-                return (List<RecentViewItem>) this["ActualRecentItems"];
+                if ((List<RecentViewItem>)this["ActualRecentItems"] == null)
+                {
+                    this["ActualRecentItems"] = new List<RecentViewItem>((Int32)TotalItems);
+                }
+
+                return (List<RecentViewItem>)this["ActualRecentItems"];
             }
-            set { this["ActualRecentItems"] = value; }
+            set => this["ActualRecentItems"] = value;
         }
 
         [UserScopedSetting()]
         [DefaultSettingValue("10")]
-        public uint TotalItems
+        public UInt32 TotalItems
         {
-            get { return (uint) this["TotalItems"]; }
+            get => (UInt32)this["TotalItems"];
             set
             {
                 this["TotalItems"] = value;
-                ActualRecentItems.Capacity = (int) value;
-                menuGuids.Capacity = (int) value;
+                ActualRecentItems.Capacity = (Int32)value;
+                menuGuids.Capacity = (Int32)value;
             }
         }
 
         public void Update(ContentViewModel viewModel)
         {
-            RecentViewItem item = new RecentViewItem();
-            item.ContentID = viewModel.ContentId;
-            item.DisplayValue = viewModel.Model.Location.ToString();
+            RecentViewItem item = new RecentViewItem
+            {
+                ContentID = viewModel.ContentId,
+                DisplayValue = viewModel.Model.Location.ToString()
+            };
 
             if (ActualRecentItems.Contains(item))
             {
                 ActualRecentItems.Remove(item);
             }
             ActualRecentItems.Add(item);
-            this.Save();
+            Save();
             RecentMenu.Refresh();
         }
 
-        private void ExecuteMethod(string s)
+        private void ExecuteMethod(String s)
         {
             if (fileService == null)
             {
@@ -92,8 +98,8 @@ namespace Wide.Core.Settings
         {
             get
             {
-                int i = RecentItems.Count;
-                foreach (string guid in menuGuids)
+                Int32 i = RecentItems.Count;
+                foreach (String guid in menuGuids)
                 {
                     recentMenu.Remove(guid);
                     i--;
@@ -103,8 +109,8 @@ namespace Wide.Core.Settings
 
                 for (i = RecentItems.Count; i > 0; i--)
                 {
-                    int priority = RecentItems.Count - i + 1;
-                    string number = "_" + priority.ToString() + " " + RecentItems[i - 1].DisplayValue;
+                    Int32 priority = RecentItems.Count - i + 1;
+                    String number = "_" + priority.ToString() + " " + RecentItems[i - 1].DisplayValue;
                     menuGuids.Add(recentMenu.Add(new MenuItemViewModel(number, priority, null, recentOpen, null)
                                                      {CommandParameter = RecentItems[i - 1].ContentID}));
                 }
@@ -113,9 +119,6 @@ namespace Wide.Core.Settings
         }
 
         [XmlIgnore]
-        public IReadOnlyList<IRecentViewItem> RecentItems
-        {
-            get { return this.ActualRecentItems.AsReadOnly(); }
-        }
+        public IReadOnlyList<IRecentViewItem> RecentItems => ActualRecentItems.AsReadOnly();
     }
 }

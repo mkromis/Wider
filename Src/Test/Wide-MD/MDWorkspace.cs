@@ -24,9 +24,9 @@ namespace WideMD
 {
     internal class MDWorkspace : AbstractWorkspace
     {
-        private string _document;
+        private String _document;
         private ILoggerService _logger;
-        private const string _title = "Wide MD";
+        private const String _title = "Wide MD";
 
         public MDWorkspace(IUnityContainer container, IEventAggregator eventAggregator)
             : base(container, eventAggregator)
@@ -45,11 +45,11 @@ namespace WideMD
             }
         }
 
-        public override string Title
+        public override String Title
         {
             get
             {
-                string newTitle = _title;
+                String newTitle = _title;
                 if (_document != "")
                 {
                     newTitle += " - " + _document;
@@ -63,7 +63,10 @@ namespace WideMD
             get
             {
                 if (_logger == null)
+                {
                     _logger = _container.Resolve<ILoggerService>();
+                }
+
                 return _logger;
             }
         }
@@ -78,9 +81,9 @@ namespace WideMD
             }
         }
 
-        protected override void ModelChangedEventHandler(object sender, PropertyChangedEventArgs e)
+        protected override void ModelChangedEventHandler(Object sender, PropertyChangedEventArgs e)
         {
-            string newValue = ActiveDocument == null ? "" : ActiveDocument.Title;
+            String newValue = ActiveDocument == null ? "" : ActiveDocument.Title;
             if (_document != newValue)
             {
                 _document = newValue;

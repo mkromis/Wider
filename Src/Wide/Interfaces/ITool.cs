@@ -10,9 +10,9 @@ namespace Wide.Interfaces
     public interface ITool
     {
         PaneLocation PreferredLocation { get; }
-        double PreferredWidth { get; }
-        double PreferredHeight { get; }
+        Double PreferredWidth { get; }
+        Double PreferredHeight { get; }
 
-        bool IsVisible { get; set; }
+        Boolean IsVisible { get; set; }
     }
 }

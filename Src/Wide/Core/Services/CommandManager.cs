@@ -26,15 +26,12 @@ namespace Wide.Core.Services
         /// <summary>
         /// The dictionary which holds all the commands
         /// </summary>
-        private readonly Dictionary<string, ICommand> _commands;
+        private readonly Dictionary<String, ICommand> _commands;
 
         /// <summary>
         /// Command manager constructor
         /// </summary>
-        public CommandManager()
-        {
-            _commands = new Dictionary<string, ICommand>();
-        }
+        public CommandManager() => _commands = new Dictionary<String, ICommand>();
 
         #region ICommandManager Members
 
@@ -44,10 +41,12 @@ namespace Wide.Core.Services
         /// <param name="name">The name of the command</param>
         /// <param name="command">The command to register</param>
         /// <returns>true if a command is registered, false otherwise</returns>
-        public bool RegisterCommand(string name, ICommand command)
+        public Boolean RegisterCommand(String name, ICommand command)
         {
             if (_commands.ContainsKey(name))
+            {
                 throw new Exception("Command " + name + " already exists !");
+            }
 
             _commands.Add(name, command);
             return true;
@@ -58,10 +57,13 @@ namespace Wide.Core.Services
         /// </summary>
         /// <param name="name">The name of the command</param>
         /// <returns>The command if available, null otherwise</returns>
-        public ICommand GetCommand(string name)
+        public ICommand GetCommand(String name)
         {
             if (_commands.ContainsKey(name))
+            {
                 return _commands[name];
+            }
+
             return null;
         }
 
@@ -70,11 +72,11 @@ namespace Wide.Core.Services
         /// </summary>
         public void Refresh()
         {
-            foreach (var keyValuePair in _commands)
+            foreach (KeyValuePair<String, ICommand> keyValuePair in _commands)
             {
                 if (keyValuePair.Value is DelegateCommand)
                 {
-                    var c = keyValuePair.Value as DelegateCommand;
+                    DelegateCommand c = keyValuePair.Value as DelegateCommand;
                     c.RaiseCanExecuteChanged();
                 }
             }

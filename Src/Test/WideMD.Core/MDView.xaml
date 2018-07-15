@@ -14,7 +14,7 @@
             <ColumnDefinition Width="*" MinWidth="200" />
         </Grid.ColumnDefinitions>
 
-        <avalonedit:TextEditor Grid.Column="0" Name="textEditor" Document="{Binding Document}" TextChanged="textEditor_TextChanged" 
+        <avalonedit:TextEditor Grid.Column="0" Name="textEditor" Document="{Binding Document}" TextChanged="TextEditor_TextChanged" 
                                Background="{Binding Source={x:Static Settings:EditorOptions.Default}, Path=BackgroundColor}" 
                                Foreground="{Binding Source={x:Static Settings:EditorOptions.Default}, Path=ForegroundColor}"
                                ShowLineNumbers="{Binding Source={x:Static Settings:EditorOptions.Default}, Path=ShowLineNumbers}"
