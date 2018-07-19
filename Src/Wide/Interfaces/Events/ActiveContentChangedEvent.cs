@@ -10,14 +10,14 @@
 
 #endregion
 
-using Microsoft.Practices.Prism.Events;
+using Prism.Events;
 
 namespace Wide.Interfaces.Events
 {
     /// <summary>
     /// Class ActiveContentChangedEvent - This event is used when the active content is changed in Avalon Dock.
     /// </summary>
-    public class ActiveContentChangedEvent : CompositePresentationEvent<ContentViewModel>
+    public class ActiveContentChangedEvent : PubSubEvent<ContentViewModel>
     {
     }
 }

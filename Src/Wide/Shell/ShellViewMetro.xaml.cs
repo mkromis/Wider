@@ -10,6 +10,8 @@
 
 #endregion
 
+using Microsoft.Practices.Unity;
+using Prism.Events;
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -17,15 +19,13 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using Microsoft.Practices.Prism.Events;
-using Microsoft.Practices.Unity;
 using Wide.Interfaces;
+using Wide.Interfaces.Converters;
 using Wide.Interfaces.Events;
 using Wide.Interfaces.Services;
 using Xceed.Wpf.AvalonDock.Controls;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
-using Wide.Interfaces.Converters;
 
 namespace Wide.Shell
 {

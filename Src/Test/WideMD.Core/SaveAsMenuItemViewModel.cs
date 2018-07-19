@@ -10,13 +10,12 @@
 
 #endregion
 
+using Microsoft.Practices.Unity;
+using Prism.Events;
+using System;
 using System.Windows.Input;
 using System.Windows.Media;
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Prism.Events;
-using Wide.Interfaces.Controls;
 using Wide.Interfaces.Events;
-using System;
 
 namespace Wide.Interfaces.Controls
 {

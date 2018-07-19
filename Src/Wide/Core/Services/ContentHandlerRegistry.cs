@@ -10,18 +10,18 @@
 
 #endregion
 
+using MahApps.Metro.Controls;
+using Microsoft.Practices.Unity;
+using Prism.Commands;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
-using MahApps.Metro.Controls;
-using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Unity;
 using Wide.Core.Attributes;
 using Wide.Interfaces;
 using Wide.Interfaces.Services;
-using System.Windows.Input;
-using System.Windows;
-using System;
 
 namespace Wide.Core.Services
 {

@@ -10,10 +10,9 @@
 
 #endregion
 
-using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 using Wide.Interfaces;
-using Wide.Interfaces.Services;
 
 namespace Wide.Core
 {

@@ -10,10 +10,10 @@
 
 #endregion
 
+using Microsoft.Practices.Unity;
+using Prism.Modularity;
 using System;
 using System.Collections.Generic;
-using Microsoft.Practices.Prism.Modularity;
-using Microsoft.Practices.Unity;
 using Wide.Interfaces;
 using Wide.Shell;
 using Wide.Splash;
