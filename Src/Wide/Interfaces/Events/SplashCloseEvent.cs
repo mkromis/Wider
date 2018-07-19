@@ -10,14 +10,14 @@
 
 #endregion
 
-using Microsoft.Practices.Prism.Events;
+using Prism.Events;
 
 namespace Wide.Interfaces.Events
 {
     /// <summary>
     /// Class SplashCloseEvent - This event happens when the splash window is closed
     /// </summary>
-    public class SplashCloseEvent : CompositePresentationEvent<SplashCloseEvent>
+    public class SplashCloseEvent : PubSubEvent<SplashCloseEvent>
     {
     }
 }

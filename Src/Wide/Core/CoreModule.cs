@@ -10,14 +10,15 @@
 
 #endregion
 
+using Microsoft.Practices.Unity;
+using Prism.Commands;
+using Prism.Events;
+using Prism.Modularity;
 using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Events;
-using Microsoft.Practices.Prism.Modularity;
-using Microsoft.Practices.Unity;
 using Wide.Core.Services;
 using Wide.Core.Settings;
 using Wide.Core.TextDocument;
@@ -28,7 +29,6 @@ using Wide.Interfaces.Services;
 using Wide.Interfaces.Settings;
 using Wide.Shell;
 using CommandManager = Wide.Core.Services.CommandManager;
-using System.ComponentModel;
 
 namespace Wide.Core
 {

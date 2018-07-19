@@ -10,12 +10,12 @@
 
 #endregion
 
+using Microsoft.Practices.Unity;
+using Microsoft.Win32;
+using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Practices.Prism.Events;
-using Microsoft.Practices.Unity;
-using Microsoft.Win32;
 using Wide.Core.Attributes;
 using Wide.Core.Settings;
 using Wide.Interfaces;

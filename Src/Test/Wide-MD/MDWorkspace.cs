@@ -10,14 +10,14 @@
 
 #endregion
 
+using Microsoft.Practices.Unity;
+using Prism.Events;
 using System;
+using System.ComponentModel;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Microsoft.Practices.Prism.Events;
-using Microsoft.Practices.Unity;
 using Wide.Interfaces;
 using Wide.Interfaces.Events;
-using System.ComponentModel;
 using Wide.Interfaces.Services;
 
 namespace WideMD

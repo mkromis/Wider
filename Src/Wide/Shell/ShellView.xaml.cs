@@ -10,12 +10,11 @@
 
 #endregion
 
+using Microsoft.Practices.Unity;
+using Prism.Events;
 using System;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows;
-using Microsoft.Practices.Prism.Events;
-using Microsoft.Practices.Unity;
 using Wide.Interfaces;
 using Wide.Interfaces.Events;
 using Wide.Interfaces.Services;

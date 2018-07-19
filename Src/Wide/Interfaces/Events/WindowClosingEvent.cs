@@ -10,16 +10,15 @@
 
 #endregion
 
+using Prism.Events;
 using System.Windows;
-using Microsoft.Practices.Prism.Events;
-using Wide.Interfaces.Services;
 
 namespace Wide.Interfaces.Events
 {
     /// <summary>
     /// Class LogEvent - This event is used when a logging operation happens.
     /// </summary>
-    public class WindowClosingEvent : CompositePresentationEvent<Window>
+    public class WindowClosingEvent : PubSubEvent<Window>
     {
     }
 }

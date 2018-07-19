@@ -10,13 +10,13 @@
 
 #endregion
 
+using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using Microsoft.Practices.Prism.Commands;
 using Wide.Interfaces.Controls;
 using Wide.Interfaces.Services;
 
