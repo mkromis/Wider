@@ -12,7 +12,7 @@
 
 using Prism.Events;
 
-namespace Wide.Interfaces.Events
+namespace Wider.Interfaces.Events
 {
     /// <summary>
     /// Class ActiveContentChangedEvent - This event is used when the active content is changed in Avalon Dock.

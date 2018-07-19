@@ -15,15 +15,15 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Markup;
-using Wide.Interfaces;
-using Wide.Interfaces.Controls;
-using Wide.Interfaces.Services;
+using Wider.Interfaces;
+using Wider.Interfaces.Controls;
+using Wider.Interfaces.Services;
 using Xceed.Wpf.AvalonDock.Converters;
 
-namespace Wide.Core.Services
+namespace Wider.Core.Services
 {
     /// <summary>
-    /// The Wide tool bar service
+    /// The Wider tool bar service
     /// </summary>
     internal sealed class ToolbarService : AbstractToolbar, IToolbarService
     {

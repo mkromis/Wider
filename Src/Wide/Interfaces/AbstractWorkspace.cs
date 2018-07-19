@@ -19,11 +19,11 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Wide.Interfaces.Controls;
-using Wide.Interfaces.Events;
-using Wide.Interfaces.Services;
+using Wider.Interfaces.Controls;
+using Wider.Interfaces.Events;
+using Wider.Interfaces.Services;
 
-namespace Wide.Interfaces
+namespace Wider.Interfaces
 {
     /// <summary>
     /// Class AbstractWorkspace
@@ -166,7 +166,7 @@ namespace Wide.Interfaces
         /// Gets the title of the application.
         /// </summary>
         /// <value>The title.</value>
-        public virtual String Title => "Wide";
+        public virtual String Title => "Wider";
 
         /// <summary>
         /// Gets the icon of the application.

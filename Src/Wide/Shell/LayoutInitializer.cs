@@ -14,11 +14,11 @@ using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Wide.Interfaces;
-using Wide.Interfaces.Services;
+using Wider.Interfaces;
+using Wider.Interfaces.Services;
 using Xceed.Wpf.AvalonDock.Layout;
 
-namespace Wide.Shell
+namespace Wider.Shell
 {
     internal class LayoutInitializer : ILayoutUpdateStrategy
     {

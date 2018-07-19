@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Interfaces="clr-namespace:Wide.Interfaces"
-                    xmlns:conv="clr-namespace:Wide.Interfaces.Converters"
-                    xmlns:Controls="clr-namespace:Wide.Interfaces.Controls"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Interfaces="clr-namespace:Wider.Interfaces"
+                    xmlns:conv="clr-namespace:Wider.Interfaces.Converters"
+                    xmlns:Controls="clr-namespace:Wider.Interfaces.Controls"
                     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
 
     <conv:MenuVisibilityConverter x:Key="cvc" />

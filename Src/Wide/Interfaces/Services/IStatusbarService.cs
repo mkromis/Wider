@@ -15,7 +15,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace Wide.Interfaces.Services
+namespace Wider.Interfaces.Services
 {
     public interface IStatusbarService
     {

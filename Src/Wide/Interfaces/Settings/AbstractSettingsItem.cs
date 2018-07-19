@@ -15,7 +15,7 @@ using System.ComponentModel;
 using System.Windows.Controls;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
-namespace Wide.Interfaces.Settings
+namespace Wider.Interfaces.Settings
 {
     /// <summary>
     /// Class AbstractSettings

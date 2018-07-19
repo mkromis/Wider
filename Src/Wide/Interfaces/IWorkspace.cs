@@ -15,7 +15,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Media;
 
-namespace Wide.Interfaces
+namespace Wider.Interfaces
 {
     public interface IWorkspace
     {

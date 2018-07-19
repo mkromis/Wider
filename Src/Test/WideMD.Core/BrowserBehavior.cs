@@ -14,7 +14,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace WideMD.Core
+namespace WiderMD.Core
 {
     public class BrowserBehavior
     {

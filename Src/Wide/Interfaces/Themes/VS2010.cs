@@ -13,7 +13,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Wide.Interfaces.Themes
+namespace Wider.Interfaces.Themes
 {
     /// <summary>
     /// Class VS2010
@@ -28,7 +28,7 @@ namespace Wide.Interfaces.Themes
             UriList = new List<Uri>
             {
                 //new Uri("pack://application:,,,/Xceed.Wpf.AvalonDock.Themes.VS2010;component/Theme.xaml"),
-                new Uri("pack://application:,,,/Wide;component/Interfaces/Styles/VS2010/Theme.xaml")
+                new Uri("pack://application:,,,/Wider;component/Interfaces/Styles/VS2010/Theme.xaml")
             };
         }
 

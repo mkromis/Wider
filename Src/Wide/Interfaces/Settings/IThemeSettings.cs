@@ -12,7 +12,7 @@
 
 using System;
 
-namespace Wide.Interfaces.Settings
+namespace Wider.Interfaces.Settings
 {
     public interface IThemeSettings
     {

@@ -15,12 +15,12 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Windows;
-using Wide.Interfaces.Controls;
-using Wide.Interfaces.Events;
-using Wide.Interfaces.Services;
-using Wide.Interfaces.Settings;
+using Wider.Interfaces.Controls;
+using Wider.Interfaces.Events;
+using Wider.Interfaces.Services;
+using Wider.Interfaces.Settings;
 
-namespace Wide.Core.Settings
+namespace Wider.Core.Settings
 {
     internal class ToolbarPositionSettings : AbstractSettings, IToolbarPositionSettings
     {

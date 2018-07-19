@@ -10,7 +10,7 @@
 
 #endregion
 
-namespace Wide.Splash
+namespace Wider.Splash
 {
     /// <summary>
     /// Interaction logic for SplashView.xaml

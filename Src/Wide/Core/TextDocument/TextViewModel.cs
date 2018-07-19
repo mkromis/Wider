@@ -11,10 +11,10 @@
 #endregion
 
 using System;
-using Wide.Interfaces;
-using Wide.Interfaces.Services;
+using Wider.Interfaces;
+using Wider.Interfaces.Services;
 
-namespace Wide.Core.TextDocument
+namespace Wider.Core.TextDocument
 {
     /// <summary>
     /// Class TextViewModel

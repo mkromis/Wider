@@ -12,11 +12,11 @@
 
 using Microsoft.Practices.Unity;
 using Prism.Events;
-using Wide.Interfaces;
-using Wide.Interfaces.Events;
-using Wide.Interfaces.Services;
+using Wider.Interfaces;
+using Wider.Interfaces.Events;
+using Wider.Interfaces.Services;
 
-namespace Wide.Tools.Logger
+namespace Wider.Tools.Logger
 {
     internal class LoggerViewModel : ToolViewModel
     {

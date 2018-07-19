@@ -16,12 +16,12 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Xml.Serialization;
-using Wide.Interfaces;
-using Wide.Interfaces.Controls;
-using Wide.Interfaces.Services;
-using Wide.Interfaces.Settings;
+using Wider.Interfaces;
+using Wider.Interfaces.Controls;
+using Wider.Interfaces.Services;
+using Wider.Interfaces.Settings;
 
-namespace Wide.Core.Settings
+namespace Wider.Core.Settings
 {
     internal class RecentViewSettings : AbstractSettings, IRecentViewSettings
     {

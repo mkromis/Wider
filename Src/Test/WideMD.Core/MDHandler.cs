@@ -15,15 +15,15 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Practices.Unity;
-using Wide.Core.Attributes;
-using Wide.Interfaces;
-using Wide.Interfaces.Services;
+using Wider.Core.Attributes;
+using Wider.Interfaces;
+using Wider.Interfaces.Services;
 using Microsoft.Win32;
 
-namespace WideMD.Core
+namespace WiderMD.Core
 {
     [FileContent("Markdown files", "*.md", 1)]
-    [NewContent("Markdown files", 1, "Creates a new Markdown file", "pack://application:,,,/WideMD.Core;component/Icons/MDType.png")]
+    [NewContent("Markdown files", 1, "Creates a new Markdown file", "pack://application:,,,/WiderMD.Core;component/Icons/MDType.png")]
     internal class MDHandler : IContentHandler
     {
         /// <summary>

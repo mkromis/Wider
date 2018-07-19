@@ -12,10 +12,10 @@
 
 using Prism.Events;
 using System;
-using Wide.Interfaces;
-using Wide.Interfaces.Events;
+using Wider.Interfaces;
+using Wider.Interfaces.Events;
 
-namespace Wide.Splash
+namespace Wider.Splash
 {
     public class SplashViewModel : ViewModelBase
     {

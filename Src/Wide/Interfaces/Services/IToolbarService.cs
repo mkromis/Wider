@@ -12,9 +12,9 @@
 
 using System;
 using System.Windows.Controls;
-using Wide.Interfaces.Controls;
+using Wider.Interfaces.Controls;
 
-namespace Wide.Interfaces.Services
+namespace Wider.Interfaces.Services
 {
     /// <summary>
     /// Interface IToolbarService - the application's toolbar tray is returned by this service

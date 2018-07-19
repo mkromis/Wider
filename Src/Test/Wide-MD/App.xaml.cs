@@ -13,9 +13,9 @@
 using System;
 using System.Windows;
 using Microsoft.Practices.Unity;
-using Wide.Interfaces;
+using Wider.Interfaces;
 
-namespace WideMD
+namespace WiderMD
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -14,13 +14,13 @@ using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using System;
 using System.Collections.Generic;
-using Wide.Interfaces;
-using Wide.Shell;
-using Wide.Splash;
+using Wider.Interfaces;
+using Wider.Shell;
+using Wider.Splash;
 
-namespace WideMD
+namespace WiderMD
 {
-    internal class MDBootstrapper : WideBootstrapper
+    internal class MDBootstrapper : WiderBootstrapper
     {
         public MDBootstrapper(Boolean isMetro = true)
             : base(isMetro)

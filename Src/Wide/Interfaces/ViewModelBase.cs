@@ -14,9 +14,9 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
-using Wide.Utils;
+using Wider.Utils;
 
-namespace Wide.Interfaces
+namespace Wider.Interfaces
 {
     /// <summary>
     /// The view model base class

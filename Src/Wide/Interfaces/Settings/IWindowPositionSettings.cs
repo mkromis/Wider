@@ -13,7 +13,7 @@
 using System;
 using System.Windows;
 
-namespace Wide.Interfaces.Settings
+namespace Wider.Interfaces.Settings
 {
     internal interface IWindowPositionSettings
     {

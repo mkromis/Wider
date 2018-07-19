@@ -17,12 +17,12 @@ using System;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
-using Wide.Interfaces;
-using Wide.Interfaces.Events;
+using Wider.Interfaces;
+using Wider.Interfaces.Events;
 
-namespace Wide.Splash
+namespace Wider.Splash
 {
-    [Module(ModuleName = "Wide.Splash")]
+    [Module(ModuleName = "Wider.Splash")]
     internal class SplashModule : IModule
     {
         #region ctors

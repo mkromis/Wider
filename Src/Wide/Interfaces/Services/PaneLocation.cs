@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Wide.Interfaces.Services
+namespace Wider.Interfaces.Services
 {
     public enum PaneLocation
     {

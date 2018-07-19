@@ -16,18 +16,18 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Practices.Unity;
 using Microsoft.Win32;
-using Wide.Core.Attributes;
-using Wide.Core.TextDocument;
-using Wide.Interfaces;
-using Wide.Interfaces.Services;
+using Wider.Core.Attributes;
+using Wider.Core.TextDocument;
+using Wider.Interfaces;
+using Wider.Interfaces.Services;
 
-namespace Wide.Core.Services
+namespace Wider.Core.Services
 {
     /// <summary>
     /// AllFileHandler class that supports opening of any file on the computer
     /// </summary>
     [FileContent("All files", "*.*", 10000)]
-    [NewContent("Text file", 10000, "Creates a basic text file", "pack://application:,,,/Wide;component/Core/Icons/Textfile.png")]
+    [NewContent("Text file", 10000, "Creates a basic text file", "pack://application:,,,/Wider;component/Core/Icons/Textfile.png")]
     internal class AllFileHandler : IContentHandler
     {
         /// <summary>

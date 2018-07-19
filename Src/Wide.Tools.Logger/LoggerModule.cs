@@ -13,12 +13,12 @@
 using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Modularity;
-using Wide.Interfaces;
-using Wide.Interfaces.Events;
+using Wider.Interfaces;
+using Wider.Interfaces.Events;
 
-namespace Wide.Tools.Logger
+namespace Wider.Tools.Logger
 {
-    [Module(ModuleName = "Wide.Tools.Logger")]
+    [Module(ModuleName = "Wider.Tools.Logger")]
     public sealed class LoggerModule : IModule
     {
         private readonly IUnityContainer _container;

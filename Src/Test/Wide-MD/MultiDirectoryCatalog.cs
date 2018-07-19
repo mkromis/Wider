@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace WideMD
+namespace WiderMD
 {
     /// <summary>
     /// Allows our shell to probe multiple directories for module assemblies

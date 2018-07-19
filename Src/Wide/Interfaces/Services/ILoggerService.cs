@@ -12,7 +12,7 @@
 
 using System;
 
-namespace Wide.Interfaces.Services
+namespace Wider.Interfaces.Services
 {
     /// <summary>
     /// Enum LogCategory

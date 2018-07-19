@@ -19,11 +19,11 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using Wide.Core.Attributes;
-using Wide.Interfaces;
-using Wide.Interfaces.Services;
+using Wider.Core.Attributes;
+using Wider.Interfaces;
+using Wider.Interfaces.Services;
 
-namespace Wide.Core.Services
+namespace Wider.Core.Services
 {
     /// <summary>
     /// The content handler registry which manages different content handlers
@@ -145,7 +145,7 @@ namespace Wide.Core.Services
         /// Returns a content view model for the specified object which needs to be displayed as a document
         /// The object could be anything - based on the handlers, a content view model is returned
         /// </summary>
-        /// <param name="info">The object which needs to be displayed as a document in Wide</param>
+        /// <param name="info">The object which needs to be displayed as a document in Wider</param>
         /// <returns>The content view model for the given info</returns>
         public ContentViewModel GetViewModel(Object info)
         {
@@ -166,7 +166,7 @@ namespace Wide.Core.Services
         /// Returns a content view model for the specified contentID which needs to be displayed as a document
         /// The contentID is the ID used in AvalonDock
         /// </summary>
-        /// <param name="contentId">The contentID which needs to be displayed as a document in Wide</param>
+        /// <param name="contentId">The contentID which needs to be displayed as a document in Wider</param>
         /// <returns>The content view model for the given info</returns>
         public ContentViewModel GetViewModelFromContentId(String contentId)
         {

@@ -13,7 +13,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Wide.Interfaces
+namespace Wider.Interfaces
 {
     /// <summary>
     /// Interface ITheme - You can register a theme adding it to the list of themes in theme manager

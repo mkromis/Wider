@@ -14,7 +14,7 @@ using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 
-namespace Wide.Interfaces
+namespace Wider.Interfaces
 {
     [DataContract]
     [Serializable]

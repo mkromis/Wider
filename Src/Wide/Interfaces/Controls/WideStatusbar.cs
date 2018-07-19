@@ -13,14 +13,14 @@
 using System;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Wide.Interfaces.Services;
+using Wider.Interfaces.Services;
 
-namespace Wide.Interfaces
+namespace Wider.Interfaces
 {
     /// <summary>
-    /// Class Wide Status bar
+    /// Class Wider Status bar
     /// </summary>
-    internal class WideStatusbar : ViewModelBase, IStatusbarService
+    internal class WiderStatusbar : ViewModelBase, IStatusbarService
     {
         #region Fields
         /// <summary>
@@ -75,9 +75,9 @@ namespace Wide.Interfaces
 
         #region CTOR
         /// <summary>
-        /// Initializes a new instance of the <see cref="WideStatusbar"/> class.
+        /// Initializes a new instance of the <see cref="WiderStatusbar"/> class.
         /// </summary>
-        public WideStatusbar() => Clear();
+        public WiderStatusbar() => Clear();
         #endregion
 
         #region IStatusbarService members

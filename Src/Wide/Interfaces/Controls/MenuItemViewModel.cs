@@ -15,7 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Practices.Unity;
 
-namespace Wide.Interfaces.Controls
+namespace Wider.Interfaces.Controls
 {
     /// <summary>
     /// Class MenuItemViewModel - simple menu implementation which can be reused by apps

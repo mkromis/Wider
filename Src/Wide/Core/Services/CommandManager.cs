@@ -14,9 +14,9 @@ using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
-using Wide.Interfaces.Services;
+using Wider.Interfaces.Services;
 
-namespace Wide.Core.Services
+namespace Wider.Core.Services
 {
     /// <summary>
     /// The command manager class where you can register and query for a command

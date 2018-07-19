@@ -13,17 +13,17 @@
 using Prism.Commands;
 using System;
 using System.Windows.Input;
-using Wide.Interfaces.Settings;
+using Wider.Interfaces.Settings;
 
-namespace Wide.Core.Settings
+namespace Wider.Core.Settings
 {
     /// <summary>
-    /// Class WideSettingsManager
+    /// Class WiderSettingsManager
     /// </summary>
     internal class SettingsManager : AbstractSettingsItem, ISettingsManager
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="WideSettingsManager"/> class.
+        /// Initializes a new instance of the <see cref="WiderSettingsManager"/> class.
         /// </summary>
         public SettingsManager() : base("", null) => SettingsCommand = new DelegateCommand(OpenSettings);
 

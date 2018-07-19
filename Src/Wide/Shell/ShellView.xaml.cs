@@ -15,14 +15,14 @@ using Prism.Events;
 using System;
 using System.ComponentModel;
 using System.Linq;
-using Wide.Interfaces;
-using Wide.Interfaces.Events;
-using Wide.Interfaces.Services;
+using Wider.Interfaces;
+using Wider.Interfaces.Events;
+using Wider.Interfaces.Services;
 using Xceed.Wpf.AvalonDock;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
 
-namespace Wide.Shell
+namespace Wider.Shell
 {
     /// <summary>
     /// Interaction logic for Shell.xaml

@@ -13,9 +13,9 @@
 using System;
 using System.Windows;
 using System.Windows.Data;
-using Wide.Interfaces.Controls;
+using Wider.Interfaces.Controls;
 
-namespace Wide.Interfaces.Converters
+namespace Wider.Interfaces.Converters
 {
     public class MenuVisibilityConverter : IValueConverter
     {

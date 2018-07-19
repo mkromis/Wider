@@ -12,7 +12,7 @@
 
 using System;
 using System.Windows.Input;
-namespace Wide.Interfaces.Services
+namespace Wider.Interfaces.Services
 {
     /// <summary>
     /// Interface IContentHandlerRegistry
@@ -37,7 +37,7 @@ namespace Wide.Interfaces.Services
         /// Returns a content view model for the specified object which needs to be displayed as a document
         /// The object could be anything - based on the handlers, a content view model is returned
         /// </summary>
-        /// <param name="info">The object which needs to be displayed as a document in Wide</param>
+        /// <param name="info">The object which needs to be displayed as a document in Wider</param>
         /// <returns>The content view model for the given info</returns>
         ContentViewModel GetViewModel(Object info);
 
@@ -45,7 +45,7 @@ namespace Wide.Interfaces.Services
         /// Returns a content view model for the specified contentID which needs to be displayed as a document
         /// The contentID is the ID used in AvalonDock
         /// </summary>
-        /// <param name="contentId">The contentID which needs to be displayed as a document in Wide</param>
+        /// <param name="contentId">The contentID which needs to be displayed as a document in Wider</param>
         /// <returns>The content view model for the given info</returns>
         ContentViewModel GetViewModelFromContentId(String contentId);
 
