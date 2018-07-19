@@ -18,7 +18,7 @@ namespace Wide.Interfaces.Events
     /// <summary>
     /// Class LogEvent - This event is used when a logging operation happens.
     /// </summary>
-    public class LogEvent : CompositePresentationEvent<ILoggerService>
+    public class LogEvent : PubSubEvent<ILoggerService>
     {
     }
 }

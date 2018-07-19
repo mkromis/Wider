@@ -17,7 +17,7 @@ namespace Wide.Interfaces.Events
     /// <summary>
     /// Class OpenContentEvent - This event happens when a new document is opened.
     /// </summary>
-    public class ClosedContentEvent : CompositePresentationEvent<ContentViewModel>
+    public class ClosedContentEvent : PubSubEvent<ContentViewModel>
     {
     }
 }
