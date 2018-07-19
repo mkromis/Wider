@@ -10,15 +10,15 @@
 
 #endregion
 
+using Prism.Events;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Windows;
-using Microsoft.Practices.Prism.Events;
 using Wide.Interfaces.Controls;
 using Wide.Interfaces.Events;
-using Wide.Interfaces.Settings;
 using Wide.Interfaces.Services;
-using System.Collections.Generic;
-using System;
+using Wide.Interfaces.Settings;
 
 namespace Wide.Core.Settings
 {

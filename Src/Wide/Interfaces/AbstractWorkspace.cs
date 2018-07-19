@@ -10,6 +10,8 @@
 
 #endregion
 
+using Microsoft.Practices.Unity;
+using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,8 +19,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Microsoft.Practices.Prism.Events;
-using Microsoft.Practices.Unity;
 using Wide.Interfaces.Controls;
 using Wide.Interfaces.Events;
 using Wide.Interfaces.Services;

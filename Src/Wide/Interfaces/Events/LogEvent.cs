@@ -10,7 +10,7 @@
 
 #endregion
 
-using Microsoft.Practices.Prism.Events;
+using Prism.Events;
 using Wide.Interfaces.Services;
 
 namespace Wide.Interfaces.Events

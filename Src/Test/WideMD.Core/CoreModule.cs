@@ -10,14 +10,15 @@
 
 #endregion
 
+using Microsoft.Practices.Unity;
+using Prism.Commands;
+using Prism.Events;
+using Prism.Modularity;
 using System;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Events;
-using Microsoft.Practices.Prism.Modularity;
-using Microsoft.Practices.Unity;
 using Wide.Interfaces;
 using Wide.Interfaces.Controls;
 using Wide.Interfaces.Events;
@@ -25,7 +26,6 @@ using Wide.Interfaces.Services;
 using Wide.Interfaces.Settings;
 using Wide.Interfaces.Themes;
 using WideMD.Core.Settings;
-using System.Windows;
 
 namespace WideMD.Core
 {

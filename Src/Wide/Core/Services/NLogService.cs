@@ -10,11 +10,11 @@
 
 #endregion
 
+using NLog;
+using Prism.Events;
 using System;
 using System.Diagnostics;
 using System.Reflection;
-using Microsoft.Practices.Prism.Events;
-using NLog;
 using Wide.Interfaces.Events;
 using Wide.Interfaces.Services;
 
