@@ -10,9 +10,9 @@
 
 #endregion
 
+using Prism.Events;
 using System;
 using System.Configuration;
-using Microsoft.Practices.Prism.Events;
 using Wide.Interfaces;
 using Wide.Interfaces.Events;
 using Wide.Interfaces.Settings;

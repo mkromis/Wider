@@ -10,10 +10,10 @@
 
 #endregion
 
+using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
-using Microsoft.Practices.Prism.Commands;
 using Wide.Interfaces.Services;
 
 namespace Wide.Core.Services

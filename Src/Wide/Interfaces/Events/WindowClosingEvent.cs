@@ -11,8 +11,6 @@
 #endregion
 
 using System.Windows;
-using Microsoft.Practices.Prism.Events;
-using Wide.Interfaces.Services;
 
 namespace Wide.Interfaces.Events
 {
