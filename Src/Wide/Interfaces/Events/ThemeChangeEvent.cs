@@ -17,7 +17,7 @@ namespace Wide.Interfaces.Events
     /// <summary>
     /// Class ThemeChangeEvent - This event happens when a theme is changed.
     /// </summary>
-    public class ThemeChangeEvent : CompositePresentationEvent<ITheme>
+    public class ThemeChangeEvent : PubSubEvent<ITheme>
     {
     }
 }
