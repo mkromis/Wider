@@ -15,14 +15,14 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-using Wide.Interfaces;
-using Wide.Interfaces.Events;
-using Wide.Interfaces.Services;
+using Wider.Interfaces;
+using Wider.Interfaces.Events;
+using Wider.Interfaces.Services;
 
-namespace Wide.Core.Services
+namespace Wider.Core.Services
 {
     /// <summary>
-    /// The main theme manager used in Wide
+    /// The main theme manager used in Wider
     /// </summary>
     internal sealed class ThemeManager : IThemeManager
     {
@@ -102,7 +102,7 @@ namespace Wide.Core.Services
                      * 2. Menu's need global style as context menu can be created
                     */
                     if (uri.ToString().Contains("AvalonDock") ||
-                        uri.ToString().Contains("Wide;component/Interfaces/Styles/VS2012/Menu.xaml"))
+                        uri.ToString().Contains("Wider;component/Interfaces/Styles/VS2012/Menu.xaml"))
                     {
                         appTheme.MergedDictionaries.Add(newDict);
                     }

@@ -16,7 +16,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 
-namespace Wide.Interfaces
+namespace Wider.Interfaces
 {
     /// <summary>
     /// Class AbstractPrioritizedTree

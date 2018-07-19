@@ -13,7 +13,7 @@
 using Prism.Events;
 using System.Windows;
 
-namespace Wide.Interfaces.Events
+namespace Wider.Interfaces.Events
 {
     /// <summary>
     /// Class LogEvent - This event is used when a logging operation happens.

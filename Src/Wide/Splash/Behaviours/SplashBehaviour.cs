@@ -13,7 +13,7 @@
 using System;
 using System.Windows;
 
-namespace Wide.Splash.Behaviours
+namespace Wider.Splash.Behaviours
 {
     /// <summary>
     /// Class SplashBehaviour - Add as an attached property on your splash view 

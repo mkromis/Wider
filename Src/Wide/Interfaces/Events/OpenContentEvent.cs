@@ -12,7 +12,7 @@
 
 using Prism.Events;
 
-namespace Wide.Interfaces.Events
+namespace Wider.Interfaces.Events
 {
     /// <summary>
     /// Class OpenContentEvent - This event happens when a new document is opened.

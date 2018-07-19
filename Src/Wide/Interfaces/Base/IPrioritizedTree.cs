@@ -13,7 +13,7 @@
 using System;
 using System.Collections.ObjectModel;
 
-namespace Wide.Interfaces
+namespace Wider.Interfaces
 {
     /// <summary>
     /// Interface IPrioritizedTree

@@ -12,9 +12,9 @@
 
 using Microsoft.Practices.Unity;
 using Prism.Events;
-using Wide.Interfaces;
+using Wider.Interfaces;
 
-namespace Wide.Core
+namespace Wider.Core
 {
     /// <summary>
     /// Class Workspace

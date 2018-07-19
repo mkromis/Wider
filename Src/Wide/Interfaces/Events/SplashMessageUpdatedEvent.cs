@@ -13,7 +13,7 @@
 using Prism.Events;
 using System;
 
-namespace Wide.Interfaces.Events
+namespace Wider.Interfaces.Events
 {
     /// <summary>
     /// Class SplashMessageUpdateEvent - This event happens a new module is loaded and wants to display a message on the splash window

@@ -15,7 +15,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Wide.Interfaces.Converters
+namespace Wider.Interfaces.Converters
 {
     public class NullObjectToVisibiltyConverter : IValueConverter
     {

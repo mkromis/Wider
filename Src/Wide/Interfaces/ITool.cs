@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Wide.Interfaces.Services;
+using Wider.Interfaces.Services;
 
-namespace Wide.Interfaces
+namespace Wider.Interfaces
 {
     public interface ITool
     {

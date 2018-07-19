@@ -10,7 +10,7 @@
 
 #endregion
 
-namespace Wide.Interfaces
+namespace Wider.Interfaces
 {
     /// <summary>
     /// Interface IContentView

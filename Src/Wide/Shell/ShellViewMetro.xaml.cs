@@ -19,15 +19,15 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using Wide.Interfaces;
-using Wide.Interfaces.Converters;
-using Wide.Interfaces.Events;
-using Wide.Interfaces.Services;
+using Wider.Interfaces;
+using Wider.Interfaces.Converters;
+using Wider.Interfaces.Events;
+using Wider.Interfaces.Services;
 using Xceed.Wpf.AvalonDock.Controls;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
 
-namespace Wide.Shell
+namespace Wider.Shell
 {
     /// <summary>
     /// Interaction logic for Shell.xaml

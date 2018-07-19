@@ -12,10 +12,10 @@
 
 using System;
 using System.ComponentModel;
-using Wide.Interfaces;
-using Wide.Interfaces.Services;
+using Wider.Interfaces;
+using Wider.Interfaces.Services;
 
-namespace Wide.Tools.Logger
+namespace Wider.Tools.Logger
 {
     internal class LoggerModel : ToolModel
     {

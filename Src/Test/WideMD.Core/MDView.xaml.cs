@@ -12,11 +12,11 @@
 
 using System;
 using MarkdownSharp;
-using Wide.Interfaces;
-using Wide.Interfaces.Services;
+using Wider.Interfaces;
+using Wider.Interfaces.Services;
 using System.Threading;
 
-namespace WideMD.Core
+namespace WiderMD.Core
 {
     /// <summary>
     /// Interaction logic for MDView.xaml

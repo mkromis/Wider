@@ -11,9 +11,9 @@
 #endregion
 
 using Prism.Events;
-using Wide.Interfaces.Services;
+using Wider.Interfaces.Services;
 
-namespace Wide.Interfaces.Events
+namespace Wider.Interfaces.Events
 {
     /// <summary>
     /// Class LogEvent - This event is used when a logging operation happens.

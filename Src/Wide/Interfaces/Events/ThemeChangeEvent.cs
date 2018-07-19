@@ -12,7 +12,7 @@
 
 using Prism.Events;
 
-namespace Wide.Interfaces.Events
+namespace Wider.Interfaces.Events
 {
     /// <summary>
     /// Class ThemeChangeEvent - This event happens when a theme is changed.

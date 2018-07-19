@@ -15,17 +15,17 @@ using Prism.Events;
 using System;
 using System.Diagnostics;
 using System.Reflection;
-using Wide.Interfaces.Events;
-using Wide.Interfaces.Services;
+using Wider.Interfaces.Events;
+using Wider.Interfaces.Services;
 
-namespace Wide.Core.Services
+namespace Wider.Core.Services
 {
     /// <summary>
     /// The NLogService for logging purposes
     /// </summary>
     internal class NLogService : ILoggerService
     {
-        private static readonly Logger Logger = LogManager.GetLogger("Wide");
+        private static readonly Logger Logger = LogManager.GetLogger("Wider");
         private readonly IEventAggregator _aggregator;
 
         /// <summary>

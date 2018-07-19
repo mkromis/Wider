@@ -17,7 +17,7 @@ using System.Configuration;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace Wide.Interfaces.Settings
+namespace Wider.Interfaces.Settings
 {
     public abstract class AbstractSettings : ApplicationSettingsBase, IDataErrorInfo
     {

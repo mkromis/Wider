@@ -12,9 +12,9 @@
 
 using System.Windows;
 using System.Windows.Controls;
-using Wide.Interfaces;
+using Wider.Interfaces;
 
-namespace Wide.Shell
+namespace Wider.Shell
 {
     internal class PanesStyleSelector : StyleSelector
     {

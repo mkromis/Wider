@@ -14,7 +14,7 @@ using System;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace Wide.Core.Attributes
+namespace Wider.Core.Attributes
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
     public class NewContentAttribute : Attribute

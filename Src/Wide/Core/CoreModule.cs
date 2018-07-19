@@ -19,33 +19,33 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using Wide.Core.Services;
-using Wide.Core.Settings;
-using Wide.Core.TextDocument;
-using Wide.Interfaces;
-using Wide.Interfaces.Controls;
-using Wide.Interfaces.Events;
-using Wide.Interfaces.Services;
-using Wide.Interfaces.Settings;
-using Wide.Shell;
-using CommandManager = Wide.Core.Services.CommandManager;
+using Wider.Core.Services;
+using Wider.Core.Settings;
+using Wider.Core.TextDocument;
+using Wider.Interfaces;
+using Wider.Interfaces.Controls;
+using Wider.Interfaces.Events;
+using Wider.Interfaces.Services;
+using Wider.Interfaces.Settings;
+using Wider.Shell;
+using CommandManager = Wider.Core.Services.CommandManager;
 
-namespace Wide.Core
+namespace Wider.Core
 {
     /// <summary>
-    /// The Wide Core module which does the following things:
+    /// The Wider Core module which does the following things:
     /// 1. Registers <see cref="IOpenDocumentService" /> - The file service can be used to open a file/object from a location or from a content ID
     /// 2. Registers <see cref="ICommandManager" /> - The command manager can be used to register commands and reuse the commands in different locations
     /// 3. Registers <see cref="IContentHandlerRegistry" /> - A registry to maintain different content handlers. Each content handler should be able to open a different kind of file/object.
     /// 4. Registers <see cref="IThemeManager" /> - A registry for themes
     /// 5. Registers <see cref="ILoggerService" /> - If not registered already, registers the NLogService which can be used anywhere in the application
-    /// 6. Registers <see cref="IMenuService"/> - The menu service used in the Wide application
-    /// 7. Registers <see cref="IStatusbarService"/> - The status bar service used in the Wide application
+    /// 6. Registers <see cref="IMenuService"/> - The menu service used in the Wider application
+    /// 7. Registers <see cref="IStatusbarService"/> - The status bar service used in the Wider application
     /// 8. Registers <see cref="IToolbarService" /> - The toolbar service used to register multiple toolbar's
     /// 9. Registers <see cref="AbstractMenuItem" /> - This acts as the menu service for the application - menus can be added/removed.
     /// 10. Adds an AllFileHandler which can open any file from the system - to override this handler, participating modules can add more handlers to the <see cref="IContentHandlerRegistry" />
     /// </summary>
-    [Module(ModuleName = "Wide.Core")]
+    [Module(ModuleName = "Wider.Core")]
     public sealed class CoreModule : IModule
     {
         /// <summary>
@@ -92,7 +92,7 @@ namespace Wide.Core
             _container.RegisterType<ICommandManager, CommandManager>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IContentHandlerRegistry, ContentHandlerRegistry>(
                 new ContainerControlledLifetimeManager());
-            _container.RegisterType<IStatusbarService, WideStatusbar>(new ContainerControlledLifetimeManager());
+            _container.RegisterType<IStatusbarService, WiderStatusbar>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IThemeManager, ThemeManager>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IToolbarService, ToolbarService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IMenuService, MenuItemViewModel>(new ContainerControlledLifetimeManager(),
@@ -178,7 +178,7 @@ namespace Wide.Core
             WindowPositionSettings position = _container.Resolve<IWindowPositionSettings>() as WindowPositionSettings;
 
             //Set the position of the window based on previous session values based on metro or regular
-            if (WideBootstrapper.IsMetro == true)
+            if (WiderBootstrapper.IsMetro == true)
             {
                 metroView = shell as ShellViewMetro;
                 if (metroView != null)

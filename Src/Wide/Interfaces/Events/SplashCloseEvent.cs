@@ -12,7 +12,7 @@
 
 using Prism.Events;
 
-namespace Wide.Interfaces.Events
+namespace Wider.Interfaces.Events
 {
     /// <summary>
     /// Class SplashCloseEvent - This event happens when the splash window is closed

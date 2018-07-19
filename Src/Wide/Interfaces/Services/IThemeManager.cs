@@ -13,7 +13,7 @@
 using System;
 using System.Collections.ObjectModel;
 
-namespace Wide.Interfaces.Services
+namespace Wider.Interfaces.Services
 {
     /// <summary>
     /// Interface IThemeManager

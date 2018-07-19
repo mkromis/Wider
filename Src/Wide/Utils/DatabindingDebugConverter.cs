@@ -19,7 +19,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace Wide.Utils
+namespace Wider.Utils
 {
     /// <summary>
     /// This converter does nothing except breaking the debugger into the convert method

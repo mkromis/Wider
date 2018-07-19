@@ -19,11 +19,11 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("Wide")]
+[assembly: AssemblyTitle("Wider")]
 [assembly: AssemblyDescription("Used to create a participatory IDE based on PRISM.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Wide")]
-[assembly: AssemblyProduct("Wide")]
+[assembly: AssemblyCompany("Wider")]
+[assembly: AssemblyProduct("Wider")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("Chandramouleswaran Ravichandran")]
 [assembly: AssemblyCulture("")]

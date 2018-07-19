@@ -13,9 +13,9 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
-using Wide.Interfaces;
+using Wider.Interfaces;
 
-namespace Wide.Shell
+namespace Wider.Shell
 {
     internal class ActiveDocumentConverter : IValueConverter
     {

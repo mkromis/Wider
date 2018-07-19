@@ -11,10 +11,10 @@
 #endregion
 
 using System;
-using Wide.Core.TextDocument;
-using Wide.Interfaces.Services;
+using Wider.Core.TextDocument;
+using Wider.Interfaces.Services;
 
-namespace WideMD.Core
+namespace WiderMD.Core
 {
     /// <summary>
     /// Class TextModel which contains the text of the document

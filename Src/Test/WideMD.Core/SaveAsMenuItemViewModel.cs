@@ -15,9 +15,9 @@ using Prism.Events;
 using System;
 using System.Windows.Input;
 using System.Windows.Media;
-using Wide.Interfaces.Events;
+using Wider.Interfaces.Events;
 
-namespace Wide.Interfaces.Controls
+namespace Wider.Interfaces.Controls
 {
     /// <summary>
     /// Class SaveAsMenuItemViewModel - simple menu implementation with events

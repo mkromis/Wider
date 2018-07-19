@@ -11,9 +11,9 @@
 #endregion
 
 using System.Windows;
-using Wide.Splash;
+using Wider.Splash;
 
-namespace WideMD
+namespace WiderMD
 {
     /// <summary>
     /// Interaction logic for AppSplash.xaml

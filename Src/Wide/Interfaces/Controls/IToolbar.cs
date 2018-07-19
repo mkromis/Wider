@@ -12,7 +12,7 @@
 
 using System;
 
-namespace Wide.Interfaces.Controls
+namespace Wider.Interfaces.Controls
 {
     public interface IToolbar
     {

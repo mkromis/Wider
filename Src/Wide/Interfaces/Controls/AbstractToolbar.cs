@@ -14,9 +14,9 @@ using System;
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Practices.Unity;
-using Wide.Interfaces.Controls;
+using Wider.Interfaces.Controls;
 
-namespace Wide.Interfaces.Controls
+namespace Wider.Interfaces.Controls
 {
     public abstract class AbstractToolbar : AbstractMenuItem, IToolbar
     {

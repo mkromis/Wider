@@ -13,7 +13,7 @@
 using System;
 using System.Windows.Input;
 
-namespace Wide.Interfaces
+namespace Wider.Interfaces
 {
     /// <summary>
     /// Interface ICommandable

@@ -12,11 +12,11 @@
 
 using System.Windows.Input;
 using MahApps.Metro.Controls;
-using Wide.Core.Attributes;
+using Wider.Core.Attributes;
 using System.Windows.Controls;
 using System.Windows;
 
-namespace Wide.Core.Services
+namespace Wider.Core.Services
 {
     /// <summary>
     /// Interaction logic for NewFileWindow.xaml

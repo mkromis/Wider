@@ -1,7 +1,7 @@
-﻿<Window x:Class="Wide.Splash.SplashView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" x:ClassModifier="internal"
+﻿<Window x:Class="Wider.Splash.SplashView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" x:ClassModifier="internal"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:Behaviours="clr-namespace:Wide.Splash.Behaviours"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:Behaviours="clr-namespace:Wider.Splash.Behaviours"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls" mc:Ignorable="d" d:DesignHeight="279" d:DesignWidth="450"
         Behaviours:SplashBehaviour.Enabled="True" WindowStartupLocation="CenterScreen" WindowStyle="None" ShowInTaskbar="False"
         Topmost="True" AllowsTransparency="True" SizeToContent="Manual" Width="540" Height="360" ResizeMode="NoResize"
@@ -38,7 +38,7 @@
         </Border>
 
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="30"
-                   FontWeight="Bold" Margin="0,30,0,0" Text="Wide" Foreground="#FF007ACC">
+                   FontWeight="Bold" Margin="0,30,0,0" Text="Wider" Foreground="#FF007ACC">
             <TextBlock.Effect>
                 <DropShadowEffect Opacity="0.7" ShadowDepth="4" />
             </TextBlock.Effect>

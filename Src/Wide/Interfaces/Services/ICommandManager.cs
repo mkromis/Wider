@@ -13,7 +13,7 @@
 using System;
 using System.Windows.Input;
 
-namespace Wide.Interfaces.Services
+namespace Wider.Interfaces.Services
 {
     /// <summary>
     /// Interface ICommandManager

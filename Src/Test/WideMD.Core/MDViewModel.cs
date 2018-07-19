@@ -11,11 +11,11 @@
 #endregion
 
 using System.Windows.Controls;
-using Wide.Core.TextDocument;
-using Wide.Interfaces;
-using Wide.Interfaces.Services;
+using Wider.Core.TextDocument;
+using Wider.Interfaces;
+using Wider.Interfaces.Services;
 
-namespace WideMD.Core
+namespace WiderMD.Core
 {
     internal class MDViewModel : TextViewModel
     {

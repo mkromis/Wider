@@ -15,17 +15,17 @@ using Prism.Modularity;
 using Prism.Unity;
 using System;
 using System.Windows;
-using Wide.Core;
-using Wide.Interfaces;
-using Wide.Splash;
+using Wider.Core;
+using Wider.Interfaces;
+using Wider.Splash;
 
-namespace Wide.Shell
+namespace Wider.Shell
 {
-    public class WideBootstrapper : UnityBootstrapper
+    public class WiderBootstrapper : UnityBootstrapper
     {
         public static Boolean IsMetro { get; protected set; }
 
-        public WideBootstrapper(Boolean isMetro = true) => IsMetro = isMetro;
+        public WiderBootstrapper(Boolean isMetro = true) => IsMetro = isMetro;
 
         public Boolean HideSplashWindow { get; set; }
 

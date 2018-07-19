@@ -14,10 +14,10 @@ using Prism.Events;
 using System;
 using System.Configuration;
 using System.Windows;
-using Wide.Interfaces.Events;
-using Wide.Interfaces.Settings;
+using Wider.Interfaces.Events;
+using Wider.Interfaces.Settings;
 
-namespace Wide.Core.Settings
+namespace Wider.Core.Settings
 {
     internal class WindowPositionSettings : AbstractSettings, IWindowPositionSettings
     {

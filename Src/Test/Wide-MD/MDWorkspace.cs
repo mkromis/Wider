@@ -16,17 +16,17 @@ using System;
 using System.ComponentModel;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Wide.Interfaces;
-using Wide.Interfaces.Events;
-using Wide.Interfaces.Services;
+using Wider.Interfaces;
+using Wider.Interfaces.Events;
+using Wider.Interfaces.Services;
 
-namespace WideMD
+namespace WiderMD
 {
     internal class MDWorkspace : AbstractWorkspace
     {
         private String _document;
         private ILoggerService _logger;
-        private const String _title = "Wide MD";
+        private const String _title = "Wider MD";
 
         public MDWorkspace(IUnityContainer container, IEventAggregator eventAggregator)
             : base(container, eventAggregator)
@@ -40,7 +40,7 @@ namespace WideMD
         {
             get
             {
-                ImageSource imageSource = new BitmapImage(new Uri("pack://application:,,,/WideMD;component/Icon.png"));
+                ImageSource imageSource = new BitmapImage(new Uri("pack://application:,,,/WiderMD;component/Icon.png"));
                 return imageSource;
             }
         }

@@ -14,7 +14,7 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Wide.Interfaces.Converters
+namespace Wider.Interfaces.Converters
 {
     /// <summary>
     /// Class PercentToFontSizeConverter

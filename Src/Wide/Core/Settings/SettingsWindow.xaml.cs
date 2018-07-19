@@ -12,7 +12,7 @@
 
 using System.Windows;
 
-namespace Wide.Core.Settings
+namespace Wider.Core.Settings
 {
     /// <summary>
     /// Interaction logic for SettingsWindow.xaml

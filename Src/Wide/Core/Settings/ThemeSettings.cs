@@ -13,11 +13,11 @@
 using Prism.Events;
 using System;
 using System.Configuration;
-using Wide.Interfaces;
-using Wide.Interfaces.Events;
-using Wide.Interfaces.Settings;
+using Wider.Interfaces;
+using Wider.Interfaces.Events;
+using Wider.Interfaces.Settings;
 
-namespace Wide.Core.Settings
+namespace Wider.Core.Settings
 {
     internal class ThemeSettings : AbstractSettings, IThemeSettings
     {

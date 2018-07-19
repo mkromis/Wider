@@ -14,9 +14,9 @@ using System;
 using System.ComponentModel;
 using System.Configuration;
 using System.Windows.Media;
-using Wide.Interfaces.Settings;
+using Wider.Interfaces.Settings;
 
-namespace WideMD.Core.Settings
+namespace WiderMD.Core.Settings
 {
     internal class EditorOptions : AbstractSettings
     {

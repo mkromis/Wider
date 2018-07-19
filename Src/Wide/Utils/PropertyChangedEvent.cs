@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Wide.Utils
+namespace Wider.Utils
 {
     public class PropertyChangedExtendedEventArgs : PropertyChangedEventArgs
     {

@@ -11,9 +11,9 @@
 #endregion
 
 using System;
-using Wide.Interfaces.Settings;
+using Wider.Interfaces.Settings;
 
-namespace WideMD.Core.Settings
+namespace WiderMD.Core.Settings
 {
     public class MDSettingsItem : AbstractSettingsItem
     {

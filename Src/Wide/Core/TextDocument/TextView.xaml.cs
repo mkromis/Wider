@@ -11,9 +11,9 @@
 #endregion
 
 using System.Windows.Controls;
-using Wide.Interfaces;
+using Wider.Interfaces;
 
-namespace Wide.Core.TextDocument
+namespace Wider.Core.TextDocument
 {
     /// <summary>
     /// Class TextView

@@ -16,14 +16,14 @@ using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Wide.Core.Attributes;
-using Wide.Core.Settings;
-using Wide.Interfaces;
-using Wide.Interfaces.Events;
-using Wide.Interfaces.Services;
-using Wide.Interfaces.Settings;
+using Wider.Core.Attributes;
+using Wider.Core.Settings;
+using Wider.Interfaces;
+using Wider.Interfaces.Events;
+using Wider.Interfaces.Services;
+using Wider.Interfaces.Settings;
 
-namespace Wide.Core.Services
+namespace Wider.Core.Services
 {
     /// <summary>
     /// The open file service

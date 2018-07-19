@@ -12,9 +12,9 @@
 
 using System;
 using System.ComponentModel;
-using Wide.Interfaces.Settings;
+using Wider.Interfaces.Settings;
 
-namespace Wide.Core.Settings
+namespace Wider.Core.Settings
 {
     [Serializable]
     [Browsable(false)]

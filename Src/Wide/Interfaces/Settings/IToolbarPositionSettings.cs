@@ -12,9 +12,9 @@
 
 using System;
 using System.Collections.Generic;
-using Wide.Interfaces.Controls;
+using Wider.Interfaces.Controls;
 
-namespace Wide.Interfaces.Settings
+namespace Wider.Interfaces.Settings
 {
     public interface IToolbarPositionSettings
     {

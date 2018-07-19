@@ -17,10 +17,10 @@ using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using Wide.Interfaces.Controls;
-using Wide.Interfaces.Services;
+using Wider.Interfaces.Controls;
+using Wider.Interfaces.Services;
 
-namespace Wide.Interfaces
+namespace Wider.Interfaces
 {
     /// <summary>
     /// The abstract class which has to be inherited if you want to create a document

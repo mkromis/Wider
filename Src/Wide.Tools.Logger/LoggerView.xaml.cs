@@ -13,9 +13,9 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Controls;
-using Wide.Interfaces;
+using Wider.Interfaces;
 
-namespace Wide.Tools.Logger
+namespace Wider.Tools.Logger
 {
     /// <summary>
     /// Interaction logic for LoggerView.xaml

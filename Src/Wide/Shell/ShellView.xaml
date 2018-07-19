@@ -1,12 +1,12 @@
-﻿<Window x:Class="Wide.Shell.ShellView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" x:ClassModifier="internal"
+﻿<Window x:Class="Wider.Shell.ShellView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" x:ClassModifier="internal"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
-        xmlns:local="clr-namespace:Wide.Shell" 
+        xmlns:local="clr-namespace:Wider.Shell" 
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
-        xmlns:Converter="clr-namespace:Wide.Interfaces.Converters"
-        xmlns:Host="clr-namespace:Wide.Shell" Title="{Binding Title}" Icon="{Binding Icon}" Closing="Window_Closing_1">
+        xmlns:Converter="clr-namespace:Wider.Interfaces.Converters"
+        xmlns:Host="clr-namespace:Wider.Shell" Title="{Binding Title}" Icon="{Binding Icon}" Closing="Window_Closing_1">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -14,7 +14,7 @@
                     <ResourceDictionary.MergedDictionaries>
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
-                <ResourceDictionary Source="pack://application:,,,/Wide;component/Interfaces/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Wider;component/Interfaces/Styles/Controls.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <avalonDock:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <local:ActiveDocumentConverter x:Key="ActiveDocumentConverter" />
@@ -30,7 +30,7 @@
             <!--Toolbar (can we improve this?)-->
             <ContentControl Content="{Binding ToolBarTray}" DockPanel.Dock="Top" />
             <!--Status bar-->
-            <StatusBar x:Name="WideStatusBar" DockPanel.Dock="Bottom" Background="{Binding Path=StatusBar.Background}">
+            <StatusBar x:Name="WiderStatusBar" DockPanel.Dock="Bottom" Background="{Binding Path=StatusBar.Background}">
                 <StatusBar.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Grid>

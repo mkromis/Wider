@@ -13,7 +13,7 @@
 using System;
 using System.Windows.Input;
 
-namespace Wide.Interfaces.Settings
+namespace Wider.Interfaces.Settings
 {
     public interface ISettingsManager
     {
