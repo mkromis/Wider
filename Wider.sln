@@ -1,22 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wide", "Src\Wide\Wide.csproj", "{9F20F5EF-4F7E-4AE2-A462-4CD2256FB3FF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wide.Tools.Logger", "Src\Wide.Tools.Logger\Wide.Tools.Logger.csproj", "{982D3282-82A0-4586-99ED-F60D2FD67517}"
-EndProject
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{A1E44474-A9D9-46BD-B1A1-3DEE8C61B7AD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{92EB10BB-F612-4C23-84BA-95A5D64F851B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{4A44F9E9-0B25-4511-AB6D-2BB3E44DA808}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4A44F9E9-0B25-4511-AB6D-2BB3E44DA808}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WideMD", "Src\Test\Wide-MD\WideMD.csproj", "{625649C0-B1F5-4262-9A38-330FC08A2759}"
-	ProjectSection(ProjectDependencies) = postProject
-		{A6DAC5FB-29A1-4579-A828-F133D9ABBDD2} = {A6DAC5FB-29A1-4579-A828-F133D9ABBDD2}
-	EndProjectSection
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{F0808592-9E93-4915-9E37-043C56BB9763}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WideMD.Core", "Src\Test\WideMD.Core\WideMD.Core.csproj", "{A6DAC5FB-29A1-4579-A828-F133D9ABBDD2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wider", "Infrastructure\Wider\Wider.csproj", "{9F20F5EF-4F7E-4AE2-A462-4CD2256FB3FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wider.Tools.Logger", "Modules\Wider.Tools.Logger\Wider.Tools.Logger.csproj", "{982D3282-82A0-4586-99ED-F60D2FD67517}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,14 +29,6 @@ Global
 		{982D3282-82A0-4586-99ED-F60D2FD67517}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{982D3282-82A0-4586-99ED-F60D2FD67517}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{982D3282-82A0-4586-99ED-F60D2FD67517}.Release|Any CPU.Build.0 = Release|Any CPU
-		{625649C0-B1F5-4262-9A38-330FC08A2759}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{625649C0-B1F5-4262-9A38-330FC08A2759}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{625649C0-B1F5-4262-9A38-330FC08A2759}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{625649C0-B1F5-4262-9A38-330FC08A2759}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A6DAC5FB-29A1-4579-A828-F133D9ABBDD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6DAC5FB-29A1-4579-A828-F133D9ABBDD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A6DAC5FB-29A1-4579-A828-F133D9ABBDD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A6DAC5FB-29A1-4579-A828-F133D9ABBDD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,7 +36,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9F20F5EF-4F7E-4AE2-A462-4CD2256FB3FF} = {A1E44474-A9D9-46BD-B1A1-3DEE8C61B7AD}
 		{982D3282-82A0-4586-99ED-F60D2FD67517} = {92EB10BB-F612-4C23-84BA-95A5D64F851B}
-		{625649C0-B1F5-4262-9A38-330FC08A2759} = {4A44F9E9-0B25-4511-AB6D-2BB3E44DA808}
-		{A6DAC5FB-29A1-4579-A828-F133D9ABBDD2} = {4A44F9E9-0B25-4511-AB6D-2BB3E44DA808}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C9AF68FB-8AA0-4C17-A8F9-A88E3EC36423}
 	EndGlobalSection
 EndGlobal
