@@ -172,7 +172,6 @@
     </Compile>
     <Compile Include="Splash\SplashViewModel.cs" />
     <Compile Include="Utils\DatabindingDebugConverter.cs" />
-    <Compile Include="Utils\PropertyChangedEvent.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
