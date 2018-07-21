@@ -10,6 +10,7 @@
 
 #endregion
 
+using Prism.Mvvm;
 using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;
@@ -18,7 +19,7 @@ namespace Wider.Interfaces
 {
     [DataContract]
     [Serializable]
-    public abstract class ContentModel : ViewModelBase
+    public abstract class ContentModel : BindableBase
     {
         protected Boolean _isDirty;
         protected Object _location;
@@ -30,7 +31,7 @@ namespace Wider.Interfaces
         public virtual Object Location
         {
             get => _location;
-            protected set { _location = value; RaisePropertyChanged("Location"); }
+            protected set => SetProperty(ref _location, value);
         }
 
         /// <summary>
@@ -40,11 +41,7 @@ namespace Wider.Interfaces
         public virtual Boolean IsDirty
         {
             get => _isDirty;
-            protected internal set
-            {
-                _isDirty = value;
-                RaisePropertyChanged("IsDirty");
-            }
+            protected internal set => SetProperty(ref _isDirty, value);
         }
     }
 }

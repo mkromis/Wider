@@ -10,6 +10,7 @@
 
 #endregion
 
+using Prism.Mvvm;
 using System;
 using System.ComponentModel;
 using Wider.Interfaces;
@@ -17,7 +18,7 @@ using Wider.Interfaces.Services;
 
 namespace Wider.Tools.Logger
 {
-    internal class LoggerModel : ToolModel
+    internal class LoggerModel : BindableBase
     {
         public String Text { get; private set; }
 

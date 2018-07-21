@@ -11,6 +11,7 @@
 #endregion
 
 using Prism.Commands;
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,7 +26,7 @@ namespace Wider.Interfaces
     /// <summary>
     /// The abstract class which has to be inherited if you want to create a document
     /// </summary>
-    public abstract class ContentViewModel : ViewModelBase
+    public abstract class ContentViewModel : BindableBase
     {
         #region Members
 
@@ -172,14 +173,7 @@ namespace Wider.Interfaces
                 }
                 return _title;
             }
-            set
-            {
-                if (_title != value)
-                {
-                    _title = value;
-                    RaisePropertyChanged("Title");
-                }
-            }
+            set => SetProperty(ref _title, value);
         }
 
         /// <summary>
@@ -189,14 +183,7 @@ namespace Wider.Interfaces
         public virtual String Tooltip
         {
             get => _tooltip;
-            protected set
-            {
-                if (_tooltip != value)
-                {
-                    _tooltip = value;
-                    RaisePropertyChanged("Tooltip");
-                }
-            }
+            protected set => SetProperty(ref _tooltip, value);
         }
 
         /// <summary>
@@ -212,14 +199,7 @@ namespace Wider.Interfaces
         public virtual String ContentId
         {
             get => _contentId;
-            protected set
-            {
-                if (_contentId != value)
-                {
-                    _contentId = value;
-                    RaisePropertyChanged("ContentId");
-                }
-            }
+            protected set => SetProperty(ref _contentId, value);
         }
 
         /// <summary>
@@ -229,14 +209,7 @@ namespace Wider.Interfaces
         public virtual Boolean IsSelected
         {
             get => _isSelected;
-            set
-            {
-                if (_isSelected != value)
-                {
-                    _isSelected = value;
-                    RaisePropertyChanged("IsSelected");
-                }
-            }
+            set => SetProperty(ref _isSelected, value);
         }
 
         /// <summary>
@@ -246,14 +219,7 @@ namespace Wider.Interfaces
         public virtual Boolean IsActive
         {
             get => _isActive;
-            set
-            {
-                if (_isActive != value)
-                {
-                    _isActive = value;
-                    RaisePropertyChanged("IsActive");
-                }
-            }
+            set => SetProperty(ref _isActive, value);
         }
 
         /// <summary>

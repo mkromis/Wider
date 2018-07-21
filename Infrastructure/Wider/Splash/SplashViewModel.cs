@@ -11,13 +11,14 @@
 #endregion
 
 using Prism.Events;
+using Prism.Mvvm;
 using System;
 using Wider.Interfaces;
 using Wider.Interfaces.Events;
 
 namespace Wider.Splash
 {
-    public class SplashViewModel : ViewModelBase
+    public class SplashViewModel : BindableBase
     {
         #region Declarations
 
