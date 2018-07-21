@@ -10,6 +10,7 @@
 
 #endregion
 
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,7 +23,7 @@ namespace Wider.Interfaces
     /// Class AbstractPrioritizedTree
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class AbstractPrioritizedTree<T> : ViewModelBase, IPrioritizedTree<T>
+    public abstract class AbstractPrioritizedTree<T> : BindableBase, IPrioritizedTree<T>
         where T : AbstractPrioritizedTree<T>
     {
         /// <summary>
