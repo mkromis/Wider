@@ -10,6 +10,7 @@
 
 #endregion
 
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,7 +22,7 @@ namespace Wider.Interfaces
     /// <summary>
     /// The abstract class which has to be inherited if you want to create a tool
     /// </summary>
-    public abstract class ToolViewModel : ViewModelBase, ITool
+    public abstract class ToolViewModel : BindableBase, ITool
     {
         #region Members
 
@@ -47,14 +48,7 @@ namespace Wider.Interfaces
         public Boolean IsVisible
         {
             get => _isVisible;
-            set
-            {
-                if (_isVisible != value)
-                {
-                    _isVisible = value;
-                    RaisePropertyChanged("IsVisible");
-                }
-            }
+            set => SetProperty(ref _isVisible, value);
         }
 
 
@@ -77,7 +71,7 @@ namespace Wider.Interfaces
         /// The content model
         /// </summary>
         /// <value>The model.</value>
-        public virtual ToolModel Model { get; set; }
+        public virtual Object Model { get; set; }
 
         /// <summary>
         /// The content view
@@ -92,14 +86,7 @@ namespace Wider.Interfaces
         public virtual String Title
         {
             get => _title;
-            protected set
-            {
-                if (_title != value)
-                {
-                    _title = value;
-                    RaisePropertyChanged("Title");
-                }
-            }
+            protected set => SetProperty(ref _title, value);
         }
 
         public IReadOnlyList<String> Menus => new List<String>() { "a", "b", "c" };
@@ -117,14 +104,7 @@ namespace Wider.Interfaces
         public virtual String ContentId
         {
             get => _contentId;
-            protected set
-            {
-                if (_contentId != value)
-                {
-                    _contentId = value;
-                    RaisePropertyChanged("ContentId");
-                }
-            }
+            protected set => SetProperty(ref _contentId, value);
         }
 
         /// <summary>
@@ -134,14 +114,7 @@ namespace Wider.Interfaces
         public virtual Boolean IsSelected
         {
             get => _isSelected;
-            set
-            {
-                if (_isSelected != value)
-                {
-                    _isSelected = value;
-                    RaisePropertyChanged("IsSelected");
-                }
-            }
+            set => SetProperty(ref _isSelected, value);
         }
 
         /// <summary>
@@ -151,14 +124,7 @@ namespace Wider.Interfaces
         public virtual Boolean IsActive
         {
             get => _isActive;
-            set
-            {
-                if (_isActive != value)
-                {
-                    _isActive = value;
-                    RaisePropertyChanged("IsActive");
-                }
-            }
+            set => SetProperty(ref _isActive, value);
         }
 
         #endregion

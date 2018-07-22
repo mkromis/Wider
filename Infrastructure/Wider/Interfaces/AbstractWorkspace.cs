@@ -12,6 +12,7 @@
 
 using Microsoft.Practices.Unity;
 using Prism.Events;
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,7 +29,7 @@ namespace Wider.Interfaces
     /// <summary>
     /// Class AbstractWorkspace
     /// </summary>
-    public abstract class AbstractWorkspace : ViewModelBase, IWorkspace
+    public abstract class AbstractWorkspace : BindableBase, IWorkspace
     {
         #region Fields
 

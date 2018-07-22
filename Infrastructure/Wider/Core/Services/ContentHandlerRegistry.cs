@@ -68,7 +68,7 @@ namespace Wider.Core.Services
         /// <summary>
         /// The new document command
         /// </summary>
-        public ICommand NewCommand { get; protected set; }
+        public ICommand NewCommand { get; }
 
         /// <summary>
         /// Gets the available contents which can be created.
