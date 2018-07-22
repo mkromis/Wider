@@ -10,6 +10,7 @@
 
 #endregion
 
+using Prism.Mvvm;
 using System;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -20,7 +21,7 @@ namespace Wider.Interfaces
     /// <summary>
     /// Class Wider Status bar
     /// </summary>
-    internal class WiderStatusbar : ViewModelBase, IStatusbarService
+    internal class WiderStatusbar : BindableBase, IStatusbarService
     {
         #region Fields
         /// <summary>
@@ -124,11 +125,7 @@ namespace Wider.Interfaces
         public Boolean IsFrozen
         {
             get => _isFrozen;
-            set
-            {
-                _isFrozen = value;
-                RaisePropertyChanged("IsFrozen");
-            }
+            set => SetProperty(ref _isFrozen, value);
         }
 
         /// <summary>
@@ -138,11 +135,7 @@ namespace Wider.Interfaces
         public String Text
         {
             get => _text;
-            set
-            {
-                _text = value;
-                RaisePropertyChanged("Text");
-            }
+            set => SetProperty(ref _text, value);
         }
 
         /// <summary>
@@ -152,11 +145,7 @@ namespace Wider.Interfaces
         public Brush Foreground
         {
             get => _foreground;
-            set
-            {
-                _foreground = value;
-                RaisePropertyChanged("Foreground");
-            }
+            set => SetProperty(ref _foreground, value);
         }
 
         /// <summary>
@@ -166,11 +155,7 @@ namespace Wider.Interfaces
         public Brush Background
         {
             get => _background;
-            set
-            {
-                _background = value;
-                RaisePropertyChanged("Background");
-            }
+            set => SetProperty(ref _background, value);
         }
 
         /// <summary>
@@ -180,11 +165,7 @@ namespace Wider.Interfaces
         public Boolean? InsertMode
         {
             get => _insertMode;
-            set
-            {
-                _insertMode = value;
-                RaisePropertyChanged("InsertMode");
-            }
+            set => SetProperty(ref _insertMode, value);
         }
 
         /// <summary>
@@ -194,11 +175,7 @@ namespace Wider.Interfaces
         public Int32? LineNumber
         {
             get => _lineNumber;
-            set
-            {
-                _lineNumber = value;
-                RaisePropertyChanged("LineNumber");
-            }
+            set => SetProperty(ref _lineNumber, value);
         }
 
         /// <summary>
@@ -208,11 +185,7 @@ namespace Wider.Interfaces
         public Int32? CharPosition
         {
             get => _charPosition;
-            set
-            {
-                _charPosition = value;
-                RaisePropertyChanged("CharPosition");
-            }
+            set => SetProperty(ref _charPosition, value);
         }
 
         /// <summary>
@@ -222,11 +195,7 @@ namespace Wider.Interfaces
         public Int32? ColPosition
         {
             get => _colPosition;
-            set
-            {
-                _colPosition = value;
-                RaisePropertyChanged("ColPosition");
-            }
+            set => SetProperty(ref _colPosition, value);
         }
 
         /// <summary>
@@ -251,11 +220,7 @@ namespace Wider.Interfaces
         public UInt32 ProgressMaximum
         {
             get => _pMax;
-            set
-            {
-                _pMax = value;
-                RaisePropertyChanged("ProgressMaximum");
-            }
+            set => SetProperty(ref _pMax, value);
         }
 
         /// <summary>
@@ -265,11 +230,7 @@ namespace Wider.Interfaces
         public UInt32 ProgressValue
         {
             get => _pVal;
-            set
-            {
-                _pVal = value;
-                RaisePropertyChanged("ProgressValue");
-            }
+            set => SetProperty(ref _pVal, value);
         }
 
 
@@ -280,11 +241,7 @@ namespace Wider.Interfaces
         public Boolean ShowProgressBar
         {
             get => _showProgress;
-            set
-            {
-                _showProgress = value;
-                RaisePropertyChanged("ShowProgressBar");
-            }
+            set => SetProperty(ref _showProgress, value);
         }
 
         /// <summary>
@@ -294,11 +251,7 @@ namespace Wider.Interfaces
         public Image AnimationImage
         {
             get => _animImage;
-            set
-            {
-                _animImage = value;
-                RaisePropertyChanged("AnimationImage");
-            }
+            set => SetProperty(ref _animImage, value);
         }
         #endregion
     }
