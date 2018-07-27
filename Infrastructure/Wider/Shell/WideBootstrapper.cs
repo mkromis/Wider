@@ -15,6 +15,7 @@ using Prism.Modularity;
 using Prism.Unity;
 using System;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using Wider.Core;
 using Wider.Interfaces;
@@ -32,6 +33,19 @@ namespace Wider.Shell
         {
             ModuleCatalog.Initialize();
 
+            // Check for existance, make sure we init first.
+            // load from disk in case of it not showing up in module catalog.
+            // resolving seems to init properly.
+            if (System.IO.File.Exists("Wider.Splash.dll"))
+            {
+                // Assume exits
+                Assembly assembly = Assembly.LoadFrom("Wider.Splash.dll");
+                Type type = assembly.GetType("Wider.Splash.SplashModule");
+                IModule splash = (IModule)Container.Resolve(type);
+                splash.Initialize();
+            }
+
+            // Load core module 
             IModule coreModule = Container.Resolve<CoreModule>();
             coreModule.Initialize();
 
