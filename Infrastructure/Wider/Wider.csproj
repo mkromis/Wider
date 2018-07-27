@@ -162,7 +162,6 @@
       <DependentUpon>ShellViewMetro.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shell\WideBootstrapper.cs" />
-    <Compile Include="Interfaces\ISplashView.cs" />
     <Compile Include="Utils\DatabindingDebugConverter.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
