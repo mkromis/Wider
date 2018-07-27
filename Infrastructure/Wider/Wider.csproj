@@ -162,13 +162,7 @@
       <DependentUpon>ShellViewMetro.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shell\WideBootstrapper.cs" />
-    <Compile Include="Splash\Behaviours\SplashBehaviour.cs" />
-    <Compile Include="Splash\ISplashView.cs" />
-    <Compile Include="Splash\Module.cs" />
-    <Compile Include="Splash\SplashView.xaml.cs">
-      <DependentUpon>SplashView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Splash\SplashViewModel.cs" />
+    <Compile Include="Interfaces\ISplashView.cs" />
     <Compile Include="Utils\DatabindingDebugConverter.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -256,10 +250,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Shell\ShellViewMetro.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Splash\SplashView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

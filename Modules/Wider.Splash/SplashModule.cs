@@ -23,7 +23,7 @@ using Wider.Interfaces.Events;
 namespace Wider.Splash
 {
     [Module(ModuleName = "Wider.Splash")]
-    internal class SplashModule : IModule
+    public sealed class SplashModule : IModule
     {
         #region ctors
 
