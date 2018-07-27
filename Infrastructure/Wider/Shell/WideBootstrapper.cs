@@ -18,7 +18,6 @@ using System.Linq;
 using System.Windows;
 using Wider.Core;
 using Wider.Interfaces;
-using Wider.Splash;
 
 namespace Wider.Shell
 {
