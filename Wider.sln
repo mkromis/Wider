@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiderMD.Core", "Examples\Wi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiderMD", "Examples\WiderMD\WiderMD.csproj", "{625649C0-B1F5-4262-9A38-330FC08A2759}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wider.Splash", "Modules\Wider.Splash\Wider.Splash.csproj", "{A36AB58C-197B-431B-9DE6-4911DB8F860B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{625649C0-B1F5-4262-9A38-330FC08A2759}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{625649C0-B1F5-4262-9A38-330FC08A2759}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{625649C0-B1F5-4262-9A38-330FC08A2759}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A36AB58C-197B-431B-9DE6-4911DB8F860B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A36AB58C-197B-431B-9DE6-4911DB8F860B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A36AB58C-197B-431B-9DE6-4911DB8F860B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A36AB58C-197B-431B-9DE6-4911DB8F860B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +56,7 @@ Global
 		{982D3282-82A0-4586-99ED-F60D2FD67517} = {92EB10BB-F612-4C23-84BA-95A5D64F851B}
 		{A6DAC5FB-29A1-4579-A828-F133D9ABBDD2} = {F0808592-9E93-4915-9E37-043C56BB9763}
 		{625649C0-B1F5-4262-9A38-330FC08A2759} = {F0808592-9E93-4915-9E37-043C56BB9763}
+		{A36AB58C-197B-431B-9DE6-4911DB8F860B} = {92EB10BB-F612-4C23-84BA-95A5D64F851B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C9AF68FB-8AA0-4C17-A8F9-A88E3EC36423}

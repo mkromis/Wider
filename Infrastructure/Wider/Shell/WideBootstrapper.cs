@@ -14,6 +14,7 @@ using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Unity;
 using System;
+using System.Linq;
 using System.Windows;
 using Wider.Core;
 using Wider.Interfaces;
@@ -27,16 +28,10 @@ namespace Wider.Shell
 
         public WiderBootstrapper(Boolean isMetro = true) => IsMetro = isMetro;
 
-        public Boolean HideSplashWindow { get; set; }
-
         //If you want your own splash window - inherit from the bootstrapper and register type ISplashView
         protected override void InitializeModules()
         {
-            if (!HideSplashWindow)
-            {
-                IModule splashModule = Container.Resolve<SplashModule>();
-                splashModule.Initialize();
-            }
+            ModuleCatalog.Initialize();
 
             IModule coreModule = Container.Resolve<CoreModule>();
             coreModule.Initialize();
@@ -44,10 +39,7 @@ namespace Wider.Shell
             base.InitializeModules();
             Application.Current.MainWindow.DataContext = Container.Resolve<AbstractWorkspace>();
 
-            if (HideSplashWindow)
-            {
-                (Shell as Window).Show();
-            }
+            (Shell as Window).Show();
         }
 
         protected override void ConfigureContainer()
