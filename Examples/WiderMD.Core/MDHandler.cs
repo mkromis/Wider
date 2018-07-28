@@ -64,6 +64,8 @@ namespace WiderMD.Core
             //Model details
             _loggerService.Log("Creating a new simple file using MDHandler", LogCategory.Info, LogPriority.Low);
 
+            view.DataContext = model;
+
             //Clear the undo stack
             model.Document.UndoStack.ClearAll();
 
@@ -71,7 +73,6 @@ namespace WiderMD.Core
             vm.SetModel(model);
             vm.SetView(view);
             vm.Title = "untitled-MD";
-            vm.View.DataContext = model;
             vm.SetHandler(this);
             model.SetDirty(true);
 
@@ -123,6 +124,8 @@ namespace WiderMD.Core
                     return null;
                 }
 
+                view.DataContext = model;
+
                 //Clear the undo stack
                 model.Document.UndoStack.ClearAll();
 
@@ -130,7 +133,6 @@ namespace WiderMD.Core
                 vm.SetModel(model);
                 vm.SetView(view);
                 vm.Title = Path.GetFileName(location);
-                vm.View.DataContext = model;
 
                 return vm;
             }
