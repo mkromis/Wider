@@ -11,7 +11,7 @@
 #endregion
 
 using System;
-using Wider.Core.TextDocument;
+using Wider.Content.TextDocument;
 using Wider.Interfaces.Services;
 
 namespace WiderMD.Core
