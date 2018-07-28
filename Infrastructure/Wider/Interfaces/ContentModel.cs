@@ -31,7 +31,7 @@ namespace Wider.Interfaces
         public virtual Object Location
         {
             get => _location;
-            protected set => SetProperty(ref _location, value);
+            set => SetProperty(ref _location, value);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Wider.Interfaces
         public virtual Boolean IsDirty
         {
             get => _isDirty;
-            protected internal set => SetProperty(ref _isDirty, value);
+            set => SetProperty(ref _isDirty, value);
         }
     }
 }

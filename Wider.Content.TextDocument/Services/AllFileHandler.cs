@@ -10,18 +10,20 @@
 
 #endregion
 
+using Microsoft.Practices.Unity;
+using Microsoft.Win32;
 using System;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Microsoft.Practices.Unity;
-using Microsoft.Win32;
+using Wider.Content.TextDocument;
+using Wider.Content.TextDocument.ViewModels;
+using Wider.Content.TextDocument.Views;
 using Wider.Core.Attributes;
-using Wider.Core.TextDocument;
 using Wider.Interfaces;
 using Wider.Interfaces.Services;
 
-namespace Wider.Core.Services
+namespace Wider.Content.Services
 {
     /// <summary>
     /// AllFileHandler class that supports opening of any file on the computer
@@ -67,16 +69,17 @@ namespace Wider.Core.Services
 
             _loggerService.Log("Creating a new simple file using AllFileHandler", LogCategory.Info, LogPriority.Low);
 
+            view.DataContext = model;
+
             //Clear the undo stack
             model.Document.UndoStack.ClearAll();
+            model.IsDirty = true;
 
             //Set the model and view
             vm.Model = model;
             vm.View = view;
             vm.Title = "untitled";
-            vm.View.DataContext = model;
             vm.Handler = this;
-            vm.Model.IsDirty = true;
 
             return vm;
         }
@@ -142,6 +145,8 @@ namespace Wider.Core.Services
                     return null;
                 }
 
+                view.DataContext = model;
+
                 //Clear the undo stack
                 model.Document.UndoStack.ClearAll();
 
@@ -149,7 +154,6 @@ namespace Wider.Core.Services
                 vm.Model = model;
                 vm.View = view;
                 vm.Title = Path.GetFileName(location);
-                vm.View.DataContext = model;
 
                 return vm;
             }

@@ -65,7 +65,6 @@
     <Compile Include="Core\Services\OpenDocumentService.cs" />
     <Compile Include="Core\Services\ThemeManager.cs" />
     <Compile Include="Core\Services\ToolbarService.cs" />
-    <Compile Include="Core\Services\AllFileHandler.cs" />
     <Compile Include="Interfaces\Converters\NullToBooleanConverter.cs" />
     <Compile Include="Interfaces\Converters\DocumentContextMenuMixingConverter.cs" />
     <Compile Include="Interfaces\Events\ClosedContentEvent.cs" />
@@ -84,11 +83,6 @@
     <Compile Include="Core\Settings\RecentViewSettings.cs" />
     <Compile Include="Core\Settings\WindowPositionSettings.cs" />
     <Compile Include="Core\Settings\ThemeSettings.cs" />
-    <Compile Include="Core\TextDocument\TextModel.cs" />
-    <Compile Include="Core\TextDocument\TextView.xaml.cs">
-      <DependentUpon>TextView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Core\TextDocument\TextViewModel.cs" />
     <Compile Include="Core\Workspace.cs" />
     <Compile Include="Interfaces\AbstractWorkspace.cs" />
     <Compile Include="Interfaces\Base\AbstractPrioritizedTree.cs" />
@@ -162,7 +156,6 @@
       <DependentUpon>ShellViewMetro.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shell\WideBootstrapper.cs" />
-    <Compile Include="Interfaces\ISplashView.cs" />
     <Compile Include="Utils\DatabindingDebugConverter.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -180,10 +173,6 @@
     <Page Include="Core\Services\NewFileWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Core\TextDocument\TextView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Interfaces\Styles\Controls.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -270,9 +259,6 @@
     <Resource Include="Core\Icons\Textfile.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AvalonEdit">
-      <Version>5.0.4</Version>
-    </PackageReference>
     <PackageReference Include="Extended.Wpf.Toolkit">
       <Version>3.4.0</Version>
     </PackageReference>
