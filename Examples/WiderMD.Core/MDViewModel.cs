@@ -11,7 +11,7 @@
 #endregion
 
 using System.Windows.Controls;
-using Wider.Core.TextDocument;
+using Wider.Content.TextDocument.ViewModels;
 using Wider.Interfaces;
 using Wider.Interfaces.Services;
 
@@ -27,7 +27,7 @@ namespace WiderMD.Core
 
         internal void SetModel(ContentModel model) => base.Model = model;
 
-        internal void SetView(UserControl view) => base.View = view;
+        internal void SetView(IContentView view) => base.View = view;
 
         internal void SetHandler(IContentHandler handler) => Handler = handler;
     }

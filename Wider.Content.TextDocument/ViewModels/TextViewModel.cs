@@ -14,7 +14,7 @@ using System;
 using Wider.Interfaces;
 using Wider.Interfaces.Services;
 
-namespace Wider.Core.TextDocument
+namespace Wider.Content.TextDocument.ViewModels
 {
     /// <summary>
     /// Class TextViewModel
@@ -28,8 +28,7 @@ namespace Wider.Core.TextDocument
         /// <param name="commandManager">The injected command manager.</param>
         /// <param name="logger">The injected logger.</param>
         /// <param name="menuService">The menu service.</param>
-        public TextViewModel(AbstractWorkspace workspace, ICommandManager commandManager, ILoggerService logger,
-                             IMenuService menuService)
+        public TextViewModel(AbstractWorkspace workspace, ICommandManager commandManager, ILoggerService logger, IMenuService menuService)
             : base(workspace, commandManager, logger, menuService)
         {
         }
@@ -48,6 +47,6 @@ namespace Wider.Core.TextDocument
         /// The content ID - unique value for each document. For TextViewModels, the contentID is "FILE:##:" + location of the file.
         /// </summary>
         /// <value>The content id.</value>
-        public override String ContentId => "FILE:##:" + Tooltip;
+        public override String ContentId => $"FILE:##:{Tooltip}";
     }
 }

@@ -126,6 +126,10 @@
       <Project>{982d3282-82a0-4586-99ed-f60d2fd67517}</Project>
       <Name>Wider.Tools.Logger</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Wider.Content.TextDocument\Wider.Content.TextDocument.csproj">
+      <Project>{b80e6695-0f27-4ae1-bd7a-eda42b94a940}</Project>
+      <Name>Wider.Content.TextDocument</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
