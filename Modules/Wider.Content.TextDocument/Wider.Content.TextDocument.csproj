@@ -80,7 +80,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Infrastructure\Wider\Wider.csproj">
+    <ProjectReference Include="..\..\Infrastructure\Wider\Wider.csproj">
       <Project>{9f20f5ef-4f7e-4ae2-a462-4cd2256fb3ff}</Project>
       <Name>Wider</Name>
     </ProjectReference>

@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiderMD", "Examples\WiderMD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wider.Splash", "Modules\Wider.Splash\Wider.Splash.csproj", "{A36AB58C-197B-431B-9DE6-4911DB8F860B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wider.Content.TextDocument", "Wider.Content.TextDocument\Wider.Content.TextDocument.csproj", "{B80E6695-0F27-4AE1-BD7A-EDA42B94A940}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wider.Content.TextDocument", "Modules\Wider.Content.TextDocument\Wider.Content.TextDocument.csproj", "{B80E6695-0F27-4AE1-BD7A-EDA42B94A940}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
