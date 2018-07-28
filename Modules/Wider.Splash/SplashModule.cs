@@ -52,11 +52,11 @@ namespace Wider.Splash
 
         public void Initialize()
         {
-            Dispatcher.CurrentDispatcher.BeginInvoke((Action) (() =>
-            {
-                Shell.Show();
-                EventAggregator.GetEvent<SplashCloseEvent>().Publish(new SplashCloseEvent());
-            }));
+            Dispatcher.CurrentDispatcher.BeginInvoke((Action)(() =>
+           {
+               Shell.Show();
+               EventAggregator.GetEvent<SplashCloseEvent>().Publish(new SplashCloseEvent());
+           }));
 
             WaitForCreation = new AutoResetEvent(false);
 
@@ -68,8 +68,8 @@ namespace Wider.Splash
                    ISplashView iSplashView;
                    try
                    {
-                        //The end user might have set a splash view - try to use that
-                        iSplashView = Container.Resolve<ISplashView>();
+                       //The end user might have set a splash view - try to use that
+                       iSplashView = Container.Resolve<ISplashView>();
                    }
                    catch (Exception)
                    {
@@ -90,7 +90,7 @@ namespace Wider.Splash
                 Dispatcher.Run();
             }
 
-            Thread thread = new Thread(showSplash) {Name = "Splash Thread", IsBackground = true};
+            Thread thread = new Thread(showSplash) { Name = "Splash Thread", IsBackground = true };
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
 

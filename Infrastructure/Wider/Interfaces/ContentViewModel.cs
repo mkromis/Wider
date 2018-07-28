@@ -33,7 +33,7 @@ namespace Wider.Interfaces
         /// <summary>
         /// The static count value for "Untitled" number.
         /// </summary>
-        protected static System.Int32 Count = 1;
+        protected static Int32 Count = 1;
 
         /// <summary>
         /// The model
@@ -122,7 +122,7 @@ namespace Wider.Interfaces
         public virtual ContentModel Model
         {
             get => _model;
-            protected internal set
+            set
             {
                 if (_model != null)
                 {
@@ -140,7 +140,7 @@ namespace Wider.Interfaces
         /// The content view
         /// </summary>
         /// <value>The view.</value>
-        public virtual UserControl View { get; protected internal set; }
+        public virtual /*UserControl*/ IContentView View { get; set; }
 
         /// <summary>
         /// The content menu that should be available for the document pane
@@ -226,7 +226,7 @@ namespace Wider.Interfaces
         /// The content handler which does save and load of the file
         /// </summary>
         /// <value>The handler.</value>
-        public IContentHandler Handler { get; protected internal set; }
+        public IContentHandler Handler { get; set; }
 
         #endregion
 

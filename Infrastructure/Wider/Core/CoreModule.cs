@@ -21,7 +21,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Wider.Core.Services;
 using Wider.Core.Settings;
-using Wider.Core.TextDocument;
 using Wider.Interfaces;
 using Wider.Interfaces.Controls;
 using Wider.Interfaces.Events;
@@ -79,10 +78,7 @@ namespace Wider.Core
         {
             EventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(new SplashMessageUpdateEvent
                                                                              {Message = "Loading Core Module"});
-            _container.RegisterType<TextViewModel>();
-            _container.RegisterType<TextModel>();
-            _container.RegisterType<TextView>();
-            _container.RegisterType<AllFileHandler>();
+
             _container.RegisterType<IThemeSettings, ThemeSettings>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IRecentViewSettings, RecentViewSettings>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IWindowPositionSettings, WindowPositionSettings>(
@@ -144,9 +140,6 @@ namespace Wider.Core
                 _container.RegisterType<ILoggerService, NLogService>(new ContainerControlledLifetimeManager());
             }
 
-            //Register a default file opener
-            IContentHandlerRegistry registry = _container.Resolve<IContentHandlerRegistry>();
-            registry.Register(_container.Resolve<AllFileHandler>());
         }
 
         #endregion
