@@ -15,7 +15,7 @@ using System.ComponentModel;
 using Wider.Interfaces;
 using Wider.Interfaces.Services;
 
-namespace Wider.Core.TextDocument
+namespace Wider.Content.TextDocument
 {
     /// <summary>
     /// Class TextModel which contains the text of the document
@@ -60,7 +60,7 @@ namespace Wider.Core.TextDocument
         public override Boolean IsDirty
         {
             get => base.IsDirty;
-            protected internal set
+            set
             {
                 base.IsDirty = value;
                 if (value == false)

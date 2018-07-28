@@ -10,15 +10,16 @@
 
 #endregion
 
+using System;
 using System.Windows.Controls;
 using Wider.Interfaces;
 
-namespace Wider.Core.TextDocument
+namespace Wider.Content.TextDocument.Views
 {
     /// <summary>
     /// Class TextView
     /// </summary>
-    public partial class TextView : IContentView
+    public partial class TextView : UserControl, IContentView
     {
         public TextView() => InitializeComponent();
     }
