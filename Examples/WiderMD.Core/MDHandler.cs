@@ -19,6 +19,7 @@ using Wider.Core.Attributes;
 using Wider.Interfaces;
 using Wider.Interfaces.Services;
 using Microsoft.Win32;
+using Prism.Logging;
 
 namespace WiderMD.Core
 {
@@ -62,7 +63,7 @@ namespace WiderMD.Core
             MDView view = _container.Resolve<MDView>();
 
             //Model details
-            _loggerService.Log("Creating a new simple file using MDHandler", LogCategory.Info, LogPriority.Low);
+            _loggerService.Log("Creating a new simple file using MDHandler", Category.Info, Priority.Low);
 
             view.DataContext = model;
 
@@ -119,8 +120,8 @@ namespace WiderMD.Core
                 }
                 catch (Exception exception)
                 {
-                    _loggerService.Log(exception.Message, LogCategory.Exception, LogPriority.High);
-                    _loggerService.Log(exception.StackTrace, LogCategory.Exception, LogPriority.High);
+                    _loggerService.Log(exception.Message, Category.Exception, Priority.High);
+                    _loggerService.Log(exception.StackTrace, Category.Exception, Priority.High);
                     return null;
                 }
 
@@ -165,8 +166,8 @@ namespace WiderMD.Core
             if (!(contentViewModel is MDViewModel mdViewModel))
             {
                 _loggerService.Log(
-                    "ContentViewModel needs to be a MDViewModel to save details", LogCategory.Exception,
-                    LogPriority.High);
+                    "ContentViewModel needs to be a MDViewModel to save details", 
+                    Category.Exception, Priority.High);
                 throw new ArgumentException("ContentViewModel needs to be a MDViewModel to save details");
             }
 
@@ -174,7 +175,7 @@ namespace WiderMD.Core
             {
                 _loggerService.Log(
                     "MDViewModel does not have a MDModel which should have the text",
-                    LogCategory.Exception, LogPriority.High);
+                    Category.Exception, Priority.High);
                 throw new ArgumentException("MDViewModel does not have a MDModel which should have the text");
             }
 
@@ -210,8 +211,8 @@ namespace WiderMD.Core
                     }
                     catch (Exception exception)
                     {
-                        _loggerService.Log(exception.Message, LogCategory.Exception, LogPriority.High);
-                        _loggerService.Log(exception.StackTrace, LogCategory.Exception, LogPriority.High);
+                        _loggerService.Log(exception.Message, Category.Exception, Priority.High);
+                        _loggerService.Log(exception.StackTrace, Category.Exception, Priority.High);
                         return false;
                     }
                 }
@@ -226,8 +227,8 @@ namespace WiderMD.Core
                 }
                 catch (Exception exception)
                 {
-                    _loggerService.Log(exception.Message, LogCategory.Exception, LogPriority.High);
-                    _loggerService.Log(exception.StackTrace, LogCategory.Exception, LogPriority.High);
+                    _loggerService.Log(exception.Message, Category.Exception, Priority.High);
+                    _loggerService.Log(exception.StackTrace, Category.Exception, Priority.High);
                     return false;
                 }
             }

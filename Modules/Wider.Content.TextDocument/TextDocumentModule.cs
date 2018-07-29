@@ -12,7 +12,7 @@ namespace Wider.Content.TextDocument
 {
     public class TextDocumentModule : IModule
     {
-        private IRegionManager _regionManager;
+        private readonly IRegionManager _regionManager;
         private IUnityContainer _container;
 
         public TextDocumentModule(IUnityContainer container, IRegionManager regionManager)

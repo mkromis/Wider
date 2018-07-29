@@ -10,33 +10,11 @@
 
 #endregion
 
+using Prism.Logging;
 using System;
 
 namespace Wider.Interfaces.Services
 {
-    /// <summary>
-    /// Enum LogCategory
-    /// </summary>
-    public enum LogCategory
-    {
-        Debug,
-        Exception,
-        Info,
-        Warn,
-        Error
-    }
-
-    /// <summary>
-    /// Enum LogPriority
-    /// </summary>
-    public enum LogPriority
-    {
-        None,
-        Low,
-        Medium,
-        High
-    }
-
     /// <summary>
     /// Interface ILoggerService - used for logging in the application
     /// </summary>
@@ -52,13 +30,13 @@ namespace Wider.Interfaces.Services
         /// Gets the category of logging.
         /// </summary>
         /// <value>The category.</value>
-        LogCategory Category { get; }
+        Category Category { get; }
 
         /// <summary>
         /// Gets the priority of logging.
         /// </summary>
         /// <value>The priority.</value>
-        LogPriority Priority { get; }
+        Priority Priority { get; }
 
         /// <summary>
         /// Logs the specified message.
@@ -66,6 +44,6 @@ namespace Wider.Interfaces.Services
         /// <param name="message">The message.</param>
         /// <param name="category">The logging category.</param>
         /// <param name="priority">The logging priority.</param>
-        void Log(String message, LogCategory category, LogPriority priority);
+        void Log(String message, Category category, Priority priority);
     }
 }
