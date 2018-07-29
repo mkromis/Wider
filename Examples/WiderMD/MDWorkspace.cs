@@ -12,6 +12,7 @@
 
 using Microsoft.Practices.Unity;
 using Prism.Events;
+using Prism.Logging;
 using System;
 using System.ComponentModel;
 using System.Windows.Media;
@@ -77,7 +78,7 @@ namespace WiderMD
             RaisePropertyChanged("Title");
             if(model != null)
             {
-                Logger.Log("Active document changed to " + model.Title, LogCategory.Info, LogPriority.None);
+                Logger.Log($"Active document changed to {model.Title}", Category.Info, Priority.None);
             }
         }
 

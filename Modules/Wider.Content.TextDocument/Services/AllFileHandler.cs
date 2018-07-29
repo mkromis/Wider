@@ -12,6 +12,7 @@
 
 using Microsoft.Practices.Unity;
 using Microsoft.Win32;
+using Prism.Logging;
 using System;
 using System.IO;
 using System.Linq;
@@ -67,7 +68,7 @@ namespace Wider.Content.Services
             TextModel model = _container.Resolve<TextModel>();
             TextView view = _container.Resolve<TextView>();
 
-            _loggerService.Log("Creating a new simple file using AllFileHandler", LogCategory.Info, LogPriority.Low);
+            _loggerService.Log("Creating a new simple file using AllFileHandler", Category.Info, Priority.Low);
 
             view.DataContext = model;
 
@@ -140,8 +141,8 @@ namespace Wider.Content.Services
                 }
                 catch (Exception exception)
                 {
-                    _loggerService.Log(exception.Message, LogCategory.Exception, LogPriority.High);
-                    _loggerService.Log(exception.StackTrace, LogCategory.Exception, LogPriority.High);
+                    _loggerService.Log(exception.Message, Category.Exception, Priority.High);
+                    _loggerService.Log(exception.StackTrace, Category.Exception, Priority.High);
                     return null;
                 }
 
@@ -191,15 +192,17 @@ namespace Wider.Content.Services
 
             if (!(contentViewModel is TextViewModel textViewModel))
             {
-                _loggerService.Log("ContentViewModel needs to be a TextViewModel to save details", LogCategory.Exception,
-                                   LogPriority.High);
+                _loggerService.Log(
+                    "ContentViewModel needs to be a TextViewModel to save details", 
+                    Category.Exception, Priority.High);
                 throw new ArgumentException("ContentViewModel needs to be a TextViewModel to save details");
             }
 
             if (!(textViewModel.Model is TextModel textModel))
             {
-                _loggerService.Log("TextViewModel does not have a TextModel which should have the text",
-                                   LogCategory.Exception, LogPriority.High);
+                _loggerService.Log(
+                    "TextViewModel does not have a TextModel which should have the text",
+                    Category.Exception, Priority.High);
                 throw new ArgumentException("TextViewModel does not have a TextModel which should have the text");
             }
 
@@ -235,8 +238,8 @@ namespace Wider.Content.Services
                     }
                     catch (Exception exception)
                     {
-                        _loggerService.Log(exception.Message, LogCategory.Exception, LogPriority.High);
-                        _loggerService.Log(exception.StackTrace, LogCategory.Exception, LogPriority.High);
+                        _loggerService.Log(exception.Message, Category.Exception, Priority.High);
+                        _loggerService.Log(exception.StackTrace, Category.Exception, Priority.High);
                         return false;
                     }
                 }
@@ -251,8 +254,8 @@ namespace Wider.Content.Services
                 }
                 catch (Exception exception)
                 {
-                    _loggerService.Log(exception.Message, LogCategory.Exception, LogPriority.High);
-                    _loggerService.Log(exception.StackTrace, LogCategory.Exception, LogPriority.High);
+                    _loggerService.Log(exception.Message, Category.Exception, Priority.High);
+                    _loggerService.Log(exception.StackTrace, Category.Exception, Priority.High);
                     return false;
                 }
             }

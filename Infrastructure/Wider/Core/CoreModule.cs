@@ -13,7 +13,9 @@
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
+using Prism.Logging;
 using Prism.Modularity;
+using Prism.Unity;
 using System;
 using System.ComponentModel;
 using System.Windows;
@@ -131,13 +133,10 @@ namespace Wider.Core
             }
 
             // Try resolving a logger service - if not found, then register the NLog service
-            try
+            ILoggerService logger = _container.TryResolve<ILoggerService>();
+            if (logger == null)
             {
-                _container.Resolve<ILoggerService>();
-            }
-            catch
-            {
-                _container.RegisterType<ILoggerService, NLogService>(new ContainerControlledLifetimeManager());
+                _container.RegisterType<ILoggerService, DebugLogService>(new ContainerControlledLifetimeManager());
             }
 
         }
@@ -268,7 +267,7 @@ namespace Wider.Core
 
             if (e == null)
             {
-                logger.Log("Closing document " + activeDocument.Model.Location, LogCategory.Info, LogPriority.None);
+                logger.Log("Closing document " + activeDocument.Model.Location, Category.Info, Priority.None);
                 workspace.Documents.Remove(activeDocument);
                 EventAggregator.GetEvent<ClosedContentEvent>().Publish(activeDocument);
                 menuService.Refresh();
