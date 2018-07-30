@@ -22,13 +22,13 @@ namespace WiderMD
     /// </summary>
     public class MultipleDirectoryModuleCatalog : DirectoryModuleCatalog
     {
-        private readonly IList<String> _pathsToProbe;
+        private readonly IEnumerable<String> _pathsToProbe;
 
         /// <summary>
         /// Initializes a new instance of the MultipleDirectoryModuleCatalog class.
         /// </summary>
         /// <param name="pathsToProbe">An IList of paths to probe for modules.</param>
-        public MultipleDirectoryModuleCatalog(IList<String> pathsToProbe) => _pathsToProbe = pathsToProbe;
+        public MultipleDirectoryModuleCatalog(IEnumerable<String> pathsToProbe) => _pathsToProbe = pathsToProbe;
 
         /// <summary>
         /// Provides multiple-path loading of modules over the default <see cref="DirectoryModuleCatalog.InnerLoad"/> method.

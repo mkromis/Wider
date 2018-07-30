@@ -60,7 +60,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppSplash.xaml.cs">
+    <Compile Include="Views\AppSplash.xaml.cs">
       <DependentUpon>AppSplash.xaml</DependentUpon>
     </Compile>
     <Compile Include="MDBootstrapper.cs" />
@@ -93,7 +93,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icon.png" />
+    <Resource Include="Resources\Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Prism.Unity">
@@ -119,7 +119,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="AppSplash.xaml">
+    <Page Include="Views\AppSplash.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
