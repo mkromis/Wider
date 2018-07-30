@@ -25,7 +25,7 @@ namespace WiderMD.Core
             new FrameworkPropertyMetadata(OnHtmlChanged));
 
         [AttachedPropertyBrowsableForType(typeof(WebBrowser))]
-        public static System.String GetHtml(WebBrowser d) => (String)d.GetValue(HtmlProperty);
+        public static String GetHtml(WebBrowser d) => (String)d.GetValue(HtmlProperty);
 
         public static void SetHtml(WebBrowser d, String value) => d.SetValue(HtmlProperty, value);
 
