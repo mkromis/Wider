@@ -12,36 +12,45 @@
 
 using Microsoft.Practices.Unity;
 using Prism.Events;
-using Prism.Modularity;
 using Wider.Interfaces;
 using Wider.Interfaces.Events;
-using Wider.Tools.Logger.ViewModels;
+using Wider.Interfaces.Services;
+using Wider.Tools.Logger.Models;
 using Wider.Tools.Logger.Views;
 
-namespace Wider.Tools.Logger
+namespace Wider.Tools.Logger.ViewModels
 {
-    [Module(ModuleName = "Wider.Tools.Logger")]
-    public sealed class LoggerModule : IModule
+    internal class LoggerViewModel : ToolViewModel
     {
+        private readonly IEventAggregator _aggregator;
         private readonly IUnityContainer _container;
+        private readonly LoggerModel _model;
+        private readonly LoggerView _view;
+        private readonly IWorkspace _workspace;
 
-        public LoggerModule(IUnityContainer container) => _container = container;
-
-        private IEventAggregator EventAggregator => _container.Resolve<IEventAggregator>();
-
-        #region IModule Members
-        public void Initialize()
+        public LoggerViewModel(IUnityContainer container, AbstractWorkspace workspace)
         {
-            EventAggregator.GetEvent<SplashMessageUpdateEvent>()
-                .Publish(new SplashMessageUpdateEvent {Message = "Loading Logger Module"});
+            _workspace = workspace;
+            _container = container;
+            Name = "Logger";
+            Title = "Logger";
+            ContentId = "Logger";
+            _model = new LoggerModel();
+            Model = _model;
+            IsVisible = false;
 
-            // register types
-            // This interface has the view model handle the view construdtion
-            _container.RegisterType<LoggerViewModel>();
+            _view = new LoggerView
+            {
+                DataContext = _model
+            };
+            View = _view;
 
-            IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
-            workspace.Tools.Add(_container.Resolve<LoggerViewModel>());
+            _aggregator = _container.Resolve<IEventAggregator>();
+            _aggregator.GetEvent<LogEvent>().Subscribe(AddLog);
         }
-        #endregion
+
+        private void AddLog(ILoggerService logger) => _model.AddLog(logger);
+
+        public override PaneLocation PreferredLocation => PaneLocation.Bottom;
     }
 }

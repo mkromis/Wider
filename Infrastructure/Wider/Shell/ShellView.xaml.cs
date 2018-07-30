@@ -12,6 +12,7 @@
 
 using Microsoft.Practices.Unity;
 using Prism.Events;
+using Prism.Logging;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -121,7 +122,7 @@ namespace Wider.Shell
             _eventAggregator.GetEvent<ActiveContentChangedEvent>().Publish(cvm);
             if (cvm != null)
             {
-                Logger.Log("Active document changed to " + cvm.Title, LogCategory.Info, LogPriority.None);
+                Logger.Log("Active document changed to " + cvm.Title, Category.Info, Priority.None);
             }
         }
 

@@ -7,13 +7,17 @@ using Prism.Unity;
 using Wider.Content.TextDocument.ViewModels;
 using Wider.Content.Services;
 using Wider.Interfaces.Services;
+using Prism.Events;
+using Wider.Interfaces.Events;
 
 namespace Wider.Content.TextDocument
 {
     public class TextDocumentModule : IModule
     {
-        private IRegionManager _regionManager;
-        private IUnityContainer _container;
+        private readonly IRegionManager _regionManager;
+        private readonly IUnityContainer _container;
+
+        private IEventAggregator EventAggregator => _container.Resolve<IEventAggregator>();
 
         public TextDocumentModule(IUnityContainer container, IRegionManager regionManager)
         {
@@ -23,6 +27,11 @@ namespace Wider.Content.TextDocument
 
         public void Initialize()
         {
+            // Note splash page
+            EventAggregator.GetEvent<SplashMessageUpdateEvent>()
+                .Publish(new SplashMessageUpdateEvent { Message = "Loading TextDocument Module" });
+
+            // Register container types
             _container.RegisterType<TextViewModel>();
             _container.RegisterType<TextModel>();
             _container.RegisterType<TextView>();

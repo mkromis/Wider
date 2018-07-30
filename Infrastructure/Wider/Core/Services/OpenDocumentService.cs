@@ -13,6 +13,7 @@
 using Microsoft.Practices.Unity;
 using Microsoft.Win32;
 using Prism.Events;
+using Prism.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -138,16 +139,15 @@ namespace Wider.Core.Services
                                 if (contentViewModel.Model.Location.Equals(openValue.Model.Location))
                                 {
                                     _logger.Log(
-                                        "Document " + contentViewModel.Model.Location +
-                                        "already open - making it active",
-                                        LogCategory.Info, LogPriority.Low);
+                                        $"Document {contentViewModel.Model.Location} already open - making it active",
+                                        Category.Info, Priority.Low);
                                     _workspace.ActiveDocument = contentViewModel;
                                     return contentViewModel;
                                 }
                             }
                         }
 
-                        _logger.Log("Opening file" + location + " !!", LogCategory.Info, LogPriority.Low);
+                        _logger.Log("Opening file" + location + " !!", Category.Info, Priority.Low);
 
                         // Publish the event to the Application - subscribers can use this object
                         _eventAggregator.GetEvent<OpenContentEvent>().Publish(openValue);
@@ -165,14 +165,13 @@ namespace Wider.Core.Services
                     }
                     else
                     {
-                        _logger.Log("Unable to find a IContentHandler to open " + location, LogCategory.Error,
-                                    LogPriority.High);
+                        _logger.Log("Unable to find a IContentHandler to open " + location, Category.Warn, Priority.High);
                     }
                 }
             }
             else
             {
-                _logger.Log("Canceled out of open file dialog", LogCategory.Info, LogPriority.Low);
+                _logger.Log("Canceled out of open file dialog", Category.Info, Priority.Low);
             }
             return returnValue;
         }
@@ -197,9 +196,8 @@ namespace Wider.Core.Services
                     {
                         if (contentViewModel.Model.Location.Equals(openValue.Model.Location))
                         {
-                            _logger.Log("Document " + contentViewModel.Model.Location + "already open.",
-                                        LogCategory.Info,
-                                        LogPriority.Low);
+                            _logger.Log($"Document {contentViewModel.Model.Location} already open.",
+                                        Category.Info, Priority.Low);
 
                             if (makeActive)
                             {
@@ -211,7 +209,7 @@ namespace Wider.Core.Services
                     }
                 }
 
-                _logger.Log("Opening content with " + contentID + " !!", LogCategory.Info, LogPriority.Low);
+                _logger.Log($"Opening content with {contentID} !!", Category.Info, Priority.Low);
 
                 // Publish the event to the Application - subscribers can use this object
                 _eventAggregator.GetEvent<OpenContentEvent>().Publish(openValue);
@@ -229,8 +227,8 @@ namespace Wider.Core.Services
                 return openValue;
             }
 
-            _logger.Log("Unable to find a IContentHandler to open content with ID = " + contentID, LogCategory.Error,
-                        LogPriority.High);
+            _logger.Log($"Unable to find a IContentHandler to open content with ID = {contentID}",
+                Category.Warn, Priority.High);
             return null;
         }
 

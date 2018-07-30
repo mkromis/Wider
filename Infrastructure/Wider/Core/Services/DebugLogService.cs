@@ -10,8 +10,8 @@
 
 #endregion
 
-using NLog;
 using Prism.Events;
+using Prism.Logging;
 using System;
 using System.Diagnostics;
 using System.Reflection;
@@ -23,23 +23,19 @@ namespace Wider.Core.Services
     /// <summary>
     /// The NLogService for logging purposes
     /// </summary>
-    internal class NLogService : ILoggerService
+    internal class DebugLogService : ILoggerService
     {
-        private static readonly Logger Logger = LogManager.GetLogger("Wider");
         private readonly IEventAggregator _aggregator;
-
-        /// <summary>
-        /// Private constructor of NLogService
-        /// </summary>
-        private NLogService()
-        {
-        }
 
         /// <summary>
         /// The NLogService constructor
         /// </summary>
         /// <param name="aggregator">The injected event aggregator</param>
-        public NLogService(IEventAggregator aggregator) => _aggregator = aggregator;
+        public DebugLogService(IEventAggregator aggregator = null) => _aggregator = aggregator;
+
+        private void WriteMessage(String message, Category category, Priority priority)
+        {
+        }
 
         #region ILoggerService Members
 
@@ -49,7 +45,7 @@ namespace Wider.Core.Services
         /// <param name="message">A message to log</param>
         /// <param name="category">The category of logging</param>
         /// <param name="priority">The priority of logging</param>
-        public void Log(String message, LogCategory category, LogPriority priority)
+        public void Log(String message, Category category, Priority priority)
         {
             Message = message;
             Category = category;
@@ -59,10 +55,11 @@ namespace Wider.Core.Services
             StackFrame frame = trace.GetFrame(1); // 0 will be the inner-most method
             MethodBase method = frame.GetMethod();
 
-            Logger.Log(LogLevel.Info, method.DeclaringType + ": " + message);
+            Debug.WriteLine($"{method.DeclaringType}: {message}, {category}, {priority}");
 
-            _aggregator.GetEvent<LogEvent>().Publish(new NLogService
-                                                         {Message = Message, Category = Category, Priority = Priority});
+            // once we output debug message, pass message to internal events
+            _aggregator.GetEvent<LogEvent>().Publish(
+                new DebugLogService {Message = Message, Category = Category, Priority = Priority});
         }
 
         /// <summary>
@@ -73,12 +70,12 @@ namespace Wider.Core.Services
         /// <summary>
         /// The log message's category
         /// </summary>
-        public LogCategory Category { get; internal set; }
+        public Category Category { get; internal set; }
 
         /// <summary>
         /// The log message's priority
         /// </summary>
-        public LogPriority Priority { get; internal set; }
+        public Priority Priority { get; internal set; }
 
         #endregion
     }

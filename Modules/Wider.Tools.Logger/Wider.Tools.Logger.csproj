@@ -50,12 +50,12 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LoggerModel.cs" />
+    <Compile Include="Models\LoggerModel.cs" />
     <Compile Include="LoggerModule.cs" />
-    <Compile Include="LoggerView.xaml.cs">
+    <Compile Include="Views\LoggerView.xaml.cs">
       <DependentUpon>LoggerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LoggerViewModel.cs" />
+    <Compile Include="ViewModels\LoggerViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -80,7 +80,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="LoggerView.xaml">
+    <Page Include="Views\LoggerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
