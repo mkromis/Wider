@@ -78,9 +78,10 @@ namespace Wider.Core
         /// </summary>
         public void Initialize()
         {
-            EventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(new SplashMessageUpdateEvent
-                                                                             {Message = "Loading Core Module"});
+            EventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(
+                new SplashMessageUpdateEvent {Message = "Loading Core Module"});
 
+            // Register types
             _container.RegisterType<IThemeSettings, ThemeSettings>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IRecentViewSettings, RecentViewSettings>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IWindowPositionSettings, WindowPositionSettings>(
@@ -93,28 +94,25 @@ namespace Wider.Core
             _container.RegisterType<IStatusbarService, WiderStatusbar>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IThemeManager, ThemeManager>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IToolbarService, ToolbarService>(new ContainerControlledLifetimeManager());
-            _container.RegisterType<IMenuService, MenuItemViewModel>(new ContainerControlledLifetimeManager(),
-                                                                     new InjectionConstructor(
-                                                                         new InjectionParameter(typeof (String),
-                                                                                                "$MAIN$"),
-                                                                         new InjectionParameter(typeof (Int32), 1),
-                                                                         new InjectionParameter(
-                                                                             typeof (ImageSource), null),
-                                                                         new InjectionParameter(typeof (ICommand),
-                                                                                                null),
-                                                                         new InjectionParameter(
-                                                                             typeof (KeyGesture), null),
-                                                                         new InjectionParameter(typeof (Boolean), false),
-                                                                         new InjectionParameter(typeof (Boolean), false),
-                                                                         new InjectionParameter(
-                                                                             typeof (IUnityContainer), _container)));
+            _container.RegisterType<IMenuService, MenuItemViewModel>(
+                new ContainerControlledLifetimeManager(),
+                new InjectionConstructor(
+                    new InjectionParameter(typeof (String),"$MAIN$"),
+                    new InjectionParameter(typeof (Int32), 1),
+                    new InjectionParameter(typeof (ImageSource), null),
+                    new InjectionParameter(typeof (ICommand),null),
+                    new InjectionParameter(typeof (KeyGesture), null),
+                    new InjectionParameter(typeof (Boolean), false),
+                    new InjectionParameter(typeof (Boolean), false),
+                    new InjectionParameter(typeof (IUnityContainer), _container)));
             _container.RegisterType<ToolbarViewModel>(
-                new InjectionConstructor(new InjectionParameter(typeof (String), "$MAIN$"),
-                                         new InjectionParameter(typeof (Int32), 1),
-                                         new InjectionParameter(typeof (ImageSource), null),
-                                         new InjectionParameter(typeof (ICommand), null),
-                                         new InjectionParameter(typeof (Boolean), false),
-                                         new InjectionParameter(typeof (IUnityContainer), _container)));
+                new InjectionConstructor(
+                    new InjectionParameter(typeof (String), "$MAIN$"),
+                    new InjectionParameter(typeof (Int32), 1),
+                    new InjectionParameter(typeof (ImageSource), null),
+                    new InjectionParameter(typeof (ICommand), null),
+                    new InjectionParameter(typeof (Boolean), false),
+                    new InjectionParameter(typeof (IUnityContainer), _container)));
 
             _container.RegisterType<ISettingsManager, SettingsManager>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IOpenDocumentService, OpenDocumentService>(new ContainerControlledLifetimeManager());
@@ -123,22 +121,16 @@ namespace Wider.Core
             LoadSettings();
 
             //Try resolving a workspace
-            try
-            {
-                _container.Resolve<AbstractWorkspace>();
-            }
-            catch
+            if (_container.Resolve<AbstractWorkspace>() == null) 
             {
                 _container.RegisterType<AbstractWorkspace, Workspace>(new ContainerControlledLifetimeManager());
             }
 
             // Try resolving a logger service - if not found, then register the NLog service
-            ILoggerService logger = _container.TryResolve<ILoggerService>();
-            if (logger == null)
+            if (_container.TryResolve<ILoggerService>() == null)
             {
                 _container.RegisterType<ILoggerService, DebugLogService>(new ContainerControlledLifetimeManager());
             }
-
         }
 
         #endregion
