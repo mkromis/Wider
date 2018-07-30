@@ -61,7 +61,7 @@
     <Compile Include="Core\Services\NewFileWindow.xaml.cs">
       <DependentUpon>NewFileWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\Services\NLogService.cs" />
+    <Compile Include="Core\Services\DebugLogService.cs" />
     <Compile Include="Core\Services\OpenDocumentService.cs" />
     <Compile Include="Core\Services\ThemeManager.cs" />
     <Compile Include="Core\Services\ToolbarService.cs" />
@@ -264,9 +264,6 @@
     </PackageReference>
     <PackageReference Include="MahApps.Metro">
       <Version>1.6.5</Version>
-    </PackageReference>
-    <PackageReference Include="NLog">
-      <Version>4.5.6</Version>
     </PackageReference>
     <PackageReference Include="Prism.Unity">
       <Version>6.3.0</Version>

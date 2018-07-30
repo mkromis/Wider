@@ -11,6 +11,7 @@
 #endregion
 
 using Prism.Events;
+using Prism.Logging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -113,7 +114,7 @@ namespace Wider.Core.Services
                 }
                 appTheme.EndInit();
                 theme.EndInit();
-                _logger.Log("Theme set to " + name, LogCategory.Info, LogPriority.None);
+                _logger.Log($"Theme set to {name}", Category.Info, Priority.None);
                 _eventAggregator.GetEvent<ThemeChangeEvent>().Publish(newTheme);
             }
             return false;

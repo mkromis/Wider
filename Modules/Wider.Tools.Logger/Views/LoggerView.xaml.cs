@@ -10,22 +10,18 @@
 
 #endregion
 
-using Prism.Mvvm;
 using System;
 using System.ComponentModel;
+using System.Windows.Controls;
 using Wider.Interfaces;
-using Wider.Interfaces.Services;
 
-namespace Wider.Tools.Logger
+namespace Wider.Tools.Logger.Views
 {
-    internal class LoggerModel : BindableBase
+    /// <summary>
+    /// Interaction logic for LoggerView.xaml
+    /// </summary>
+    internal partial class LoggerView : UserControl, IContentView
     {
-        public String Text { get; private set; }
-
-        public void AddLog(ILoggerService logger)
-        {
-            Text = logger.Message + "\n" + Text;
-            RaisePropertyChanged("Text");
-        }
+        public LoggerView() => InitializeComponent();
     }
 }
