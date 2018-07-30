@@ -10,45 +10,22 @@
 
 #endregion
 
-using Microsoft.Practices.Unity;
-using Prism.Events;
+using Prism.Mvvm;
+using System;
+using System.ComponentModel;
 using Wider.Interfaces;
-using Wider.Interfaces.Events;
 using Wider.Interfaces.Services;
 
-namespace Wider.Tools.Logger
+namespace Wider.Tools.Logger.Models
 {
-    internal class LoggerViewModel : ToolViewModel
+    internal class LoggerModel : BindableBase
     {
-        private readonly IEventAggregator _aggregator;
-        private readonly IUnityContainer _container;
-        private readonly LoggerModel _model;
-        private readonly LoggerView _view;
-        private readonly IWorkspace _workspace;
+        public String Text { get; private set; }
 
-        public LoggerViewModel(IUnityContainer container, AbstractWorkspace workspace)
+        public void AddLog(ILoggerService logger)
         {
-            _workspace = workspace;
-            _container = container;
-            Name = "Logger";
-            Title = "Logger";
-            ContentId = "Logger";
-            _model = new LoggerModel();
-            Model = _model;
-            IsVisible = false;
-
-            _view = new LoggerView
-            {
-                DataContext = _model
-            };
-            View = _view;
-
-            _aggregator = _container.Resolve<IEventAggregator>();
-            _aggregator.GetEvent<LogEvent>().Subscribe(AddLog);
+            Text = logger.Message + "\n" + Text;
+            RaisePropertyChanged("Text");
         }
-
-        private void AddLog(ILoggerService logger) => _model.AddLog(logger);
-
-        public override PaneLocation PreferredLocation => PaneLocation.Bottom;
     }
 }
