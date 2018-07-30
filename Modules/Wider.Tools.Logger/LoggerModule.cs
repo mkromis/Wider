@@ -36,8 +36,8 @@ namespace Wider.Tools.Logger
                 .Publish(new SplashMessageUpdateEvent {Message = "Loading Logger Module"});
 
             // register types
+            // This interface has the view model handle the view construdtion
             _container.RegisterType<LoggerViewModel>();
-            _container.RegisterType<LoggerView>();
 
             IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
             workspace.Tools.Add(_container.Resolve<LoggerViewModel>());

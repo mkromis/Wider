@@ -57,6 +57,7 @@ namespace Wider.Core.Services
 
             Debug.WriteLine($"{method.DeclaringType}: {message}, {category}, {priority}");
 
+            // once we output debug message, pass message to internal events
             _aggregator.GetEvent<LogEvent>().Publish(
                 new DebugLogService {Message = Message, Category = Category, Priority = Priority});
         }
