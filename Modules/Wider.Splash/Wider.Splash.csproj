@@ -65,10 +65,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SplashView.xaml.cs">
+    <Compile Include="Views\SplashView.xaml.cs">
       <DependentUpon>SplashView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SplashViewModel.cs" />
+    <Compile Include="ViewModels\SplashViewModel.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -85,7 +85,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="SplashView.xaml">
+    <Page Include="Views\SplashView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
