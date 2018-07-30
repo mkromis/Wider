@@ -19,6 +19,8 @@ using System.Windows;
 using System.Windows.Threading;
 using Wider.Interfaces;
 using Wider.Interfaces.Events;
+using Wider.Splash.ViewModels;
+using Wider.Splash.Views;
 
 namespace Wider.Splash
 {
