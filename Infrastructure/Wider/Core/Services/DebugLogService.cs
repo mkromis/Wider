@@ -25,16 +25,17 @@ namespace Wider.Core.Services
     /// </summary>
     internal class DebugLogService : ILoggerService
     {
-        public static DebugLogger Logger = new DebugLogger();
         private readonly IEventAggregator _aggregator;
-
-        public DebugLogService() { }
 
         /// <summary>
         /// The NLogService constructor
         /// </summary>
         /// <param name="aggregator">The injected event aggregator</param>
-        public DebugLogService(IEventAggregator aggregator) => _aggregator = aggregator;
+        public DebugLogService(IEventAggregator aggregator = null) => _aggregator = aggregator;
+
+        private void WriteMessage(String message, Category category, Priority priority)
+        {
+        }
 
         #region ILoggerService Members
 
@@ -54,7 +55,7 @@ namespace Wider.Core.Services
             StackFrame frame = trace.GetFrame(1); // 0 will be the inner-most method
             MethodBase method = frame.GetMethod();
 
-            Logger.Log($"{method.DeclaringType}: {message}", category, priority);;
+            Debug.WriteLine($"{method.DeclaringType}: {message}, {category}, {priority}");
 
             _aggregator.GetEvent<LogEvent>().Publish(
                 new DebugLogService {Message = Message, Category = Category, Priority = Priority});
