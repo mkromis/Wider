@@ -37,14 +37,7 @@ namespace WiderMD
             _document = "";
         }
 
-        public override ImageSource Icon
-        {
-            get
-            {
-                ImageSource imageSource = new BitmapImage(new Uri("pack://application:,,,/WiderMD;component/Icon.png"));
-                return imageSource;
-            }
-        }
+        public override ImageSource Icon => new BitmapImage(new Uri("pack://application:,,,/WiderMD;component/Resources/Icon.ico"));
 
         public override String Title
         {

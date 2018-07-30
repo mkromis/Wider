@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using Wider.Interfaces;
 using Wider.Shell;
 using Wider.Splash;
+using WiderMD.Views;
 
 namespace WiderMD
 {
@@ -44,7 +45,7 @@ namespace WiderMD
 
         protected override IModuleCatalog CreateModuleCatalog()
         {
-            MultipleDirectoryModuleCatalog catalog = new MultipleDirectoryModuleCatalog(new List<String>() {@".", @".\External", @".\Internal"});
+            MultipleDirectoryModuleCatalog catalog = new MultipleDirectoryModuleCatalog(new String[] {@".", @".\External", @".\Internal"});
             return catalog;
         }
     }

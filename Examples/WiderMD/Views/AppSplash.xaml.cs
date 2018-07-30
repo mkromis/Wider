@@ -12,8 +12,9 @@
 
 using System.Windows;
 using Wider.Splash;
+using Wider.Splash.ViewModels;
 
-namespace WiderMD
+namespace WiderMD.Views
 {
     /// <summary>
     /// Interaction logic for AppSplash.xaml
