@@ -10,9 +10,9 @@
 
 #endregion
 
-using Microsoft.Practices.Unity;
+using DryIoc;
+using Prism.DryIoc;
 using Prism.Modularity;
-using Prism.Unity;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -22,7 +22,7 @@ using Wider.Interfaces;
 
 namespace Wider.Shell
 {
-    public class WiderBootstrapper : UnityBootstrapper
+    public class WiderBootstrapper : DryIocBootstrapper
     {
         public static Boolean IsMetro { get; protected set; }
 
@@ -61,12 +61,12 @@ namespace Wider.Shell
             if (IsMetro)
             {
                 //Use MahApps Metro window
-                Container.RegisterType<IShell, ShellViewMetro>(new ContainerControlledLifetimeManager());
+                Container.Register<IShell, ShellViewMetro>();
             }
             else
             {
                 //Use regular window
-                Container.RegisterType<IShell, ShellView>(new ContainerControlledLifetimeManager());
+                Container.Register<IShell, ShellView>();
             }
             base.ConfigureContainer();
         }

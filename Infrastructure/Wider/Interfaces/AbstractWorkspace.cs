@@ -10,7 +10,6 @@
 
 #endregion
 
-using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Mvvm;
 using System;
@@ -36,7 +35,7 @@ namespace Wider.Interfaces
         /// <summary>
         /// The injected container
         /// </summary>
-        protected readonly IUnityContainer _container;
+        protected readonly DryIoc.IContainer _container;
 
         /// <summary>
         /// The injected event aggregator
@@ -87,7 +86,7 @@ namespace Wider.Interfaces
         /// </summary>
         /// <param name="container">The injected container.</param>
         /// <param name="eventAggregator">The event aggregator.</param>
-        protected AbstractWorkspace(IUnityContainer container, IEventAggregator eventAggregator)
+        protected AbstractWorkspace(DryIoc.IContainer container, IEventAggregator eventAggregator)
         {
             _container = container;
             _eventAggregator = eventAggregator;

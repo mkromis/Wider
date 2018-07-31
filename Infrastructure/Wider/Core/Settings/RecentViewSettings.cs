@@ -10,7 +10,7 @@
 
 #endregion
 
-using Microsoft.Practices.Unity;
+using DryIoc;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
@@ -29,9 +29,9 @@ namespace Wider.Core.Settings
         private List<String> menuGuids;
         private readonly DelegateCommand<String> recentOpen;
         private IOpenDocumentService fileService;
-        private IUnityContainer _container;
+        private IContainer _container;
 
-        public RecentViewSettings(IUnityContainer container)
+        public RecentViewSettings(IContainer container)
         {
             recentMenu = new MenuItemViewModel("Recentl_y opened..", 100);
             menuGuids = new List<String>();
