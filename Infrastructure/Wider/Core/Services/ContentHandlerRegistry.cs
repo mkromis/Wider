@@ -10,8 +10,8 @@
 
 #endregion
 
+using DryIoc;
 using MahApps.Metro.Controls;
-using Microsoft.Practices.Unity;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
@@ -51,7 +51,7 @@ namespace Wider.Core.Services
         /// <summary>
         /// The container
         /// </summary>
-        private readonly IUnityContainer _container;
+        private readonly IContainer _container;
 
         /// <summary>
         /// The status bar service
@@ -87,7 +87,7 @@ namespace Wider.Core.Services
         /// Constructor of content handler registry
         /// </summary>
         /// <param name="container">The injected container of the application</param>
-        public ContentHandlerRegistry(IUnityContainer container, IStatusbarService statusBar)
+        public ContentHandlerRegistry(IContainer container, IStatusbarService statusBar)
         {
             ContentHandlers = new List<IContentHandler>();
             _container = container;
