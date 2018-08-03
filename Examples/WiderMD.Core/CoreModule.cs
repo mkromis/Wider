@@ -10,7 +10,7 @@
 
 #endregion
 
-using Microsoft.Practices.Unity;
+using DryIoc;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Modularity;
@@ -33,10 +33,10 @@ namespace WiderMD.Core
     [ModuleDependency("Wider.Tools.Logger")]
     public class CoreModule : IModule
     {
-        private IUnityContainer _container;
+        private IContainer _container;
         private IEventAggregator _eventAggregator;
 
-        public CoreModule(IUnityContainer container, IEventAggregator eventAggregator)
+        public CoreModule(IContainer container, IEventAggregator eventAggregator)
         {
             _container = container;
             _eventAggregator = eventAggregator;
@@ -94,9 +94,9 @@ namespace WiderMD.Core
 
         private void RegisterParts()
         {
-            _container.RegisterType<MDHandler>();
-            _container.RegisterType<MDViewModel>();
-            _container.RegisterType<MDView>();
+            _container.Register<MDHandler>();
+            _container.Register<MDViewModel>();
+            _container.Register<MDView>();
 
             IContentHandler handler = _container.Resolve<MDHandler>();
             _container.Resolve<IContentHandlerRegistry>().Register(handler);
