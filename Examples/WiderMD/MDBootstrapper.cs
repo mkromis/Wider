@@ -10,7 +10,7 @@
 
 #endregion
 
-using Microsoft.Practices.Unity;
+using DryIoc;
 using Prism.Modularity;
 using System;
 using System.Collections.Generic;
@@ -31,10 +31,10 @@ namespace WiderMD
         protected override void InitializeModules()
         {
             //Register your splash view or else the default splash will load
-            Container.RegisterType<ISplashView, AppSplash>();
+            Container.Register<ISplashView, AppSplash>();
 
             //Register your workspace here - if you have any
-            Container.RegisterType<AbstractWorkspace, MDWorkspace>(new ContainerControlledLifetimeManager());
+            Container.Register<AbstractWorkspace, MDWorkspace>();
 
             // You can also override the logger service. Currently, NLog is used.
             // Since the config file is there in the output location, text files should be available in the Logs folder.
