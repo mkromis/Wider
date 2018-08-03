@@ -10,7 +10,7 @@
 
 #endregion
 
-using Microsoft.Practices.Unity;
+using DryIoc;
 using Prism.Events;
 using Wider.Interfaces;
 using Wider.Interfaces.Events;
@@ -23,12 +23,12 @@ namespace Wider.Tools.Logger.ViewModels
     internal class LoggerViewModel : ToolViewModel
     {
         private readonly IEventAggregator _aggregator;
-        private readonly IUnityContainer _container;
+        private readonly IContainer _container;
         private readonly LoggerModel _model;
         private readonly LoggerView _view;
         private readonly IWorkspace _workspace;
 
-        public LoggerViewModel(IUnityContainer container, AbstractWorkspace workspace)
+        public LoggerViewModel(IContainer container, AbstractWorkspace workspace)
         {
             _workspace = workspace;
             _container = container;
