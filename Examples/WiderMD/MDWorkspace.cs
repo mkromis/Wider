@@ -10,11 +10,10 @@
 
 #endregion
 
-using Microsoft.Practices.Unity;
+using DryIoc;
 using Prism.Events;
 using Prism.Logging;
 using System;
-using System.ComponentModel;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Wider.Interfaces;
@@ -29,7 +28,7 @@ namespace WiderMD
         private ILoggerService _logger;
         private const String _title = "Wider MD";
 
-        public MDWorkspace(IUnityContainer container, IEventAggregator eventAggregator)
+        public MDWorkspace(IContainer container, IEventAggregator eventAggregator)
             : base(container, eventAggregator)
         {
             IEventAggregator aggregator = container.Resolve<IEventAggregator>();
@@ -75,7 +74,7 @@ namespace WiderMD
             }
         }
 
-        protected override void ModelChangedEventHandler(Object sender, PropertyChangedEventArgs e)
+        protected override void ModelChangedEventHandler(Object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             String newValue = ActiveDocument == null ? "" : ActiveDocument.Title;
             if (_document != newValue)
