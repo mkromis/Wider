@@ -14,12 +14,12 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Microsoft.Practices.Unity;
 using Wider.Core.Attributes;
 using Wider.Interfaces;
 using Wider.Interfaces.Services;
 using Microsoft.Win32;
 using Prism.Logging;
+using DryIoc;
 
 namespace WiderMD.Core
 {
@@ -30,7 +30,7 @@ namespace WiderMD.Core
         /// <summary>
         /// The injected container
         /// </summary>
-        private readonly IUnityContainer _container;
+        private readonly IContainer _container;
 
         /// <summary>
         /// The injected logger service
@@ -47,7 +47,7 @@ namespace WiderMD.Core
         /// </summary>
         /// <param name="container">The injected container of the application</param>
         /// <param name="loggerService">The injected logger service of the application</param>
-        public MDHandler(IUnityContainer container, ILoggerService loggerService)
+        public MDHandler(IContainer container, ILoggerService loggerService)
         {
             _container = container;
             _loggerService = loggerService;
