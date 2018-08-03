@@ -10,7 +10,7 @@
 
 #endregion
 
-using Microsoft.Practices.Unity;
+using DryIoc;
 using Microsoft.Win32;
 using Prism.Logging;
 using System;
@@ -36,7 +36,7 @@ namespace Wider.Content.Services
         /// <summary>
         /// The injected container
         /// </summary>
-        private readonly IUnityContainer _container;
+        private readonly IContainer _container;
 
         /// <summary>
         /// The injected logger service
@@ -53,7 +53,7 @@ namespace Wider.Content.Services
         /// </summary>
         /// <param name="container">The injected container of the application</param>
         /// <param name="loggerService">The injected logger service of the application</param>
-        public AllFileHandler(IUnityContainer container, ILoggerService loggerService)
+        public AllFileHandler(IContainer container, ILoggerService loggerService)
         {
             _container = container;
             _loggerService = loggerService;
