@@ -10,7 +10,7 @@
 
 #endregion
 
-using Microsoft.Practices.Unity;
+using DryIoc;
 using Prism.Events;
 using Prism.Modularity;
 using System;
@@ -29,7 +29,7 @@ namespace Wider.Splash
     {
         #region ctors
 
-        public SplashModule(IUnityContainer container_, IEventAggregator eventAggregator_, IShell shell_)
+        public SplashModule(IContainer container_, IEventAggregator eventAggregator_, IShell shell_)
         {
             Container = container_;
             EventAggregator = eventAggregator_;
@@ -40,7 +40,7 @@ namespace Wider.Splash
 
         #region Private Properties
 
-        private IUnityContainer Container { get; set; }
+        private IContainer Container { get; set; }
 
         private IEventAggregator EventAggregator { get; set; }
 
@@ -66,7 +66,7 @@ namespace Wider.Splash
             {
                 Dispatcher.CurrentDispatcher.BeginInvoke((Action)(() =>
                {
-                   Container.RegisterType<SplashViewModel, SplashViewModel>();
+                   Container.Register<SplashViewModel, SplashViewModel>();
                    ISplashView iSplashView;
                    try
                    {
@@ -75,7 +75,7 @@ namespace Wider.Splash
                    }
                    catch (Exception)
                    {
-                       Container.RegisterType<ISplashView, SplashView>();
+                       Container.Register<ISplashView, SplashView>();
                        iSplashView = Container.Resolve<ISplashView>();
                    }
                    if (iSplashView is Window splash)
