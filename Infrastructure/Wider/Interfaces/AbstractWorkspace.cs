@@ -10,7 +10,6 @@
 
 #endregion
 
-using Microsoft.Practices.Unity;
 using Prism.Events;
 using Prism.Mvvm;
 using System;
@@ -36,7 +35,7 @@ namespace Wider.Interfaces
         /// <summary>
         /// The injected container
         /// </summary>
-        protected readonly IUnityContainer _container;
+        protected readonly DryIoc.IContainer _container;
 
         /// <summary>
         /// The injected event aggregator
@@ -87,18 +86,18 @@ namespace Wider.Interfaces
         /// </summary>
         /// <param name="container">The injected container.</param>
         /// <param name="eventAggregator">The event aggregator.</param>
-        protected AbstractWorkspace(IUnityContainer container, IEventAggregator eventAggregator)
+        protected AbstractWorkspace(DryIoc.IContainer container, IEventAggregator eventAggregator)
         {
             _container = container;
             _eventAggregator = eventAggregator;
             _docs = new ObservableCollection<ContentViewModel>();
             _docs.CollectionChanged += Docs_CollectionChanged;
             _tools = new ObservableCollection<ToolViewModel>();
-            _menus = _container.Resolve<IMenuService>() as MenuItemViewModel;
+            _menus = _container.Resolve(typeof(IMenuService), true) as MenuItemViewModel;
             _menus.PropertyChanged += _menus_PropertyChanged;
-            _toolbarService = _container.Resolve<IToolbarService>() as AbstractToolbar;
-            _statusbarService = _container.Resolve<IStatusbarService>();
-            _commandManager = _container.Resolve<ICommandManager>();
+            _toolbarService = _container.Resolve(typeof(IToolbarService), true) as AbstractToolbar;
+            _statusbarService = _container.Resolve(typeof(IStatusbarService), true) as IStatusbarService;
+            _commandManager = _container.Resolve(typeof (ICommandManager), true) as ICommandManager;
         }
 
         #endregion

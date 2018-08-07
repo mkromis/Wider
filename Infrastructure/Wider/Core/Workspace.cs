@@ -10,7 +10,7 @@
 
 #endregion
 
-using Microsoft.Practices.Unity;
+using DryIoc;
 using Prism.Events;
 using Wider.Interfaces;
 
@@ -26,7 +26,7 @@ namespace Wider.Core
         /// </summary>
         /// <param name="container">The injected container - can be used by custom flavors of workspace</param>
         /// <param name="eventAggregator">The event aggregator.</param>
-        public Workspace(IUnityContainer container, IEventAggregator eventAggregator)
+        public Workspace(IContainer container, IEventAggregator eventAggregator)
             : base(container, eventAggregator)
         {
         }

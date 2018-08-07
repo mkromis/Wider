@@ -10,7 +10,7 @@
 
 #endregion
 
-using Microsoft.Practices.Unity;
+using DryIoc;
 using Prism.Events;
 using System;
 using System.Windows.Input;
@@ -40,7 +40,7 @@ namespace Wider.Interfaces.Controls
         public SaveAsMenuItemViewModel(
             String header, Int32 priority, ImageSource icon = null, ICommand command = null,
             KeyGesture gesture = null, Boolean isCheckable = false, Boolean hideDisabled = false,
-            IUnityContainer container = null)
+            IContainer container = null)
             : base(header, priority, icon, command, gesture, isCheckable, hideDisabled)
         {
             if (container != null)

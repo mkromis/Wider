@@ -10,14 +10,12 @@
 
 #endregion
 
-using Microsoft.Practices.Unity;
+using DryIoc;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Logging;
 using Prism.Modularity;
-using Prism.Unity;
 using System;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -52,14 +50,14 @@ namespace Wider.Core
         /// <summary>
         /// The container used in the application
         /// </summary>
-        private readonly IUnityContainer _container;
+        private readonly DryIoc.IContainer _container;
 
         /// <summary>
         /// The constructor of the CoreModule
         /// </summary>
         /// <param name="container">The injected container used in the application</param>
         /// <param name="eventAggregator">The injected event aggregator</param>
-        public CoreModule(IUnityContainer container, IEventAggregator eventAggregator)
+        public CoreModule(DryIoc.IContainer container, IEventAggregator eventAggregator)
         {
             _container = container;
             EventAggregator = eventAggregator;
@@ -82,54 +80,70 @@ namespace Wider.Core
                 new SplashMessageUpdateEvent {Message = "Loading Core Module"});
 
             // Register types
-            _container.RegisterType<IThemeSettings, ThemeSettings>(new ContainerControlledLifetimeManager());
-            _container.RegisterType<IRecentViewSettings, RecentViewSettings>(new ContainerControlledLifetimeManager());
-            _container.RegisterType<IWindowPositionSettings, WindowPositionSettings>(
-                new ContainerControlledLifetimeManager());
-            _container.RegisterType<IToolbarPositionSettings, ToolbarPositionSettings>(
-                new ContainerControlledLifetimeManager());
-            _container.RegisterType<ICommandManager, CommandManager>(new ContainerControlledLifetimeManager());
-            _container.RegisterType<IContentHandlerRegistry, ContentHandlerRegistry>(
-                new ContainerControlledLifetimeManager());
-            _container.RegisterType<IStatusbarService, WiderStatusbar>(new ContainerControlledLifetimeManager());
-            _container.RegisterType<IThemeManager, ThemeManager>(new ContainerControlledLifetimeManager());
-            _container.RegisterType<IToolbarService, ToolbarService>(new ContainerControlledLifetimeManager());
-            _container.RegisterType<IMenuService, MenuItemViewModel>(
-                new ContainerControlledLifetimeManager(),
-                new InjectionConstructor(
-                    new InjectionParameter(typeof (String),"$MAIN$"),
-                    new InjectionParameter(typeof (Int32), 1),
-                    new InjectionParameter(typeof (ImageSource), null),
-                    new InjectionParameter(typeof (ICommand),null),
-                    new InjectionParameter(typeof (KeyGesture), null),
-                    new InjectionParameter(typeof (Boolean), false),
-                    new InjectionParameter(typeof (Boolean), false),
-                    new InjectionParameter(typeof (IUnityContainer), _container)));
-            _container.RegisterType<ToolbarViewModel>(
-                new InjectionConstructor(
-                    new InjectionParameter(typeof (String), "$MAIN$"),
-                    new InjectionParameter(typeof (Int32), 1),
-                    new InjectionParameter(typeof (ImageSource), null),
-                    new InjectionParameter(typeof (ICommand), null),
-                    new InjectionParameter(typeof (Boolean), false),
-                    new InjectionParameter(typeof (IUnityContainer), _container)));
+            _container.Register<IThemeSettings, ThemeSettings>();
+            _container.Register<IRecentViewSettings, RecentViewSettings>();
+            _container.Register<IWindowPositionSettings, WindowPositionSettings>();
+            _container.Register<IToolbarPositionSettings, ToolbarPositionSettings>();
+            _container.Register<ICommandManager, CommandManager>();
+            _container.Register<IContentHandlerRegistry, ContentHandlerRegistry>();
+            _container.Register<IStatusbarService, WiderStatusbar>();
+            _container.Register<IThemeManager, ThemeManager>();
+            _container.Register<IToolbarService, ToolbarService>();
 
-            _container.RegisterType<ISettingsManager, SettingsManager>(new ContainerControlledLifetimeManager());
-            _container.RegisterType<IOpenDocumentService, OpenDocumentService>(new ContainerControlledLifetimeManager());
+            // https://bitbucket.org/dadhi/dryioc/wiki/Wrappers#markdown-header-func-of-a-with-parameters
+            _container.Register<IMenuService, MenuItemViewModel>(
+                Made.Of(() => new MenuItemViewModel(
+                    Arg.Of<String>("$MAIN$"),
+                    Arg.Of<Int32>(-1),
+                    Arg.Of<ImageSource>(null),
+                    Arg.Of<ICommand>(null),
+                    Arg.Of<KeyGesture>(null),
+                    Arg.Of<Boolean>(false),
+                    Arg.Of<Boolean>(false),
+                    Arg.Of<DryIoc.IContainer>(_container))));
+
+            //new InjectionConstructor(
+            //    new InjectionParameter(typeof (String),"$MAIN$"),
+            //    new InjectionParameter(typeof (Int32), 1),
+            //    new InjectionParameter(typeof (ImageSource), null),
+            //    new InjectionParameter(typeof (ICommand),null),
+            //    new InjectionParameter(typeof (KeyGesture), null),
+            //    new InjectionParameter(typeof (Boolean), false),
+            //    new InjectionParameter(typeof (Boolean), false),
+            //    new InjectionParameter(typeof (DryIoc.IContainer), _container)));
+
+            _container.Register<ToolbarViewModel>(
+                Made.Of(() => new ToolbarViewModel(
+                    Arg.Of<String>("$MAIN$"),
+                    Arg.Of<Int32>(1),
+                    Arg.Of<ImageSource>(null),
+                    Arg.Of<ICommand>(null),
+                    Arg.Of<Boolean>(false),
+                    Arg.Of<DryIoc.IContainer>(_container))));
+                //new InjectionConstructor(
+                //    new InjectionParameter(typeof(String), "$MAIN$"),
+                //    new InjectionParameter(typeof(Int32), 1),
+                //    new InjectionParameter(typeof(ImageSource), null),
+                //    new InjectionParameter(typeof(ICommand), null),
+                //    new InjectionParameter(typeof(Boolean), false),
+                //    new InjectionParameter(typeof(DryIoc.IContainer), _container)));
+
+            _container.Register<ISettingsManager, SettingsManager>();
+            _container.Register<IOpenDocumentService, OpenDocumentService>();
 
             AppCommands();
             LoadSettings();
 
             //Try resolving a workspace
-            if (_container.Resolve<AbstractWorkspace>() == null) 
+            if (_container.Resolve<AbstractWorkspace>(IfUnresolved.ReturnDefault) == null) 
             {
-                _container.RegisterType<AbstractWorkspace, Workspace>(new ContainerControlledLifetimeManager());
+                _container.Register<AbstractWorkspace, Workspace>();
             }
 
             // Try resolving a logger service - if not found, then register the NLog service
-            if (_container.TryResolve<ILoggerService>() == null)
+            if (_container.Resolve<ILoggerService>(IfUnresolved.ReturnDefault) == null)
             {
-                _container.RegisterType<ILoggerService, DebugLogService>(new ContainerControlledLifetimeManager());
+                _container.Register<ILoggerService, DebugLogService>();
             }
         }
 
@@ -215,7 +229,7 @@ namespace Wider.Core
             ILoggerService logger = _container.Resolve<ILoggerService>();
             IMenuService menuService = _container.Resolve<IMenuService>();
 
-            CancelEventArgs e = obj as CancelEventArgs;
+            System.ComponentModel.CancelEventArgs e = obj as System.ComponentModel.CancelEventArgs;
 
             if (!(obj is ContentViewModel activeDocument))
             {
