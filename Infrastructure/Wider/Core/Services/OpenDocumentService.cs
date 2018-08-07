@@ -10,7 +10,7 @@
 
 #endregion
 
-using Microsoft.Practices.Unity;
+using DryIoc;
 using Microsoft.Win32;
 using Prism.Events;
 using Prism.Logging;
@@ -34,7 +34,7 @@ namespace Wider.Core.Services
         /// <summary>
         /// The injected container
         /// </summary>
-        private readonly IUnityContainer _container;
+        private readonly IContainer _container;
 
         /// <summary>
         /// The injected event aggregator
@@ -72,7 +72,7 @@ namespace Wider.Core.Services
         /// <param name="container">The injected container</param>
         /// <param name="eventAggregator">The injected event aggregator</param>
         /// <param name="logger">The injected logger</param>
-        public OpenDocumentService(IUnityContainer container, IEventAggregator eventAggregator, ILoggerService logger,
+        public OpenDocumentService(IContainer container, IEventAggregator eventAggregator, ILoggerService logger,
                                    AbstractWorkspace workspace, IContentHandlerRegistry handler,
                                    IRecentViewSettings recentSettings)
         {

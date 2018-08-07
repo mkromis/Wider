@@ -12,7 +12,6 @@
 
 using System;
 using System.Windows;
-using Microsoft.Practices.Unity;
 using Wider.Interfaces;
 
 namespace WiderMD
@@ -29,20 +28,20 @@ namespace WiderMD
             base.OnStartup(e);
             b = new MDBootstrapper();
             b.Run();
-            IShell shell = b.Container.Resolve<IShell>();
+            IShell shell = b.Container.Resolve(typeof(IShell), true) as IShell;
             (shell as Window).Loaded += App_Loaded;
             (shell as Window).Unloaded += App_Unloaded;
         }
 
         void App_Unloaded(Object sender, System.EventArgs e)
         {
-            IShell shell = b.Container.Resolve<IShell>();
+            IShell shell = b.Container.Resolve(typeof(IShell), true) as IShell;
             shell.SaveLayout();
         }
 
         void App_Loaded(Object sender, RoutedEventArgs e)
         {
-            IShell shell = b.Container.Resolve<IShell>();
+            IShell shell = b.Container.Resolve(typeof(IShell), true) as IShell;
             shell.LoadLayout();
         }
     }

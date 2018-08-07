@@ -10,11 +10,10 @@
 
 #endregion
 
+using DryIoc;
 using System;
 using System.Windows.Input;
 using System.Windows.Media;
-using Microsoft.Practices.Unity;
-using Wider.Interfaces.Controls;
 
 namespace Wider.Interfaces.Controls
 {
@@ -32,7 +31,7 @@ namespace Wider.Interfaces.Controls
         /// <exception cref="System.ArgumentException">Header cannot be SEP for a Toolbar</exception>
         protected AbstractToolbar(
             String header, Int32 priority, ImageSource icon = null, ICommand command = null,
-            Boolean isCheckable = false, IUnityContainer container = null)
+            Boolean isCheckable = false, IContainer container = null)
             : base(header, priority, icon, command, null, isCheckable)
         {
             Priority = priority;

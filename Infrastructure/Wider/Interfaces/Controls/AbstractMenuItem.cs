@@ -10,11 +10,11 @@
 
 #endregion
 
+using DryIoc;
 using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using Microsoft.Practices.Unity;
 using Wider.Interfaces.Services;
 
 namespace Wider.Interfaces.Controls
@@ -38,7 +38,7 @@ namespace Wider.Interfaces.Controls
         /// <summary>
         /// The injected container
         /// </summary>
-        protected IUnityContainer _container;
+        protected IContainer _container;
 
         /// <summary>
         /// Is the menu checked

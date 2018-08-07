@@ -1,25 +1,23 @@
-﻿using Wider.Content.TextDocument.Views;
+﻿using DryIoc;
+using Prism.Events;
 using Prism.Modularity;
 using Prism.Regions;
-using System;
-using Microsoft.Practices.Unity;
-using Prism.Unity;
-using Wider.Content.TextDocument.ViewModels;
 using Wider.Content.Services;
-using Wider.Interfaces.Services;
-using Prism.Events;
+using Wider.Content.TextDocument.ViewModels;
+using Wider.Content.TextDocument.Views;
 using Wider.Interfaces.Events;
+using Wider.Interfaces.Services;
 
 namespace Wider.Content.TextDocument
 {
     public class TextDocumentModule : IModule
     {
         private readonly IRegionManager _regionManager;
-        private readonly IUnityContainer _container;
+        private readonly IContainer _container;
 
         private IEventAggregator EventAggregator => _container.Resolve<IEventAggregator>();
 
-        public TextDocumentModule(IUnityContainer container, IRegionManager regionManager)
+        public TextDocumentModule(IContainer container, IRegionManager regionManager)
         {
             _container = container;
             _regionManager = regionManager;
@@ -32,10 +30,10 @@ namespace Wider.Content.TextDocument
                 .Publish(new SplashMessageUpdateEvent { Message = "Loading TextDocument Module" });
 
             // Register container types
-            _container.RegisterType<TextViewModel>();
-            _container.RegisterType<TextModel>();
-            _container.RegisterType<TextView>();
-            _container.RegisterType<AllFileHandler>();
+            _container.Register<TextViewModel>();
+            _container.Register<TextModel>();
+            _container.Register<TextView>();
+            _container.Register<AllFileHandler>();
 
             //Register a default file opener
             IContentHandlerRegistry registry = _container.Resolve<IContentHandlerRegistry>();

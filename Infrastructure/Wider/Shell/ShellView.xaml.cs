@@ -10,11 +10,10 @@
 
 #endregion
 
-using Microsoft.Practices.Unity;
+using DryIoc;
 using Prism.Events;
 using Prism.Logging;
 using System;
-using System.ComponentModel;
 using System.Linq;
 using Wider.Interfaces;
 using Wider.Interfaces.Events;
@@ -30,12 +29,12 @@ namespace Wider.Shell
     /// </summary>
     internal partial class ShellView : IShell
     {
-        private readonly IUnityContainer _container;
+        private readonly IContainer _container;
         private IEventAggregator _eventAggregator;
         private ILoggerService _logger;
         private IWorkspace _workspace;
 
-        public ShellView(IUnityContainer container, IEventAggregator eventAggregator)
+        public ShellView(IContainer container, IEventAggregator eventAggregator)
         {
             InitializeComponent();
             _container = container;
@@ -104,7 +103,7 @@ namespace Wider.Shell
 
         #endregion
 
-        private void Window_Closing_1(Object sender, CancelEventArgs e)
+        private void Window_Closing_1(Object sender, System.ComponentModel.CancelEventArgs e)
         {
             IWorkspace workspace = DataContext as IWorkspace;
             if (!workspace.Closing(e))
