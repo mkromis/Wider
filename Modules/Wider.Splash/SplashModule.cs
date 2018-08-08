@@ -10,7 +10,8 @@
 
 #endregion
 
-using DryIoc;
+using Autofac;
+using Prism.Autofac;
 using Prism.Events;
 using Prism.Modularity;
 using System;
@@ -27,11 +28,14 @@ namespace Wider.Splash
     [Module(ModuleName = "Wider.Splash")]
     public sealed class SplashModule : IModule
     {
-        #region ctors
+        private readonly ContainerBuilder _builder;
+        private readonly IContainer _container;
 
-        public SplashModule(IContainer container_, IEventAggregator eventAggregator_, IShell shell_)
+        #region ctors
+        public SplashModule(ContainerBuilder builder, IContainer container, IEventAggregator eventAggregator_, IShell shell_)
         {
-            Container = container_;
+            _builder = builder;
+            _container = container;
             EventAggregator = eventAggregator_;
             Shell = shell_;
         }
@@ -39,8 +43,6 @@ namespace Wider.Splash
         #endregion
 
         #region Private Properties
-
-        private IContainer Container { get; set; }
 
         private IEventAggregator EventAggregator { get; set; }
 
@@ -66,17 +68,17 @@ namespace Wider.Splash
             {
                 Dispatcher.CurrentDispatcher.BeginInvoke((Action)(() =>
                {
-                   Container.Register<SplashViewModel, SplashViewModel>();
+                   _builder.RegisterType<SplashViewModel>();
                    ISplashView iSplashView;
                    try
                    {
                        //The end user might have set a splash view - try to use that
-                       iSplashView = Container.Resolve<ISplashView>();
+                       iSplashView = _container.Resolve<ISplashView>();
                    }
                    catch (Exception)
                    {
-                       Container.Register<ISplashView, SplashView>();
-                       iSplashView = Container.Resolve<ISplashView>();
+                       _builder.RegisterType<SplashView>().As<ISplashView>();
+                       iSplashView = _container.Resolve<ISplashView>();
                    }
                    if (iSplashView is Window splash)
                    {
