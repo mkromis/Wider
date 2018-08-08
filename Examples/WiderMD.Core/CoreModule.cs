@@ -10,7 +10,8 @@
 
 #endregion
 
-using DryIoc;
+using Autofac;
+using Prism.Autofac;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Modularity;
@@ -33,19 +34,21 @@ namespace WiderMD.Core
     [ModuleDependency("Wider.Tools.Logger")]
     public class CoreModule : IModule
     {
+        private readonly ContainerBuilder _builder;
         private IContainer _container;
         private IEventAggregator _eventAggregator;
 
-        public CoreModule(IContainer container, IEventAggregator eventAggregator)
+        public CoreModule(ContainerBuilder builder, IContainer container, IEventAggregator eventAggregator)
         {
+            _builder = builder;
             _container = container;
             _eventAggregator = eventAggregator;
         }
 
         public void Initialize()
         {
-            _eventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(new SplashMessageUpdateEvent
-                                                                              {Message = "Loading Core Module"});
+            _eventAggregator.GetEvent<SplashMessageUpdateEvent>()
+                .Publish(new SplashMessageUpdateEvent {Message = "Loading Core Module"});
             LoadTheme();
             LoadCommands();
             LoadMenus();
@@ -94,9 +97,9 @@ namespace WiderMD.Core
 
         private void RegisterParts()
         {
-            _container.Register<MDHandler>();
-            _container.Register<MDViewModel>();
-            _container.Register<MDView>();
+            _builder.RegisterType<MDHandler>();
+            _builder.RegisterType<MDViewModel>();
+            _builder.RegisterType<MDView>();
 
             IContentHandler handler = _container.Resolve<MDHandler>();
             _container.Resolve<IContentHandlerRegistry>().Register(handler);
