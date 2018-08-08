@@ -1,4 +1,4 @@
-﻿using DryIoc;
+﻿using Autofac;
 using Prism.Events;
 using Prism.Modularity;
 using Prism.Regions;
@@ -13,12 +13,14 @@ namespace Wider.Content.TextDocument
     public class TextDocumentModule : IModule
     {
         private readonly IRegionManager _regionManager;
+        private readonly ContainerBuilder _builder;
         private readonly IContainer _container;
 
         private IEventAggregator EventAggregator => _container.Resolve<IEventAggregator>();
 
-        public TextDocumentModule(IContainer container, IRegionManager regionManager)
+        public TextDocumentModule(ContainerBuilder builder, IContainer container, IRegionManager regionManager)
         {
+            _builder = builder;
             _container = container;
             _regionManager = regionManager;
         }
@@ -30,10 +32,10 @@ namespace Wider.Content.TextDocument
                 .Publish(new SplashMessageUpdateEvent { Message = "Loading TextDocument Module" });
 
             // Register container types
-            _container.Register<TextViewModel>();
-            _container.Register<TextModel>();
-            _container.Register<TextView>();
-            _container.Register<AllFileHandler>();
+            _builder.RegisterType<TextViewModel>();
+            _builder.RegisterType<TextModel>();
+            _builder.RegisterType<TextView>();
+            _builder.RegisterType<AllFileHandler>();
 
             //Register a default file opener
             IContentHandlerRegistry registry = _container.Resolve<IContentHandlerRegistry>();
