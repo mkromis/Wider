@@ -10,8 +10,8 @@
 
 #endregion
 
-using DryIoc;
-using Prism.DryIoc;
+using Autofac;
+using Prism.Autofac;
 using Prism.Modularity;
 using System;
 using System.Linq;
@@ -22,7 +22,7 @@ using Wider.Interfaces;
 
 namespace Wider.Shell
 {
-    public class WiderBootstrapper : DryIocBootstrapper
+    public class WiderBootstrapper : AutofacBootstrapper
     {
         public static Boolean IsMetro { get; protected set; }
 
@@ -55,20 +55,20 @@ namespace Wider.Shell
             (Shell as Window).Show();
         }
 
-        protected override void ConfigureContainer()
+        protected override void ConfigureContainerBuilder(ContainerBuilder builder)
         {
             //Create an instance of the workspace
             if (IsMetro)
             {
                 //Use MahApps Metro window
-                Container.Register<IShell, ShellViewMetro>();
+                builder.RegisterType<ShellViewMetro>().As<IShell>();
             }
             else
             {
                 //Use regular window
-                Container.Register<IShell, ShellView>();
+                builder.RegisterType<ShellView>().As<IShell>();
             }
-            base.ConfigureContainer();
+            base.ConfigureContainerBuilder(builder);
         }
 
         protected override DependencyObject CreateShell() => (DependencyObject)Container.Resolve<IShell>();
