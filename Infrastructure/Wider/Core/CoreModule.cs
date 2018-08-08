@@ -94,7 +94,7 @@ namespace Wider.Core
             _builder.RegisterType<ToolbarService>().As<IToolbarService>();
 
             // https://bitbucket.org/dadhi/dryioc/wiki/Wrappers#markdown-header-func-of-a-with-parameters
-            //_container.Register<IMenuService, MenuItemViewModel>(
+            _builder.RegisterType<MenuItemViewModel>().As<IMenuService>();
             //    Made.Of(() => new MenuItemViewModel(
             //        Arg.Of<String>("$MAIN$"),
             //        Arg.Of<Int32>(-1),
@@ -115,7 +115,7 @@ namespace Wider.Core
             //    new InjectionParameter(typeof (Boolean), false),
             //    new InjectionParameter(typeof (DryIoc.IContainer), _container)));
 
-            //_container.Register<ToolbarViewModel>(
+            _builder.RegisterType<ToolbarViewModel>().As<IToolbar>();
             //    Made.Of(() => new ToolbarViewModel(
             //        Arg.Of<String>("$MAIN$"),
             //        Arg.Of<Int32>(1),
