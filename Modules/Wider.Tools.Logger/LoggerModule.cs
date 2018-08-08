@@ -10,7 +10,8 @@
 
 #endregion
 
-using DryIoc;
+using Autofac;
+using Prism.Autofac;
 using Prism.Events;
 using Prism.Modularity;
 using Wider.Interfaces;
@@ -22,9 +23,14 @@ namespace Wider.Tools.Logger
     [Module(ModuleName = "Wider.Tools.Logger")]
     public sealed class LoggerModule : IModule
     {
+        private ContainerBuilder _builder;
         private readonly IContainer _container;
 
-        public LoggerModule(IContainer container) => _container = container;
+        public LoggerModule(ContainerBuilder builder, IContainer container)
+        {
+            _builder = builder;
+            _container = container;
+        }
 
         private IEventAggregator EventAggregator => _container.Resolve<IEventAggregator>();
 
@@ -36,7 +42,7 @@ namespace Wider.Tools.Logger
 
             // register types
             // This interface has the view model handle the view construdtion
-            _container.Register<LoggerViewModel>();
+            _builder.RegisterType<LoggerViewModel>();
 
             IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
             workspace.Tools.Add(_container.Resolve<LoggerViewModel>());
