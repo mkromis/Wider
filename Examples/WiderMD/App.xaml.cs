@@ -10,6 +10,8 @@
 
 #endregion
 
+using Autofac;
+using Prism.Autofac;
 using System;
 using System.Windows;
 using Wider.Interfaces;
@@ -28,20 +30,20 @@ namespace WiderMD
             base.OnStartup(e);
             b = new MDBootstrapper();
             b.Run();
-            IShell shell = b.Container.Resolve(typeof(IShell), true) as IShell;
+            IShell shell = b.Container.Resolve<IShell>();
             (shell as Window).Loaded += App_Loaded;
             (shell as Window).Unloaded += App_Unloaded;
         }
 
         void App_Unloaded(Object sender, System.EventArgs e)
         {
-            IShell shell = b.Container.Resolve(typeof(IShell), true) as IShell;
+            IShell shell = b.Container.Resolve<IShell>();
             shell.SaveLayout();
         }
 
         void App_Loaded(Object sender, RoutedEventArgs e)
         {
-            IShell shell = b.Container.Resolve(typeof(IShell), true) as IShell;
+            IShell shell = b.Container.Resolve<IShell>();
             shell.LoadLayout();
         }
     }

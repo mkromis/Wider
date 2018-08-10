@@ -110,7 +110,8 @@ namespace Wider.Shell
             };
             try
             {
-                layoutSerializer.Deserialize(AppDomain.CurrentDomain.BaseDirectory + Path.DirectorySeparatorChar + "AvalonDock.Layout.config");
+                layoutSerializer.Deserialize(
+                    AppDomain.CurrentDomain.BaseDirectory + Path.DirectorySeparatorChar + "AvalonDock.Layout.config");
             }
             catch (Exception)
             {
@@ -146,8 +147,10 @@ namespace Wider.Shell
 
         private void RefreshMenuBinding()
         {
-            MultiBindingExpression b = BindingOperations.GetMultiBindingExpression(_docContextMenu,
-                                                                                   ContextMenu.ItemsSourceProperty);
+            MultiBindingExpression b = 
+                BindingOperations.GetMultiBindingExpression(
+                    _docContextMenu,
+                    ContextMenu.ItemsSourceProperty);
             b.UpdateTarget();
         }
 

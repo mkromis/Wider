@@ -65,11 +65,11 @@ namespace WiderMD.Core
             IMenuService menuService = _container.Resolve<IMenuService>();
             ICommandManager manager = _container.Resolve<ICommandManager>();
 
-            toolbarService.Add(new ToolbarViewModel("Standard", 1) {Band = 1, BandIndex = 1});
+            toolbarService.Add(new ToolbarViewModel("Standard", 1) { Band = 1, BandIndex = 1 });
             toolbarService.Get("Standard").Add(menuService.Get("_File").Get("_New"));
             toolbarService.Get("Standard").Add(menuService.Get("_File").Get("_Open"));
 
-            toolbarService.Add(new ToolbarViewModel("Edit", 1) {Band = 1, BandIndex = 2});
+            toolbarService.Add(new ToolbarViewModel("Edit", 1) { Band = 1, BandIndex = 2 });
             toolbarService.Get("Edit").Add(menuService.Get("_Edit").Get("_Undo"));
             toolbarService.Get("Edit").Add(menuService.Get("_Edit").Get("_Redo"));
             toolbarService.Get("Edit").Add(menuService.Get("_Edit").Get("Cut"));
@@ -100,6 +100,7 @@ namespace WiderMD.Core
             _builder.RegisterType<MDHandler>();
             _builder.RegisterType<MDViewModel>();
             _builder.RegisterType<MDView>();
+            _builder.Update(_container);
 
             IContentHandler handler = _container.Resolve<MDHandler>();
             _container.Resolve<IContentHandlerRegistry>().Register(handler);

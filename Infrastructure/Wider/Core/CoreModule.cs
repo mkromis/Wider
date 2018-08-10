@@ -52,7 +52,7 @@ namespace Wider.Core
         /// The container used in the application
         /// </summary>
         private readonly ContainerBuilder _builder;
-        private readonly IContainer _container;
+        private IContainer _container;
 
         /// <summary>
         /// The constructor of the CoreModule
@@ -83,71 +83,48 @@ namespace Wider.Core
                 new SplashMessageUpdateEvent {Message = "Loading Core Module"});
 
             // Register types
-            _builder.RegisterType<ThemeSettings>().As<IThemeSettings>();
-            _builder.RegisterType<RecentViewSettings>().As<IRecentViewSettings>();
-            _builder.RegisterType<WindowPositionSettings>().As<IWindowPositionSettings>();
-            _builder.RegisterType<ToolbarPositionSettings>().As<IToolbarPositionSettings>();
-            _builder.RegisterType<CommandManager>().As<ICommandManager>();
-            _builder.RegisterType<ContentHandlerRegistry>().As<IContentHandlerRegistry>();
-            _builder.RegisterType<WiderStatusbar>().As<IStatusbarService>();
-            _builder.RegisterType<ThemeManager>().As<IThemeManager>();
-            _builder.RegisterType<ToolbarService>().As<IToolbarService>();
+            _builder.RegisterType<ThemeSettings>().As<IThemeSettings>().SingleInstance();
+            _builder.RegisterType<RecentViewSettings>().As<IRecentViewSettings>().SingleInstance();
+            _builder.RegisterType<WindowPositionSettings>().As<IWindowPositionSettings>().SingleInstance();
+            _builder.RegisterType<ToolbarPositionSettings>().As<IToolbarPositionSettings>().SingleInstance();
+            _builder.RegisterType<CommandManager>().As<ICommandManager>().SingleInstance();
+            _builder.RegisterType<ContentHandlerRegistry>().As<IContentHandlerRegistry>().SingleInstance();
+            _builder.RegisterType<WiderStatusbar>().As<IStatusbarService>().SingleInstance();
+            _builder.RegisterType<ThemeManager>().As<IThemeManager>().SingleInstance();
+            _builder.RegisterType<ToolbarService>().As<IToolbarService>().SingleInstance();
 
             // https://bitbucket.org/dadhi/dryioc/wiki/Wrappers#markdown-header-func-of-a-with-parameters
-            _builder.RegisterType<MenuItemViewModel>().As<IMenuService>();
-            //    Made.Of(() => new MenuItemViewModel(
-            //        Arg.Of<String>("$MAIN$"),
-            //        Arg.Of<Int32>(-1),
-            //        Arg.Of<ImageSource>(null),
-            //        Arg.Of<ICommand>(null),
-            //        Arg.Of<KeyGesture>(null),
-            //        Arg.Of<Boolean>(false),
-            //        Arg.Of<Boolean>(false),
-            //        Arg.Of<DryIoc.IContainer>(_container))));
+            _builder.RegisterType<MenuItemViewModel>()
+                .As<IMenuService>()
+                .WithParameter(TypedParameter.From<String>("$MAIN$"))
+                .WithParameter(TypedParameter.From<Int32>(1))
+                .WithParameter(TypedParameter.From<ImageSource>(null))
+                .WithParameter(TypedParameter.From<ICommand>(null))
+                .WithParameter(TypedParameter.From<KeyGesture>(null))
+                .WithParameter(TypedParameter.From<Boolean>(false))
+                .WithParameter(TypedParameter.From<Boolean>(false))
+                .WithParameter(TypedParameter.From<IContainer>(_container))
+                .SingleInstance();
 
-            //new InjectionConstructor(
-            //    new InjectionParameter(typeof (String),"$MAIN$"),
-            //    new InjectionParameter(typeof (Int32), 1),
-            //    new InjectionParameter(typeof (ImageSource), null),
-            //    new InjectionParameter(typeof (ICommand),null),
-            //    new InjectionParameter(typeof (KeyGesture), null),
-            //    new InjectionParameter(typeof (Boolean), false),
-            //    new InjectionParameter(typeof (Boolean), false),
-            //    new InjectionParameter(typeof (DryIoc.IContainer), _container)));
+            _builder.RegisterType<ToolbarViewModel>()
+                .As<IToolbar>()
+                .WithParameter(TypedParameter.From<String>("$MAIN$"))
+                .WithParameter(TypedParameter.From<Int32>(1))
+                .WithParameter(TypedParameter.From<ImageSource>(null))
+                .WithParameter(TypedParameter.From<ICommand>(null))
+                .WithParameter(TypedParameter.From<Boolean>(false))
+                .WithParameter(TypedParameter.From<IContainer>(_container))
+                .SingleInstance();
 
-            _builder.RegisterType<ToolbarViewModel>().As<IToolbar>();
-            //    Made.Of(() => new ToolbarViewModel(
-            //        Arg.Of<String>("$MAIN$"),
-            //        Arg.Of<Int32>(1),
-            //        Arg.Of<ImageSource>(null),
-            //        Arg.Of<ICommand>(null),
-            //        Arg.Of<Boolean>(false),
-            //        Arg.Of<DryIoc.IContainer>(_container))));
-            //new InjectionConstructor(
-            //    new InjectionParameter(typeof(String), "$MAIN$"),
-            //    new InjectionParameter(typeof(Int32), 1),
-            //    new InjectionParameter(typeof(ImageSource), null),
-            //    new InjectionParameter(typeof(ICommand), null),
-            //    new InjectionParameter(typeof(Boolean), false),
-            //    new InjectionParameter(typeof(DryIoc.IContainer), _container)));
+            _builder.RegisterType<SettingsManager>().As<ISettingsManager>().SingleInstance();
+            _builder.RegisterType<OpenDocumentService>().As<IOpenDocumentService>().SingleInstance();
 
-            _builder.RegisterType<SettingsManager>().As<ISettingsManager>();
-            _builder.RegisterType<OpenDocumentService>().As<IOpenDocumentService>();
+            _builder.RegisterType<Workspace>().As<AbstractWorkspace>().SingleInstance().PreserveExistingDefaults();
+            _builder.RegisterType<DebugLogService>().As<ILoggerService>().SingleInstance().PreserveExistingDefaults();
+            _builder.Update(_container);
 
             AppCommands();
             LoadSettings();
-
-            //Try resolving a workspace
-            if (_container.TryResolve<AbstractWorkspace>(out AbstractWorkspace temp1) == false) 
-            {
-                _builder.RegisterType<Workspace>().As<AbstractWorkspace>();
-            }
-
-            // Try resolving a logger service - if not found, then register the NLog service
-            if (_container.TryResolve<ILoggerService>(out ILoggerService temp2) == false)
-            {
-                _builder.RegisterType<DebugLogService>().As<ILoggerService>();
-            }
         }
 
         #endregion
@@ -242,8 +219,9 @@ namespace Wider.Core
             if (activeDocument.Handler != null && activeDocument.Model.IsDirty)
             {
                 //means the document is dirty - show a message box and then handle based on the user's selection
-                MessageBoxResult res = MessageBox.Show(String.Format("Save changes for document '{0}'?", activeDocument.Title),
-                                          "Are you sure?", MessageBoxButton.YesNoCancel);
+                MessageBoxResult res = 
+                    MessageBox.Show($"Save changes for document '{activeDocument.Title}'?",
+                        "Are you sure?", MessageBoxButton.YesNoCancel);
 
                 //Pressed Yes
                 if (res == MessageBoxResult.Yes)

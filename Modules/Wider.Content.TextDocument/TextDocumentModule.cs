@@ -36,6 +36,7 @@ namespace Wider.Content.TextDocument
             _builder.RegisterType<TextModel>();
             _builder.RegisterType<TextView>();
             _builder.RegisterType<AllFileHandler>();
+            _builder.Update(_container);
 
             //Register a default file opener
             IContentHandlerRegistry registry = _container.Resolve<IContentHandlerRegistry>();

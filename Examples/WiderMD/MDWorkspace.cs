@@ -10,7 +10,7 @@
 
 #endregion
 
-using DryIoc;
+using Autofac;
 using Prism.Events;
 using Prism.Logging;
 using System;
@@ -28,10 +28,10 @@ namespace WiderMD
         private ILoggerService _logger;
         private const String _title = "Wider MD";
 
-        public MDWorkspace(IContainer container, IEventAggregator eventAggregator)
+        public MDWorkspace(IContainer container, ContainerBuilder builder, IEventAggregator eventAggregator)
             : base(container, eventAggregator)
         {
-            IEventAggregator aggregator = container.Resolve<IEventAggregator>();
+            IEventAggregator aggregator = _container.Resolve<IEventAggregator>();
             aggregator.GetEvent<ActiveContentChangedEvent>().Subscribe(ContentChanged);
             _document = "";
         }
