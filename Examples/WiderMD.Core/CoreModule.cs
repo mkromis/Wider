@@ -10,7 +10,8 @@
 
 #endregion
 
-using DryIoc;
+using Autofac;
+using Prism.Autofac;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Modularity;
@@ -33,19 +34,21 @@ namespace WiderMD.Core
     [ModuleDependency("Wider.Tools.Logger")]
     public class CoreModule : IModule
     {
+        private readonly ContainerBuilder _builder;
         private IContainer _container;
         private IEventAggregator _eventAggregator;
 
-        public CoreModule(IContainer container, IEventAggregator eventAggregator)
+        public CoreModule(ContainerBuilder builder, IContainer container, IEventAggregator eventAggregator)
         {
+            _builder = builder;
             _container = container;
             _eventAggregator = eventAggregator;
         }
 
         public void Initialize()
         {
-            _eventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(new SplashMessageUpdateEvent
-                                                                              {Message = "Loading Core Module"});
+            _eventAggregator.GetEvent<SplashMessageUpdateEvent>()
+                .Publish(new SplashMessageUpdateEvent {Message = "Loading Core Module"});
             LoadTheme();
             LoadCommands();
             LoadMenus();
@@ -62,11 +65,11 @@ namespace WiderMD.Core
             IMenuService menuService = _container.Resolve<IMenuService>();
             ICommandManager manager = _container.Resolve<ICommandManager>();
 
-            toolbarService.Add(new ToolbarViewModel("Standard", 1) {Band = 1, BandIndex = 1});
+            toolbarService.Add(new ToolbarViewModel("Standard", 1) { Band = 1, BandIndex = 1 });
             toolbarService.Get("Standard").Add(menuService.Get("_File").Get("_New"));
             toolbarService.Get("Standard").Add(menuService.Get("_File").Get("_Open"));
 
-            toolbarService.Add(new ToolbarViewModel("Edit", 1) {Band = 1, BandIndex = 2});
+            toolbarService.Add(new ToolbarViewModel("Edit", 1) { Band = 1, BandIndex = 2 });
             toolbarService.Get("Edit").Add(menuService.Get("_Edit").Get("_Undo"));
             toolbarService.Get("Edit").Add(menuService.Get("_Edit").Get("_Redo"));
             toolbarService.Get("Edit").Add(menuService.Get("_Edit").Get("Cut"));
@@ -94,9 +97,10 @@ namespace WiderMD.Core
 
         private void RegisterParts()
         {
-            _container.Register<MDHandler>();
-            _container.Register<MDViewModel>();
-            _container.Register<MDView>();
+            _builder.RegisterType<MDHandler>();
+            _builder.RegisterType<MDViewModel>();
+            _builder.RegisterType<MDView>();
+            _builder.Update(_container);
 
             IContentHandler handler = _container.Resolve<MDHandler>();
             _container.Resolve<IContentHandlerRegistry>().Register(handler);

@@ -10,7 +10,7 @@
 
 #endregion
 
-using DryIoc;
+using Autofac;
 using Prism.Modularity;
 using System;
 using System.Collections.Generic;
@@ -28,14 +28,19 @@ namespace WiderMD
         {
         }
 
-        protected override void InitializeModules()
+        protected override void ConfigureContainerBuilder(ContainerBuilder builder)
         {
             //Register your splash view or else the default splash will load
-            Container.Register<ISplashView, AppSplash>();
+            builder.RegisterType<AppSplash>().As<ISplashView>().SingleInstance();
 
             //Register your workspace here - if you have any
-            Container.Register<AbstractWorkspace, MDWorkspace>();
+            builder.RegisterType<MDWorkspace>().As<AbstractWorkspace>().SingleInstance();
 
+            base.ConfigureContainerBuilder(builder);
+        }
+
+        protected override void InitializeModules()
+        {
             // You can also override the logger service. Currently, NLog is used.
             // Since the config file is there in the output location, text files should be available in the Logs folder.
 
@@ -45,7 +50,8 @@ namespace WiderMD
 
         protected override IModuleCatalog CreateModuleCatalog()
         {
-            MultipleDirectoryModuleCatalog catalog = new MultipleDirectoryModuleCatalog(new String[] {@".", @".\External", @".\Internal"});
+            MultipleDirectoryModuleCatalog catalog = 
+                new MultipleDirectoryModuleCatalog(new String[] {@".", @".\External", @".\Internal"});
             return catalog;
         }
     }

@@ -10,6 +10,7 @@
 
 #endregion
 
+using Autofac;
 using System;
 using System.IO;
 using System.Linq;
@@ -19,7 +20,6 @@ using Wider.Interfaces;
 using Wider.Interfaces.Services;
 using Microsoft.Win32;
 using Prism.Logging;
-using DryIoc;
 
 namespace WiderMD.Core
 {
@@ -31,6 +31,7 @@ namespace WiderMD.Core
         /// The injected container
         /// </summary>
         private readonly IContainer _container;
+        private readonly ContainerBuilder _builder;
 
         /// <summary>
         /// The injected logger service
@@ -47,8 +48,9 @@ namespace WiderMD.Core
         /// </summary>
         /// <param name="container">The injected container of the application</param>
         /// <param name="loggerService">The injected logger service of the application</param>
-        public MDHandler(IContainer container, ILoggerService loggerService)
+        public MDHandler(ContainerBuilder builder, IContainer container, ILoggerService loggerService)
         {
+            _builder = builder;
             _container = container;
             _loggerService = loggerService;
             _dialog = new SaveFileDialog();

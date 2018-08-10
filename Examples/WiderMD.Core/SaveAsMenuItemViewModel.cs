@@ -10,7 +10,7 @@
 
 #endregion
 
-using DryIoc;
+using Autofac;
 using Prism.Events;
 using System;
 using System.Windows.Input;

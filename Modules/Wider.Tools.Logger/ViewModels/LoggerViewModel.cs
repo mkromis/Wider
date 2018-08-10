@@ -10,7 +10,7 @@
 
 #endregion
 
-using DryIoc;
+using Autofac;
 using Prism.Events;
 using Wider.Interfaces;
 using Wider.Interfaces.Events;

@@ -10,7 +10,7 @@
 
 #endregion
 
-using DryIoc;
+using Autofac;
 using Microsoft.Win32;
 using Prism.Events;
 using Prism.Logging;
