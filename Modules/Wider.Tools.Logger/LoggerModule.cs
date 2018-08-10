@@ -42,7 +42,8 @@ namespace Wider.Tools.Logger
 
             // register types
             // This interface has the view model handle the view construdtion
-            _builder.RegisterType<LoggerViewModel>();
+            _builder.RegisterType<LoggerViewModel>().SingleInstance();
+            _builder.Update(_container);
 
             IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
             workspace.Tools.Add(_container.Resolve<LoggerViewModel>());

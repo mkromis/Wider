@@ -61,12 +61,12 @@ namespace Wider.Shell
             if (IsMetro)
             {
                 //Use MahApps Metro window
-                builder.RegisterType<ShellViewMetro>().As<IShell>();
+                builder.RegisterType<ShellViewMetro>().As<IShell>().SingleInstance();
             }
             else
             {
                 //Use regular window
-                builder.RegisterType<ShellView>().As<IShell>();
+                builder.RegisterType<ShellView>().As<IShell>().SingleInstance();
             }
             base.ConfigureContainerBuilder(builder);
         }
