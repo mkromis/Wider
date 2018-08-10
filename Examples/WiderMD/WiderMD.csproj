@@ -123,7 +123,7 @@
     <Resource Include="Resources\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Prism.DryIoc">
+    <PackageReference Include="Prism.Autofac">
       <Version>6.3.0</Version>
     </PackageReference>
   </ItemGroup>

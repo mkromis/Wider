@@ -10,7 +10,7 @@
 
 #endregion
 
-using DryIoc;
+using Autofac;
 using System;
 using System.Windows.Input;
 using System.Windows.Media;

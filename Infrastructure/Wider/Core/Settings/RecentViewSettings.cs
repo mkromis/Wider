@@ -10,7 +10,7 @@
 
 #endregion
 
-using DryIoc;
+using Autofac;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
