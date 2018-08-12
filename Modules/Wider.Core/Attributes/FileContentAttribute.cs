@@ -1,5 +1,5 @@
 ﻿#region License
-
+// Copyright (c) 2018 Mark Kromis
 // Copyright (c) 2013 Chandramouleswaran Ravichandran
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -10,45 +10,24 @@
 
 #endregion
 
-using Prism.Commands;
 using System;
-using System.Windows.Input;
-using Wider.Interfaces.Settings;
 
-namespace Wider.Core.Settings
+namespace Wider.Core.Attributes
 {
-    /// <summary>
-    /// Class WiderSettingsManager
-    /// </summary>
-    internal class SettingsManager : AbstractSettingsItem, ISettingsManager
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
+    public class FileContentAttribute : Attribute
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WiderSettingsManager"/> class.
-        /// </summary>
-        public SettingsManager() : base("", null) => SettingsCommand = new DelegateCommand(OpenSettings);
-
-        /// <summary>
-        /// Gets the settings menu.
-        /// </summary>
-        /// <value>The settings menu.</value>
-        public ICommand SettingsCommand { get; private set; }
-
-        private void OpenSettings()
+        public FileContentAttribute(String display, String extension, Int32 priority)
         {
-#warning Fix ISettings window
-            //SettingsWindow window = new SettingsWindow
-            //{
-            //    DataContext = this
-            //};
-            //Boolean? result = window.ShowDialog();
-            //if (result == true)
-            //{
-            //    Save();
-            //}
-            //else
-            //{
-            //    Reset();
-            //}
+            Display = display;
+            Extension = extension;
+            Priority = priority;
         }
+
+        public String Display { get; private set; }
+
+        public String Extension { get; private set; }
+
+        public Int32 Priority { get; private set; }
     }
 }

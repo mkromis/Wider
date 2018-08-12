@@ -15,7 +15,7 @@ using System.Windows;
 using System.Windows.Data;
 using Wider.Interfaces.Controls;
 
-namespace Wider.Interfaces.Converters
+namespace Wider.Shell.Converters
 {
     public class MenuVisibilityConverter : IValueConverter
     {

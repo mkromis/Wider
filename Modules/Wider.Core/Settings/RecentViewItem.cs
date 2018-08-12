@@ -1,5 +1,5 @@
 ﻿#region License
-
+// Copyright (c) 2018 Mark Kromis
 // Copyright (c) 2013 Chandramouleswaran Ravichandran
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -10,31 +10,29 @@
 
 #endregion
 
-using Prism.Events;
 using System;
-using System.Configuration;
-using Wider.Interfaces;
-using Wider.Interfaces.Events;
+using System.ComponentModel;
 using Wider.Interfaces.Settings;
 
 namespace Wider.Core.Settings
 {
-    internal class ThemeSettings : AbstractSettings, IThemeSettings
+    [Serializable]
+    [Browsable(false)]
+    public class RecentViewItem : IRecentViewItem
     {
-        public ThemeSettings(IEventAggregator eventAggregator) => eventAggregator.GetEvent<ThemeChangeEvent>().Subscribe(NewSelectedTheme);
-
-        private void NewSelectedTheme(ITheme theme)
+        public RecentViewItem()
         {
-            SelectedTheme = theme.Name;
-            Save();
+            DisplayValue = "";
+            ContentID = "";
         }
 
-        [UserScopedSetting()]
-        [DefaultSettingValue("Dark")]
-        public String SelectedTheme
-        {
-            get => (String)this["SelectedTheme"];
-            set => this["SelectedTheme"] = value;
-        }
+        public String DisplayValue { get; set; }
+        public String ContentID { get; set; }
+
+        public override Boolean Equals(Object obj) => (obj is RecentViewItem item) && ContentID.Equals(item.ContentID);
+
+        public override Int32 GetHashCode() => ContentID.GetHashCode();
+
+        public override String ToString() => ContentID.ToString();
     }
 }

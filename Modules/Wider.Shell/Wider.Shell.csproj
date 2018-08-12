@@ -63,6 +63,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Themes\DarkTheme.cs" />
+    <Compile Include="Themes\DefaultTheme.cs" />
+    <Compile Include="Themes\LightTheme.cs" />
+    <Compile Include="Themes\VS2010.cs" />
     <Compile Include="Unsorted\ActiveDocumentConverter.cs" />
     <Compile Include="Unsorted\LayoutInitializer.cs" />
     <Compile Include="Unsorted\NewFileWindow.xaml.cs">
@@ -95,8 +99,61 @@
     <AppDesigner Include="Properties\" />
     <None Include="Unsorted\app.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\Wider.Core\Wider.Core.csproj">
+      <Project>{10205918-47c5-4614-9359-5e30cbe7e289}</Project>
+      <Name>Wider.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Styles\VS2010\Brushes.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\VS2010\StatusBar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\VS2010\Theme.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\VS2010\Toolbar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\VS2012\DarkColors.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\VS2012\DarkTheme.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\VS2012\LightColors.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\VS2012\LightTheme.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\VS2012\Menu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\VS2012\SplitButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\VS2012\Toolbar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\VS2012\Tooltip.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\VS2012\WindowCommands.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Controls.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ControlsMetro.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ToolbarBinding.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Unsorted\NewFileWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -115,7 +172,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MahApps.Metro">
+      <Version>1.6.5</Version>
+    </PackageReference>
     <PackageReference Include="Prism.Autofac" Version="6.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Converters\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

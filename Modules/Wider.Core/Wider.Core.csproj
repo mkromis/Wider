@@ -16,8 +16,4 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Shell\" />
-  </ItemGroup>
-
 </Project>

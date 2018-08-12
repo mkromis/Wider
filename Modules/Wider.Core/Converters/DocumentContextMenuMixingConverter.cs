@@ -22,7 +22,7 @@ using Xceed.Wpf.AvalonDock.Controls;
 
 namespace Wider.Interfaces.Converters
 {
-    internal class DocumentContextMenuMixingConverter : IMultiValueConverter
+    public class DocumentContextMenuMixingConverter : IMultiValueConverter
     {
         public Object Convert(Object[] values, Type targetType, Object parameter, CultureInfo culture)
         {
