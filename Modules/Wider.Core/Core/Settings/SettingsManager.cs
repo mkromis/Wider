@@ -35,19 +35,20 @@ namespace Wider.Core.Settings
 
         private void OpenSettings()
         {
-            SettingsWindow window = new SettingsWindow
-            {
-                DataContext = this
-            };
-            Boolean? result = window.ShowDialog();
-            if (result == true)
-            {
-                Save();
-            }
-            else
-            {
-                Reset();
-            }
+#warning Fix ISettings window
+            //SettingsWindow window = new SettingsWindow
+            //{
+            //    DataContext = this
+            //};
+            //Boolean? result = window.ShowDialog();
+            //if (result == true)
+            //{
+            //    Save();
+            //}
+            //else
+            //{
+            //    Reset();
+            //}
         }
     }
 }
