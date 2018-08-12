@@ -13,7 +13,7 @@
 using Prism.Commands;
 using System;
 using System.Windows.Input;
-using Wider.Interfaces.Settings;
+using Wider.Core.Settings;
 
 namespace Wider.Core.Settings
 {

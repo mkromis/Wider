@@ -11,7 +11,6 @@
 #endregion
 
 using Autofac;
-using Prism.Autofac;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Logging;
@@ -20,13 +19,10 @@ using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using Wider.Core.Controls;
+using Wider.Core.Events;
 using Wider.Core.Services;
 using Wider.Core.Settings;
-using Wider.Interfaces;
-using Wider.Interfaces.Controls;
-using Wider.Interfaces.Events;
-using Wider.Interfaces.Services;
-using Wider.Interfaces.Settings;
 using CommandManager = Wider.Core.Services.CommandManager;
 
 namespace Wider.Core

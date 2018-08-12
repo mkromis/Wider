@@ -15,9 +15,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Media;
-using Wider.Interfaces.Services;
+using Wider.Core.Services;
 
-namespace Wider.Interfaces
+namespace Wider.Core.Services
 {
     /// <summary>
     /// The abstract class which has to be inherited if you want to create a tool

@@ -1,5 +1,5 @@
 ﻿#region License
-
+// Copyright (c) 2018 Mark Kromis
 // Copyright (c) 2013 Chandramouleswaran Ravichandran
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -10,47 +10,25 @@
 
 #endregion
 
-using System;
-using System.Windows.Input;
+using Autofac;
+using Prism.Events;
+using Wider.Core.Services;
 
-namespace Wider.Interfaces
+namespace Wider.Core
 {
     /// <summary>
-    /// Class AbstractCommandable
+    /// Class Workspace
     /// </summary>
-    public class AbstractCommandable : AbstractPrioritizedTree<AbstractCommandable>, ICommandable
+    internal class Workspace : AbstractWorkspace
     {
-        #region CTOR
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="AbstractCommandable"/> class.
+        /// The generic workspace that will be used if the application does not have its workspace
         /// </summary>
-        protected AbstractCommandable() : base()
+        /// <param name="container">The injected container - can be used by custom flavors of workspace</param>
+        /// <param name="eventAggregator">The event aggregator.</param>
+        public Workspace(IContainer container, IEventAggregator eventAggregator)
+            : base(container, eventAggregator)
         {
         }
-
-        #endregion
-
-        #region ICommandable
-
-        /// <summary>
-        /// Gets the command.
-        /// </summary>
-        /// <value>The command.</value>
-        public virtual ICommand Command { get; protected internal set; }
-
-        /// <summary>
-        /// Gets or sets the command parameter.
-        /// </summary>
-        /// <value>The command parameter.</value>
-        public virtual Object CommandParameter { get; set; }
-
-        /// <summary>
-        /// Gets the input gesture text.
-        /// </summary>
-        /// <value>The input gesture text.</value>
-        public String InputGestureText { get; internal set; }
-
-        #endregion
     }
 }

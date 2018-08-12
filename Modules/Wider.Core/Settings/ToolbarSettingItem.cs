@@ -12,7 +12,7 @@
 
 using System;
 using System.ComponentModel;
-using Wider.Interfaces.Controls;
+using Wider.Core.Controls;
 
 namespace Wider.Core.Settings
 {

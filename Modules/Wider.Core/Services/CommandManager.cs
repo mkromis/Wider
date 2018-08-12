@@ -14,7 +14,7 @@ using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
-using Wider.Interfaces.Services;
+using Wider.Core.Services;
 
 namespace Wider.Core.Services
 {

@@ -13,9 +13,9 @@
 using Prism.Events;
 using System;
 using System.Configuration;
-using Wider.Interfaces;
-using Wider.Interfaces.Events;
-using Wider.Interfaces.Settings;
+using Wider.Core.Events;
+using Wider.Core.Services;
+using Wider.Core.Settings;
 
 namespace Wider.Core.Settings
 {

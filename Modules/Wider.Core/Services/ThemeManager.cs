@@ -16,9 +16,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-using Wider.Interfaces;
-using Wider.Interfaces.Events;
-using Wider.Interfaces.Services;
+using Wider.Core.Events;
+using Wider.Core.Services;
 
 namespace Wider.Core.Services
 {

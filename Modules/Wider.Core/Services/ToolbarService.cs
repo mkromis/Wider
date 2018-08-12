@@ -15,9 +15,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Markup;
-using Wider.Interfaces;
-using Wider.Interfaces.Controls;
-using Wider.Interfaces.Services;
+using Wider.Core.Controls;
+using Wider.Core.Services;
 using Xceed.Wpf.AvalonDock.Converters;
 
 namespace Wider.Core.Services

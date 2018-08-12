@@ -20,8 +20,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using Wider.Core.Attributes;
-using Wider.Interfaces;
-using Wider.Interfaces.Services;
+using Wider.Core.Services;
 
 namespace Wider.Core.Services
 {

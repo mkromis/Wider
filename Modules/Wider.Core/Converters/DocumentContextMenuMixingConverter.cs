@@ -17,10 +17,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using Wider.Interfaces.Controls;
+using Wider.Core.Controls;
 using Xceed.Wpf.AvalonDock.Controls;
 
-namespace Wider.Interfaces.Converters
+namespace Wider.Core.Converters
 {
     public class DocumentContextMenuMixingConverter : IMultiValueConverter
     {

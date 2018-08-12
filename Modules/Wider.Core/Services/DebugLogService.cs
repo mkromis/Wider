@@ -15,8 +15,8 @@ using Prism.Logging;
 using System;
 using System.Diagnostics;
 using System.Reflection;
-using Wider.Interfaces.Events;
-using Wider.Interfaces.Services;
+using Wider.Core.Events;
+using Wider.Core.Services;
 
 namespace Wider.Core.Services
 {
