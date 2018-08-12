@@ -118,10 +118,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\Wider\Wider.csproj">
-      <Project>{9f20f5ef-4f7e-4ae2-a462-4cd2256fb3ff}</Project>
-      <Name>Wider</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Modules\Wider.Content.TextDocument\Wider.Content.TextDocument.csproj">
       <Project>{b80e6695-0f27-4ae1-bd7a-eda42b94a940}</Project>
       <Name>Wider.Content.TextDocument</Name>

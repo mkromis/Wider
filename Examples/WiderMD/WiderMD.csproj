@@ -96,10 +96,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\Wider\Wider.csproj">
-      <Project>{9f20f5ef-4f7e-4ae2-a462-4cd2256fb3ff}</Project>
-      <Name>Wider</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Modules\Wider.Splash\Wider.Splash.csproj">
       <Project>{a36ab58c-197b-431b-9de6-4911db8f860b}</Project>
       <Name>Wider.Splash</Name>

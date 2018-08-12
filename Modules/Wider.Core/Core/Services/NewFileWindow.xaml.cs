@@ -15,6 +15,7 @@ using MahApps.Metro.Controls;
 using Wider.Core.Attributes;
 using System.Windows.Controls;
 using System.Windows;
+using System;
 
 namespace Wider.Core.Services
 {
@@ -25,7 +26,7 @@ namespace Wider.Core.Services
     {
         public NewFileWindow() => InitializeComponent();
 
-        private void ListBoxItem_DoubleClick(System.Object sender, MouseButtonEventArgs e)
+        private void ListBoxItem_DoubleClick(Object sender, MouseButtonEventArgs e)
         {
             NewContent = (sender as ListBoxItem).DataContext as NewContentAttribute;
             DialogResult = true;
@@ -33,7 +34,7 @@ namespace Wider.Core.Services
 
         public NewContentAttribute NewContent { get; private set; }
 
-        private void Button_Click(System.Object sender, System.Windows.RoutedEventArgs e)
+        private void Button_Click(Object sender, RoutedEventArgs e)
         {
             NewContent = listView.SelectedItem as NewContentAttribute;
             DialogResult = true;
