@@ -1,21 +1,22 @@
-﻿<Controls:MetroWindow x:Class="Wider.Shell.ShellViewMetro" x:ClassModifier="internal"
-                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-                      xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
-                      xmlns:local="clr-namespace:Wider.Shell" 
-                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-                      xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
-                      xmlns:Converter="clr-namespace:Wider.Interfaces.Converters"
-                      xmlns:Utils="clr-namespace:Wider.Utils"
-                      TitleForeground="#FF717171" 
-                      TitleCaps="False" 
-                      Title="{Binding Title}" 
-                      Icon="{Binding Icon}" 
-                      WindowTransitionsEnabled="False" 
-                      ResizeMode="CanResizeWithGrip"
-                      GlowBrush="{Binding ElementName=WiderStatusBar, Path=Background}"
-                      Closing="Window_Closing_1">
-                      <!--xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"-->
+﻿<Controls:MetroWindow 
+    x:Class="Wider.Shell.ShellViewMetro" x:ClassModifier="internal"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
+    xmlns:local="clr-namespace:Wider.Shell" 
+    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
+    xmlns:Converter="clr-namespace:Wider.Interfaces.Converters;assembly=Wider.Core"
+    xmlns:Utils="clr-namespace:Wider.Utils;assembly=Wider.Core"
+    TitleForeground="#FF717171" 
+    TitleCaps="False" 
+    Title="{Binding Title}" 
+    Icon="{Binding Icon}" 
+    WindowTransitionsEnabled="False" 
+    ResizeMode="CanResizeWithGrip"
+    GlowBrush="{Binding ElementName=WiderStatusBar, Path=Background}"
+    Closing="Window_Closing_1">
+    <!--xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"-->
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -26,8 +27,8 @@
                         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/Wider;component/Interfaces/Styles/VS2012/LightColors.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/Wider;component/Interfaces/Styles/VS2012/LightTheme.xaml" />                        
+                        <ResourceDictionary Source="pack://application:,,,/Wider.Core;component/Interfaces/Styles/VS2012/LightColors.xaml" />
+                        <ResourceDictionary Source="pack://application:,,,/Wider.Core;component/Interfaces/Styles/VS2012/LightTheme.xaml" />                        
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
@@ -48,7 +49,9 @@
     <Border>
         <DockPanel>
             <!--Menu-->
-            <Menu DockPanel.Dock="Top" IsMainMenu="True" x:Name="mainMenu" VerticalAlignment="Top" ItemsSource="{Binding Path=Menus, UpdateSourceTrigger=PropertyChanged}" ItemContainerStyle="{DynamicResource MetroMenuStyle}" />
+            <Menu DockPanel.Dock="Top" IsMainMenu="True" x:Name="mainMenu" VerticalAlignment="Top" 
+                  ItemsSource="{Binding Path=Menus, UpdateSourceTrigger=PropertyChanged}" />
+            <!--ItemContainerStyle="{DynamicResource MetroMenuStyle}" />-->
             <!--Toolbar (can we improve this?)-->
             <ContentControl Content="{Binding ToolBarTray}" DockPanel.Dock="Top" />
             <!--Status bar-->

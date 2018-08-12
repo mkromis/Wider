@@ -5,7 +5,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
-        xmlns:Converter="clr-namespace:Wider.Interfaces.Converters"
+        xmlns:Converter="clr-namespace:Wider.Interfaces.Converters;assembly=Wider.Core"
         xmlns:Host="clr-namespace:Wider.Shell" Title="{Binding Title}" Icon="{Binding Icon}" Closing="Window_Closing_1">
     <Window.Resources>
         <ResourceDictionary>
@@ -14,7 +14,7 @@
                     <ResourceDictionary.MergedDictionaries>
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
-                <ResourceDictionary Source="pack://application:,,,/Wider;component/Interfaces/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Wider.Core;component/Interfaces/Styles/Controls.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <avalonDock:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <local:ActiveDocumentConverter x:Key="ActiveDocumentConverter" />
