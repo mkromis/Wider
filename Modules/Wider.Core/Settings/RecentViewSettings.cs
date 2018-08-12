@@ -16,10 +16,9 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Xml.Serialization;
-using Wider.Interfaces;
-using Wider.Interfaces.Controls;
-using Wider.Interfaces.Services;
-using Wider.Interfaces.Settings;
+using Wider.Core.Controls;
+using Wider.Core.Services;
+using Wider.Core.Settings;
 
 namespace Wider.Core.Settings
 {

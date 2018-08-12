@@ -15,10 +15,10 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Windows;
-using Wider.Interfaces.Controls;
-using Wider.Interfaces.Events;
-using Wider.Interfaces.Services;
-using Wider.Interfaces.Settings;
+using Wider.Core.Controls;
+using Wider.Core.Events;
+using Wider.Core.Services;
+using Wider.Core.Settings;
 
 namespace Wider.Core.Settings
 {

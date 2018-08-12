@@ -19,10 +19,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Wider.Core.Attributes;
 using Wider.Core.Settings;
-using Wider.Interfaces;
-using Wider.Interfaces.Events;
-using Wider.Interfaces.Services;
-using Wider.Interfaces.Settings;
+using Wider.Core.Events;
+using Wider.Core.Services;
+using Wider.Core.Settings;
 
 namespace Wider.Core.Services
 {

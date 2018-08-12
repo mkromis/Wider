@@ -10,25 +10,47 @@
 
 #endregion
 
-using Autofac;
-using Prism.Events;
-using Wider.Interfaces;
+using System;
+using System.Windows.Input;
 
 namespace Wider.Core
 {
     /// <summary>
-    /// Class Workspace
+    /// Class AbstractCommandable
     /// </summary>
-    internal class Workspace : AbstractWorkspace
+    public class AbstractCommandable : AbstractPrioritizedTree<AbstractCommandable>, ICommandable
     {
+        #region CTOR
+
         /// <summary>
-        /// The generic workspace that will be used if the application does not have its workspace
+        /// Initializes a new instance of the <see cref="AbstractCommandable"/> class.
         /// </summary>
-        /// <param name="container">The injected container - can be used by custom flavors of workspace</param>
-        /// <param name="eventAggregator">The event aggregator.</param>
-        public Workspace(IContainer container, IEventAggregator eventAggregator)
-            : base(container, eventAggregator)
+        protected AbstractCommandable() : base()
         {
         }
+
+        #endregion
+
+        #region ICommandable
+
+        /// <summary>
+        /// Gets the command.
+        /// </summary>
+        /// <value>The command.</value>
+        public virtual ICommand Command { get; protected internal set; }
+
+        /// <summary>
+        /// Gets or sets the command parameter.
+        /// </summary>
+        /// <value>The command parameter.</value>
+        public virtual Object CommandParameter { get; set; }
+
+        /// <summary>
+        /// Gets the input gesture text.
+        /// </summary>
+        /// <value>The input gesture text.</value>
+        public String InputGestureText { get; internal set; }
+
+        #endregion
     }
 }

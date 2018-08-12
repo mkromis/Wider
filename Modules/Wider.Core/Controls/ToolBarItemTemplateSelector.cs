@@ -15,7 +15,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Wider.Interfaces.Controls
+namespace Wider.Core.Controls
 {
     /// <summary>
     /// Class ToolBarItemTemplateSelector
