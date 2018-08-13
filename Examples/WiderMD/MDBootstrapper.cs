@@ -14,6 +14,7 @@ using Autofac;
 using Prism.Modularity;
 using System;
 using System.Collections.Generic;
+using Wider.Core.Services;
 using Wider.Interfaces;
 using Wider.Shell;
 using Wider.Splash;

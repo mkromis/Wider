@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:Wider.Shell" 
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
-    xmlns:Converter="clr-namespace:Wider.Interfaces.Converters;assembly=Wider.Core"
+    xmlns:Converter="clr-namespace:Wider.Core.Converters;assembly=Wider.Core"
     xmlns:Utils="clr-namespace:Wider.Utils;assembly=Wider.Core"
     TitleForeground="#FF717171" 
     TitleCaps="False" 
@@ -27,8 +27,8 @@
                         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/Wider.Core;component/Interfaces/Styles/VS2012/LightColors.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/Wider.Core;component/Interfaces/Styles/VS2012/LightTheme.xaml" />                        
+                        <ResourceDictionary Source="pack://application:,,,/Wider.Shell;component/Styles/VS2012/LightColors.xaml" />
+                        <ResourceDictionary Source="pack://application:,,,/Wider.Shell;component/Styles/VS2012/LightTheme.xaml" />                        
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>

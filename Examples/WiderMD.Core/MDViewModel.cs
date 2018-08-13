@@ -12,8 +12,7 @@
 
 using System.Windows.Controls;
 using Wider.Content.TextDocument.ViewModels;
-using Wider.Interfaces;
-using Wider.Interfaces.Services;
+using Wider.Core.Services;
 
 namespace WiderMD.Core
 {

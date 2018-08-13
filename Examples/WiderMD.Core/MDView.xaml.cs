@@ -12,9 +12,8 @@
 
 using System;
 using MarkdownSharp;
-using Wider.Interfaces;
-using Wider.Interfaces.Services;
 using System.Threading;
+using Wider.Core.Services;
 
 namespace WiderMD.Core
 {

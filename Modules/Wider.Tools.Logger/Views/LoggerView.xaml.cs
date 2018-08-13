@@ -13,7 +13,7 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Controls;
-using Wider.Interfaces;
+using Wider.Core.Services;
 
 namespace Wider.Tools.Logger.Views
 {

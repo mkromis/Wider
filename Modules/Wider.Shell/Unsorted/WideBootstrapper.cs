@@ -18,7 +18,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using Wider.Core;
-using Wider.Interfaces;
+using Wider.Core.Services;
 
 namespace Wider.Shell
 {

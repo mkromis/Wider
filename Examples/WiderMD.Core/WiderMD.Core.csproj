@@ -126,6 +126,10 @@
       <Project>{10205918-47c5-4614-9359-5e30cbe7e289}</Project>
       <Name>Wider.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Modules\Wider.Shell\Wider.Shell.csproj">
+      <Project>{F4242FA3-2404-4EA4-95D9-D00057F277D1}</Project>
+      <Name>Wider.Shell</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Modules\Wider.Tools.Logger\Wider.Tools.Logger.csproj">
       <Project>{982d3282-82a0-4586-99ed-f60d2fd67517}</Project>
       <Name>Wider.Tools.Logger</Name>

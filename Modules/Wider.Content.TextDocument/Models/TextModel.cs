@@ -12,8 +12,7 @@
 
 using System;
 using System.ComponentModel;
-using Wider.Interfaces;
-using Wider.Interfaces.Services;
+using Wider.Core.Services;
 
 namespace Wider.Content.TextDocument
 {

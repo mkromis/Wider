@@ -12,7 +12,7 @@
 
 using System;
 using System.Windows.Controls;
-using Wider.Interfaces;
+using Wider.Core.Services;
 
 namespace Wider.Content.TextDocument.Views
 {

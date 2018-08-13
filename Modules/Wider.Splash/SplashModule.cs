@@ -18,8 +18,8 @@ using System;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
-using Wider.Interfaces;
-using Wider.Interfaces.Events;
+using Wider.Core.Events;
+using Wider.Core.Services;
 using Wider.Splash.ViewModels;
 using Wider.Splash.Views;
 

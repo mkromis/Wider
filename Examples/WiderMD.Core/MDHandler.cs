@@ -16,10 +16,9 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Wider.Core.Attributes;
-using Wider.Interfaces;
-using Wider.Interfaces.Services;
 using Microsoft.Win32;
 using Prism.Logging;
+using Wider.Core.Services;
 
 namespace WiderMD.Core
 {

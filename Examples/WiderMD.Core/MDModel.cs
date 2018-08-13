@@ -12,7 +12,7 @@
 
 using System;
 using Wider.Content.TextDocument;
-using Wider.Interfaces.Services;
+using Wider.Core.Services;
 
 namespace WiderMD.Core
 {
