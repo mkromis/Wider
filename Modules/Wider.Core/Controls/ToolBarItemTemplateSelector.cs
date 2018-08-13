@@ -20,7 +20,7 @@ namespace Wider.Core.Controls
     /// <summary>
     /// Class ToolBarItemTemplateSelector
     /// </summary>
-    internal class ToolBarItemTemplateSelector : DataTemplateSelector
+    public class ToolBarItemTemplateSelector : DataTemplateSelector
     {
         /// <summary>
         /// Gets or sets the button template.

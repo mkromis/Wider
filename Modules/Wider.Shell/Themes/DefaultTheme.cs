@@ -12,8 +12,9 @@
 
 using System;
 using System.Collections.Generic;
+using Wider.Core.Services;
 
-namespace Wider.Interfaces.Themes
+namespace Wider.Shell.Themes
 {
     /// <summary>
     /// Class DefaultTheme

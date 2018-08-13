@@ -11,7 +11,7 @@
 #endregion
 
 using System;
-using Wider.Interfaces.Settings;
+using Wider.Core.Settings;
 
 namespace WiderMD.Core.Settings
 {

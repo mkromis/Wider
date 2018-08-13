@@ -13,8 +13,7 @@
 using Prism.Mvvm;
 using System;
 using System.ComponentModel;
-using Wider.Interfaces;
-using Wider.Interfaces.Services;
+using Wider.Core.Services;
 
 namespace Wider.Tools.Logger.Models
 {

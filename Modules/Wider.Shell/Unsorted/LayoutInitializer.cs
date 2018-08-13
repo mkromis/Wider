@@ -14,8 +14,7 @@ using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Wider.Interfaces;
-using Wider.Interfaces.Services;
+using Wider.Core.Services;
 using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Wider.Shell

@@ -13,7 +13,7 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
-using Wider.Interfaces;
+using Wider.Core.Services;
 
 namespace Wider.Shell
 {

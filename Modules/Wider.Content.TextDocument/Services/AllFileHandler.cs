@@ -22,8 +22,7 @@ using Wider.Content.TextDocument;
 using Wider.Content.TextDocument.ViewModels;
 using Wider.Content.TextDocument.Views;
 using Wider.Core.Attributes;
-using Wider.Interfaces;
-using Wider.Interfaces.Services;
+using Wider.Core.Services;
 
 namespace Wider.Content.Services
 {

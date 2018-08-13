@@ -12,8 +12,9 @@
 
 using System;
 using System.Collections.Generic;
+using Wider.Core.Services;
 
-namespace Wider.Interfaces.Themes
+namespace Wider.Core.Themes
 {
     /// <summary>
     /// Class VS2010

@@ -15,7 +15,9 @@ using Prism.Events;
 using System;
 using System.Windows.Input;
 using System.Windows.Media;
-using Wider.Interfaces.Events;
+using Wider.Core.Controls;
+using Wider.Core.Events;
+using Wider.Core.Services;
 
 namespace Wider.Interfaces.Controls
 {
