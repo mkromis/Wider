@@ -11,6 +11,7 @@
 #endregion
 
 using Autofac;
+using MahApps.Metro.Controls;
 using Prism.Events;
 using System;
 using System.IO;
@@ -30,7 +31,7 @@ namespace Wider.Shell
     /// <summary>
     /// Interaction logic for Shell.xaml
     /// </summary>
-    internal partial class ShellViewMetro : IShell
+    internal partial class ShellViewMetro : MetroWindow, IShell
     {
         private readonly IContainer _container;
         private IEventAggregator _eventAggregator;

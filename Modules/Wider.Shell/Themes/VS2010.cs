@@ -29,7 +29,7 @@ namespace Wider.Core.Themes
             UriList = new List<Uri>
             {
                 //new Uri("pack://application:,,,/Xceed.Wpf.AvalonDock.Themes.VS2010;component/Theme.xaml"),
-                new Uri("pack://application:,,,/Wider;component/Interfaces/Styles/VS2010/Theme.xaml")
+                new Uri("pack://application:,,,/Wider.Shell;component/Styles/VS2010/Theme.xaml")
             };
         }
 

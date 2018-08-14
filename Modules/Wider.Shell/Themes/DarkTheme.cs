@@ -33,10 +33,10 @@ namespace Wider.Shell.Themes
                 new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml"),
                 new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml"),
                 new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"),
-                new Uri("pack://application:,,,/Wider;component/Interfaces/Styles/VS2012/DarkColors.xaml"),
-                new Uri("pack://application:,,,/Wider;component/Interfaces/Styles/VS2012/DarkTheme.xaml"),
+                new Uri("pack://application:,,,/Wider.Shell;component/Styles/VS2012/DarkColors.xaml"),
+                new Uri("pack://application:,,,/Wider.Shell;component/Styles/VS2012/DarkTheme.xaml"),
                 //new Uri("pack://application:,,,/AvalonDock.Themes.VS2012;component/DarkTheme.xaml"),
-                new Uri("pack://application:,,,/Wider;component/Interfaces/Styles/VS2012/Menu.xaml")
+                new Uri("pack://application:,,,/Wider.Shell;component/Styles/VS2012/Menu.xaml")
             };
         }
 

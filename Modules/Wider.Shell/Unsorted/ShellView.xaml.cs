@@ -15,6 +15,7 @@ using Prism.Events;
 using Prism.Logging;
 using System;
 using System.Linq;
+using System.Windows;
 using Wider.Core.Events;
 using Wider.Core.Services;
 using Xceed.Wpf.AvalonDock;
@@ -26,7 +27,7 @@ namespace Wider.Shell
     /// <summary>
     /// Interaction logic for Shell.xaml
     /// </summary>
-    internal partial class ShellView : IShell
+    internal partial class ShellView : Window, IShell
     {
         private readonly IContainer _container;
         private IEventAggregator _eventAggregator;

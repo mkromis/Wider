@@ -3,10 +3,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Wider;component/Interfaces/Styles/VS2010/Brushes.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Wider;component/Interfaces/Styles/VS2010/StatusBar.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Wider;component/Interfaces/Styles/VS2010/Toolbar.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Wider;component/Interfaces/Styles/Controls.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Wider.Shell;component/Styles/VS2010/Brushes.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Wider.Shell;component/Styles/VS2010/StatusBar.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Wider.Shell;component/Styles/VS2010/Toolbar.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Wider.Shell;component/Styles/Controls.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type ContextMenu}"><!--  BasedOn="{StaticResource {x:Type ContextMenu}} -->
