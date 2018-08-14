@@ -11,7 +11,6 @@
 #endregion
 
 using Autofac;
-using MahApps.Metro.Controls;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
