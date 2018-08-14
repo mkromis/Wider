@@ -15,11 +15,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Markup;
+using Wider.Core;
 using Wider.Core.Controls;
 using Wider.Core.Services;
 using Xceed.Wpf.AvalonDock.Converters;
 
-namespace Wider.Core.Services
+namespace Wider.Shell.Services
 {
     /// <summary>
     /// The Wider tool bar service

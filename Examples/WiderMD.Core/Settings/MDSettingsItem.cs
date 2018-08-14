@@ -12,6 +12,7 @@
 
 using System;
 using Wider.Core.Settings;
+using Wider.Shell.Settings;
 
 namespace WiderMD.Core.Settings
 {
