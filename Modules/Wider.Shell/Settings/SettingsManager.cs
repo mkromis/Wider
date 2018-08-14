@@ -15,7 +15,7 @@ using System;
 using System.Windows.Input;
 using Wider.Core.Settings;
 
-namespace Wider.Core.Settings
+namespace Wider.Shell.Settings
 {
     /// <summary>
     /// Class WiderSettingsManager

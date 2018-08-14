@@ -22,6 +22,7 @@ using System.Windows.Data;
 using Wider.Core.Converters;
 using Wider.Core.Events;
 using Wider.Core.Services;
+using Wider.Shell.Converters;
 using Xceed.Wpf.AvalonDock.Controls;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;

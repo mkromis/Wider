@@ -86,7 +86,6 @@ namespace Wider.Core
             _builder.RegisterType<ContentHandlerRegistry>().As<IContentHandlerRegistry>().SingleInstance();
             _builder.RegisterType<WiderStatusbar>().As<IStatusbarService>().SingleInstance();
             _builder.RegisterType<ThemeManager>().As<IThemeManager>().SingleInstance();
-            _builder.RegisterType<ToolbarService>().As<IToolbarService>().SingleInstance();
 
             // https://bitbucket.org/dadhi/dryioc/wiki/Wrappers#markdown-header-func-of-a-with-parameters
             _builder.RegisterType<MenuItemViewModel>()
@@ -111,7 +110,6 @@ namespace Wider.Core
                 .WithParameter(TypedParameter.From<IContainer>(_container))
                 .SingleInstance();
 
-            _builder.RegisterType<SettingsManager>().As<ISettingsManager>().SingleInstance();
             _builder.RegisterType<OpenDocumentService>().As<IOpenDocumentService>().SingleInstance();
 
             _builder.RegisterType<Workspace>().As<AbstractWorkspace>().SingleInstance().PreserveExistingDefaults();

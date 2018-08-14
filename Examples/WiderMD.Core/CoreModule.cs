@@ -25,6 +25,7 @@ using Wider.Core.Events;
 using Wider.Core.Services;
 using Wider.Core.Settings;
 using Wider.Interfaces.Controls;
+using Wider.Shell.Settings;
 using Wider.Shell.Themes;
 using WiderMD.Core.Settings;
 

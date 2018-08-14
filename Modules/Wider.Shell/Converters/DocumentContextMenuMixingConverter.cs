@@ -20,7 +20,7 @@ using System.Windows.Input;
 using Wider.Core.Controls;
 using Xceed.Wpf.AvalonDock.Controls;
 
-namespace Wider.Core.Converters
+namespace Wider.Shell.Converters
 {
     public class DocumentContextMenuMixingConverter : IMultiValueConverter
     {

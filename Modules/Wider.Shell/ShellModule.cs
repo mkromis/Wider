@@ -4,6 +4,9 @@ using Prism.Regions;
 using System;
 using Autofac;
 using Prism.Autofac;
+using Wider.Core.Services;
+using Wider.Shell.Services;
+using Wider.Shell.Settings;
 
 namespace Wider.Shell
 {
@@ -21,6 +24,8 @@ namespace Wider.Shell
 
         public void Initialize()
         {
+            _builder.RegisterType<SettingsManager>().As<ISettingsManager>().SingleInstance();
+            _builder.RegisterType<ToolbarService>().As<IToolbarService>().SingleInstance();
             _builder.RegisterTypeForNavigation<ViewA>();
         }
     }

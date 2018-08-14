@@ -53,13 +53,13 @@ namespace Wider.Core.Controls
         /// Gets a value indicating whether this instance is separator.
         /// </summary>
         /// <value><c>true</c> if this instance is separator; otherwise, <c>false</c>.</value>
-        public virtual Boolean IsSeparator { get; internal set; }
+        public virtual Boolean IsSeparator { get; set; }
 
         /// <summary>
         /// Gets the icon of the menu.
         /// </summary>
         /// <value>The icon.</value>
-        public virtual ImageSource Icon { get; internal set; }
+        public virtual ImageSource Icon { get; set; }
 
         /// <summary>
         /// Gets the tool tip.
@@ -82,25 +82,25 @@ namespace Wider.Core.Controls
         /// Gets the header of the menu.
         /// </summary>
         /// <value>The header.</value>
-        public virtual String Header { get; protected internal set; }
+        public virtual String Header { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is checkable.
         /// </summary>
         /// <value><c>true</c> if this instance is checkable; otherwise, <c>false</c>.</value>
-        public virtual Boolean IsCheckable { get; protected internal set; }
+        public virtual Boolean IsCheckable { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether this instance is visible.
         /// </summary>
         /// <value><c>true</c> if this instance is visible; otherwise, <c>false</c>.</value>
-        public virtual Boolean IsVisible { get; protected internal set; }
+        public virtual Boolean IsVisible { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether to hide this menu item when disabled.
         /// </summary>
         /// <value><c>true</c> if this instance should be hidden when disabled; otherwise, <c>false</c>.</value>
-        public virtual Boolean HideDisabled { get; protected internal set; }
+        public virtual Boolean HideDisabled { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is checked.
@@ -109,7 +109,7 @@ namespace Wider.Core.Controls
         public virtual Boolean IsChecked
         {
             get => _isChecked;
-            protected internal set
+            set
             {
                 _isChecked = value;
                 RaisePropertyChanged("IsChecked");
