@@ -111,9 +111,10 @@
             </StatusBar>
             
             <!--The magical avalon dock-->
-            <avalonDock:DockingManager x:Name="dockManager" AnchorablesSource="{Binding Tools}"
-                                       DocumentsSource="{Binding Documents}"
-                                       ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource ActiveDocumentConverter}}">
+            <avalonDock:DockingManager 
+                x:Name="dockManager" AnchorablesSource="{Binding Tools}"
+                DocumentsSource="{Binding Documents}"
+                ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource ActiveDocumentConverter}}">
                 <!--<avalonDock:DockingManager.Theme>
                     <avalonDock:VS2012Theme />
                 </avalonDock:DockingManager.Theme>-->

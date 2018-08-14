@@ -7,6 +7,7 @@ using Prism.Autofac;
 
 namespace Wider.Shell
 {
+    [Module(ModuleName = "Wider.Shell")]
     public class ShellModule : IModule
     {
         private IRegionManager _regionManager;

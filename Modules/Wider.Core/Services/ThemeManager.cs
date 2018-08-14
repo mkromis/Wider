@@ -102,7 +102,7 @@ namespace Wider.Core.Services
                      * 2. Menu's need global style as context menu can be created
                     */
                     if (uri.ToString().Contains("AvalonDock") ||
-                        uri.ToString().Contains("Wider;component/Interfaces/Styles/VS2012/Menu.xaml"))
+                        uri.ToString().Contains("Wider.Shell;component/Styles/VS2012/Menu.xaml"))
                     {
                         appTheme.MergedDictionaries.Add(newDict);
                     }

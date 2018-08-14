@@ -17,7 +17,7 @@ using System.Windows.Controls;
 using System.Windows;
 using System;
 
-namespace Wider.Core.Services
+namespace Wider.Shell.Services
 {
     /// <summary>
     /// Interaction logic for NewFileWindow.xaml
