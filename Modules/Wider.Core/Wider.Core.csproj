@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="3.4.0" />
-    <PackageReference Include="MahApps.Metro" Version="1.6.5" />
     <PackageReference Include="Prism.Autofac" Version="6.3.0" />
   </ItemGroup>
 
