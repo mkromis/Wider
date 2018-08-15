@@ -57,17 +57,8 @@ namespace Wider.Shell
 
         protected override void ConfigureContainerBuilder(ContainerBuilder builder)
         {
-            //Create an instance of the workspace
-            if (IsMetro)
-            {
-                //Use MahApps Metro window
-                builder.RegisterType<ShellViewMetro>().As<IShell>().SingleInstance();
-            }
-            else
-            {
-                //Use regular window
-                builder.RegisterType<ShellView>().As<IShell>().SingleInstance();
-            }
+            //Use regular window
+            builder.RegisterType<ShellView>().As<IShell>().SingleInstance();
             base.ConfigureContainerBuilder(builder);
         }
 

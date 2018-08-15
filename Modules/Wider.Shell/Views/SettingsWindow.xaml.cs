@@ -10,37 +10,17 @@
 
 #endregion
 
-using System;
-using System.Globalization;
-using System.Windows.Data;
-using Wider.Core.Services;
+using System.Windows;
 
-namespace Wider.Shell
+namespace Wider.Shell.Views
 {
-    internal class ActiveDocumentConverter : IValueConverter
+    /// <summary>
+    /// Interaction logic for SettingsWindow.xaml
+    /// </summary>
+    internal partial class SettingsWindow
     {
-        #region IValueConverter Members
+        public SettingsWindow() => InitializeComponent();
 
-        public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
-        {
-            if (value is ContentViewModel)
-            {
-                return value;
-            }
-
-            return Binding.DoNothing;
-        }
-
-        public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
-        {
-            if (value is ContentViewModel)
-            {
-                return value;
-            }
-
-            return Binding.DoNothing;
-        }
-
-        #endregion
+        private void Button_Click(System.Object sender, RoutedEventArgs e) => DialogResult = true;
     }
 }

@@ -14,6 +14,7 @@ using Prism.Commands;
 using System;
 using System.Windows.Input;
 using Wider.Core.Settings;
+using Wider.Shell.Views;
 
 namespace Wider.Shell.Settings
 {
@@ -35,20 +36,19 @@ namespace Wider.Shell.Settings
 
         private void OpenSettings()
         {
-#warning Fix ISettings window
-            //SettingsWindow window = new SettingsWindow
-            //{
-            //    DataContext = this
-            //};
-            //Boolean? result = window.ShowDialog();
-            //if (result == true)
-            //{
-            //    Save();
-            //}
-            //else
-            //{
-            //    Reset();
-            //}
+            SettingsWindow window = new SettingsWindow
+            {
+                DataContext = this
+            };
+            Boolean? result = window.ShowDialog();
+            if (result == true)
+            {
+                Save();
+            }
+            else
+            {
+                Reset();
+            }
         }
     }
 }
