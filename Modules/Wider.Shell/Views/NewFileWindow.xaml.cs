@@ -10,17 +10,33 @@
 
 #endregion
 
+using System.Windows.Input;
+using Wider.Core.Attributes;
+using System.Windows.Controls;
 using System.Windows;
+using System;
 
-namespace Wider.Core.Settings
+namespace Wider.Shell.Views
 {
     /// <summary>
-    /// Interaction logic for SettingsWindow.xaml
+    /// Interaction logic for NewFileWindow.xaml
     /// </summary>
-    internal partial class SettingsWindow : Window
+    internal partial class NewFileWindow
     {
-        public SettingsWindow() => InitializeComponent();
+        public NewFileWindow() => InitializeComponent();
 
-        private void Button_Click(System.Object sender, RoutedEventArgs e) => DialogResult = true;
+        private void ListBoxItem_DoubleClick(Object sender, MouseButtonEventArgs e)
+        {
+            NewContent = (sender as ListBoxItem).DataContext as NewContentAttribute;
+            DialogResult = true;
+        }
+
+        public NewContentAttribute NewContent { get; private set; }
+
+        private void Button_Click(Object sender, RoutedEventArgs e)
+        {
+            NewContent = listView.SelectedItem as NewContentAttribute;
+            DialogResult = true;
+        }
     }
 }

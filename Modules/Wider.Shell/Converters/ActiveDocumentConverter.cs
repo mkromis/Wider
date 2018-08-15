@@ -10,34 +10,37 @@
 
 #endregion
 
-using System.Windows.Input;
-using MahApps.Metro.Controls;
-using Wider.Core.Attributes;
-using System.Windows.Controls;
-using System.Windows;
 using System;
+using System.Globalization;
+using System.Windows.Data;
+using Wider.Core.Services;
 
-namespace Wider.Shell.Services
+namespace Wider.Shell.Converters
 {
-    /// <summary>
-    /// Interaction logic for NewFileWindow.xaml
-    /// </summary>
-    internal partial class NewFileWindow : Window
+    public class ActiveDocumentConverter : IValueConverter
     {
-        public NewFileWindow() => InitializeComponent();
+        #region IValueConverter Members
 
-        private void ListBoxItem_DoubleClick(Object sender, MouseButtonEventArgs e)
+        public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
         {
-            NewContent = (sender as ListBoxItem).DataContext as NewContentAttribute;
-            DialogResult = true;
+            if (value is ContentViewModel)
+            {
+                return value;
+            }
+
+            return Binding.DoNothing;
         }
 
-        public NewContentAttribute NewContent { get; private set; }
-
-        private void Button_Click(Object sender, RoutedEventArgs e)
+        public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
         {
-            NewContent = listView.SelectedItem as NewContentAttribute;
-            DialogResult = true;
+            if (value is ContentViewModel)
+            {
+                return value;
+            }
+
+            return Binding.DoNothing;
         }
+
+        #endregion
     }
 }
