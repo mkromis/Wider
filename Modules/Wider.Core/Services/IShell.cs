@@ -44,24 +44,24 @@ namespace Wider.Core.Services
         /// Gets the top.
         /// </summary>
         /// <value>The top.</value>
-        Double Top { get; }
+        Double Top { get; set; }
 
         /// <summary>
         /// Gets the left.
         /// </summary>
         /// <value>The left.</value>
-        Double Left { get; }
+        Double Left { get; set; }
 
         /// <summary>
         /// Gets the width.
         /// </summary>
         /// <value>The width.</value>
-        Double Width { get; }
+        Double Width { get; set; }
 
         /// <summary>
         /// Gets the height.
         /// </summary>
         /// <value>The height.</value>
-        Double Height { get; }
+        Double Height { get; set; }
     }
 }

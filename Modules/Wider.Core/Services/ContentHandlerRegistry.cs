@@ -202,12 +202,12 @@ namespace Wider.Core.Services
             }
             else
             {
-#warning fix new file window
-                //NewFileWindow window = new NewFileWindow();
-                //Brush backup = _statusBar.Background;
-                //_statusBar.Background = _newBackground;
-                //_statusBar.Text = "Select a new file";
-                //if(Application.Current.MainWindow is MetroWindow)
+                _container.TryResolve(out INewFileWindow window);
+                if (window == null) { return; }
+                Brush backup = _statusBar.Background;
+                _statusBar.Background = _newBackground;
+                _statusBar.Text = "Select a new file";
+                //if (Application.Current.MainWindow is MetroWindow)
                 //{
                 //    window.Resources = Application.Current.MainWindow.Resources;
                 //    Window win = Application.Current.MainWindow as MetroWindow;
@@ -215,20 +215,20 @@ namespace Wider.Core.Services
                 //    //window.GlowBrush = win.GlowBrush;
                 //    //window.TitleForeground = win.TitleForeground;
                 //}
-                //window.DataContext = _availableNewContent;
-                //if(window.ShowDialog() == true)
-                //{
-                //    NewContentAttribute newContent = window.NewContent;
-                //    if(newContent != null)
-                //    {
-                //        IContentHandler handler = _dictionary[newContent];
-                //        ContentViewModel openValue = handler.NewContent(newContent);
-                //        _workspace.Documents.Add(openValue);
-                //        _workspace.ActiveDocument = openValue;
-                //    }
-                //}
-                //_statusBar.Background = backup;
-                //_statusBar.Clear();
+                window.DataContext = _availableNewContent;
+                if (window.ShowDialog() == true)
+                {
+                    NewContentAttribute newContent = window.NewContent;
+                    if (newContent != null)
+                    {
+                        IContentHandler handler = _dictionary[newContent];
+                        ContentViewModel openValue = handler.NewContent(newContent);
+                        _workspace.Documents.Add(openValue);
+                        _workspace.ActiveDocument = openValue;
+                    }
+                }
+                _statusBar.Background = backup;
+                _statusBar.Clear();
             }
         }
         #endregion

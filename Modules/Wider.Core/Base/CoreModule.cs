@@ -140,40 +140,21 @@ namespace Wider.Core
 
         private void LoadSettings()
         {
-#warning Update LoadSettings
-            //ShellView view;
-            //ShellViewMetro metroView;
+            //Resolve to get the last used theme from the settings
+            _container.Resolve<ThemeSettings>();
+            WindowPositionSettings position = _container.Resolve<IWindowPositionSettings>() as WindowPositionSettings;
 
-            ////Resolve to get the last used theme from the settings
-            //_container.Resolve<ThemeSettings>();
-            //IShell shell = _container.Resolve<IShell>();
-            //WindowPositionSettings position = _container.Resolve<IWindowPositionSettings>() as WindowPositionSettings;
+            //Set the position of the window based on previous session values based on metro or regular
+            if (_container.Resolve<IShell>() is IShell view)
+            {
+                view.Top = position.Top;
+                view.Left = position.Left;
+                view.Width = position.Width;
+                view.Height = position.Height;
 
-            ////Set the position of the window based on previous session values based on metro or regular
-            //if (WiderBootstrapper.IsMetro == true)
-            //{
-            //    metroView = shell as ShellViewMetro;
-            //    if (metroView != null)
-            //    {
-            //        metroView.Top = position.Top;
-            //        metroView.Left = position.Left;
-            //        metroView.Width = position.Width;
-            //        metroView.Height = position.Height;
-            //        metroView.WindowState = position.State;
-            //    }
-            //}
-            //else
-            //{
-            //    view = shell as ShellView;
-            //    if (view != null)
-            //    {
-            //        view.Top = position.Top;
-            //        view.Left = position.Left;
-            //        view.Width = position.Width;
-            //        view.Height = position.Height;
-            //        view.WindowState = position.State;
-            //    }
-            //}
+#warning DISABLED WINDOWS STATE UNTIL UWP PROTOTYPE
+                //view.WindowState = position.State;
+            }
         }
 
         #region Commands
