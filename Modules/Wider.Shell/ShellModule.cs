@@ -26,6 +26,7 @@ namespace Wider.Shell
         {
             _builder.RegisterType<SettingsManager>().As<ISettingsManager>().SingleInstance();
             _builder.RegisterType<ToolbarService>().As<IToolbarService>().SingleInstance();
+            _builder.RegisterType<NewFileWindow>().As<INewFileWindow>();
         }
     }
 }

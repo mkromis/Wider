@@ -27,12 +27,12 @@ using Xceed.Wpf.AvalonDock.Controls;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
 
-namespace Wider.Shell
+namespace Wider.Shell.Metro.Views
 {
     /// <summary>
     /// Interaction logic for Shell.xaml
     /// </summary>
-    internal partial class ShellViewMetro : MetroWindow, IShell
+    internal partial class ShellView : IShell
     {
         private readonly IContainer _container;
         private IEventAggregator _eventAggregator;

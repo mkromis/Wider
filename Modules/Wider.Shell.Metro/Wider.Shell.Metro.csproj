@@ -67,8 +67,8 @@
     <Compile Include="Themes\DefaultTheme.cs" />
     <Compile Include="Themes\LightTheme.cs" />
     <Compile Include="Themes\VS2010.cs" />
-    <Compile Include="Views\ShellViewMetro.xaml.cs">
-      <DependentUpon>ShellViewMetro.xaml</DependentUpon>
+    <Compile Include="Views\ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -129,7 +129,7 @@
     <Page Include="Styles\VS2012\WindowCommands.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ShellViewMetro.xaml">
+    <Page Include="Views\ShellView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
@@ -149,6 +149,10 @@
     <ProjectReference Include="..\Wider.Core\Wider.Core.csproj">
       <Project>{10205918-47C5-4614-9359-5E30CBE7E289}</Project>
       <Name>Wider.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wider.Shell\Wider.Shell.csproj">
+      <Project>{f4242fa3-2404-4ea4-95d9-d00057f277d1}</Project>
+      <Name>Wider.Shell</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

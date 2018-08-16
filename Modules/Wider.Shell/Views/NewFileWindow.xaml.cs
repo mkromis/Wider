@@ -15,13 +15,14 @@ using Wider.Core.Attributes;
 using System.Windows.Controls;
 using System.Windows;
 using System;
+using Wider.Core.Services;
 
 namespace Wider.Shell.Views
 {
     /// <summary>
     /// Interaction logic for NewFileWindow.xaml
     /// </summary>
-    internal partial class NewFileWindow
+    internal partial class NewFileWindow : INewFileWindow
     {
         public NewFileWindow() => InitializeComponent();
 
@@ -31,7 +32,7 @@ namespace Wider.Shell.Views
             DialogResult = true;
         }
 
-        public NewContentAttribute NewContent { get; private set; }
+        public NewContentAttribute NewContent { get; set; }
 
         private void Button_Click(Object sender, RoutedEventArgs e)
         {
