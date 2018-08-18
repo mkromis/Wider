@@ -16,7 +16,7 @@ using Wider.Core.Services;
 
 namespace Wider.Shell
 {
-    internal class PanesStyleSelector : StyleSelector
+    public class PanesStyleSelector : StyleSelector
     {
         public Style ToolStyle { get; set; }
 

@@ -93,12 +93,18 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Modules\Wider.Core\Wider.Core.csproj">
       <Project>{10205918-47c5-4614-9359-5e30cbe7e289}</Project>
       <Name>Wider.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Modules\Wider.Shell.Metro\Wider.Shell.Metro.csproj">
+      <Project>{53106c03-fe9f-4627-872a-a6e8bcc429fe}</Project>
+      <Name>Wider.Shell.Metro</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Modules\Wider.Shell\Wider.Shell.csproj">
       <Project>{f4242fa3-2404-4ea4-95d9-d00057f277d1}</Project>
