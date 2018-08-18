@@ -92,7 +92,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Unsorted\app.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Wider.Core\Wider.Core.csproj">

@@ -41,7 +41,7 @@ namespace Wider.Shell.Metro.Views
         private ContextMenu _docContextMenu;
         private MultiBinding _itemSourceBinding;
 
-        public ShellViewMetro(IContainer container, IEventAggregator eventAggregator)
+        public ShellView(IContainer container, IEventAggregator eventAggregator)
         {
             InitializeComponent();
             _container = container;

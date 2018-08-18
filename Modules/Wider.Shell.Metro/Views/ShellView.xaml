@@ -7,6 +7,8 @@
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
     xmlns:Converter="clr-namespace:Wider.Core.Converters;assembly=Wider.Core"
+    xmlns:Shell="clr-namespace:Wider.Shell;assembly=Wider.Shell"
+    xmlns:ShellConverter="clr-namespace:Wider.Shell.Converters;assembly=Wider.Shell"
     xmlns:Utils="clr-namespace:Wider.Utils;assembly=Wider.Core"
     TitleForeground="#FF717171" 
     TitleCaps="False" 
@@ -33,7 +35,7 @@
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
             <avalonDock:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-            <local:ActiveDocumentConverter x:Key="ActiveDocumentConverter" />
+            <ShellConverter:ActiveDocumentConverter x:Key="ActiveDocumentConverter" />
             <Converter:NullObjectToVisibiltyConverter x:Key="nullToVisibilityConverter" />
             <Converter:BoolToInsertModeConverter x:Key="booleanToInsertModeConverter" />
             <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
@@ -128,23 +130,23 @@
                 </avalonDock:DockingManager.AnchorableContextMenu>-->
 
                 <avalonDock:DockingManager.LayoutItemTemplateSelector>
-                    <local:PanesTemplateSelector>
-                        <local:PanesTemplateSelector.ContentViewTemplate>
+                    <Shell:PanesTemplateSelector>
+                        <Shell:PanesTemplateSelector.ContentViewTemplate>
                             <DataTemplate>
                                 <ContentPresenter Content="{Binding Path=View, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                             </DataTemplate>
-                        </local:PanesTemplateSelector.ContentViewTemplate>
-                        <local:PanesTemplateSelector.ToolViewTemplate>
+                        </Shell:PanesTemplateSelector.ContentViewTemplate>
+                        <Shell:PanesTemplateSelector.ToolViewTemplate>
                             <DataTemplate>
                                 <ContentControl Content="{Binding Path=View}" IsVisibleChanged="ContentControl_IsVisibleChanged" />
                             </DataTemplate>
-                        </local:PanesTemplateSelector.ToolViewTemplate>
-                    </local:PanesTemplateSelector>
+                        </Shell:PanesTemplateSelector.ToolViewTemplate>
+                    </Shell:PanesTemplateSelector>
                 </avalonDock:DockingManager.LayoutItemTemplateSelector>
 
                 <avalonDock:DockingManager.LayoutItemContainerStyleSelector>
-                    <local:PanesStyleSelector>
-                        <local:PanesStyleSelector.ToolStyle>
+                    <Shell:PanesStyleSelector>
+                        <Shell:PanesStyleSelector.ToolStyle>
                             <Style TargetType="{x:Type avalonDock:LayoutAnchorableItem}">
                                 <Setter Property="Title" Value="{Binding Model.Title, Mode=TwoWay}" />
                                 <Setter Property="IconSource" Value="{Binding Model.IconSource}" />
@@ -153,8 +155,8 @@
                                 <Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}" />
                                 <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}" />
                             </Style>
-                        </local:PanesStyleSelector.ToolStyle>
-                        <local:PanesStyleSelector.ContentStyle>
+                        </Shell:PanesStyleSelector.ToolStyle>
+                        <Shell:PanesStyleSelector.ContentStyle>
                             <Style TargetType="{x:Type avalonDock:LayoutItem}">
                                 <Setter Property="Title" Value="{Binding Model.Title, Mode=TwoWay}" />
                                 <Setter Property="ToolTip" Value="{Binding Model.Tooltip}" />
@@ -162,11 +164,11 @@
                                 <Setter Property="IconSource" Value="{Binding Model.IconSource}" />
                                 <Setter Property="ContentId" Value="{Binding Model.ContentId}" />
                             </Style>
-                        </local:PanesStyleSelector.ContentStyle>
-                    </local:PanesStyleSelector>
+                        </Shell:PanesStyleSelector.ContentStyle>
+                    </Shell:PanesStyleSelector>
                 </avalonDock:DockingManager.LayoutItemContainerStyleSelector>
                 <avalonDock:DockingManager.LayoutUpdateStrategy>
-                    <local:LayoutInitializer />
+                    <Shell:LayoutInitializer />
                 </avalonDock:DockingManager.LayoutUpdateStrategy>
 
                 <avalonDock:LayoutRoot>

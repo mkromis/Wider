@@ -16,7 +16,7 @@ using Wider.Core.Services;
 
 namespace Wider.Shell
 {
-    internal class PanesTemplateSelector : DataTemplateSelector
+    public class PanesTemplateSelector : DataTemplateSelector
     {
         public DataTemplate ContentViewTemplate { get; set; }
 
