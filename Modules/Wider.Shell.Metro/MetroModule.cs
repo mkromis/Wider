@@ -9,7 +9,7 @@ using Wider.Core.Services;
 namespace Wider.Shell.Metro
 {
     [Module(ModuleName = "Wider.Shell.Metro")]
-    [ModuleDependency("Wider.Shell")]
+    //[ModuleDependency("Wider.Shell")]
     public class MetroModule : IModule
     {
         private IRegionManager _regionManager;

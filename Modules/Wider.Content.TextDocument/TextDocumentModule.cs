@@ -10,6 +10,7 @@ using Wider.Core.Services;
 
 namespace Wider.Content.TextDocument
 {
+    [Module(ModuleName = "Wider.Content.TextDocument")]
     public class TextDocumentModule : IModule
     {
         private readonly IRegionManager _regionManager;
