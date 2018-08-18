@@ -151,9 +151,6 @@ namespace Wider.Core
                 view.Left = position.Left;
                 view.Width = position.Width;
                 view.Height = position.Height;
-
-#warning DISABLED WINDOWS STATE UNTIL UWP PROTOTYPE
-                //view.WindowState = position.State;
             }
         }
 

@@ -66,19 +66,19 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Unsorted\LayoutInitializer.cs" />
+    <Compile Include="Base\LayoutInitializer.cs" />
     <Compile Include="Views\NewFileWindow.xaml.cs">
       <DependentUpon>NewFileWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Unsorted\PanesStyleSelector.cs" />
-    <Compile Include="Unsorted\PanesTemplateSelector.cs" />
+    <Compile Include="Base\PanesStyleSelector.cs" />
+    <Compile Include="Base\PanesTemplateSelector.cs" />
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Unsorted\WideBootstrapper.cs" />
+    <Compile Include="Base\WideBootstrapper.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -90,6 +90,12 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Styles\Controls.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ToolbarBinding.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\NewFileWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
