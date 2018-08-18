@@ -81,13 +81,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Styles\Controls.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Styles\ControlsMetro.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\ToolbarBinding.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\VS2010\Brushes.xaml">
