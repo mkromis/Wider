@@ -71,13 +71,11 @@ namespace Wider.Core.Services
                         {
                             ToolBar tb = new ToolBar();
 
-#warning disabled toolbar theme
-#if false
                             DataTemplateSelector t =
                                 Application.Current.MainWindow.FindResource("toolBarItemTemplateSelector") as
                                 DataTemplateSelector;
                             tb.SetValue(ItemsControl.ItemTemplateSelectorProperty, t);
-#endif
+
                             //Set the necessary bindings
                             Binding bandBinding = new Binding("Band");
                             Binding bandIndexBinding = new Binding("BandIndex");
@@ -101,11 +99,9 @@ namespace Wider.Core.Services
                             child.AddChild(tb);
                         }
                     }
-#warning disabled ToobarContextMenu Style
-#if false
                     tray.ContextMenu.ItemContainerStyle =
                         Application.Current.MainWindow.FindResource("ToolbarContextMenu") as Style;
-#endif
+
                 }
                 return tray;
             }

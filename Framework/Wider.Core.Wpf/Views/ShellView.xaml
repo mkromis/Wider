@@ -3,15 +3,19 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" x:ClassModifier="internal"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
+    
     xmlns:local="clr-namespace:Wider.Core" 
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:Converter="clr-namespace:Wider.Core.Converters"
-    xmlns:Host="clr-namespace:Wider.Shell" Title="{Binding Title}" Icon="{Binding Icon}" Closing="Window_Closing_1">
+    
+    Title="{Binding Title}" Icon="{Binding Icon}" Closing="Window_Closing_1">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary x:Name="ThemeDictionary">
                     <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="pack://application:,,,/Wider.Core;component/Styles/Controls.xaml" />
+                        <ResourceDictionary Source="pack://application:,,,/Wider.Core;component/Styles/ToolbarBinding.xaml" />
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
@@ -25,7 +29,10 @@
     <Border>
         <DockPanel>
             <!--Menu-->
-            <Menu DockPanel.Dock="Top" IsMainMenu="True" x:Name="mainMenu" VerticalAlignment="Top" ItemsSource="{Binding Path=Menus, UpdateSourceTrigger=PropertyChanged}" />
+            <Menu 
+                DockPanel.Dock="Top" IsMainMenu="True" x:Name="mainMenu" VerticalAlignment="Top" 
+                ItemContainerStyle="{DynamicResource StandardMenuStyle}"
+                ItemsSource="{Binding Path=Menus, UpdateSourceTrigger=PropertyChanged}" />
             <!--Toolbar (can we improve this?)-->
             <ContentControl Content="{Binding ToolBarTray}" DockPanel.Dock="Top" />
             <!--Status bar-->
