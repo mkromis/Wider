@@ -22,7 +22,7 @@ using Wider.Core.Services;
 using Wider.Core.Settings;
 using Wider.Core.Views;
 
-namespace Wider.Shell
+namespace Wider.Core
 {
     public class WiderBootstrapper : AutofacBootstrapper
     {
