@@ -14,7 +14,7 @@ using System;
 using System.ComponentModel;
 using System.Configuration;
 using System.Windows.Media;
-using Wider.Interfaces.Settings;
+using Wider.Core.Settings;
 
 namespace WiderMD.Core.Settings
 {
