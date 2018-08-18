@@ -117,5 +117,6 @@
     <PackageReference Include="Prism.Autofac" Version="6.3.0" />
   </ItemGroup>
   <ItemGroup />
+  <Import Project="..\Wider.Core\Wider.Core.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
