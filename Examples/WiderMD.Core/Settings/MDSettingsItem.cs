@@ -12,13 +12,12 @@
 
 using System;
 using Wider.Core.Settings;
-using Wider.Shell.Settings;
 
 namespace WiderMD.Core.Settings
 {
     public class MDSettingsItem : AbstractSettingsItem
     {
-        public MDSettingsItem(String title, Int32 priority, AbstractSettings settings) : base(title, settings) => 
+        public MDSettingsItem(String title, Int32 priority, AbstractSettings settings) : base(title, settings) =>
             Priority = priority;
     }
 }

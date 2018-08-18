@@ -1,12 +1,11 @@
 ﻿<Window 
-    x:Class="Wider.Shell.ShellView" 
+    x:Class="Wider.Core.Views.ShellView" 
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" x:ClassModifier="internal"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
-    xmlns:local="clr-namespace:Wider.Shell" 
+    xmlns:local="clr-namespace:Wider.Core" 
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-    xmlns:Converter="clr-namespace:Wider.Core.Converters;assembly=Wider.Core"
-    xmlns:LocalConverter="clr-namespace:Wider.Shell.Converters"
+    xmlns:Converter="clr-namespace:Wider.Core.Converters"
     xmlns:Host="clr-namespace:Wider.Shell" Title="{Binding Title}" Icon="{Binding Icon}" Closing="Window_Closing_1">
     <Window.Resources>
         <ResourceDictionary>
@@ -17,7 +16,7 @@
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
             <avalonDock:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-            <LocalConverter:ActiveDocumentConverter x:Key="ActiveDocumentConverter" />
+            <Converter:ActiveDocumentConverter x:Key="ActiveDocumentConverter" />
             <Converter:NullObjectToVisibiltyConverter x:Key="nullToVisibilityConverter" />
             <Converter:BoolToInsertModeConverter x:Key="booleanToInsertModeConverter" />
             <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />

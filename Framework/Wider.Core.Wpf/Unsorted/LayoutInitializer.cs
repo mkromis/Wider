@@ -17,7 +17,7 @@ using System.Windows.Controls;
 using Wider.Core.Services;
 using Xceed.Wpf.AvalonDock.Layout;
 
-namespace Wider.Shell
+namespace Wider.Core
 {
     public class LayoutInitializer : ILayoutUpdateStrategy
     {

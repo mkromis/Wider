@@ -14,7 +14,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Wider.Core.Services;
 
-namespace Wider.Shell
+namespace Wider.Core
 {
     public class PanesTemplateSelector : DataTemplateSelector
     {

@@ -22,7 +22,7 @@ using Xceed.Wpf.AvalonDock;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
 
-namespace Wider.Shell
+namespace Wider.Core.Views
 {
     /// <summary>
     /// Interaction logic for Shell.xaml

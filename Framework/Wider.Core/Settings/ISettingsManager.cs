@@ -1,4 +1,4 @@
-﻿#region License
+#region License
 // Copyright (c) 2018 Mark Kromis
 // Copyright (c) 2013 Chandramouleswaran Ravichandran
 // 
@@ -10,45 +10,38 @@
 
 #endregion
 
-using Prism.Commands;
 using System;
 using System.Windows.Input;
-using Wider.Core.Settings;
-using Wider.Shell.Views;
 
-namespace Wider.Shell.Settings
+namespace Wider.Core.Settings
 {
-    /// <summary>
-    /// Class WiderSettingsManager
-    /// </summary>
-    internal class SettingsManager : AbstractSettingsItem, ISettingsManager
+    public interface ISettingsManager
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="WiderSettingsManager"/> class.
+        /// Gets the settings command.
         /// </summary>
-        public SettingsManager() : base("", null) => SettingsCommand = new DelegateCommand(OpenSettings);
+        /// <value>The settings.</value>
+        ICommand SettingsCommand { get; }
 
         /// <summary>
-        /// Gets the settings menu.
+        /// Adds the specified item.
         /// </summary>
-        /// <value>The settings menu.</value>
-        public ICommand SettingsCommand { get; private set; }
+        /// <param name="item">The item.</param>
+        /// <returns>The GUID for the item added which needs to be used to remove the item</returns>
+        String Add(AbstractSettingsItem item);
 
-        private void OpenSettings()
-        {
-            SettingsWindow window = new SettingsWindow
-            {
-                DataContext = this
-            };
-            Boolean? result = window.ShowDialog();
-            if (result == true)
-            {
-                Save();
-            }
-            else
-            {
-                Reset();
-            }
-        }
+        /// <summary>
+        /// Removes the specified key.
+        /// </summary>
+        /// <param name="GuidString">The unique GUID set for the menu available for the creator.</param>
+        /// <returns><c>true</c> if successfully removed, <c>false</c> otherwise</returns>
+        Boolean Remove(String GuidString);
+
+        /// <summary>
+        /// Gets the node with the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>`0.</returns>
+        AbstractSettingsItem Get(String key);
     }
 }
