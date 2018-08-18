@@ -3,12 +3,10 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
-    xmlns:local="clr-namespace:Wider.Shell" 
+    xmlns:Core="clr-namespace:Wider.Core;assembly=Wider.Core"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
     xmlns:Converter="clr-namespace:Wider.Core.Converters;assembly=Wider.Core"
-    xmlns:Shell="clr-namespace:Wider.Shell;assembly=Wider.Shell"
-    xmlns:ShellConverter="clr-namespace:Wider.Shell.Converters;assembly=Wider.Shell"
     xmlns:Utils="clr-namespace:Wider.Utils;assembly=Wider.Core"
     TitleForeground="#FF717171" 
     TitleCaps="False" 
@@ -35,7 +33,7 @@
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
             <avalonDock:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-            <ShellConverter:ActiveDocumentConverter x:Key="ActiveDocumentConverter" />
+            <Converter:ActiveDocumentConverter x:Key="ActiveDocumentConverter" />
             <Converter:NullObjectToVisibiltyConverter x:Key="nullToVisibilityConverter" />
             <Converter:BoolToInsertModeConverter x:Key="booleanToInsertModeConverter" />
             <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
@@ -130,23 +128,23 @@
                 </avalonDock:DockingManager.AnchorableContextMenu>-->
 
                 <avalonDock:DockingManager.LayoutItemTemplateSelector>
-                    <Shell:PanesTemplateSelector>
-                        <Shell:PanesTemplateSelector.ContentViewTemplate>
+                    <Core:PanesTemplateSelector>
+                        <Core:PanesTemplateSelector.ContentViewTemplate>
                             <DataTemplate>
                                 <ContentPresenter Content="{Binding Path=View, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                             </DataTemplate>
-                        </Shell:PanesTemplateSelector.ContentViewTemplate>
-                        <Shell:PanesTemplateSelector.ToolViewTemplate>
+                        </Core:PanesTemplateSelector.ContentViewTemplate>
+                        <Core:PanesTemplateSelector.ToolViewTemplate>
                             <DataTemplate>
                                 <ContentControl Content="{Binding Path=View}" IsVisibleChanged="ContentControl_IsVisibleChanged" />
                             </DataTemplate>
-                        </Shell:PanesTemplateSelector.ToolViewTemplate>
-                    </Shell:PanesTemplateSelector>
+                        </Core:PanesTemplateSelector.ToolViewTemplate>
+                    </Core:PanesTemplateSelector>
                 </avalonDock:DockingManager.LayoutItemTemplateSelector>
 
                 <avalonDock:DockingManager.LayoutItemContainerStyleSelector>
-                    <Shell:PanesStyleSelector>
-                        <Shell:PanesStyleSelector.ToolStyle>
+                    <Core:PanesStyleSelector>
+                        <Core:PanesStyleSelector.ToolStyle>
                             <Style TargetType="{x:Type avalonDock:LayoutAnchorableItem}">
                                 <Setter Property="Title" Value="{Binding Model.Title, Mode=TwoWay}" />
                                 <Setter Property="IconSource" Value="{Binding Model.IconSource}" />
@@ -155,8 +153,8 @@
                                 <Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}" />
                                 <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}" />
                             </Style>
-                        </Shell:PanesStyleSelector.ToolStyle>
-                        <Shell:PanesStyleSelector.ContentStyle>
+                        </Core:PanesStyleSelector.ToolStyle>
+                        <Core:PanesStyleSelector.ContentStyle>
                             <Style TargetType="{x:Type avalonDock:LayoutItem}">
                                 <Setter Property="Title" Value="{Binding Model.Title, Mode=TwoWay}" />
                                 <Setter Property="ToolTip" Value="{Binding Model.Tooltip}" />
@@ -164,11 +162,11 @@
                                 <Setter Property="IconSource" Value="{Binding Model.IconSource}" />
                                 <Setter Property="ContentId" Value="{Binding Model.ContentId}" />
                             </Style>
-                        </Shell:PanesStyleSelector.ContentStyle>
-                    </Shell:PanesStyleSelector>
+                        </Core:PanesStyleSelector.ContentStyle>
+                    </Core:PanesStyleSelector>
                 </avalonDock:DockingManager.LayoutItemContainerStyleSelector>
                 <avalonDock:DockingManager.LayoutUpdateStrategy>
-                    <Shell:LayoutInitializer />
+                    <Core:LayoutInitializer />
                 </avalonDock:DockingManager.LayoutUpdateStrategy>
 
                 <avalonDock:LayoutRoot>

@@ -94,9 +94,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Wider.Core\Wider.Core.csproj">
-      <Project>{10205918-47c5-4614-9359-5e30cbe7e289}</Project>
-      <Name>Wider.Core</Name>
+    <ProjectReference Include="..\..\Framework\Wider.Core.Wpf\Wider.Core.Wpf.csproj">
+      <Project>{f4242fa3-2404-4ea4-95d9-d00057f277d1}</Project>
+      <Name>Wider.Core.Wpf</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

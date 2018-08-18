@@ -17,7 +17,7 @@ using Wider.Core;
 using Wider.Core.Settings;
 using Xceed.Wpf.Toolkit.PropertyGrid;
 
-namespace Wider.Shell.Settings
+namespace Wider.Core.Settings
 {
     /// <summary>
     /// Class AbstractSettings

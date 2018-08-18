@@ -19,6 +19,8 @@ using System.Reflection;
 using System.Windows;
 using Wider.Core;
 using Wider.Core.Services;
+using Wider.Core.Settings;
+using Wider.Core.Views;
 
 namespace Wider.Shell
 {
@@ -59,6 +61,9 @@ namespace Wider.Shell
         {
             //Use regular window
             builder.RegisterType<ShellView>().As<IShell>().SingleInstance();
+            builder.RegisterType<SettingsManager>().As<ISettingsManager>().SingleInstance();
+            builder.RegisterType<ToolbarService>().As<IToolbarService>().SingleInstance();
+            builder.RegisterType<NewFileWindow>().As<INewFileWindow>();
             base.ConfigureContainerBuilder(builder);
         }
 

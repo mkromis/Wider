@@ -20,7 +20,7 @@ using Wider.Core.Controls;
 using Wider.Core.Services;
 using Xceed.Wpf.AvalonDock.Converters;
 
-namespace Wider.Shell.Services
+namespace Wider.Core.Services
 {
     /// <summary>
     /// The Wider tool bar service
@@ -70,11 +70,14 @@ namespace Wider.Shell.Services
                         if (node is AbstractToolbar value)
                         {
                             ToolBar tb = new ToolBar();
+
+#warning disabled toolbar theme
+#if false
                             DataTemplateSelector t =
                                 Application.Current.MainWindow.FindResource("toolBarItemTemplateSelector") as
                                 DataTemplateSelector;
                             tb.SetValue(ItemsControl.ItemTemplateSelectorProperty, t);
-
+#endif
                             //Set the necessary bindings
                             Binding bandBinding = new Binding("Band");
                             Binding bandIndexBinding = new Binding("BandIndex");
@@ -98,8 +101,11 @@ namespace Wider.Shell.Services
                             child.AddChild(tb);
                         }
                     }
+#warning disabled ToobarContextMenu Style
+#if false
                     tray.ContextMenu.ItemContainerStyle =
                         Application.Current.MainWindow.FindResource("ToolbarContextMenu") as Style;
+#endif
                 }
                 return tray;
             }

@@ -118,21 +118,17 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Framework\Wider.Core.Wpf\Wider.Core.Wpf.csproj">
+      <Project>{f4242fa3-2404-4ea4-95d9-d00057f277d1}</Project>
+      <Name>Wider.Core.Wpf</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Modules\Wider.Content.TextDocument\Wider.Content.TextDocument.csproj">
       <Project>{b80e6695-0f27-4ae1-bd7a-eda42b94a940}</Project>
       <Name>Wider.Content.TextDocument</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Modules\Wider.Core\Wider.Core.csproj">
-      <Project>{10205918-47c5-4614-9359-5e30cbe7e289}</Project>
-      <Name>Wider.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Modules\Wider.Shell.Metro\Wider.Shell.Metro.csproj">
       <Project>{53106c03-fe9f-4627-872a-a6e8bcc429fe}</Project>
       <Name>Wider.Shell.Metro</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Modules\Wider.Shell\Wider.Shell.csproj">
-      <Project>{F4242FA3-2404-4EA4-95D9-D00057F277D1}</Project>
-      <Name>Wider.Shell</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Modules\Wider.Splash\Wider.Splash.csproj">
       <Project>{a36ab58c-197b-431b-9de6-4911db8f860b}</Project>

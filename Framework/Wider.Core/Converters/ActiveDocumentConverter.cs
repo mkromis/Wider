@@ -15,7 +15,7 @@ using System.Globalization;
 using System.Windows.Data;
 using Wider.Core.Services;
 
-namespace Wider.Shell.Converters
+namespace Wider.Core.Converters
 {
     public class ActiveDocumentConverter : IValueConverter
     {
