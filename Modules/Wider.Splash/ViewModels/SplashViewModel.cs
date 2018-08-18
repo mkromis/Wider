@@ -13,8 +13,7 @@
 using Prism.Events;
 using Prism.Mvvm;
 using System;
-using Wider.Interfaces;
-using Wider.Interfaces.Events;
+using Wider.Core.Events;
 
 namespace Wider.Splash.ViewModels
 {

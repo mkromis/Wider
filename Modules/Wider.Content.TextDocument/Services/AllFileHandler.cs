@@ -22,8 +22,7 @@ using Wider.Content.TextDocument;
 using Wider.Content.TextDocument.ViewModels;
 using Wider.Content.TextDocument.Views;
 using Wider.Core.Attributes;
-using Wider.Interfaces;
-using Wider.Interfaces.Services;
+using Wider.Core.Services;
 
 namespace Wider.Content.Services
 {
@@ -31,7 +30,7 @@ namespace Wider.Content.Services
     /// AllFileHandler class that supports opening of any file on the computer
     /// </summary>
     [FileContent("All files", "*.*", 10000)]
-    [NewContent("Text file", 10000, "Creates a basic text file", "pack://application:,,,/Wider;component/Core/Icons/Textfile.png")]
+    [NewContent("Text file", 10000, "Creates a basic text file", "pack://application:,,,/Wider.Content.TextDocument;component/Icons/Textfile.png")]
     internal class AllFileHandler : IContentHandler
     {
         /// <summary>

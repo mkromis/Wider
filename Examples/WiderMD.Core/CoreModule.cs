@@ -20,12 +20,13 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using Wider.Interfaces;
+using Wider.Core.Controls;
+using Wider.Core.Events;
+using Wider.Core.Services;
+using Wider.Core.Settings;
 using Wider.Interfaces.Controls;
-using Wider.Interfaces.Events;
-using Wider.Interfaces.Services;
-using Wider.Interfaces.Settings;
-using Wider.Interfaces.Themes;
+using Wider.Shell.Settings;
+using Wider.Shell.Themes;
 using WiderMD.Core.Settings;
 
 namespace WiderMD.Core

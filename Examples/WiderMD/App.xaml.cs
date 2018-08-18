@@ -14,7 +14,7 @@ using Autofac;
 using Prism.Autofac;
 using System;
 using System.Windows;
-using Wider.Interfaces;
+using Wider.Core.Services;
 
 namespace WiderMD
 {

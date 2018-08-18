@@ -11,8 +11,7 @@
 #endregion
 
 using System;
-using Wider.Interfaces;
-using Wider.Interfaces.Services;
+using Wider.Core.Services;
 
 namespace Wider.Content.TextDocument.ViewModels
 {

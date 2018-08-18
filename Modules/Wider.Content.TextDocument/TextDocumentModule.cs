@@ -5,11 +5,12 @@ using Prism.Regions;
 using Wider.Content.Services;
 using Wider.Content.TextDocument.ViewModels;
 using Wider.Content.TextDocument.Views;
-using Wider.Interfaces.Events;
-using Wider.Interfaces.Services;
+using Wider.Core.Events;
+using Wider.Core.Services;
 
 namespace Wider.Content.TextDocument
 {
+    [Module(ModuleName = "Wider.Content.TextDocument")]
     public class TextDocumentModule : IModule
     {
         private readonly IRegionManager _regionManager;

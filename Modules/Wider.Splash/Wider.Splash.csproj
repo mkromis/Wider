@@ -86,15 +86,18 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\Wider\Wider.csproj">
-      <Project>{9f20f5ef-4f7e-4ae2-a462-4cd2256fb3ff}</Project>
-      <Name>Wider</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
+    <PackageReference Include="MahApps.Metro">
+      <Version>1.6.5</Version>
+    </PackageReference>
     <PackageReference Include="Prism.Autofac">
       <Version>6.3.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Wider.Core\Wider.Core.csproj">
+      <Project>{10205918-47c5-4614-9359-5e30cbe7e289}</Project>
+      <Name>Wider.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

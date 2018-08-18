@@ -12,9 +12,8 @@
 
 using Autofac;
 using Prism.Events;
-using Wider.Interfaces;
-using Wider.Interfaces.Events;
-using Wider.Interfaces.Services;
+using Wider.Core.Events;
+using Wider.Core.Services;
 using Wider.Tools.Logger.Models;
 using Wider.Tools.Logger.Views;
 
