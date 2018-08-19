@@ -168,7 +168,7 @@ namespace Wider.Core.Services
         /// Gets the title of the application.
         /// </summary>
         /// <value>The title.</value>
-        public virtual String Title => "Wider";
+        public virtual String Title { get; protected set; } = "Wider";
 
         /// <summary>
         /// Gets the icon of the application.
