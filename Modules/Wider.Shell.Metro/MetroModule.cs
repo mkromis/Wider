@@ -8,7 +8,7 @@ using Wider.Core.Services;
 
 namespace Wider.Shell.Metro
 {
-    [Module(ModuleName = "Wider.Shell.Metro", OnDemand = false)]
+    [Module(ModuleName = "Wider.Shell.Metro")]
     //[ModuleDependency("Wider.Shell")]
     public class MetroModule : IModule
     {
