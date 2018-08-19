@@ -32,12 +32,11 @@ namespace Wider.Splash
         private readonly IContainer _container;
 
         #region ctors
-        public SplashModule(ContainerBuilder builder, IContainer container, IEventAggregator eventAggregator_, IShell shell_)
+        public SplashModule(ContainerBuilder builder, IContainer container, IEventAggregator eventAggregator_)
         {
             _builder = builder;
             _container = container;
             EventAggregator = eventAggregator_;
-            Shell = shell_;
         }
 
         #endregion
@@ -46,7 +45,7 @@ namespace Wider.Splash
 
         private IEventAggregator EventAggregator { get; set; }
 
-        private IShell Shell { get; set; }
+        //private IShell Shell { get; set; }
 
         private AutoResetEvent WaitForCreation { get; set; }
 
@@ -58,7 +57,7 @@ namespace Wider.Splash
         {
             Dispatcher.CurrentDispatcher.BeginInvoke((Action)(() =>
            {
-               Shell.Show();
+               (_container.Resolve<IShell>() as Window).Show();
                EventAggregator.GetEvent<SplashCloseEvent>().Publish(new SplashCloseEvent());
            }));
 

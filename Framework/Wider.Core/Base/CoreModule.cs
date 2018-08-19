@@ -117,7 +117,9 @@ namespace Wider.Core
             _builder.Update(_container);
 
             AppCommands();
-            LoadSettings();
+
+            // This is done in bootstrapper to handle delayed loaded IShell
+            //LoadSettings();
         }
 
         #endregion
@@ -138,13 +140,13 @@ namespace Wider.Core
             manager.RegisterCommand("NEW", registry.NewCommand);
         }
 
-        private void LoadSettings()
+        public void LoadSettings()
         {
             //Resolve to get the last used theme from the settings
             _container.Resolve<ThemeSettings>();
             WindowPositionSettings position = _container.Resolve<IWindowPositionSettings>() as WindowPositionSettings;
 
-            //Set the position of the window based on previous session values based on metro or regular
+            //Set the position of the window based on previous session values, delayed loaded in WiderBootstrpper
             if (_container.Resolve<IShell>() is IShell view)
             {
                 view.Top = position.Top;

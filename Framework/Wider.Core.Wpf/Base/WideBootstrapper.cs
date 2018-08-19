@@ -26,9 +26,7 @@ namespace Wider.Core
 {
     public class WiderBootstrapper : AutofacBootstrapper
     {
-        public static Boolean IsMetro { get; protected set; }
-
-        public WiderBootstrapper(Boolean isMetro = true) => IsMetro = isMetro;
+        private ContainerBuilder _builder;
 
         //If you want your own splash window - inherit from the bootstrapper and register type ISplashView
         protected override void InitializeModules()
@@ -48,26 +46,34 @@ namespace Wider.Core
             }
 
             // Load core module 
-            IModule coreModule = Container.Resolve<CoreModule>();
+            CoreModule coreModule = Container.Resolve<CoreModule>();
             coreModule.Initialize();
 
             base.InitializeModules();
             Application.Current.MainWindow.DataContext = Container.Resolve<AbstractWorkspace>();
 
-            (Shell as Window).Show();
+            // Seems if we register too soon, then the shells are getting confused with each other.
+            // so delay loading until after moduels are loaded to see if it is still necessary.
+            RegisterTypeIfMissing<ShellView, IShell>(_builder, true);
+
+            // now we should have a shell, load settings and show if we can.
+            IShell shell = Container.Resolve<IShell>();
+            coreModule.LoadSettings();
+            (shell as Window).Show();
         }
 
         protected override void ConfigureContainerBuilder(ContainerBuilder builder)
         {
+            _builder = builder;
             //Use regular window
-            builder.RegisterType<ShellView>().As<IShell>().SingleInstance();
             builder.RegisterType<SettingsManager>().As<ISettingsManager>().SingleInstance();
             builder.RegisterType<ToolbarService>().As<IToolbarService>().SingleInstance();
             builder.RegisterType<NewFileWindow>().As<INewFileWindow>();
+            //builder.RegisterType<ShellView>().As<IShell>().SingleInstance();
             base.ConfigureContainerBuilder(builder);
         }
 
-        protected override DependencyObject CreateShell() => (DependencyObject)Container.Resolve<IShell>();
+        //protected override DependencyObject CreateShell() => (DependencyObject)Container.Resolve<IShell>();
 
         protected override void InitializeShell()
         {
