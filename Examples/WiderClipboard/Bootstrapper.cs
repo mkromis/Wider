@@ -1,5 +1,7 @@
 ﻿using Autofac;
 using Wider.Core;
+using Wider.Core.Services;
+using WiderClipboard.Models;
 
 namespace WiderClipboard
 {
@@ -7,6 +9,7 @@ namespace WiderClipboard
     {
         protected override void ConfigureContainerBuilder(ContainerBuilder builder)
         {
+            builder.RegisterType<Workspace>().As<IWorkspace>().SingleInstance();
             base.ConfigureContainerBuilder(builder);
         }
     }
