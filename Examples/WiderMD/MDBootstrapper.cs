@@ -14,9 +14,9 @@ using Autofac;
 using Prism.Modularity;
 using System;
 using System.Collections.Generic;
+using Wider.Core;
 using Wider.Core.Services;
 using Wider.Interfaces;
-using Wider.Shell;
 using Wider.Splash;
 using WiderMD.Views;
 
@@ -24,11 +24,6 @@ namespace WiderMD
 {
     internal class MDBootstrapper : WiderBootstrapper
     {
-        public MDBootstrapper(Boolean isMetro = true)
-            : base(isMetro)
-        {
-        }
-
         protected override void ConfigureContainerBuilder(ContainerBuilder builder)
         {
             //Register your splash view or else the default splash will load
