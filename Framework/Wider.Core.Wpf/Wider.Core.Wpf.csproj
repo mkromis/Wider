@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{53106C03-FE9F-4627-872A-A6E8BCC429FE}</ProjectGuid>
+    <ProjectGuid>{F4242FA3-2404-4EA4-95D9-D00057F277D1}</ProjectGuid>
     <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wider.Shell.Metro</RootNamespace>
-    <AssemblyName>Wider.Shell.Metro</AssemblyName>
+    <RootNamespace>Wider.Core</RootNamespace>
+    <AssemblyName>Wider.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -49,7 +50,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MetroModule.cs" />
+    <Compile Include="Converters\DocumentContextMenuMixingConverter.cs" />
+    <Compile Include="Service\AbstractSettingsItem.cs" />
+    <Compile Include="Service\ToolbarService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -63,13 +66,19 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Themes\DarkTheme.cs" />
-    <Compile Include="Themes\DefaultTheme.cs" />
-    <Compile Include="Themes\LightTheme.cs" />
-    <Compile Include="Themes\VS2010.cs" />
+    <Compile Include="Base\LayoutInitializer.cs" />
+    <Compile Include="Views\NewFileWindow.xaml.cs">
+      <DependentUpon>NewFileWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Base\PanesStyleSelector.cs" />
+    <Compile Include="Base\PanesTemplateSelector.cs" />
+    <Compile Include="Views\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Base\WiderBootstrapper.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -81,46 +90,16 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Styles\ControlsMetro.xaml">
+    <Page Include="Styles\Controls.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\VS2010\Brushes.xaml">
+    <Page Include="Styles\ToolbarBinding.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\VS2010\StatusBar.xaml">
+    <Page Include="Views\NewFileWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\VS2010\Theme.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\VS2010\Toolbar.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\VS2012\DarkColors.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\VS2012\DarkTheme.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\VS2012\LightColors.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\VS2012\LightTheme.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\VS2012\Menu.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\VS2012\SplitButton.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\VS2012\Toolbar.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\VS2012\Tooltip.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\VS2012\WindowCommands.xaml">
+    <Page Include="Views\SettingsWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ShellView.xaml">
@@ -131,19 +110,11 @@
     <PackageReference Include="Extended.Wpf.Toolkit">
       <Version>3.4.0</Version>
     </PackageReference>
-    <PackageReference Include="MahApps.Metro">
-      <Version>1.6.5</Version>
-    </PackageReference>
     <PackageReference Include="Prism.Autofac" Version="6.3.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Framework\Wider.Core.Wpf\Wider.Core.Wpf.csproj">
-      <Project>{f4242fa3-2404-4ea4-95d9-d00057f277d1}</Project>
-      <Name>Wider.Core.Wpf</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <Import Project="..\Wider.Core\Wider.Core.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

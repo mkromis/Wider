@@ -10,14 +10,34 @@
 
 #endregion
 
+using System.Windows.Input;
+using Wider.Core.Attributes;
+using System.Windows.Controls;
+using System.Windows;
 using System;
-using Wider.Core.Settings;
+using Wider.Core.Services;
 
-namespace WiderMD.Core.Settings
+namespace Wider.Core.Views
 {
-    public class MDSettingsItem : AbstractSettingsItem
+    /// <summary>
+    /// Interaction logic for NewFileWindow.xaml
+    /// </summary>
+    internal partial class NewFileWindow : INewFileWindow
     {
-        public MDSettingsItem(String title, Int32 priority, AbstractSettings settings) : base(title, settings) =>
-            Priority = priority;
+        public NewFileWindow() => InitializeComponent();
+
+        private void ListBoxItem_DoubleClick(Object sender, MouseButtonEventArgs e)
+        {
+            NewContent = (sender as ListBoxItem).DataContext as NewContentAttribute;
+            DialogResult = true;
+        }
+
+        public NewContentAttribute NewContent { get; set; }
+
+        private void Button_Click(Object sender, RoutedEventArgs e)
+        {
+            NewContent = listView.SelectedItem as NewContentAttribute;
+            DialogResult = true;
+        }
     }
 }

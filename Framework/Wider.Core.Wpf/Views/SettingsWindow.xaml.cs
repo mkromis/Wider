@@ -10,14 +10,17 @@
 
 #endregion
 
-using System;
-using Wider.Core.Settings;
+using System.Windows;
 
-namespace WiderMD.Core.Settings
+namespace Wider.Core.Views
 {
-    public class MDSettingsItem : AbstractSettingsItem
+    /// <summary>
+    /// Interaction logic for SettingsWindow.xaml
+    /// </summary>
+    internal partial class SettingsWindow
     {
-        public MDSettingsItem(String title, Int32 priority, AbstractSettings settings) : base(title, settings) =>
-            Priority = priority;
+        public SettingsWindow() => InitializeComponent();
+
+        private void Button_Click(System.Object sender, RoutedEventArgs e) => DialogResult = true;
     }
 }

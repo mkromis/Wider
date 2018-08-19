@@ -1,5 +1,5 @@
 ﻿#region License
-
+// Copyright (c) 2018 Mark Kromis
 // Copyright (c) 2013 Chandramouleswaran Ravichandran
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -11,13 +11,41 @@
 #endregion
 
 using System;
-using Wider.Core.Settings;
+using System.Windows;
+using System.Windows.Data;
+using Wider.Core.Controls;
 
-namespace WiderMD.Core.Settings
+namespace Wider.Core.Converters
 {
-    public class MDSettingsItem : AbstractSettingsItem
+    public class MenuVisibilityConverter : IValueConverter
     {
-        public MDSettingsItem(String title, Int32 priority, AbstractSettings settings) : base(title, settings) =>
-            Priority = priority;
+        #region IValueConverter Members
+
+        public Object Convert(Object value, Type targetType, Object parameter, System.Globalization.CultureInfo culture)
+        {
+
+            if (!(value is AbstractMenuItem menu))
+            {
+                return Visibility.Hidden;
+            }
+
+            if (menu.Command != null && menu.Command.CanExecute(null) == false && menu.HideDisabled == true)
+            {
+                return Visibility.Collapsed;
+            }
+
+            if (menu.Children.Count > 0 || menu.Command != null || menu.IsCheckable == true)
+            {
+                return Visibility.Visible;
+            }
+
+            return Visibility.Collapsed;
+        }
+
+        public Object ConvertBack(Object value, Type targetType, Object parameter,
+                                  System.Globalization.CultureInfo culture) => 
+            throw new NotImplementedException();
+
+        #endregion
     }
 }

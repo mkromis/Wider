@@ -1,5 +1,5 @@
 ﻿#region License
-
+// Copyright (c) 2018 Mark Kromis
 // Copyright (c) 2013 Chandramouleswaran Ravichandran
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -10,14 +10,45 @@
 
 #endregion
 
+using Prism.Commands;
 using System;
+using System.Windows.Input;
 using Wider.Core.Settings;
+using Wider.Core.Views;
 
-namespace WiderMD.Core.Settings
+namespace Wider.Core.Settings
 {
-    public class MDSettingsItem : AbstractSettingsItem
+    /// <summary>
+    /// Class WiderSettingsManager
+    /// </summary>
+    internal class SettingsManager : AbstractSettingsItem, ISettingsManager
     {
-        public MDSettingsItem(String title, Int32 priority, AbstractSettings settings) : base(title, settings) =>
-            Priority = priority;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WiderSettingsManager"/> class.
+        /// </summary>
+        public SettingsManager() : base("", null) => SettingsCommand = new DelegateCommand(OpenSettings);
+
+        /// <summary>
+        /// Gets the settings menu.
+        /// </summary>
+        /// <value>The settings menu.</value>
+        public ICommand SettingsCommand { get; private set; }
+
+        private void OpenSettings()
+        {
+            SettingsWindow window = new SettingsWindow
+            {
+                DataContext = this
+            };
+            Boolean? result = window.ShowDialog();
+            if (result == true)
+            {
+                Save();
+            }
+            else
+            {
+                Reset();
+            }
+        }
     }
 }

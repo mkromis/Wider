@@ -11,57 +11,34 @@
 #endregion
 
 using Autofac;
-using MahApps.Metro.Controls;
 using Prism.Events;
+using Prism.Logging;
 using System;
-using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using Wider.Core.Converters;
 using Wider.Core.Events;
 using Wider.Core.Services;
-using Xceed.Wpf.AvalonDock.Controls;
+using Xceed.Wpf.AvalonDock;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
 
-namespace Wider.Shell.Metro.Views
+namespace Wider.Core.Views
 {
     /// <summary>
     /// Interaction logic for Shell.xaml
     /// </summary>
-    internal partial class ShellView : IShell
+    internal partial class ShellView : Window, IShell
     {
         private readonly IContainer _container;
         private IEventAggregator _eventAggregator;
         private ILoggerService _logger;
         private IWorkspace _workspace;
-        private ContextMenu _docContextMenu;
-        private MultiBinding _itemSourceBinding;
 
         public ShellView(IContainer container, IEventAggregator eventAggregator)
         {
             InitializeComponent();
             _container = container;
             _eventAggregator = eventAggregator;
-            _eventAggregator.GetEvent<ThemeChangeEvent>().Subscribe(ThemeChanged);
-            _docContextMenu = new ContextMenu();
-            dockManager.DocumentContextMenu = _docContextMenu;
-            _docContextMenu.ContextMenuOpening += _docContextMenu_ContextMenuOpening;
-            _docContextMenu.Opened += _docContextMenu_Opened;
-            _itemSourceBinding = new MultiBinding
-            {
-                Converter = new DocumentContextMenuMixingConverter()
-            };
-            Binding origModel = new Binding(".");
-            Binding docMenus = new Binding("Model.Menus");
-            _itemSourceBinding.Bindings.Add(origModel);
-            _itemSourceBinding.Bindings.Add(docMenus);
-            origModel.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-            docMenus.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-            _itemSourceBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-            _docContextMenu.SetBinding(ContextMenu.ItemsSourceProperty, _itemSourceBinding);
         }
 
         #region IShell Members
@@ -71,7 +48,8 @@ namespace Wider.Shell.Metro.Views
             XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(dockManager);
             layoutSerializer.LayoutSerializationCallback += (s, e) =>
             {
-                _workspace = _container.Resolve<AbstractWorkspace>();
+                _workspace =
+                    _container.Resolve<AbstractWorkspace>();
 
                 if (e.Model is LayoutAnchorable anchorable)
                 {
@@ -110,8 +88,7 @@ namespace Wider.Shell.Metro.Views
             };
             try
             {
-                layoutSerializer.Deserialize(
-                    AppDomain.CurrentDomain.BaseDirectory + Path.DirectorySeparatorChar + "AvalonDock.Layout.config");
+                layoutSerializer.Deserialize(@".\AvalonDock.Layout.config");
             }
             catch (Exception)
             {
@@ -121,47 +98,10 @@ namespace Wider.Shell.Metro.Views
         public void SaveLayout()
         {
             XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(dockManager);
-            layoutSerializer.Serialize(AppDomain.CurrentDomain.BaseDirectory + Path.DirectorySeparatorChar + "AvalonDock.Layout.config");
+            layoutSerializer.Serialize(@".\AvalonDock.Layout.config");
         }
 
         #endregion
-
-        #region Events
-
-        private void _docContextMenu_Opened(Object sender, RoutedEventArgs e) => RefreshMenuBinding();
-
-        private void _docContextMenu_ContextMenuOpening(Object sender, ContextMenuEventArgs e)
-        {
-            /* When you right click a document - move the focus to that document, so that commands on the context menu
-             * which are based on the ActiveDocument work correctly. Example: Save.
-             */
-            if (_docContextMenu.DataContext is LayoutDocumentItem doc)
-            {
-                if (doc.Model is ContentViewModel model && model != dockManager.ActiveContent)
-                {
-                    dockManager.ActiveContent = model;
-                }
-            }
-            e.Handled = false;
-        }
-
-        private void RefreshMenuBinding()
-        {
-            MultiBindingExpression b = 
-                BindingOperations.GetMultiBindingExpression(
-                    _docContextMenu,
-                    ContextMenu.ItemsSourceProperty);
-            b.UpdateTarget();
-        }
-
-        private void ThemeChanged(ITheme theme)
-        {
-            //HACK: Reset the context menu or else old menu status is retained and does not theme correctly
-            dockManager.DocumentContextMenu = null;
-            dockManager.DocumentContextMenu = _docContextMenu;
-            _docContextMenu.Style = FindResource("MetroContextMenu") as Style;
-            _docContextMenu.ItemContainerStyle = FindResource("MetroMenuStyle") as Style;
-        }
 
         private void Window_Closing_1(Object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -174,20 +114,16 @@ namespace Wider.Shell.Metro.Views
             _eventAggregator.GetEvent<WindowClosingEvent>().Publish(this);
         }
 
-        private void ContentControl_IsVisibleChanged(Object sender, DependencyPropertyChangedEventArgs e)
+        private void DockManager_ActiveContentChanged(Object sender, EventArgs e)
         {
-            //HACK: Refresh the content control because in AutoHide mode this disappears. Needs to be fixed in AvalonDock.
-            if (sender is ContentControl c)
+            DockingManager manager = sender as DockingManager;
+            ContentViewModel cvm = manager.ActiveContent as ContentViewModel;
+            _eventAggregator.GetEvent<ActiveContentChangedEvent>().Publish(cvm);
+            if (cvm != null)
             {
-                Object backup = c.Content;
-                c.Content = null;
-                c.Content = backup;
+                Logger.Log("Active document changed to " + cvm.Title, Category.Info, Priority.None);
             }
         }
-
-        #endregion
-
-        #region Property
 
         private ILoggerService Logger
         {
@@ -201,7 +137,5 @@ namespace Wider.Shell.Metro.Views
                 return _logger;
             }
         }
-
-        #endregion
     }
 }

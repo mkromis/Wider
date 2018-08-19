@@ -11,7 +11,6 @@
 #endregion
 
 using Autofac;
-using Prism.Autofac;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Modularity;
@@ -25,7 +24,6 @@ using Wider.Core.Events;
 using Wider.Core.Services;
 using Wider.Core.Settings;
 using Wider.Interfaces.Controls;
-using Wider.Shell.Settings;
 using Wider.Shell.Themes;
 using WiderMD.Core.Settings;
 
@@ -49,7 +47,7 @@ namespace WiderMD.Core
         public void Initialize()
         {
             _eventAggregator.GetEvent<SplashMessageUpdateEvent>()
-                .Publish(new SplashMessageUpdateEvent {Message = "Loading Core Module"});
+                .Publish(new SplashMessageUpdateEvent { Message = "Loading Core Module" });
             LoadTheme();
             LoadCommands();
             LoadMenus();
@@ -61,7 +59,7 @@ namespace WiderMD.Core
         private void LoadToolbar()
         {
             _eventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(new SplashMessageUpdateEvent
-                                                                              {Message = "Toolbar.."});
+            { Message = "Toolbar.." });
             IToolbarService toolbarService = _container.Resolve<IToolbarService>();
             IMenuService menuService = _container.Resolve<IMenuService>();
             ICommandManager manager = _container.Resolve<ICommandManager>();
@@ -110,7 +108,7 @@ namespace WiderMD.Core
         private void LoadTheme()
         {
             _eventAggregator.GetEvent<SplashMessageUpdateEvent>()
-                .Publish(new SplashMessageUpdateEvent {Message = "Themes.."});
+                .Publish(new SplashMessageUpdateEvent { Message = "Themes.." });
             IThemeManager manager = _container.Resolve<IThemeManager>();
             IThemeSettings themeSettings = _container.Resolve<IThemeSettings>();
             Window win = _container.Resolve<IShell>() as Window;
@@ -122,7 +120,7 @@ namespace WiderMD.Core
         private void LoadCommands()
         {
             _eventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(new SplashMessageUpdateEvent
-                                                                              {Message = "Commands.."});
+            { Message = "Commands.." });
             ICommandManager manager = _container.Resolve<ICommandManager>();
 
             DelegateCommand openCommand = new DelegateCommand(OpenModule);
@@ -150,7 +148,7 @@ namespace WiderMD.Core
         private void LoadMenus()
         {
             _eventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(new SplashMessageUpdateEvent
-                                                                              {Message = "Menus.."});
+            { Message = "Menus.." });
             ICommandManager manager = _container.Resolve<ICommandManager>();
             IMenuService menuService = _container.Resolve<IMenuService>();
             ISettingsManager settingsManager = _container.Resolve<ISettingsManager>();
@@ -180,17 +178,17 @@ namespace WiderMD.Core
             menuService.Get("_File")
                 .Add(new SaveAsMenuItemViewModel("Save As..", 6,
                     new BitmapImage(new Uri(@"pack://application:,,,/WiderMD.Core;component/Icons/Save_6530.png")),
-                    manager.GetCommand("SAVEAS"),null,false,false,_container));
+                    manager.GetCommand("SAVEAS"), null, false, false, _container));
 
             menuService.Get("_File")
-                .Add(new MenuItemViewModel("Close", 8, null, 
+                .Add(new MenuItemViewModel("Close", 8, null,
                     manager.GetCommand("CLOSE"),
                     new KeyGesture(Key.F4, ModifierKeys.Control, "Ctrl + F4")));
 
             menuService.Get("_File").Add(recentFiles.RecentMenu);
 
             menuService.Get("_File")
-                .Add(new MenuItemViewModel("E_xit", 101, null, 
+                .Add(new MenuItemViewModel("E_xit", 101, null,
                     manager.GetCommand("EXIT"),
                     new KeyGesture(Key.F4, ModifierKeys.Alt, "Alt + F4")));
 
@@ -225,7 +223,8 @@ namespace WiderMD.Core
                 menuService.Get("_View")
                     .Add(new MenuItemViewModel("_Logger", 1,
                         new BitmapImage(new Uri(@"pack://application:,,,/WiderMD.Core;component/Icons/Undo_16x.png")),
-                        manager.GetCommand("LOGSHOW")) {IsCheckable = true, IsChecked = logger.IsVisible});
+                        manager.GetCommand("LOGSHOW"))
+                    { IsCheckable = true, IsChecked = logger.IsVisible });
             }
 
             menuService.Get("_View").Add(new MenuItemViewModel("Themes", 1));
@@ -234,19 +233,19 @@ namespace WiderMD.Core
             menuService.Get("_View").Get("Themes")
                 .Add(new MenuItemViewModel("Dark", 1, null,
                     manager.GetCommand("THEMECHANGE"))
-                    {
-                        IsCheckable = true,
-                        IsChecked = (themeSettings.SelectedTheme == "Dark"),
-                        CommandParameter = "Dark"
-                    });
+                {
+                    IsCheckable = true,
+                    IsChecked = (themeSettings.SelectedTheme == "Dark"),
+                    CommandParameter = "Dark"
+                });
             menuService.Get("_View").Get("Themes")
                 .Add(new MenuItemViewModel("Light", 2, null,
                     manager.GetCommand("THEMECHANGE"))
-                    {
-                        IsCheckable = true,
-                        IsChecked = (themeSettings.SelectedTheme == "Light"),
-                        CommandParameter = "Light"
-                    });
+                {
+                    IsCheckable = true,
+                    IsChecked = (themeSettings.SelectedTheme == "Light"),
+                    CommandParameter = "Light"
+                });
 
             menuService.Add(new MenuItemViewModel("_Tools", 4));
             menuService.Get("_Tools").Add(new MenuItemViewModel("Settings", 1, null, settingsManager.SettingsCommand));
@@ -281,7 +280,7 @@ namespace WiderMD.Core
         private Boolean CanExecuteSaveAsDocument()
         {
             IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
-            return (workspace.ActiveDocument != null) ;
+            return (workspace.ActiveDocument != null);
         }
 
         private void SaveDocument()

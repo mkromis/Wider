@@ -14,10 +14,12 @@ namespace Wider.Shell.Metro
     {
         private IRegionManager _regionManager;
         private ContainerBuilder _builder;
+        private IContainer _container;
 
-        public MetroModule(ContainerBuilder builder, IRegionManager regionManager)
+        public MetroModule(ContainerBuilder builder, IContainer container, IRegionManager regionManager)
         {
             _builder = builder;
+            _container = container;
             _regionManager = regionManager;
         }
 
@@ -25,7 +27,7 @@ namespace Wider.Shell.Metro
         {
             //Use MahApps Metro window
             _builder.RegisterType<ShellView>().As<IShell>().SingleInstance();
-            //_builder.RegisterTypeForNavigation<ViewA>();
+            _builder.Update(_container);
         }
     }
 }

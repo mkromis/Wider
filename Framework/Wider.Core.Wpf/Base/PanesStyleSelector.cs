@@ -10,14 +10,31 @@
 
 #endregion
 
-using System;
-using Wider.Core.Settings;
+using System.Windows;
+using System.Windows.Controls;
+using Wider.Core.Services;
 
-namespace WiderMD.Core.Settings
+namespace Wider.Core
 {
-    public class MDSettingsItem : AbstractSettingsItem
+    public class PanesStyleSelector : StyleSelector
     {
-        public MDSettingsItem(String title, Int32 priority, AbstractSettings settings) : base(title, settings) =>
-            Priority = priority;
+        public Style ToolStyle { get; set; }
+
+        public Style ContentStyle { get; set; }
+
+        public override Style SelectStyle(System.Object item, DependencyObject container)
+        {
+            if (item is ToolViewModel)
+            {
+                return ToolStyle;
+            }
+
+            if (item is ContentViewModel)
+            {
+                return ContentStyle;
+            }
+
+            return base.SelectStyle(item, container);
+        }
     }
 }
