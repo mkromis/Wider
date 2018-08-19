@@ -50,8 +50,8 @@
         <DockPanel>
             <!--Menu-->
             <Menu DockPanel.Dock="Top" IsMainMenu="True" x:Name="mainMenu" VerticalAlignment="Top" 
+                  ItemContainerStyle="{DynamicResource MetroMenuStyle}"
                   ItemsSource="{Binding Path=Menus, UpdateSourceTrigger=PropertyChanged}" />
-            <!--ItemContainerStyle="{DynamicResource MetroMenuStyle}" />-->
             <!--Toolbar (can we improve this?)-->
             <ContentControl Content="{Binding ToolBarTray}" DockPanel.Dock="Top" />
             <!--Status bar-->

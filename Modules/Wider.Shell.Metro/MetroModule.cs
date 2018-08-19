@@ -27,7 +27,6 @@ namespace Wider.Shell.Metro
         {
             //Use MahApps Metro window
             _builder.RegisterType<ShellView>().As<IShell>().SingleInstance();
-            //_builder.RegisterTypeForNavigation<ViewA>();
             _builder.Update(_container);
         }
     }
