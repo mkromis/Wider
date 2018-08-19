@@ -10,6 +10,7 @@
 
 #endregion
 
+using Wider.Core;
 using Wider.Splash.ViewModels;
 
 namespace Wider.Splash.Views

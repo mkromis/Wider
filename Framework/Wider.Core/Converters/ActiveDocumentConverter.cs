@@ -11,13 +11,36 @@
 #endregion
 
 using System;
-using Wider.Core.Settings;
+using System.Globalization;
+using System.Windows.Data;
+using Wider.Core.Services;
 
-namespace WiderMD.Core.Settings
+namespace Wider.Core.Converters
 {
-    public class MDSettingsItem : AbstractSettingsItem
+    public class ActiveDocumentConverter : IValueConverter
     {
-        public MDSettingsItem(String title, Int32 priority, AbstractSettings settings) : base(title, settings) =>
-            Priority = priority;
+        #region IValueConverter Members
+
+        public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+        {
+            if (value is ContentViewModel)
+            {
+                return value;
+            }
+
+            return Binding.DoNothing;
+        }
+
+        public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+        {
+            if (value is ContentViewModel)
+            {
+                return value;
+            }
+
+            return Binding.DoNothing;
+        }
+
+        #endregion
     }
 }

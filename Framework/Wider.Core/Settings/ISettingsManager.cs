@@ -1,5 +1,5 @@
-﻿#region License
-
+#region License
+// Copyright (c) 2018 Mark Kromis
 // Copyright (c) 2013 Chandramouleswaran Ravichandran
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -11,42 +11,37 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
-using Wider.Core.Services;
+using System.Windows.Input;
 
-namespace Wider.Core.Themes
+namespace Wider.Core.Settings
 {
-    /// <summary>
-    /// Class VS2010
-    /// </summary>
-    public sealed class VS2010 : ITheme
+    public interface ISettingsManager
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="VS2010"/> class.
+        /// Gets the settings command.
         /// </summary>
-        public VS2010()
-        {
-            UriList = new List<Uri>
-            {
-                //new Uri("pack://application:,,,/Xceed.Wpf.AvalonDock.Themes.VS2010;component/Theme.xaml"),
-                new Uri("pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2010/Theme.xaml")
-            };
-        }
-
-        #region ITheme Members
+        /// <value>The settings.</value>
+        ICommand SettingsCommand { get; }
 
         /// <summary>
-        /// Lists of valid URIs which will be loaded in the theme dictionary
+        /// Adds the specified item.
         /// </summary>
-        /// <value>The URI list.</value>
-        public IList<Uri> UriList { get; private set; }
+        /// <param name="item">The item.</param>
+        /// <returns>The GUID for the item added which needs to be used to remove the item</returns>
+        String Add(AbstractSettingsItem item);
 
         /// <summary>
-        /// The name of the theme - "VS2010"
+        /// Removes the specified key.
         /// </summary>
-        /// <value>The name.</value>
-        public String Name => "VS2010";
+        /// <param name="GuidString">The unique GUID set for the menu available for the creator.</param>
+        /// <returns><c>true</c> if successfully removed, <c>false</c> otherwise</returns>
+        Boolean Remove(String GuidString);
 
-        #endregion
+        /// <summary>
+        /// Gets the node with the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>`0.</returns>
+        AbstractSettingsItem Get(String key);
     }
 }

@@ -10,14 +10,31 @@
 
 #endregion
 
-using System;
-using Wider.Core.Settings;
+using System.Windows;
+using System.Windows.Controls;
+using Wider.Core.Services;
 
-namespace WiderMD.Core.Settings
+namespace Wider.Core
 {
-    public class MDSettingsItem : AbstractSettingsItem
+    public class PanesTemplateSelector : DataTemplateSelector
     {
-        public MDSettingsItem(String title, Int32 priority, AbstractSettings settings) : base(title, settings) =>
-            Priority = priority;
+        public DataTemplate ContentViewTemplate { get; set; }
+
+        public DataTemplate ToolViewTemplate { get; set; }
+
+        public override DataTemplate SelectTemplate(System.Object item, DependencyObject container)
+        {
+            if (item is ContentViewModel)
+            {
+                return ContentViewTemplate;
+            }
+
+            if (item is ToolViewModel)
+            {
+                return ToolViewTemplate;
+            }
+
+            return base.SelectTemplate(item, container);
+        }
     }
 }

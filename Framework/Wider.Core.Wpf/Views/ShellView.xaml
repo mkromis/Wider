@@ -1,34 +1,21 @@
-﻿<Controls:MetroWindow 
-    x:Class="Wider.Shell.Metro.Views.ShellView" x:ClassModifier="internal"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Window 
+    x:Class="Wider.Core.Views.ShellView" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" x:ClassModifier="internal"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
-    xmlns:Core="clr-namespace:Wider.Core;assembly=Wider.Core"
-    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-    xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
-    xmlns:Converter="clr-namespace:Wider.Core.Converters;assembly=Wider.Core"
-    xmlns:Utils="clr-namespace:Wider.Utils;assembly=Wider.Core"
-    TitleForeground="#FF717171" 
-    TitleCaps="False" 
-    Title="{Binding Title}" 
-    Icon="{Binding Icon}" 
-    WindowTransitionsEnabled="False" 
-    ResizeMode="CanResizeWithGrip"
-    GlowBrush="{Binding ElementName=WiderStatusBar, Path=Background}"
-    Closing="Window_Closing_1">
-    <!--xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"-->
+    
+    xmlns:local="clr-namespace:Wider.Core" 
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:Converter="clr-namespace:Wider.Core.Converters"
+    
+    Title="{Binding Title}" Icon="{Binding Icon}" Closing="Window_Closing_1">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary x:Name="ThemeDictionary">
                     <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2012/LightColors.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2012/LightTheme.xaml" />
+                        <ResourceDictionary Source="pack://application:,,,/Wider.Core;component/Styles/Controls.xaml" />
+                        <ResourceDictionary Source="pack://application:,,,/Wider.Core;component/Styles/ToolbarBinding.xaml" />
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
@@ -37,21 +24,15 @@
             <Converter:NullObjectToVisibiltyConverter x:Key="nullToVisibilityConverter" />
             <Converter:BoolToInsertModeConverter x:Key="booleanToInsertModeConverter" />
             <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
-            <Utils:DatabindingDebugConverter x:Key="bindDebug" />
         </ResourceDictionary>
     </Window.Resources>
-
-    <!--<i:Interaction.Behaviors>-->
-        <!--<behaviours:BorderlessWindowBehavior ResizeWithGrip="True" AllowsTransparency="False" />-->
-        <!--<behaviours:GlowWindowBehavior />-->
-    <!--</i:Interaction.Behaviors>-->
-
     <Border>
         <DockPanel>
             <!--Menu-->
-            <Menu DockPanel.Dock="Top" IsMainMenu="True" x:Name="mainMenu" VerticalAlignment="Top" 
-                  ItemContainerStyle="{DynamicResource MetroMenuStyle}"
-                  ItemsSource="{Binding Path=Menus, UpdateSourceTrigger=PropertyChanged}" />
+            <Menu 
+                DockPanel.Dock="Top" IsMainMenu="True" x:Name="mainMenu" VerticalAlignment="Top" 
+                ItemContainerStyle="{DynamicResource StandardMenuStyle}"
+                ItemsSource="{Binding Path=Menus, UpdateSourceTrigger=PropertyChanged}" />
             <!--Toolbar (can we improve this?)-->
             <ContentControl Content="{Binding ToolBarTray}" DockPanel.Dock="Top" />
             <!--Status bar-->
@@ -109,52 +90,44 @@
                     <TextBlock Foreground="{Binding Path=StatusBar.Foreground, UpdateSourceTrigger=PropertyChanged}" Text="{Binding Path=StatusBar.InsertMode, Converter={StaticResource ResourceKey=booleanToInsertModeConverter}, UpdateSourceTrigger=PropertyChanged}" />
                 </StatusBarItem>
             </StatusBar>
-            
+
             <!--The magical avalon dock-->
-            <avalonDock:DockingManager 
-                x:Name="dockManager" AnchorablesSource="{Binding Tools}"
-                DocumentsSource="{Binding Documents}"
-                ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource ActiveDocumentConverter}}">
+            <avalonDock:DockingManager x:Name="dockManager" AnchorablesSource="{Binding Tools}"
+                                       DocumentsSource="{Binding Documents}"
+                                       ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource ActiveDocumentConverter}}" 
+                                       ActiveContentChanged="DockManager_ActiveContentChanged">
                 <!--<avalonDock:DockingManager.Theme>
                     <avalonDock:VS2012Theme />
                 </avalonDock:DockingManager.Theme>-->
-                
-                <!--<avalonDock:DockingManager.DocumentContextMenu>
-                    <ContextMenu ItemsSource="{Binding Path=Model.Menus, Converter={StaticResource ResourceKey=bindDebug}}" Style="{StaticResource MetroContextMenu}" ItemContainerStyle="{StaticResource MetroMenuItem}" BorderBrush="{DynamicResource ControlOpenColorBrush}" Background="{DynamicResource ControlOpenColorBrush}" />
-                </avalonDock:DockingManager.DocumentContextMenu>
-                
-                <avalonDock:DockingManager.AnchorableContextMenu>
-                    <ContextMenu ItemsSource="{Binding Path=Model.Menus, Converter={StaticResource ResourceKey=bindDebug}}" Style="{StaticResource {x:Type ContextMenu}}"  ItemContainerStyle="{StaticResource {x:Type MenuItem}}"/>
-                </avalonDock:DockingManager.AnchorableContextMenu>-->
-
                 <avalonDock:DockingManager.LayoutItemTemplateSelector>
-                    <Core:PanesTemplateSelector>
-                        <Core:PanesTemplateSelector.ContentViewTemplate>
+                    <local:PanesTemplateSelector>
+                        <local:PanesTemplateSelector.ContentViewTemplate>
                             <DataTemplate>
-                                <ContentPresenter Content="{Binding Path=View, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                <ContentPresenter Content="{Binding View, UpdateSourceTrigger=PropertyChanged}" />
                             </DataTemplate>
-                        </Core:PanesTemplateSelector.ContentViewTemplate>
-                        <Core:PanesTemplateSelector.ToolViewTemplate>
+                        </local:PanesTemplateSelector.ContentViewTemplate>
+                        <local:PanesTemplateSelector.ToolViewTemplate>
                             <DataTemplate>
-                                <ContentControl Content="{Binding Path=View}" IsVisibleChanged="ContentControl_IsVisibleChanged" />
+                                <ContentPresenter Content="{Binding View, UpdateSourceTrigger=PropertyChanged}" />
                             </DataTemplate>
-                        </Core:PanesTemplateSelector.ToolViewTemplate>
-                    </Core:PanesTemplateSelector>
+                        </local:PanesTemplateSelector.ToolViewTemplate>
+                    </local:PanesTemplateSelector>
                 </avalonDock:DockingManager.LayoutItemTemplateSelector>
 
                 <avalonDock:DockingManager.LayoutItemContainerStyleSelector>
-                    <Core:PanesStyleSelector>
-                        <Core:PanesStyleSelector.ToolStyle>
+                    <local:PanesStyleSelector>
+                        <local:PanesStyleSelector.ToolStyle>
                             <Style TargetType="{x:Type avalonDock:LayoutAnchorableItem}">
                                 <Setter Property="Title" Value="{Binding Model.Title, Mode=TwoWay}" />
                                 <Setter Property="IconSource" Value="{Binding Model.IconSource}" />
-                                <Setter Property="Visibility" Value="{Binding Model.IsVisible, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter={x:Static Visibility.Hidden}}" />
+                                <Setter Property="Visibility"
+                                        Value="{Binding Model.IsVisible, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter={x:Static Visibility.Hidden}}" />
                                 <Setter Property="ContentId" Value="{Binding Model.ContentId}" />
                                 <Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}" />
                                 <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}" />
                             </Style>
-                        </Core:PanesStyleSelector.ToolStyle>
-                        <Core:PanesStyleSelector.ContentStyle>
+                        </local:PanesStyleSelector.ToolStyle>
+                        <local:PanesStyleSelector.ContentStyle>
                             <Style TargetType="{x:Type avalonDock:LayoutItem}">
                                 <Setter Property="Title" Value="{Binding Model.Title, Mode=TwoWay}" />
                                 <Setter Property="ToolTip" Value="{Binding Model.Tooltip}" />
@@ -162,11 +135,11 @@
                                 <Setter Property="IconSource" Value="{Binding Model.IconSource}" />
                                 <Setter Property="ContentId" Value="{Binding Model.ContentId}" />
                             </Style>
-                        </Core:PanesStyleSelector.ContentStyle>
-                    </Core:PanesStyleSelector>
+                        </local:PanesStyleSelector.ContentStyle>
+                    </local:PanesStyleSelector>
                 </avalonDock:DockingManager.LayoutItemContainerStyleSelector>
                 <avalonDock:DockingManager.LayoutUpdateStrategy>
-                    <Core:LayoutInitializer />
+                    <local:LayoutInitializer />
                 </avalonDock:DockingManager.LayoutUpdateStrategy>
 
                 <avalonDock:LayoutRoot>
@@ -179,4 +152,4 @@
             </avalonDock:DockingManager>
         </DockPanel>
     </Border>
-</Controls:MetroWindow>
+</Window>
