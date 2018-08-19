@@ -43,7 +43,7 @@ namespace Wider.Core
                 splash.Initialize();
             }
 
-            // Load core module 
+            // Load core module, this is internal so call manually
             CoreModule coreModule = Container.Resolve<CoreModule>();
             coreModule.Initialize();
 
@@ -55,24 +55,8 @@ namespace Wider.Core
 
             // Assign main window object and show window.
             Application.Current.MainWindow = shell as Window;
-            Application.Current.MainWindow.DataContext = Container.Resolve<AbstractWorkspace>();
+            Application.Current.MainWindow.DataContext = Container.Resolve<IWorkspace>();
             Application.Current.MainWindow.Show();
-        }
-
-        protected override void ConfigureContainerBuilder(ContainerBuilder builder)
-        {
-            //Use regular window
-            builder.RegisterType<SettingsManager>().As<ISettingsManager>().SingleInstance();
-            builder.RegisterType<ToolbarService>().As<IToolbarService>().SingleInstance();
-            builder.RegisterType<ShellView>().As<IShell>().SingleInstance();
-            builder.RegisterType<NewFileWindow>().As<INewFileWindow>();
-            base.ConfigureContainerBuilder(builder);
-        }
-
-        protected override void InitializeShell()
-        {
-            base.InitializeShell();
-            Application.Current.MainWindow = (Window) Shell;
-        }
+        } 
     }
 }
