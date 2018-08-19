@@ -27,6 +27,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Wider.Core", "Framework\Wid
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wider.Core.Wpf", "Framework\Wider.Core.Wpf\Wider.Core.Wpf.csproj", "{F4242FA3-2404-4EA4-95D9-D00057F277D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiderClipboard", "Examples\WiderClipboard\WiderClipboard.csproj", "{FBCD73FA-1F36-4216-B1C3-933A807F2092}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Framework\Wider.Core\Wider.Core.projitems*{6d425467-7f54-4195-93dc-d44ee8cead5f}*SharedItemsImports = 13
@@ -65,6 +67,10 @@ Global
 		{F4242FA3-2404-4EA4-95D9-D00057F277D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4242FA3-2404-4EA4-95D9-D00057F277D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4242FA3-2404-4EA4-95D9-D00057F277D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBCD73FA-1F36-4216-B1C3-933A807F2092}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBCD73FA-1F36-4216-B1C3-933A807F2092}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBCD73FA-1F36-4216-B1C3-933A807F2092}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBCD73FA-1F36-4216-B1C3-933A807F2092}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +84,7 @@ Global
 		{53106C03-FE9F-4627-872A-A6E8BCC429FE} = {92EB10BB-F612-4C23-84BA-95A5D64F851B}
 		{6D425467-7F54-4195-93DC-D44EE8CEAD5F} = {34E1BD8E-AEAE-4BFD-A69A-919EC930FC3E}
 		{F4242FA3-2404-4EA4-95D9-D00057F277D1} = {34E1BD8E-AEAE-4BFD-A69A-919EC930FC3E}
+		{FBCD73FA-1F36-4216-B1C3-933A807F2092} = {F0808592-9E93-4915-9E37-043C56BB9763}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C9AF68FB-8AA0-4C17-A8F9-A88E3EC36423}
