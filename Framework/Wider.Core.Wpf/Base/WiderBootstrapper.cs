@@ -49,14 +49,6 @@ namespace Wider.Core
 
             base.InitializeModules();
 
-
-            // Seems if we register too soon, then the shells are getting confused with each other.
-            // so delay loading until after moduels are loaded to see if it is still necessary.
-            ContainerBuilder builder = new ContainerBuilder();
-            builder.RegisterType<ShellView>().As<IShell>().SingleInstance().PreserveExistingDefaults();
-            builder.Update(Container);
-            
-
             // now we should have a shell, load settings and show if we can.
             IShell shell = Container.Resolve<IShell>();
             coreModule.LoadSettings();
@@ -72,6 +64,7 @@ namespace Wider.Core
             //Use regular window
             builder.RegisterType<SettingsManager>().As<ISettingsManager>().SingleInstance();
             builder.RegisterType<ToolbarService>().As<IToolbarService>().SingleInstance();
+            builder.RegisterType<ShellView>().As<IShell>().SingleInstance();
             builder.RegisterType<NewFileWindow>().As<INewFileWindow>();
             base.ConfigureContainerBuilder(builder);
         }
