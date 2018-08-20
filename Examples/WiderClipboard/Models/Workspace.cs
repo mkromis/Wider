@@ -26,9 +26,15 @@ namespace WiderClipboard.Models
             ICommandManager commandManager = _container.Resolve<ICommandManager>();
 
             ICommand refreshCommand = new DelegateCommand(RefreshCommand);
+            ICommand updateClipboard = new DelegateCommand<String>(x =>
+            {
+                MessageBox.Show(App.Current.MainWindow, x);
+            });
             ICommand exitCommand = new DelegateCommand(() => App.Current.MainWindow.Close());
+            
 
             commandManager.RegisterCommand("RefreshCommand", refreshCommand);
+            commandManager.RegisterCommand("UpdateCommand", updateClipboard);
             commandManager.RegisterCommand("ExitCommand", exitCommand);
         }
 
@@ -47,8 +53,11 @@ namespace WiderClipboard.Models
             Int32 index = 300;
             foreach (String name in Clipboard.GetDataObject().GetFormats(false))
             {
-                item.Add(new MenuItemViewModel(name, ++index, null, 
-                    commandManager.GetCommand("ExitCommand")));
+                item.Add(new MenuItemViewModel(name, ++index, null,
+                    commandManager.GetCommand("UpdateCommand"))
+                {
+                    CommandParameter = name
+                });
             }
 
             menuService.Refresh();
