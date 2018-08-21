@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Wider.Core;
 using Wider.Core.Controls;
 using Wider.Core.Services;
+using WiderClipboard.ViewModels;
 
 namespace WiderClipboard.Models
 {
@@ -26,16 +27,24 @@ namespace WiderClipboard.Models
             ICommandManager commandManager = _container.Resolve<ICommandManager>();
 
             ICommand refreshCommand = new DelegateCommand(RefreshCommand);
-            ICommand updateClipboard = new DelegateCommand<String>(x =>
-            {
-                MessageBox.Show(App.Current.MainWindow, x);
-            });
+            ICommand updateClipboard = new DelegateCommand<String>(UpdateDocument);
             ICommand exitCommand = new DelegateCommand(() => App.Current.MainWindow.Close());
             
-
             commandManager.RegisterCommand("RefreshCommand", refreshCommand);
             commandManager.RegisterCommand("UpdateCommand", updateClipboard);
             commandManager.RegisterCommand("ExitCommand", exitCommand);
+        }
+
+        private void UpdateDocument(String format)
+        {
+            Object data = Clipboard.GetData(format);
+
+            switch (data)
+            {
+                case String stringData:
+                    Documents.Add(StringOutputViewModel.Create(_container, format, stringData));
+                    break;
+            }
         }
 
         private void RefreshCommand()

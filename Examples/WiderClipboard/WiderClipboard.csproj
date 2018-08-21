@@ -61,6 +61,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Models\StringOutputModel.cs" />
+    <Compile Include="ViewModels\StringOutputViewModel.cs" />
+    <Compile Include="Views\StringOutputView.xaml.cs">
+      <DependentUpon>StringOutputView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Workspace.cs" />
@@ -95,9 +100,12 @@
       <Name>Wider.Core.Wpf</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\" />
+    <Page Include="Views\StringOutputView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

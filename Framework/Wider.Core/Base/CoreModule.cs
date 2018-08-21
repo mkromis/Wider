@@ -184,7 +184,7 @@ namespace Wider.Core
         /// </summary>
         private void CloseDocument(Object obj)
         {
-            IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
+            IWorkspace workspace = _container.Resolve<IWorkspace>();
             ILoggerService logger = _container.Resolve<ILoggerService>();
             IMenuService menuService = _container.Resolve<IMenuService>();
 
