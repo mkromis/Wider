@@ -19,8 +19,8 @@ namespace WiderClipboard.Models
 
             LoadCommand();
             LoadMenu();
+            LoadToolbar();
         }
-
 
         private void LoadCommand()
         {
@@ -35,42 +35,6 @@ namespace WiderClipboard.Models
             commandManager.RegisterCommand("ExitCommand", exitCommand);
         }
 
-        private void UpdateDocument(String format)
-        {
-            Object data = Clipboard.GetData(format);
-
-            switch (data)
-            {
-                case String stringData:
-                    Documents.Add(StringOutputViewModel.Create(_container, format, stringData));
-                    break;
-            }
-        }
-
-        private void RefreshCommand()
-        {
-            // Refresh Menu items
-            ICommandManager commandManager = _container.Resolve<ICommandManager>();
-            IMenuService menuService = _container.Resolve<IMenuService>();
-
-            MenuItemViewModel item = menuService.Get("_Clipboard") as MenuItemViewModel;
-            foreach (AbstractCommandable child in item.Children)
-            {
-                item.Remove(child.GuidString);
-            }
-
-            Int32 index = 300;
-            foreach (String name in Clipboard.GetDataObject().GetFormats(false))
-            {
-                item.Add(new MenuItemViewModel(name, ++index, null,
-                    commandManager.GetCommand("UpdateCommand"))
-                {
-                    CommandParameter = name
-                });
-            }
-
-            menuService.Refresh();
-        }
 
         private void LoadMenu()
         {
@@ -92,7 +56,60 @@ namespace WiderClipboard.Models
 
             // Clipboard items
             menuService.Add(new MenuItemViewModel("_Clipboard", 3));
-
         }
+
+        private void LoadToolbar()
+        {
+            ICommandManager commandManager = _container.Resolve<ICommandManager>();
+            IMenuService menuService = _container.Resolve<IMenuService>();
+            IToolbarService toolbarService = _container.Resolve<IToolbarService>();
+
+            toolbarService.Add(new ToolbarViewModel("Standard", 1) { Band = 1, BandIndex = 1 });
+            toolbarService.Get("Standard").Add(menuService.Get("_Refersh"));
+            toolbarService.Get("Standard").Add(new MenuItemViewModel("Clipboard", 2));
+        }
+
+        // Menu command to refersh the cliboard command
+        private void RefreshCommand()
+        {
+            // Refresh Menu items
+            ICommandManager commandManager = _container.Resolve<ICommandManager>();
+            IToolbarService toolbarService = _container.Resolve<IToolbarService>();
+            IMenuService menuService = _container.Resolve<IMenuService>();
+
+            MenuItemViewModel item = menuService.Get("_Clipboard") as MenuItemViewModel;
+            foreach (AbstractCommandable child in item.Children)
+            {
+                item.Remove(child.GuidString);
+            }
+
+            Int32 index = 300;
+            foreach (String name in Clipboard.GetDataObject().GetFormats(false))
+            {
+                item.Add(new MenuItemViewModel(name, ++index, null,
+                    commandManager.GetCommand("UpdateCommand"))
+                {
+                    CommandParameter = name
+                });
+
+                toolbarService.Get("Standard").Get("Clipboard").Add(new MenuItemViewModel(name, ++index, null, commandManager.GetCommand("UpdateCommand")) { CommandParameter = name });
+            }
+
+            menuService.Refresh();
+        }
+
+        // Show the document for clipboard strings.
+        private void UpdateDocument(String format)
+        {
+            Object data = Clipboard.GetData(format);
+
+            switch (data)
+            {
+                case String stringData:
+                    Documents.Add(StringOutputViewModel.Create(_container, format, stringData));
+                    break;
+            }
+        }
+
     }
 }
