@@ -1,20 +1,17 @@
-﻿using Wider.Shell.Metro.Views;
+﻿using Autofac;
 using Prism.Modularity;
 using Prism.Regions;
-using System;
-using Autofac;
-using Prism.Autofac;
 using Wider.Core.Services;
+using Wider.Shell.Metro.Views;
 
 namespace Wider.Shell.Metro
 {
     [Module(ModuleName = "Wider.Shell.Metro")]
-    //[ModuleDependency("Wider.Shell")]
     public class MetroModule : IModule
     {
-        private IRegionManager _regionManager;
+        private readonly IRegionManager _regionManager;
         private ContainerBuilder _builder;
-        private IContainer _container;
+        private readonly IContainer _container;
 
         public MetroModule(ContainerBuilder builder, IContainer container, IRegionManager regionManager)
         {

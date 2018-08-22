@@ -114,7 +114,7 @@ namespace Wider.Core
         [Browsable(false)]
         public virtual String Key { get; protected set; }
 
-        protected String GuidString { get; set; }
+        public String GuidString { get; set; }
 
         #endregion
     }

@@ -26,8 +26,6 @@ namespace Wider.Core
 {
     public class WiderBootstrapper : AutofacBootstrapper
     {
-        private ContainerBuilder _builder;
-
         //If you want your own splash window - inherit from the bootstrapper and register type ISplashView
         protected override void InitializeModules()
         {
@@ -45,40 +43,20 @@ namespace Wider.Core
                 splash.Initialize();
             }
 
-            // Load core module 
+            // Load core module, this is internal so call manually
             CoreModule coreModule = Container.Resolve<CoreModule>();
             coreModule.Initialize();
 
             base.InitializeModules();
-            Application.Current.MainWindow.DataContext = Container.Resolve<AbstractWorkspace>();
-
-            // Seems if we register too soon, then the shells are getting confused with each other.
-            // so delay loading until after moduels are loaded to see if it is still necessary.
-            RegisterTypeIfMissing<ShellView, IShell>(_builder, true);
 
             // now we should have a shell, load settings and show if we can.
             IShell shell = Container.Resolve<IShell>();
             coreModule.LoadSettings();
-            (shell as Window).Show();
-        }
 
-        protected override void ConfigureContainerBuilder(ContainerBuilder builder)
-        {
-            _builder = builder;
-            //Use regular window
-            builder.RegisterType<SettingsManager>().As<ISettingsManager>().SingleInstance();
-            builder.RegisterType<ToolbarService>().As<IToolbarService>().SingleInstance();
-            builder.RegisterType<NewFileWindow>().As<INewFileWindow>();
-            //builder.RegisterType<ShellView>().As<IShell>().SingleInstance();
-            base.ConfigureContainerBuilder(builder);
-        }
-
-        //protected override DependencyObject CreateShell() => (DependencyObject)Container.Resolve<IShell>();
-
-        protected override void InitializeShell()
-        {
-            base.InitializeShell();
-            Application.Current.MainWindow = (Window) Shell;
-        }
+            // Assign main window object and show window.
+            Application.Current.MainWindow = shell as Window;
+            Application.Current.MainWindow.DataContext = Container.Resolve<IWorkspace>();
+            Application.Current.MainWindow.Show();
+        } 
     }
 }
