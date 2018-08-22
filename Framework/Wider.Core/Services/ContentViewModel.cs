@@ -95,7 +95,7 @@ namespace Wider.Core.Services
         /// <param name="workspace">The injected workspace.</param>
         /// <param name="commandManager">The injected command manager.</param>
         /// <param name="logger">The injected logger.</param>
-        protected ContentViewModel(AbstractWorkspace workspace, ICommandManager commandManager, ILoggerService logger,
+        protected ContentViewModel(IWorkspace workspace, ICommandManager commandManager, ILoggerService logger,
                                    IMenuService menuService)
         {
             _workspace = workspace;

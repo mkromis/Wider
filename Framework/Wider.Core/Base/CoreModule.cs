@@ -23,6 +23,7 @@ using Wider.Core.Controls;
 using Wider.Core.Events;
 using Wider.Core.Services;
 using Wider.Core.Settings;
+using Wider.Core.Views;
 using CommandManager = Wider.Core.Services.CommandManager;
 
 namespace Wider.Core
@@ -77,7 +78,13 @@ namespace Wider.Core
             EventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(
                 new SplashMessageUpdateEvent {Message = "Loading Core Module"});
 
-            // Register types
+            // Register types, was in bootstrapper
+            _builder.RegisterType<SettingsManager>().As<ISettingsManager>().SingleInstance();
+            _builder.RegisterType<ToolbarService>().As<IToolbarService>().SingleInstance();
+            _builder.RegisterType<ShellView>().As<IShell>().SingleInstance();
+            _builder.RegisterType<NewFileWindow>().As<INewFileWindow>();
+
+            // Rest of the types that was in core module originally.
             _builder.RegisterType<ThemeSettings>().As<IThemeSettings>().SingleInstance();
             _builder.RegisterType<RecentViewSettings>().As<IRecentViewSettings>().SingleInstance();
             _builder.RegisterType<WindowPositionSettings>().As<IWindowPositionSettings>().SingleInstance();
@@ -112,7 +119,7 @@ namespace Wider.Core
 
             _builder.RegisterType<OpenDocumentService>().As<IOpenDocumentService>().SingleInstance();
 
-            _builder.RegisterType<Workspace>().As<AbstractWorkspace>().SingleInstance().PreserveExistingDefaults();
+            _builder.RegisterType<Workspace>().As<IWorkspace>().SingleInstance().PreserveExistingDefaults();
             _builder.RegisterType<DebugLogService>().As<ILoggerService>().SingleInstance().PreserveExistingDefaults();
             _builder.Update(_container);
 
@@ -135,8 +142,6 @@ namespace Wider.Core
             //TODO: Check if you can hook up to the Workspace.ActiveDocument.CloseCommand
             DelegateCommand<Object> closeCommand = new DelegateCommand<Object>(CloseDocument, CanExecuteCloseDocument);
             manager.RegisterCommand("CLOSE", closeCommand);
-
-            
             manager.RegisterCommand("NEW", registry.NewCommand);
         }
 
@@ -170,7 +175,7 @@ namespace Wider.Core
                 return true;
             }
 
-            IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
+            IWorkspace workspace = _container.Resolve<IWorkspace>();
             return workspace.ActiveDocument != null;
         }
 
@@ -179,7 +184,7 @@ namespace Wider.Core
         /// </summary>
         private void CloseDocument(Object obj)
         {
-            IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
+            IWorkspace workspace = _container.Resolve<IWorkspace>();
             ILoggerService logger = _container.Resolve<ILoggerService>();
             IMenuService menuService = _container.Resolve<IMenuService>();
 
