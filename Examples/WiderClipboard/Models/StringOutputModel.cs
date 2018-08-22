@@ -9,6 +9,5 @@ namespace WiderClipboard.Models
 {
     class StringOutputModel : ContentModel
     {
-        public String Content { get; internal set; }
     }
 }

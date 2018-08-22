@@ -100,6 +100,7 @@ namespace WiderClipboard.Models
                     });
             }
             menuService.Refresh();
+            Documents.Clear();
         }
 
         // Show the document for clipboard strings.
@@ -112,13 +113,29 @@ namespace WiderClipboard.Models
                 switch (data)
                 {
                     case String stringData:
-                        Documents.Add(StringOutputViewModel.Create(_container, format, stringData));
-                        break;
+                        {
+                            StringOutputViewModel viewModel = _container.Resolve<StringOutputViewModel>();
+                            viewModel.Title = format;
+                            viewModel.Content = stringData;
+                            Documents.Add(viewModel);
+                            return;
+                        }
+                    case String[] stringArray:
+                        {
+                            StringOutputViewModel viewModel = _container.Resolve<StringOutputViewModel>();
+                            viewModel.Title = format;
+                            viewModel.Content = String.Join("\n", stringArray);
+                            Documents.Add(viewModel);
+                            return;
+                        }
                 }
             }
             catch (COMException e)
             {
-                Documents.Add(StringOutputViewModel.Create(_container, format, e.Message));
+                StringOutputViewModel viewModel = _container.Resolve<StringOutputViewModel>();
+                viewModel.Title = format;
+                viewModel.Content = e.Message;
+                Documents.Add(viewModel);
             }
         }
     }
