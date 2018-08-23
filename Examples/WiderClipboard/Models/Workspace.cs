@@ -118,6 +118,7 @@ namespace WiderClipboard.Models
                             viewModel.Title = format;
                             viewModel.Content = stringData;
                             Documents.Add(viewModel);
+                            ActiveDocument = viewModel;
                             return;
                         }
                     case String[] stringArray:
@@ -126,6 +127,25 @@ namespace WiderClipboard.Models
                             viewModel.Title = format;
                             viewModel.Content = String.Join("\n", stringArray);
                             Documents.Add(viewModel);
+                            ActiveDocument = viewModel;
+                            return;
+                        }
+                    case System.Windows.Interop.InteropBitmap bitmap:
+                        {
+                            BitmapViewModel viewModel = _container.Resolve<BitmapViewModel>();
+                            viewModel.Title = format;
+                            viewModel.ImageSource = bitmap;
+                            Documents.Add(viewModel);
+                            ActiveDocument = viewModel;
+                            return;
+                        }
+                    default:
+                        {
+                            StringOutputViewModel viewModel = _container.Resolve<StringOutputViewModel>();
+                            viewModel.Title = "Default";
+                            viewModel.Content = data.ToString();
+                            Documents.Add(viewModel);
+                            ActiveDocument = viewModel;
                             return;
                         }
                 }
@@ -136,6 +156,7 @@ namespace WiderClipboard.Models
                 viewModel.Title = format;
                 viewModel.Content = e.Message;
                 Documents.Add(viewModel);
+                ActiveDocument = viewModel;
             }
         }
     }

@@ -38,6 +38,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -61,8 +62,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Models\StringOutputModel.cs" />
+    <Compile Include="Models\EmptyModel.cs" />
+    <Compile Include="ViewModels\BitmapViewModel.cs" />
     <Compile Include="ViewModels\StringOutputViewModel.cs" />
+    <Compile Include="Views\BitmapView.xaml.cs">
+      <DependentUpon>BitmapView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\StringOutputView.xaml.cs">
       <DependentUpon>StringOutputView.xaml</DependentUpon>
     </Compile>
@@ -102,6 +107,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="Views\BitmapView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\StringOutputView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
