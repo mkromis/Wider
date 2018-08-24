@@ -45,7 +45,7 @@ namespace Wider.Tools.Logger
             _builder.RegisterType<LoggerViewModel>().SingleInstance();
             _builder.Update(_container);
 
-            IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
+            IWorkspace workspace = _container.Resolve<IWorkspace>();
             workspace.Tools.Add(_container.Resolve<LoggerViewModel>());
         }
         #endregion
