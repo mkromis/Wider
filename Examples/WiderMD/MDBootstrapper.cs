@@ -30,7 +30,7 @@ namespace WiderMD
             builder.RegisterType<AppSplash>().As<ISplashView>().SingleInstance();
 
             //Register your workspace here - if you have any
-            builder.RegisterType<MDWorkspace>().As<AbstractWorkspace>().SingleInstance();
+            builder.RegisterType<MDWorkspace>().As<IWorkspace>().SingleInstance();
 
             base.ConfigureContainerBuilder(builder);
         }

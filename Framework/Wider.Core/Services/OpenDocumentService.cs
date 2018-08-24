@@ -51,7 +51,7 @@ namespace Wider.Core.Services
         /// <summary>
         /// The workspace
         /// </summary>
-        private AbstractWorkspace _workspace;
+        private readonly IWorkspace _workspace;
 
         /// <summary>
         /// The content handler registry
@@ -70,7 +70,7 @@ namespace Wider.Core.Services
         /// <param name="eventAggregator">The injected event aggregator</param>
         /// <param name="logger">The injected logger</param>
         public OpenDocumentService(IContainer container, IEventAggregator eventAggregator, ILoggerService logger,
-                                   AbstractWorkspace workspace, IContentHandlerRegistry handler,
+                                   IWorkspace workspace, IContentHandlerRegistry handler,
                                    IRecentViewSettings recentSettings)
         {
             _container = container;

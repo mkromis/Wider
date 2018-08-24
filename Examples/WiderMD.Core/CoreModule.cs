@@ -154,7 +154,7 @@ namespace WiderMD.Core
             ISettingsManager settingsManager = _container.Resolve<ISettingsManager>();
             IThemeSettings themeSettings = _container.Resolve<IThemeSettings>();
             IRecentViewSettings recentFiles = _container.Resolve<IRecentViewSettings>();
-            IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
+            IWorkspace workspace = _container.Resolve<IWorkspace>();
             ToolViewModel logger = workspace.Tools.First(f => f.ContentId == "Logger");
 
             menuService.Add(new MenuItemViewModel("_File", 1));
@@ -269,7 +269,7 @@ namespace WiderMD.Core
 
         private Boolean CanExecuteSaveDocument()
         {
-            IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
+            IWorkspace workspace = _container.Resolve<IWorkspace>();
             if (workspace.ActiveDocument != null)
             {
                 return workspace.ActiveDocument.Model.IsDirty;
@@ -279,13 +279,13 @@ namespace WiderMD.Core
 
         private Boolean CanExecuteSaveAsDocument()
         {
-            IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
+            IWorkspace workspace = _container.Resolve<IWorkspace>();
             return (workspace.ActiveDocument != null);
         }
 
         private void SaveDocument()
         {
-            IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
+            IWorkspace workspace = _container.Resolve<IWorkspace>();
             ICommandManager manager = _container.Resolve<ICommandManager>();
             workspace.ActiveDocument.Handler.SaveContent(workspace.ActiveDocument);
             manager.Refresh();
@@ -293,7 +293,7 @@ namespace WiderMD.Core
 
         private void SaveAsDocument()
         {
-            IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
+            IWorkspace workspace = _container.Resolve<IWorkspace>();
             ICommandManager manager = _container.Resolve<ICommandManager>();
             if (workspace.ActiveDocument != null)
             {
@@ -337,7 +337,7 @@ namespace WiderMD.Core
 
         private void ToggleLogger()
         {
-            IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
+            IWorkspace workspace = _container.Resolve<IWorkspace>();
             IMenuService menuService = _container.Resolve<IMenuService>();
             ToolViewModel logger = workspace.Tools.First(f => f.ContentId == "Logger");
             if (logger != null)

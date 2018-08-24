@@ -27,7 +27,7 @@ namespace Wider.Tools.Logger.ViewModels
         private readonly LoggerView _view;
         private readonly IWorkspace _workspace;
 
-        public LoggerViewModel(IContainer container, AbstractWorkspace workspace)
+        public LoggerViewModel(IContainer container, IWorkspace workspace)
         {
             _workspace = workspace;
             _container = container;
