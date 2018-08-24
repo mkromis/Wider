@@ -63,10 +63,15 @@
     </Compile>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Models\EmptyModel.cs" />
+    <Compile Include="Models\SelectionModel.cs" />
     <Compile Include="ViewModels\BitmapViewModel.cs" />
+    <Compile Include="ViewModels\SelectionViewModel.cs" />
     <Compile Include="ViewModels\StringOutputViewModel.cs" />
     <Compile Include="Views\BitmapView.xaml.cs">
       <DependentUpon>BitmapView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectionView.xaml.cs">
+      <DependentUpon>SelectionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StringOutputView.xaml.cs">
       <DependentUpon>StringOutputView.xaml</DependentUpon>
@@ -108,6 +113,10 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="Views\BitmapView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
