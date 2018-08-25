@@ -1,24 +1,21 @@
 ﻿using Autofac;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using Wider.Content.TextDocument;
+using Wider.Content.TextDocument.ViewModels;
+using Wider.Content.TextDocument.Views;
 using Wider.Core.Services;
 using WiderClipboard.ViewModels;
 
 namespace WiderClipboard.Models
 {
-    class SelectionModel : ContentModel
+    internal class SelectionModel : ContentModel
     {
         private readonly IContainer _container;
 
-        public SelectionModel(IContainer container)
-        {
-            _container = container;
-        }
+        public SelectionModel(IContainer container) => _container = container;
 
         // Menu command to refersh the cliboard command
         public String[] Refresh()
@@ -48,20 +45,12 @@ namespace WiderClipboard.Models
                 {
                     case String stringData:
                         {
-                            StringOutputViewModel viewModel = _container.Resolve<StringOutputViewModel>();
-                            viewModel.Title = format;
-                            viewModel.Content = stringData;
-                            workspace.Documents.Add(viewModel);
-                            workspace.ActiveDocument = viewModel;
+                            TextDocument(format, workspace, stringData);
                             return;
                         }
                     case String[] stringArray:
                         {
-                            StringOutputViewModel viewModel = _container.Resolve<StringOutputViewModel>();
-                            viewModel.Title = format;
-                            viewModel.Content = String.Join("\n", stringArray);
-                            workspace.Documents.Add(viewModel);
-                            workspace.ActiveDocument = viewModel;
+                            TextDocument(format, workspace, String.Join("\n", stringArray));
                             return;
                         }
                     case System.Windows.Interop.InteropBitmap bitmap:
@@ -92,6 +81,35 @@ namespace WiderClipboard.Models
                 workspace.Documents.Add(viewModel);
                 workspace.ActiveDocument = viewModel;
             }
+        }
+
+        /// <summary>
+        /// Open document from based on string data. Barrowed from Wider.Content.TextDocument
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="workspace"></param>
+        /// <param name="stringData"></param>
+        private void TextDocument(String format, IWorkspace workspace, String stringData)
+        {
+            TextViewModel vm = _container.Resolve<TextViewModel>();
+            TextModel model = _container.Resolve<TextModel>();
+            TextView view = _container.Resolve<TextView>();
+
+            // set viewmodel to model?, copied from Wider.Content.TextDocument
+            view.DataContext = model;
+
+            //Clear the undo stack
+            model.Document.UndoStack.ClearAll();
+            model.Document.Text = stringData;
+            model.IsDirty = false;
+
+            //Set the model and view
+            vm.Model = model;
+            vm.View = view;
+            vm.Title = format;
+
+            workspace.Documents.Add(vm);
+            workspace.ActiveDocument = vm;
         }
     }
 }
