@@ -129,7 +129,7 @@
                         </local:PanesStyleSelector.ToolStyle>
                         <local:PanesStyleSelector.ContentStyle>
                             <Style TargetType="{x:Type avalonDock:LayoutItem}">
-                                <Setter Property="Title" Value="{Binding Model.Title, Mode=TwoWay}" />
+                                <Setter Property="Title" Value="{Binding Model.Title, Mode=OneWay}" />
                                 <Setter Property="ToolTip" Value="{Binding Model.Tooltip}" />
                                 <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}" />
                                 <Setter Property="IconSource" Value="{Binding Model.IconSource}" />
