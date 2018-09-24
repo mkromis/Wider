@@ -35,6 +35,6 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: pack
-    packagesToPack: '**/*.nuspec' # Required when command == Pack
+    packagesToPack: 'Framework/**/*.csproj' # Required when command == Pack
     versioningScheme: 'off' # Options: off, byPrereleaseNumber, byEnvVar, byBuildNumber
     configuration: '$(BuildConfiguration)'
