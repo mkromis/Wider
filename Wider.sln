@@ -29,6 +29,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wider.Core.Wpf", "Framework
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiderClipboard", "Examples\WiderClipboard\WiderClipboard.csproj", "{FBCD73FA-1F36-4216-B1C3-933A807F2092}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A54804C0-7921-4FFA-AD7F-7FD467B035A7}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Framework\Wider.Core\Wider.Core.projitems*{6d425467-7f54-4195-93dc-d44ee8cead5f}*SharedItemsImports = 13
