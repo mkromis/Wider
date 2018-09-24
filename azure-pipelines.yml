@@ -38,3 +38,6 @@ steps:
     packagesToPack: 'Framework/**/*.csproj' # Required when command == Pack
     versioningScheme: 'off' # Options: off, byPrereleaseNumber, byEnvVar, byBuildNumber
     configuration: '$(BuildConfiguration)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
