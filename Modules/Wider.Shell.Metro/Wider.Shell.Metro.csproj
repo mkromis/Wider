@@ -79,6 +79,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Wider.Shell.Metro.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Styles\ControlsMetro.xaml">
