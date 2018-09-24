@@ -29,9 +29,7 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-# .Net publish to nuget feed info.
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/nuget?view=vsts
-
 - task: NuGetCommand@2
   inputs:
     command: pack
@@ -39,6 +37,14 @@ steps:
     versioningScheme: 'off' # Options: off, byPrereleaseNumber, byEnvVar, byBuildNumber
     configuration: '$(BuildConfiguration)'
 
+- task: NuGetCommand@2
+  inputs:
+    command: pack
+    packagesToPack: 'Modules/**/*.csproj' # Required when command == Pack
+    versioningScheme: 'off' # Options: off, byPrereleaseNumber, byEnvVar, byBuildNumber
+    configuration: '$(BuildConfiguration)'
+
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/build/artifacts?view=vsts
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
