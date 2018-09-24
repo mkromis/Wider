@@ -29,6 +29,8 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+- script: NuGet.exe pack Framework\Wider.Core.Wpf\Wider.Core.Wpf.csproj -OutputDirectory $(Build.ArtifactStagingDirectory)
+
 # .Net publish to nuget feed info.
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/dotnet-core?view=vsts&tabs=yaml#publish-to-a-nuget-feed
 #- script: dotnet pack /p:PackageVersion=$(version)  # define version variable elsewhere in your pipeline
