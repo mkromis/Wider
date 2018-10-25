@@ -78,6 +78,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Wider.Content.TextDocument.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Themes\VS2012\Theme.xaml">

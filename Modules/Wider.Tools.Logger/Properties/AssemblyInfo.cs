@@ -19,7 +19,7 @@ using System.Windows;
 // associated with an assembly.
 
 [assembly: AssemblyTitle("Wider.ToolService.Logger")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Log Tool Window for Wider")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Wider.ToolService.Logger")]
@@ -64,5 +64,5 @@ using System.Windows;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("0.0.1.0")]
+[assembly: AssemblyFileVersion("0.0.1.0")]
