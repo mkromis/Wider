@@ -1,17 +1,22 @@
 <?xml version="1.0"?>
 <package >
-  <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
-    <title>$title$</title>
-    <authors>Mark Kromis</authors>
-    <owners>Mark Kromis</owners>
-    <licenseUrl>https://github.com/TorisanKitsune/Wider/blob/master/LICENSE.txt</licenseUrl>
-    <projectUrl>https://github.com/TorisanKitsune/Wider</projectUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Metro style theme for Wider</description>
-    <releaseNotes>Initial Alpha release</releaseNotes>
-    <copyright>Copyright 2018</copyright>
-    <tags>IDE Shell using apps.Metro Module</tags>
-  </metadata>
+    <metadata>
+        <id>$id$</id>
+        <version>$version$</version>
+        <title>$title$</title>
+        <authors>Mark Kromis</authors>
+        <owners>Mark Kromis</owners>
+        <licenseUrl>https://github.com/TorisanKitsune/Wider/blob/master/LICENSE.txt</licenseUrl>
+        <projectUrl>https://github.com/TorisanKitsune/Wider</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Metro style theme for Wider</description>
+        <releaseNotes>Initial Alpha release</releaseNotes>
+        <copyright>Copyright 2018</copyright>
+        <tags>IDE Shell using apps.Metro Module</tags>
+        <dependencies>
+            <dependency id="Extended.Wpf.Toolkit" version="(3.4.0,4]" />
+            <dependency id="MahApps.Metro" version="(1.6.5,2]" />
+            <dependency id="Prism.Autofac" version="6.3.0" />
+        </dependencies>
+    </metadata>
 </package>
