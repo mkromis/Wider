@@ -1,17 +1,20 @@
 <?xml version="1.0"?>
 <package >
-  <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
-    <title>$title$</title>
-    <authors>Mark Kromis</authors>
-    <owners>Mark Kromis</owners>
-    <licenseUrl>https://github.com/TorisanKitsune/Wider/blob/master/LICENSE.txt</licenseUrl>
-    <projectUrl>https://github.com/TorisanKitsune/Wider</projectUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Logger tool window for Wider</description>
-    <releaseNotes>Initial Alpha release</releaseNotes>
-    <copyright>Copyright 2018</copyright>
-    <tags>IDE Logger Tool Module</tags>
-  </metadata>
+    <metadata>
+        <id>$id$</id>
+        <version>$version$</version>
+        <title>$title$</title>
+        <authors>Mark Kromis</authors>
+        <owners>Mark Kromis</owners>
+        <licenseUrl>https://github.com/TorisanKitsune/Wider/blob/master/LICENSE.txt</licenseUrl>
+        <projectUrl>https://github.com/TorisanKitsune/Wider</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Logger tool window for Wider</description>
+        <releaseNotes>Initial Alpha release</releaseNotes>
+        <copyright>Copyright 2018</copyright>
+        <tags>IDE Logger Tool Module</tags>
+        <dependencies>
+            <dependency id="Prism.Autofac" version="6.3.0" />
+        </dependencies>
+    </metadata>
 </package>
