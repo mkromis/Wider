@@ -35,6 +35,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiderRibbonDemo", "Examples\WiderRibbonDemo\WiderRibbonDemo.csproj", "{DCE6AE83-BB62-4152-A3C6-1BA45563D98D}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Framework\Wider.Core\Wider.Core.projitems*{6d425467-7f54-4195-93dc-d44ee8cead5f}*SharedItemsImports = 13
@@ -77,6 +79,10 @@ Global
 		{FBCD73FA-1F36-4216-B1C3-933A807F2092}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBCD73FA-1F36-4216-B1C3-933A807F2092}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBCD73FA-1F36-4216-B1C3-933A807F2092}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCE6AE83-BB62-4152-A3C6-1BA45563D98D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCE6AE83-BB62-4152-A3C6-1BA45563D98D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCE6AE83-BB62-4152-A3C6-1BA45563D98D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCE6AE83-BB62-4152-A3C6-1BA45563D98D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,6 +97,7 @@ Global
 		{6D425467-7F54-4195-93DC-D44EE8CEAD5F} = {34E1BD8E-AEAE-4BFD-A69A-919EC930FC3E}
 		{F4242FA3-2404-4EA4-95D9-D00057F277D1} = {34E1BD8E-AEAE-4BFD-A69A-919EC930FC3E}
 		{FBCD73FA-1F36-4216-B1C3-933A807F2092} = {F0808592-9E93-4915-9E37-043C56BB9763}
+		{DCE6AE83-BB62-4152-A3C6-1BA45563D98D} = {F0808592-9E93-4915-9E37-043C56BB9763}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C9AF68FB-8AA0-4C17-A8F9-A88E3EC36423}
