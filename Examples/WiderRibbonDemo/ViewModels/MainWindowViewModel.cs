@@ -4,11 +4,11 @@ namespace WiderRibbonDemo.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
-        private string _title = "Prism Application";
-        public string Title
+        private System.String _title = "Prism Application";
+        public System.String Title
         {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
+            get => _title;
+            set => SetProperty(ref _title, value);
         }
 
         public MainWindowViewModel()

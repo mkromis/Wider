@@ -24,6 +24,7 @@ using System.Windows.Media;
 using Wider.Core.Controls;
 using Wider.Core.Events;
 using Wider.Core.Services;
+using IContainer = Autofac.IContainer;
 
 namespace Wider.Core.Services
 {
@@ -88,7 +89,7 @@ namespace Wider.Core.Services
         /// </summary>
         /// <param name="container">The injected container.</param>
         /// <param name="eventAggregator">The event aggregator.</param>
-        protected AbstractWorkspace(Autofac.IContainer container, IEventAggregator eventAggregator)
+        protected AbstractWorkspace(IContainer container, IEventAggregator eventAggregator)
         {
             _container = container;
             _eventAggregator = eventAggregator;

@@ -1,6 +1,4 @@
-﻿using WiderRibbonDemo.Views;
-using Prism.Modularity;
-using System.Windows;
+﻿using System.Windows;
 
 namespace WiderRibbonDemo
 {
@@ -13,7 +11,7 @@ namespace WiderRibbonDemo
         {
             base.OnStartup(e);
 
-            var bootstrapper = new Bootstrapper();
+            Bootstrapper bootstrapper = new Bootstrapper();
             bootstrapper.Run();
         }
     }
