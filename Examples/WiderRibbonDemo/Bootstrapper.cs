@@ -1,26 +1,17 @@
-﻿using WiderRibbonDemo.Views;
-using System.Windows;
-using Prism.Modularity;
-using Autofac;
+﻿using Autofac;
 using Prism.Autofac;
+using Prism.Modularity;
+using System.Windows;
+using Wider.Core;
+using WiderRibbonDemo.Views;
 
 namespace WiderRibbonDemo
 {
-    class Bootstrapper : AutofacBootstrapper
+    internal class Bootstrapper : WiderBootstrapper
     {
-        protected override DependencyObject CreateShell()
-        {
-            return Container.Resolve<MainWindow>();
-        }
-
-        protected override void InitializeShell()
-        {
-            Application.Current.MainWindow.Show();
-        }
-
         protected override void ConfigureModuleCatalog()
         {
-            var moduleCatalog = (ModuleCatalog)ModuleCatalog;
+            ModuleCatalog moduleCatalog = (ModuleCatalog)ModuleCatalog;
             //moduleCatalog.AddModule(typeof(YOUR_MODULE));
         }
     }
