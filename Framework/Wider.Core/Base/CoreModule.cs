@@ -17,8 +17,6 @@ using Prism.Logging;
 using Prism.Modularity;
 using System;
 using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media;
 using Wider.Core.Controls;
 using Wider.Core.Events;
 using Wider.Core.Services;
@@ -91,29 +89,9 @@ namespace Wider.Core
             registry.RegisterSingleton<IStatusbarService, WiderStatusbar>();
             registry.RegisterSingleton<IThemeManager, ThemeManager>();
 
-            // TODO: FIXME
-            // https://bitbucket.org/dadhi/dryioc/wiki/Wrappers#markdown-header-func-of-a-with-parameters
-            //registry.Register<MenuItemViewModel>()
-            //    .As<IMenuService>()
-            //    .WithParameter(TypedParameter.From<String>("$MAIN$"))
-            //    .WithParameter(TypedParameter.From<Int32>(1))
-            //    .WithParameter(TypedParameter.From<ImageSource>(null))
-            //    .WithParameter(TypedParameter.From<ICommand>(null))
-            //    .WithParameter(TypedParameter.From<KeyGesture>(null))
-            //    .WithParameter(TypedParameter.From<Boolean>(false))
-            //    .WithParameter(TypedParameter.From<Boolean>(false))
-            //    .WithParameter(TypedParameter.From<IContainer>(_container))
-            //    .SingleInstance();
-
-            //registry.RegisterType<ToolbarViewModel>()
-            //    .As<IToolbar>()
-            //    .WithParameter(TypedParameter.From<String>("$MAIN$"))
-            //    .WithParameter(TypedParameter.From<Int32>(1))
-            //    .WithParameter(TypedParameter.From<ImageSource>(null))
-            //    .WithParameter(TypedParameter.From<ICommand>(null))
-            //    .WithParameter(TypedParameter.From<Boolean>(false))
-            //    .WithParameter(TypedParameter.From<IContainer>(_container))
-            //    .SingleInstance();
+            // Load menu and bars
+            registry.RegisterInstance<IMenuService>(new MenuItemViewModel("$MAIN$", 1));
+            registry.RegisterInstance<IToolbar>(new ToolbarViewModel("$MAIN$", 1));
 
             registry.Register<IOpenDocumentService, OpenDocumentService>();
 
