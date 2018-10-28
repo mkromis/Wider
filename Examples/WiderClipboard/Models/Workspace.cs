@@ -1,6 +1,6 @@
-﻿using Autofac;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Events;
+using Prism.Ioc;
 using System;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -14,7 +14,7 @@ namespace WiderClipboard.Models
 {
     internal class Workspace : AbstractWorkspace
     {
-        public Workspace(IContainer container, IEventAggregator eventAggregator) : base(container, eventAggregator)
+        public Workspace(IContainerExtension container, IEventAggregator eventAggregator) : base(container, eventAggregator)
         {
             Title = "Wider Clipboard Viewer";
 
