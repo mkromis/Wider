@@ -10,7 +10,6 @@
 
 #endregion
 
-using Autofac;
 using System;
 using System.Windows;
 using System.Windows.Input;
@@ -34,11 +33,6 @@ namespace Wider.Core.Controls
         #endregion
 
         #region Members
-
-        /// <summary>
-        /// The injected container
-        /// </summary>
-        protected IContainer _container;
 
         /// <summary>
         /// Is the menu checked

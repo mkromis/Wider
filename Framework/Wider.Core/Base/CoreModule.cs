@@ -10,9 +10,9 @@
 
 #endregion
 
-using Autofac;
 using Prism.Commands;
 using Prism.Events;
+using Prism.Ioc;
 using Prism.Logging;
 using Prism.Modularity;
 using System;
@@ -47,17 +47,15 @@ namespace Wider.Core
         /// <summary>
         /// The container used in the application
         /// </summary>
-        private readonly ContainerBuilder _builder;
-        private IContainer _container;
+        private IContainerExtension _container;
 
         /// <summary>
         /// The constructor of the CoreModule
         /// </summary>
         /// <param name="container">The injected container used in the application</param>
         /// <param name="eventAggregator">The injected event aggregator</param>
-        public CoreModule(ContainerBuilder builder, IContainer container, IEventAggregator eventAggregator)
+        public CoreModule(IContainerExtension container, IEventAggregator eventAggregator)
         {
-            _builder = builder;
             _container = container;
             EventAggregator = eventAggregator;
         }
@@ -68,62 +66,65 @@ namespace Wider.Core
         private IEventAggregator EventAggregator { get; }
 
         #region IModule Members
-
         /// <summary>
         /// The initialize call of the module - this gets called when the container is trying to load the modules.
         /// Register your <see cref="Type"/>s and Commands here
         /// </summary>
-        public void Initialize()
+        public void RegisterTypes(IContainerRegistry registry)
         {
             EventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(
-                new SplashMessageUpdateEvent {Message = "Loading Core Module"});
+                new SplashMessageUpdateEvent { Message = "Loading Core Module" });
 
             // Register types, was in bootstrapper
-            _builder.RegisterType<SettingsManager>().As<ISettingsManager>().SingleInstance();
-            _builder.RegisterType<ToolbarService>().As<IToolbarService>().SingleInstance();
-            _builder.RegisterType<ShellView>().As<IShell>().SingleInstance();
-            _builder.RegisterType<NewFileWindow>().As<INewFileWindow>();
+            registry.RegisterSingleton<ISettingsManager, SettingsManager>();
+            registry.RegisterSingleton<IToolbarService, ToolbarService>();
+            registry.RegisterSingleton<IShell, ShellView>();
+            registry.RegisterSingleton<INewFileWindow, NewFileWindow>();
 
             // Rest of the types that was in core module originally.
-            _builder.RegisterType<ThemeSettings>().As<IThemeSettings>().SingleInstance();
-            _builder.RegisterType<RecentViewSettings>().As<IRecentViewSettings>().SingleInstance();
-            _builder.RegisterType<WindowPositionSettings>().As<IWindowPositionSettings>().SingleInstance();
-            _builder.RegisterType<ToolbarPositionSettings>().As<IToolbarPositionSettings>().SingleInstance();
-            _builder.RegisterType<CommandManager>().As<ICommandManager>().SingleInstance();
-            _builder.RegisterType<ContentHandlerRegistry>().As<IContentHandlerRegistry>().SingleInstance();
-            _builder.RegisterType<WiderStatusbar>().As<IStatusbarService>().SingleInstance();
-            _builder.RegisterType<ThemeManager>().As<IThemeManager>().SingleInstance();
+            registry.RegisterSingleton<IThemeSettings, ThemeSettings>();
+            registry.RegisterSingleton<IRecentViewSettings, RecentViewSettings>();
+            registry.RegisterSingleton<IWindowPositionSettings, WindowPositionSettings>();
+            registry.RegisterSingleton<IToolbarPositionSettings, ToolbarPositionSettings>();
+            registry.RegisterSingleton<ICommandManager, CommandManager>();
+            registry.RegisterSingleton<IContentHandlerRegistry, ContentHandlerRegistry>();
+            registry.RegisterSingleton<IStatusbarService, WiderStatusbar>();
+            registry.RegisterSingleton<IThemeManager, ThemeManager>();
 
+            // TODO: FIXME
             // https://bitbucket.org/dadhi/dryioc/wiki/Wrappers#markdown-header-func-of-a-with-parameters
-            _builder.RegisterType<MenuItemViewModel>()
-                .As<IMenuService>()
-                .WithParameter(TypedParameter.From<String>("$MAIN$"))
-                .WithParameter(TypedParameter.From<Int32>(1))
-                .WithParameter(TypedParameter.From<ImageSource>(null))
-                .WithParameter(TypedParameter.From<ICommand>(null))
-                .WithParameter(TypedParameter.From<KeyGesture>(null))
-                .WithParameter(TypedParameter.From<Boolean>(false))
-                .WithParameter(TypedParameter.From<Boolean>(false))
-                .WithParameter(TypedParameter.From<IContainer>(_container))
-                .SingleInstance();
+            //registry.Register<MenuItemViewModel>()
+            //    .As<IMenuService>()
+            //    .WithParameter(TypedParameter.From<String>("$MAIN$"))
+            //    .WithParameter(TypedParameter.From<Int32>(1))
+            //    .WithParameter(TypedParameter.From<ImageSource>(null))
+            //    .WithParameter(TypedParameter.From<ICommand>(null))
+            //    .WithParameter(TypedParameter.From<KeyGesture>(null))
+            //    .WithParameter(TypedParameter.From<Boolean>(false))
+            //    .WithParameter(TypedParameter.From<Boolean>(false))
+            //    .WithParameter(TypedParameter.From<IContainer>(_container))
+            //    .SingleInstance();
 
-            _builder.RegisterType<ToolbarViewModel>()
-                .As<IToolbar>()
-                .WithParameter(TypedParameter.From<String>("$MAIN$"))
-                .WithParameter(TypedParameter.From<Int32>(1))
-                .WithParameter(TypedParameter.From<ImageSource>(null))
-                .WithParameter(TypedParameter.From<ICommand>(null))
-                .WithParameter(TypedParameter.From<Boolean>(false))
-                .WithParameter(TypedParameter.From<IContainer>(_container))
-                .SingleInstance();
+            //registry.RegisterType<ToolbarViewModel>()
+            //    .As<IToolbar>()
+            //    .WithParameter(TypedParameter.From<String>("$MAIN$"))
+            //    .WithParameter(TypedParameter.From<Int32>(1))
+            //    .WithParameter(TypedParameter.From<ImageSource>(null))
+            //    .WithParameter(TypedParameter.From<ICommand>(null))
+            //    .WithParameter(TypedParameter.From<Boolean>(false))
+            //    .WithParameter(TypedParameter.From<IContainer>(_container))
+            //    .SingleInstance();
 
-            _builder.RegisterType<OpenDocumentService>().As<IOpenDocumentService>().SingleInstance();
+            registry.Register<IOpenDocumentService, OpenDocumentService>();
 
-            _builder.RegisterType<Workspace>().As<IWorkspace>().SingleInstance().PreserveExistingDefaults();
-            _builder.RegisterType<DebugLogService>().As<ILoggerService>().SingleInstance().PreserveExistingDefaults();
-            _builder.Update(_container);
+            registry.RegisterSingleton<IWorkspace, Workspace>(); //PreserveExistingDefaults();
+            registry.RegisterSingleton<ILoggerService, DebugLogService>(); //PreserveExistingDefaults();
+        }
 
-            AppCommands();
+        public void OnInitialized(IContainerProvider containerProvider)
+        { 
+
+            AppCommands(containerProvider);
 
             // This is done in bootstrapper to handle delayed loaded IShell
             //LoadSettings();
@@ -134,10 +135,10 @@ namespace Wider.Core
         /// <summary>
         /// The AppCommands registered by the Core Module
         /// </summary>
-        private void AppCommands()
+        private void AppCommands(IContainerProvider provider)
         {
-            ICommandManager manager = _container.Resolve<ICommandManager>();
-            IContentHandlerRegistry registry = _container.Resolve<IContentHandlerRegistry>();
+            ICommandManager manager = provider.Resolve<ICommandManager>();
+            IContentHandlerRegistry registry = provider.Resolve<IContentHandlerRegistry>();
 
             //TODO: Check if you can hook up to the Workspace.ActiveDocument.CloseCommand
             DelegateCommand<Object> closeCommand = new DelegateCommand<Object>(CloseDocument, CanExecuteCloseDocument);

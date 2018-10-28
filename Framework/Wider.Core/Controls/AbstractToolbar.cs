@@ -10,7 +10,6 @@
 
 #endregion
 
-using Autofac;
 using System;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -31,7 +30,7 @@ namespace Wider.Core.Controls
         /// <exception cref="System.ArgumentException">Header cannot be SEP for a Toolbar</exception>
         protected AbstractToolbar(
             String header, Int32 priority, ImageSource icon = null, ICommand command = null,
-            Boolean isCheckable = false, IContainer container = null)
+            Boolean isCheckable = false)
             : base(header, priority, icon, command, null, isCheckable)
         {
             Priority = priority;

@@ -15,7 +15,7 @@
         <tags>IDE Framework Core</tags>
         <dependencies>
             <dependency id="Extended.Wpf.Toolkit" version="(3.4.0,4]" />
-            <dependency id="Prism.Autofac" version="6.3.0" />
+            <dependency id="Prism.DryIoc" version="(7.1.0, 8]" />
         </dependencies>
     </metadata>
 </package>

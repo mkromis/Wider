@@ -10,7 +10,6 @@
 
 #endregion
 
-using Autofac;
 using System;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -36,8 +35,7 @@ namespace Wider.Core.Controls
         /// <param name="hideDisabled">if set to <c>true</c> this menu is not visible when disabled.</param>
         /// <param name="container">The container.</param>
         public MenuItemViewModel(String header, Int32 priority, ImageSource icon = null, ICommand command = null,
-                                 KeyGesture gesture = null, Boolean isCheckable = false, Boolean hideDisabled = false,
-                                 IContainer container = null)
+                                 KeyGesture gesture = null, Boolean isCheckable = false, Boolean hideDisabled = false)
             : base(header, priority, icon, command, gesture, isCheckable, hideDisabled)
         {
         }
