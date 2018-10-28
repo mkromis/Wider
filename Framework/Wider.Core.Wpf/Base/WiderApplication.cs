@@ -2,11 +2,7 @@
 using Prism.Ioc;
 using Prism.Modularity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using Wider.Core.Services;
 
@@ -14,9 +10,10 @@ namespace Wider.Core
 {
     public class WiderApplication : PrismApplication
     {
-        CoreModule coreModule;
+        private CoreModule coreModule;
 
-        protected override Window CreateShell() {
+        protected override Window CreateShell()
+        {
             // now we should have a shell, load settings and show if we can.
             IShell shell = Container.Resolve<IShell>();
             coreModule.LoadSettings();
@@ -27,7 +24,8 @@ namespace Wider.Core
             return window;
         }
 
-        protected override void RegisterTypes(IContainerRegistry containerRegistry) {
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
             // Load core module, this is internal so call manually
             coreModule = Container.Resolve<CoreModule>();
             coreModule.RegisterTypes(containerRegistry);
