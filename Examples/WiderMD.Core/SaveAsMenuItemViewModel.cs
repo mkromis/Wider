@@ -1,5 +1,5 @@
 ﻿#region License
-
+// Copyright (c) 2018 Mark Kromis
 // Copyright (c) 2013 Chandramouleswaran Ravichandran
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -10,8 +10,8 @@
 
 #endregion
 
-using Autofac;
 using Prism.Events;
+using Prism.Ioc;
 using System;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -39,15 +39,14 @@ namespace Wider.Interfaces.Controls
         /// <param name="isCheckable">if set to <c>true</c> this menu acts as a checkable menu.</param>
         /// <param name="hideDisabled">if set to <c>true</c> this menu is not visible when disabled.</param>
         /// <param name="container">The container.</param>
-        public SaveAsMenuItemViewModel(
+        public SaveAsMenuItemViewModel( IContainerProvider containerProvider,
             String header, Int32 priority, ImageSource icon = null, ICommand command = null,
-            KeyGesture gesture = null, Boolean isCheckable = false, Boolean hideDisabled = false,
-            IContainer container = null)
+            KeyGesture gesture = null, Boolean isCheckable = false, Boolean hideDisabled = false)
             : base(header, priority, icon, command, gesture, isCheckable, hideDisabled)
         {
-            if (container != null)
+            if (containerProvider != null)
             {
-                IEventAggregator eventAggregator = container.Resolve<IEventAggregator>();
+                IEventAggregator eventAggregator = containerProvider.Resolve<IEventAggregator>();
                 eventAggregator.GetEvent<ActiveContentChangedEvent>().Subscribe(SaveAs);
             }
         }
