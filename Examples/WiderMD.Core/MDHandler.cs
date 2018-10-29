@@ -1,5 +1,6 @@
 ﻿#region License
 
+// Copyright (c) 2018 Mark Kromis
 // Copyright (c) 2013 Chandramouleswaran Ravichandran
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -10,7 +11,6 @@
 
 #endregion
 
-using Autofac;
 using System;
 using System.IO;
 using System.Linq;
@@ -19,6 +19,7 @@ using Wider.Core.Attributes;
 using Microsoft.Win32;
 using Prism.Logging;
 using Wider.Core.Services;
+using Prism.Ioc;
 
 namespace WiderMD.Core
 {
@@ -29,8 +30,7 @@ namespace WiderMD.Core
         /// <summary>
         /// The injected container
         /// </summary>
-        private readonly IContainer _container;
-        private readonly ContainerBuilder _builder;
+        private readonly IContainerExtension _container;
 
         /// <summary>
         /// The injected logger service
@@ -47,9 +47,8 @@ namespace WiderMD.Core
         /// </summary>
         /// <param name="container">The injected container of the application</param>
         /// <param name="loggerService">The injected logger service of the application</param>
-        public MDHandler(ContainerBuilder builder, IContainer container, ILoggerService loggerService)
+        public MDHandler(IContainerExtension container, ILoggerService loggerService)
         {
-            _builder = builder;
             _container = container;
             _loggerService = loggerService;
             _dialog = new SaveFileDialog();

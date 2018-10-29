@@ -1,5 +1,6 @@
 ﻿#region License
 
+// Copyright (c) 2018 Mark Kromis
 // Copyright (c) 2013 Chandramouleswaran Ravichandran
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -10,9 +11,8 @@
 
 #endregion
 
-using Autofac;
-using Prism.Autofac;
 using Prism.Events;
+using Prism.Ioc;
 using Prism.Modularity;
 using Wider.Core.Events;
 using Wider.Core.Services;
@@ -23,31 +23,24 @@ namespace Wider.Tools.Logger
     [Module(ModuleName = "Wider.Tools.Logger")]
     public sealed class LoggerModule : IModule
     {
-        private ContainerBuilder _builder;
-        private readonly IContainer _container;
-
-        public LoggerModule(ContainerBuilder builder, IContainer container)
+        public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            _builder = builder;
-            _container = container;
-        }
-
-        private IEventAggregator EventAggregator => _container.Resolve<IEventAggregator>();
-
-        #region IModule Members
-        public void Initialize()
-        {
-            EventAggregator.GetEvent<SplashMessageUpdateEvent>()
-                .Publish(new SplashMessageUpdateEvent {Message = "Loading Logger Module"});
-
             // register types
             // This interface has the view model handle the view construdtion
-            _builder.RegisterType<LoggerViewModel>().SingleInstance();
-            _builder.Update(_container);
-
-            IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
-            workspace.Tools.Add(_container.Resolve<LoggerViewModel>());
+            containerRegistry.RegisterSingleton<LoggerViewModel>();
         }
+
+        #region IModule Members
+        public void OnInitialized(IContainerProvider containerProvider)
+        {
+            IEventAggregator eventAggregator = containerProvider.Resolve<IEventAggregator>();
+            eventAggregator.GetEvent<SplashMessageUpdateEvent>()
+                .Publish(new SplashMessageUpdateEvent {Message = "Loading Logger Module"});
+
+            IWorkspace workspace = containerProvider.Resolve<IWorkspace>();
+            workspace.Tools.Add(containerProvider.Resolve<LoggerViewModel>());
+        }
+
         #endregion
     }
 }

@@ -127,11 +127,10 @@
     <Resource Include="Resources\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Prism.Autofac">
-      <Version>6.3.0</Version>
+    <PackageReference Include="Prism.DryIoc">
+      <Version>7.1.0.431</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Page Include="Views\AppSplash.xaml">
       <SubType>Designer</SubType>

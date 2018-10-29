@@ -15,7 +15,7 @@
         <tags>IDE TestDocument Module</tags>
         <dependencies>
             <dependency id="AvalonEdit" version="(5.0.4,6]" />
-            <dependency id="Prism.Autofac" version="6.3.0" />
+            <dependency id="Prism.Wpf" version="(7.1.0, 8]" />
         </dependencies>
     </metadata>
 </package>

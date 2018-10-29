@@ -1,5 +1,6 @@
 ﻿#region License
 
+// Copyright (c) 2018 Mark Kromis
 // Copyright (c) 2013 Chandramouleswaran Ravichandran
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -10,9 +11,9 @@
 
 #endregion
 
-using Autofac;
 using MahApps.Metro.Controls;
 using Prism.Events;
+using Prism.Ioc;
 using System;
 using System.IO;
 using System.Linq;
@@ -33,14 +34,14 @@ namespace Wider.Shell.Metro.Views
     /// </summary>
     internal partial class ShellView : IShell
     {
-        private readonly IContainer _container;
+        private IContainerExtension _container;
         private IEventAggregator _eventAggregator;
         private ILoggerService _logger;
         private IWorkspace _workspace;
         private ContextMenu _docContextMenu;
         private MultiBinding _itemSourceBinding;
 
-        public ShellView(IContainer container, IEventAggregator eventAggregator)
+        public ShellView(IContainerExtension container, IEventAggregator eventAggregator)
         {
             InitializeComponent();
             _container = container;
