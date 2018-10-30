@@ -1,18 +1,31 @@
 ﻿#region License
 
+// Copyright (c) 2018 Mark Kromis
 // Copyright (c) 2013 Chandramouleswaran Ravichandran
 // 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to 
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or 
+// sell copies of the Software, and to permit persons to whom the Software is 
+// furnished to do so, subject to the following conditions:
 // 
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+// The above copyright notice and this permission notice shall be included 
+// in all copies or substantial portions of the Software.
 // 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
+// DEALINGS IN THE SOFTWARE.
 
 #endregion
 
-using Autofac;
 using Prism.Commands;
 using Prism.Events;
+using Prism.Ioc;
 using Prism.Modularity;
 using System;
 using System.Linq;
@@ -33,36 +46,33 @@ namespace WiderMD.Core
     [ModuleDependency("Wider.Tools.Logger")]
     public class CoreModule : IModule
     {
-        private readonly ContainerBuilder _builder;
-        private IContainer _container;
-        private IEventAggregator _eventAggregator;
+        IContainerProvider containerProvider;
+        IEventAggregator eventAggregator;
 
-        public CoreModule(ContainerBuilder builder, IContainer container, IEventAggregator eventAggregator)
+        public void OnInitialized(IContainerProvider newContainerProvider)
         {
-            _builder = builder;
-            _container = container;
-            _eventAggregator = eventAggregator;
-        }
+            containerProvider = newContainerProvider;
+            eventAggregator = containerProvider.Resolve<IEventAggregator>();
 
-        public void Initialize()
-        {
-            _eventAggregator.GetEvent<SplashMessageUpdateEvent>()
+            eventAggregator.GetEvent<SplashMessageUpdateEvent>()
                 .Publish(new SplashMessageUpdateEvent { Message = "Loading Core Module" });
+
+            IContentHandler handler = containerProvider.Resolve<MDHandler>();
+            containerProvider.Resolve<IContentHandlerRegistry>().Register(handler);
+
             LoadTheme();
             LoadCommands();
             LoadMenus();
             LoadToolbar();
-            RegisterParts();
             LoadSettings();
         }
 
         private void LoadToolbar()
         {
-            _eventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(new SplashMessageUpdateEvent
-            { Message = "Toolbar.." });
-            IToolbarService toolbarService = _container.Resolve<IToolbarService>();
-            IMenuService menuService = _container.Resolve<IMenuService>();
-            ICommandManager manager = _container.Resolve<ICommandManager>();
+            eventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(new SplashMessageUpdateEvent { Message = "Toolbar.." });
+            IToolbarService toolbarService = containerProvider.Resolve<IToolbarService>();
+            IMenuService menuService = containerProvider.Resolve<IMenuService>();
+            ICommandManager manager = containerProvider.Resolve<ICommandManager>();
 
             toolbarService.Add(new ToolbarViewModel("Standard", 1) { Band = 1, BandIndex = 1 });
             toolbarService.Get("Standard").Add(menuService.Get("_File").Get("_New"));
@@ -84,34 +94,30 @@ namespace WiderMD.Core
             menuService.Get("_Tools").Add(toolbarService.RightClickMenu);
 
             //Initiate the position settings changes for toolbar
-            _container.Resolve<IToolbarPositionSettings>();
+            containerProvider.Resolve<IToolbarPositionSettings>();
         }
 
         private void LoadSettings()
         {
-            ISettingsManager manager = _container.Resolve<ISettingsManager>();
+            ISettingsManager manager = containerProvider.Resolve<ISettingsManager>();
             manager.Add(new MDSettingsItem("Text Editor", 1, null));
             manager.Get("Text Editor").Add(new MDSettingsItem("General", 1, EditorOptions.Default));
         }
 
-        private void RegisterParts()
+        public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            _builder.RegisterType<MDHandler>();
-            _builder.RegisterType<MDViewModel>();
-            _builder.RegisterType<MDView>();
-            _builder.Update(_container);
-
-            IContentHandler handler = _container.Resolve<MDHandler>();
-            _container.Resolve<IContentHandlerRegistry>().Register(handler);
+            containerRegistry.Register<MDHandler>();
+            containerRegistry.Register<MDViewModel>();
+            containerRegistry.Register<MDView>();
         }
 
         private void LoadTheme()
         {
-            _eventAggregator.GetEvent<SplashMessageUpdateEvent>()
+            eventAggregator.GetEvent<SplashMessageUpdateEvent>()
                 .Publish(new SplashMessageUpdateEvent { Message = "Themes.." });
-            IThemeManager manager = _container.Resolve<IThemeManager>();
-            IThemeSettings themeSettings = _container.Resolve<IThemeSettings>();
-            Window win = _container.Resolve<IShell>() as Window;
+            IThemeManager manager = containerProvider.Resolve<IThemeManager>();
+            IThemeSettings themeSettings = containerProvider.Resolve<IThemeSettings>();
+            Window win = containerProvider.Resolve<IShell>() as Window;
             manager.AddTheme(new LightTheme());
             manager.AddTheme(new DarkTheme());
             win.Dispatcher.InvokeAsync(() => manager.SetCurrent(themeSettings.SelectedTheme));
@@ -119,9 +125,9 @@ namespace WiderMD.Core
 
         private void LoadCommands()
         {
-            _eventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(new SplashMessageUpdateEvent
+            eventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(new SplashMessageUpdateEvent
             { Message = "Commands.." });
-            ICommandManager manager = _container.Resolve<ICommandManager>();
+            ICommandManager manager = containerProvider.Resolve<ICommandManager>();
 
             DelegateCommand openCommand = new DelegateCommand(OpenModule);
             DelegateCommand exitCommand = new DelegateCommand(CloseCommandExecute);
@@ -141,21 +147,21 @@ namespace WiderMD.Core
 
         private void CloseCommandExecute()
         {
-            IShell shell = _container.Resolve<IShell>();
+            IShell shell = containerProvider.Resolve<IShell>();
             shell.Close();
         }
 
         private void LoadMenus()
         {
-            _eventAggregator.GetEvent<SplashMessageUpdateEvent>().Publish(new SplashMessageUpdateEvent
-            { Message = "Menus.." });
-            ICommandManager manager = _container.Resolve<ICommandManager>();
-            IMenuService menuService = _container.Resolve<IMenuService>();
-            ISettingsManager settingsManager = _container.Resolve<ISettingsManager>();
-            IThemeSettings themeSettings = _container.Resolve<IThemeSettings>();
-            IRecentViewSettings recentFiles = _container.Resolve<IRecentViewSettings>();
-            IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
-            ToolViewModel logger = workspace.Tools.First(f => f.ContentId == "Logger");
+            eventAggregator.GetEvent<SplashMessageUpdateEvent>()
+                .Publish(new SplashMessageUpdateEvent { Message = "Menus.." });
+            ICommandManager manager = containerProvider.Resolve<ICommandManager>();
+            IMenuService menuService = containerProvider.Resolve<IMenuService>();
+            ISettingsManager settingsManager = containerProvider.Resolve<ISettingsManager>();
+            IThemeSettings themeSettings = containerProvider.Resolve<IThemeSettings>();
+            IRecentViewSettings recentFiles = containerProvider.Resolve<IRecentViewSettings>();
+            IWorkspace workspace = containerProvider.Resolve<IWorkspace>();
+            ToolViewModel logger = workspace.Tools.FirstOrDefault(f => f.ContentId == "Logger");
 
             menuService.Add(new MenuItemViewModel("_File", 1));
 
@@ -164,7 +170,6 @@ namespace WiderMD.Core
                     new BitmapImage(new Uri(@"pack://application:,,,/WiderMD.Core;component/Icons/NewRequest_8796.png")),
                     manager.GetCommand("NEW"),
                     new KeyGesture(Key.N, ModifierKeys.Control, "Ctrl + N"))));
-
             menuService.Get("_File")
                 .Add((new MenuItemViewModel("_Open", 4,
                     new BitmapImage(new Uri(@"pack://application:,,,/WiderMD.Core;component/Icons/OpenFileDialog_692.png")),
@@ -176,10 +181,10 @@ namespace WiderMD.Core
                     manager.GetCommand("SAVE"),
                     new KeyGesture(Key.S, ModifierKeys.Control, "Ctrl + S")));
             menuService.Get("_File")
-                .Add(new SaveAsMenuItemViewModel("Save As..", 6,
+                .Add(new SaveAsMenuItemViewModel(
+                    containerProvider, "Save As..", 6,
                     new BitmapImage(new Uri(@"pack://application:,,,/WiderMD.Core;component/Icons/Save_6530.png")),
-                    manager.GetCommand("SAVEAS"), null, false, false, _container));
-
+                    manager.GetCommand("SAVEAS")));
             menuService.Get("_File")
                 .Add(new MenuItemViewModel("Close", 8, null,
                     manager.GetCommand("CLOSE"),
@@ -259,7 +264,7 @@ namespace WiderMD.Core
 
         private void OpenModule()
         {
-            IOpenDocumentService service = _container.Resolve<IOpenDocumentService>();
+            IOpenDocumentService service = containerProvider.Resolve<IOpenDocumentService>();
             service.Open();
         }
 
@@ -269,7 +274,7 @@ namespace WiderMD.Core
 
         private Boolean CanExecuteSaveDocument()
         {
-            IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
+            IWorkspace workspace = containerProvider.Resolve<IWorkspace>();
             if (workspace.ActiveDocument != null)
             {
                 return workspace.ActiveDocument.Model.IsDirty;
@@ -279,22 +284,22 @@ namespace WiderMD.Core
 
         private Boolean CanExecuteSaveAsDocument()
         {
-            IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
+            IWorkspace workspace = containerProvider.Resolve<IWorkspace>();
             return (workspace.ActiveDocument != null);
         }
 
         private void SaveDocument()
         {
-            IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
-            ICommandManager manager = _container.Resolve<ICommandManager>();
+            IWorkspace workspace = containerProvider.Resolve<IWorkspace>();
+            ICommandManager manager = containerProvider.Resolve<ICommandManager>();
             workspace.ActiveDocument.Handler.SaveContent(workspace.ActiveDocument);
             manager.Refresh();
         }
 
         private void SaveAsDocument()
         {
-            IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
-            ICommandManager manager = _container.Resolve<ICommandManager>();
+            IWorkspace workspace = containerProvider.Resolve<IWorkspace>();
+            ICommandManager manager = containerProvider.Resolve<ICommandManager>();
             if (workspace.ActiveDocument != null)
             {
                 workspace.ActiveDocument.Handler.SaveContent(workspace.ActiveDocument, true);
@@ -307,9 +312,9 @@ namespace WiderMD.Core
 
         private void ThemeChangeCommand(String s)
         {
-            IThemeManager manager = _container.Resolve<IThemeManager>();
-            IMenuService menuService = _container.Resolve<IMenuService>();
-            Window win = _container.Resolve<IShell>() as Window;
+            IThemeManager manager = containerProvider.Resolve<IThemeManager>();
+            IMenuService menuService = containerProvider.Resolve<IMenuService>();
+            Window win = containerProvider.Resolve<IShell>() as Window;
             MenuItemViewModel mvm =
                 menuService.Get("_View").Get("Themes").Get(manager.CurrentTheme.Name) as MenuItemViewModel;
 
@@ -337,8 +342,8 @@ namespace WiderMD.Core
 
         private void ToggleLogger()
         {
-            IWorkspace workspace = _container.Resolve<AbstractWorkspace>();
-            IMenuService menuService = _container.Resolve<IMenuService>();
+            IWorkspace workspace = containerProvider.Resolve<IWorkspace>();
+            IMenuService menuService = containerProvider.Resolve<IMenuService>();
             ToolViewModel logger = workspace.Tools.First(f => f.ContentId == "Logger");
             if (logger != null)
             {
@@ -347,7 +352,6 @@ namespace WiderMD.Core
                 mi.IsChecked = logger.IsVisible;
             }
         }
-
         #endregion
 
         #endregion

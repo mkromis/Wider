@@ -7,7 +7,7 @@ using Wider.Core.Services;
 
 namespace WiderClipboard.Models
 {
-    class StringOutputModel : ContentModel
+    class EmptyModel : ContentModel
     {
     }
 }

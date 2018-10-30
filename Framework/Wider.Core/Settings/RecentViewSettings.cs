@@ -10,8 +10,8 @@
 
 #endregion
 
-using Autofac;
 using Prism.Commands;
+using Prism.Ioc;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -28,9 +28,9 @@ namespace Wider.Core.Settings
         private List<String> menuGuids;
         private readonly DelegateCommand<String> recentOpen;
         private IOpenDocumentService fileService;
-        private IContainer _container;
+        private IContainerExtension _container;
 
-        public RecentViewSettings(IContainer container)
+        public RecentViewSettings(IContainerExtension container)
         {
             recentMenu = new MenuItemViewModel("Recentl_y opened..", 100);
             menuGuids = new List<String>();

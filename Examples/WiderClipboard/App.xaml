@@ -1,8 +1,10 @@
-﻿<Application x:Class="WiderClipboard.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:WiderClipboard">
+﻿<wider:WiderApplication 
+    x:Class="WiderClipboard.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:wider="clr-namespace:Wider.Core;assembly=Wider.Core"
+    xmlns:local="clr-namespace:WiderClipboard">
     <Application.Resources>
          
     </Application.Resources>
-</Application>
+</wider:WiderApplication>
