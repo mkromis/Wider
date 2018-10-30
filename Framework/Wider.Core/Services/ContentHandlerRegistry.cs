@@ -190,7 +190,7 @@ namespace Wider.Core.Services
         {
             if (_workspace == null)
             {
-                _workspace = _container.Resolve<AbstractWorkspace>();
+                _workspace = _container.Resolve<IWorkspace>();
             }
 
             if (_availableNewContent.Count == 1)
