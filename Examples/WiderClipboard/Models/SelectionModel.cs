@@ -1,4 +1,4 @@
-﻿using Autofac;
+﻿using Prism.Ioc;
 using System;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -13,9 +13,9 @@ namespace WiderClipboard.Models
 {
     internal class SelectionModel : ContentModel
     {
-        private readonly IContainer _container;
+        private readonly IContainerExtension _container;
 
-        public SelectionModel(IContainer container) => _container = container;
+        public SelectionModel(IContainerExtension container) => _container = container;
 
         // Menu command to refersh the cliboard command
         public String[] Refresh()

@@ -21,7 +21,7 @@ namespace Wider.Core
 
         protected override IModuleCatalog CreateModuleCatalog()
         {
-            return new DirectoryModuleCatalog();
+            return new DirectoryModuleCatalog { ModulePath = "." };
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
