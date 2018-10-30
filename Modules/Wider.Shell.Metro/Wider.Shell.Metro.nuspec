@@ -14,9 +14,9 @@
         <copyright>Copyright 2018</copyright>
         <tags>IDE Shell using apps.Metro Module</tags>
         <dependencies>
-            <dependency id="Extended.Wpf.Toolkit" version="(3.4.0,4]" />
-            <dependency id="MahApps.Metro" version="(1.6.5,2]" />
-            <dependency id="Prism.Wpf" version="(7.1.0, 8]" />
+            <dependency id="Extended.Wpf.Toolkit" version="[3.4.0,4)" />
+            <dependency id="MahApps.Metro" version="[1.6.5,2)" />
+            <dependency id="Prism.Wpf" version="[7.1.0.431, 8)" />
         </dependencies>
     </metadata>
 </package>
