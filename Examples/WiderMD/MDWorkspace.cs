@@ -10,8 +10,8 @@
 
 #endregion
 
-using Autofac;
 using Prism.Events;
+using Prism.Ioc;
 using Prism.Logging;
 using System;
 using System.Windows.Media;
@@ -27,7 +27,7 @@ namespace WiderMD
         private ILoggerService _logger;
         private const String _title = "Wider MD";
 
-        public MDWorkspace(IContainer container, ContainerBuilder builder, IEventAggregator eventAggregator)
+        public MDWorkspace(IContainerExtension container, IEventAggregator eventAggregator)
             : base(container, eventAggregator)
         {
             IEventAggregator aggregator = _container.Resolve<IEventAggregator>();
