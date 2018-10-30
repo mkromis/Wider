@@ -12,7 +12,7 @@ namespace WiderClipboard.ViewModels
         public StringOutputViewModel(IWorkspace workspace, ICommandManager commandManager, ILoggerService logger, IMenuService menuService) :
             base(workspace, commandManager, logger, menuService)
         {
-            Model = new StringOutputModel();
+            Model = new EmptyModel();
             View = new StringOutputView();
         }
     }

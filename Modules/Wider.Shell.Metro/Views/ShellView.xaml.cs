@@ -72,7 +72,7 @@ namespace Wider.Shell.Metro.Views
             XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(dockManager);
             layoutSerializer.LayoutSerializationCallback += (s, e) =>
             {
-                _workspace = _container.Resolve<AbstractWorkspace>();
+                _workspace = _container.Resolve<IWorkspace>();
 
                 if (e.Model is LayoutAnchorable anchorable)
                 {
