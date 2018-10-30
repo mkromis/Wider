@@ -10,9 +10,9 @@
 
 #endregion
 
-using Autofac;
 using Microsoft.Win32;
 using Prism.Events;
+using Prism.Ioc;
 using Prism.Logging;
 using System;
 using System.Collections.Generic;
@@ -31,7 +31,7 @@ namespace Wider.Core.Services
         /// <summary>
         /// The injected container
         /// </summary>
-        private readonly IContainer _container;
+        private readonly IContainerExtension _container;
 
         /// <summary>
         /// The injected event aggregator
@@ -51,7 +51,7 @@ namespace Wider.Core.Services
         /// <summary>
         /// The workspace
         /// </summary>
-        private AbstractWorkspace _workspace;
+        private IWorkspace _workspace;
 
         /// <summary>
         /// The content handler registry
@@ -69,9 +69,9 @@ namespace Wider.Core.Services
         /// <param name="container">The injected container</param>
         /// <param name="eventAggregator">The injected event aggregator</param>
         /// <param name="logger">The injected logger</param>
-        public OpenDocumentService(IContainer container, IEventAggregator eventAggregator, ILoggerService logger,
-                                   AbstractWorkspace workspace, IContentHandlerRegistry handler,
-                                   IRecentViewSettings recentSettings)
+        public OpenDocumentService(
+            IContainerExtension container, IEventAggregator eventAggregator, ILoggerService logger,
+            IWorkspace workspace, IContentHandlerRegistry handler, IRecentViewSettings recentSettings)
         {
             _container = container;
             _eventAggregator = eventAggregator;

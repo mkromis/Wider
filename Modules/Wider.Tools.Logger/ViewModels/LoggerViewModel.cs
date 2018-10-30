@@ -1,5 +1,6 @@
 ﻿#region License
 
+// Copyright (c) 2018 Mark Kromis
 // Copyright (c) 2013 Chandramouleswaran Ravichandran
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -10,7 +11,6 @@
 
 #endregion
 
-using Autofac;
 using Prism.Events;
 using Wider.Core.Events;
 using Wider.Core.Services;
@@ -22,15 +22,13 @@ namespace Wider.Tools.Logger.ViewModels
     internal class LoggerViewModel : ToolViewModel
     {
         private readonly IEventAggregator _aggregator;
-        private readonly IContainer _container;
         private readonly LoggerModel _model;
         private readonly LoggerView _view;
         private readonly IWorkspace _workspace;
 
-        public LoggerViewModel(IContainer container, AbstractWorkspace workspace)
+        public LoggerViewModel(IWorkspace workspace, IEventAggregator eventAggregator)
         {
             _workspace = workspace;
-            _container = container;
             Name = "Logger";
             Title = "Logger";
             ContentId = "Logger";
@@ -44,7 +42,7 @@ namespace Wider.Tools.Logger.ViewModels
             };
             View = _view;
 
-            _aggregator = _container.Resolve<IEventAggregator>();
+            _aggregator = eventAggregator;
             _aggregator.GetEvent<LogEvent>().Subscribe(AddLog);
         }
 

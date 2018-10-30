@@ -60,9 +60,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Models\StringOutputModel.cs" />
+    <Compile Include="Models\EmptyModel.cs" />
+    <Compile Include="Models\SelectionModel.cs" />
+    <Compile Include="ViewModels\BitmapViewModel.cs" />
+    <Compile Include="ViewModels\SelectionViewModel.cs" />
     <Compile Include="ViewModels\StringOutputViewModel.cs" />
+    <Compile Include="Views\BitmapView.xaml.cs">
+      <DependentUpon>BitmapView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectionView.xaml.cs">
+      <DependentUpon>SelectionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\StringOutputView.xaml.cs">
       <DependentUpon>StringOutputView.xaml</DependentUpon>
     </Compile>
@@ -92,16 +100,32 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Prism.Autofac" Version="6.3.0" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\Framework\Wider.Core.Wpf\Wider.Core.Wpf.csproj">
       <Project>{f4242fa3-2404-4ea4-95d9-d00057f277d1}</Project>
       <Name>Wider.Core.Wpf</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Modules\Wider.Content.TextDocument\Wider.Content.TextDocument.csproj">
+      <Project>{b80e6695-0f27-4ae1-bd7a-eda42b94a940}</Project>
+      <Name>Wider.Content.TextDocument</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <PackageReference Include="AvalonEdit">
+      <Version>5.0.4</Version>
+    </PackageReference>
+    <PackageReference Include="Prism.DryIoc">
+      <Version>7.1.0.431</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\BitmapView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SelectionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\StringOutputView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

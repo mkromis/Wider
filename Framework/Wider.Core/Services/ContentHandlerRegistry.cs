@@ -10,8 +10,8 @@
 
 #endregion
 
-using Autofac;
 using Prism.Commands;
+using Prism.Ioc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +49,7 @@ namespace Wider.Core.Services
         /// <summary>
         /// The container
         /// </summary>
-        private readonly IContainer _container;
+        private readonly IContainerExtension _container;
 
         /// <summary>
         /// The status bar service
@@ -85,7 +85,7 @@ namespace Wider.Core.Services
         /// Constructor of content handler registry
         /// </summary>
         /// <param name="container">The injected container of the application</param>
-        public ContentHandlerRegistry(IContainer container, IStatusbarService statusBar)
+        public ContentHandlerRegistry(IContainerExtension container, IStatusbarService statusBar)
         {
             ContentHandlers = new List<IContentHandler>();
             _container = container;
@@ -190,7 +190,7 @@ namespace Wider.Core.Services
         {
             if (_workspace == null)
             {
-                _workspace = _container.Resolve<AbstractWorkspace>();
+                _workspace = _container.Resolve<IWorkspace>();
             }
 
             if (_availableNewContent.Count == 1)
@@ -202,7 +202,7 @@ namespace Wider.Core.Services
             }
             else
             {
-                _container.TryResolve(out INewFileWindow window);
+                INewFileWindow window = _container.Resolve<INewFileWindow>();
                 if (window == null) { return; }
                 Brush backup = _statusBar.Background;
                 _statusBar.Background = _newBackground;
