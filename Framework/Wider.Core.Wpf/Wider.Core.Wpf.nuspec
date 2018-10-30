@@ -14,8 +14,8 @@
         <copyright>Copyright 2018</copyright>
         <tags>IDE Framework Core</tags>
         <dependencies>
-            <dependency id="Extended.Wpf.Toolkit" version="(3.4.0,4]" />
-            <dependency id="Prism.DryIoc" version="(7.1.0, 8]" />
+            <dependency id="Extended.Wpf.Toolkit" version="[3.4.0,4)" />
+            <dependency id="Prism.DryIoc" version="[7.1.0.431, 8)" />
         </dependencies>
     </metadata>
 </package>
