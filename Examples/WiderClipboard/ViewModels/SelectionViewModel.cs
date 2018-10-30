@@ -1,4 +1,4 @@
-﻿using Autofac;
+﻿using Prism.Ioc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +39,7 @@ namespace WiderClipboard.ViewModels
             }
         }
 
-        public SelectionViewModel(IContainer container)
+        public SelectionViewModel(IContainerExtension container)
         {
             ICommandManager commandManager = container.Resolve<ICommandManager>();
 
