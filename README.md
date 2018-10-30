@@ -3,6 +3,13 @@
 ## Status Badge
 [![Build Status](https://dev.azure.com/TorisanKitsune/Wider/_apis/build/status/TorisanKitsune.Wider)](https://dev.azure.com/TorisanKitsune/Wider/_build/latest?definitionId=1)
 
+## Prism 7 changes.
+Starting with Prism 7, the WiderBootstrapper is obsolete. 
+This will require updating to WiderApplication that is the new style for Prism 7.
+This also changes from Autofac to DryIoc. 
+
+* See the updated tutorial in the wiki for more information. 
+
 ### What is this?
 Wide is a participatory IDE framework which uses WPF and Prism to build IDE-like applications (eg: Visual Studio 2012/2013, Eclipse etc.) 
 
