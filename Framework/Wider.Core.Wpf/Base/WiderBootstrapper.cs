@@ -30,6 +30,7 @@ using Wider.Core.Views;
 
 namespace Wider.Core
 {
+    [Obsolete("It is recommended to use the new WiderApplication as the app's base class. This will require updating the App.xaml and the App.xaml.cs files.")]
     public class WiderBootstrapper : DryIocBootstrapper
     {
         //If you want your own splash window - inherit from the bootstrapper and register type ISplashView
