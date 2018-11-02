@@ -64,7 +64,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Models\Workspace.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
@@ -96,13 +95,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Prism.Autofac" Version="6.3.0" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\Framework\Wider.Core.Wpf\Wider.Core.Wpf.csproj">
       <Project>{F4242FA3-2404-4EA4-95D9-D00057F277D1}</Project>
       <Name>Wider.Core.Wpf</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Prism.DryIoc">
+      <Version>7.1.0.431</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
