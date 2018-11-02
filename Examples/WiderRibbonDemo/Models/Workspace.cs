@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Prism.Events;
+using Prism.Ioc;
 using Wider.Core.Services;
-using Autofac;
-using Prism.Events;
 
 namespace WiderRibbonDemo.Models
 {
-    class Workspace : AbstractWorkspace
+    internal class Workspace : AbstractWorkspace
     {
-        IContainer container;
-        IEventAggregator eventAggregator;
+        private readonly IContainerExtension container;
+        private readonly IEventAggregator eventAggregator;
 
-        public Workspace(IContainer container, IEventAggregator eventAggregator) : base(container, eventAggregator)
+        public Workspace(IContainerExtension container, IEventAggregator eventAggregator) : base(container, eventAggregator)
         {
             this.container = container;
             this.eventAggregator = eventAggregator;

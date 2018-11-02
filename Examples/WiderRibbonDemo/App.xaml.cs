@@ -1,18 +1,12 @@
 ﻿using System.Windows;
+using Wider.Core;
 
 namespace WiderRibbonDemo
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App : WiderApplication
     {
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
-
-            Bootstrapper bootstrapper = new Bootstrapper();
-            bootstrapper.Run();
-        }
     }
 }
