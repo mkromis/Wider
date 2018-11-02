@@ -1,7 +1,8 @@
-﻿using Autofac;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Events;
+using Prism.Ioc;
 using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
@@ -14,28 +15,28 @@ namespace WiderClipboard.Models
 {
     internal class Workspace : AbstractWorkspace
     {
-        public Workspace(IContainer container, IEventAggregator eventAggregator) : base(container, eventAggregator)
+        public Workspace(IContainerExtension container, IEventAggregator eventAggregator) : base(container, eventAggregator)
         {
             Title = "Wider Clipboard Viewer";
 
             LoadCommand();
             LoadMenu();
-            LoadToolbar();
+            //LoadToolbar();
+            LoadTools();
         }
 
         private void LoadCommand()
         {
             ICommandManager commandManager = _container.Resolve<ICommandManager>();
 
-            ICommand refreshCommand = new DelegateCommand(RefreshCommand);
-            ICommand updateClipboard = new DelegateCommand<String>(UpdateDocument);
+            ICommand selectionView = new DelegateCommand(() => Tools.Where(x => x.Title == "Selection").First().IsVisible = true);
+            ICommand refreshCommand = new DelegateCommand(() => ((SelectionViewModel)Tools.Where(x => x.Title == "Selection").First()).Refresh());
             ICommand exitCommand = new DelegateCommand(() => App.Current.MainWindow.Close());
 
+            commandManager.RegisterCommand("SelectionView", selectionView);
             commandManager.RegisterCommand("RefreshCommand", refreshCommand);
-            commandManager.RegisterCommand("UpdateCommand", updateClipboard);
             commandManager.RegisterCommand("ExitCommand", exitCommand);
         }
-
 
         private void LoadMenu()
         {
@@ -55,8 +56,10 @@ namespace WiderClipboard.Models
                 commandManager.GetCommand("RefreshCommand"),
                 new KeyGesture(Key.F5)));
 
-            // Clipboard items
-            menuService.Add(new MenuItemViewModel("_Clipboard", 3));
+            // Tools Menu
+            menuService.Add(new MenuItemViewModel("_Tools", 3));
+            menuService.Get("_Tools").Add(new MenuItemViewModel("_Selection", 401, null,
+                commandManager.GetCommand("SelectionView"), new KeyGesture(Key.F9)));
         }
 
         private void LoadToolbar()
@@ -70,73 +73,10 @@ namespace WiderClipboard.Models
             toolbarService.Get("Standard").Add(new MenuItemViewModel("Clipboard", 201));
         }
 
-        // Menu command to refersh the cliboard command
-        private void RefreshCommand()
+        private void LoadTools()
         {
-            // Refresh Menu items
-            ICommandManager commandManager = _container.Resolve<ICommandManager>();
-            IToolbarService toolbarService = _container.Resolve<IToolbarService>();
-            IMenuService menuService = _container.Resolve<IMenuService>();
-
-            MenuItemViewModel item = menuService.Get("_Clipboard") as MenuItemViewModel;
-            foreach (AbstractCommandable child in item.Children)
-            {
-                item.Remove(child.GuidString);
-            }
-
-            Int32 index = 300;
-            foreach (String name in Clipboard.GetDataObject().GetFormats(false))
-            {
-                item.Add(new MenuItemViewModel(name, ++index, null,
-                    commandManager.GetCommand("UpdateCommand"))
-                {
-                    CommandParameter = name
-                });
-
-                toolbarService.Get("Standard").Get("Clipboard").Add(
-                    new MenuItemViewModel(name, ++index, null, commandManager.GetCommand("UpdateCommand"))
-                    {
-                        CommandParameter = name
-                    });
-            }
-            menuService.Refresh();
-            Documents.Clear();
-        }
-
-        // Show the document for clipboard strings.
-        private void UpdateDocument(String format)
-        {
-            try
-            {
-                Object data = Clipboard.GetData(format);
-
-                switch (data)
-                {
-                    case String stringData:
-                        {
-                            StringOutputViewModel viewModel = _container.Resolve<StringOutputViewModel>();
-                            viewModel.Title = format;
-                            viewModel.Content = stringData;
-                            Documents.Add(viewModel);
-                            return;
-                        }
-                    case String[] stringArray:
-                        {
-                            StringOutputViewModel viewModel = _container.Resolve<StringOutputViewModel>();
-                            viewModel.Title = format;
-                            viewModel.Content = String.Join("\n", stringArray);
-                            Documents.Add(viewModel);
-                            return;
-                        }
-                }
-            }
-            catch (COMException e)
-            {
-                StringOutputViewModel viewModel = _container.Resolve<StringOutputViewModel>();
-                viewModel.Title = format;
-                viewModel.Content = e.Message;
-                Documents.Add(viewModel);
-            }
+            SelectionViewModel selectionViewModel = _container.Resolve<SelectionViewModel>();
+            Tools.Add(selectionViewModel);
         }
     }
 }

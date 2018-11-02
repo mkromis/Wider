@@ -10,7 +10,6 @@
 
 #endregion
 
-using Autofac;
 using System;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -32,12 +31,10 @@ namespace Wider.Core.Controls
         /// <param name="icon">The icon.</param>
         /// <param name="command">The command.</param>
         /// <param name="isCheckable">if set to <c>true</c> does nothing in the case of toolbar - default value is false.</param>
-        /// <param name="container">The container.</param>
         /// <exception cref="System.ArgumentException">Header cannot be SEP for a Toolbar</exception>
         public ToolbarViewModel(
-            String header, Int32 priority, ImageSource icon = null, ICommand command = null,
-            Boolean isCheckable = false, IContainer container = null)
-            : base(header, priority, icon, command, isCheckable, container)
+            String header, Int32 priority, ImageSource icon = null, ICommand command = null, Boolean isCheckable = false)
+            : base(header, priority, icon, command, isCheckable)
         {
         }
 

@@ -10,8 +10,8 @@
 
 #endregion
 
-using Autofac;
 using Prism.Events;
+using Prism.Ioc;
 using Prism.Logging;
 using System;
 using System.Linq;
@@ -29,12 +29,12 @@ namespace Wider.Core.Views
     /// </summary>
     internal partial class ShellView : Window, IShell
     {
-        private readonly IContainer _container;
+        private readonly IContainerExtension _container;
         private IEventAggregator _eventAggregator;
         private ILoggerService _logger;
         private IWorkspace _workspace;
 
-        public ShellView(IContainer container, IEventAggregator eventAggregator)
+        public ShellView(IContainerExtension container, IEventAggregator eventAggregator)
         {
             InitializeComponent();
             _container = container;
@@ -42,14 +42,12 @@ namespace Wider.Core.Views
         }
 
         #region IShell Members
-
         public void LoadLayout()
         {
             XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(dockManager);
             layoutSerializer.LayoutSerializationCallback += (s, e) =>
             {
-                _workspace =
-                    _container.Resolve<AbstractWorkspace>();
+                _workspace = _container.Resolve<IWorkspace>();
 
                 if (e.Model is LayoutAnchorable anchorable)
                 {
