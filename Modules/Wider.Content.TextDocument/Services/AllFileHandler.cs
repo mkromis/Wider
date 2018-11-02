@@ -1,5 +1,6 @@
 ﻿#region License
 
+// Copyright (c) 2018 Mark Kromis
 // Copyright (c) 2013 Chandramouleswaran Ravichandran
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -10,9 +11,8 @@
 
 #endregion
 
-using Autofac;
-using Prism.Autofac;
 using Microsoft.Win32;
+using Prism.Ioc;
 using Prism.Logging;
 using System;
 using System.IO;
@@ -36,7 +36,7 @@ namespace Wider.Content.Services
         /// <summary>
         /// The injected container
         /// </summary>
-        private readonly IContainer _container;
+        private readonly IContainerExtension _container;
 
         /// <summary>
         /// The injected logger service
@@ -53,7 +53,7 @@ namespace Wider.Content.Services
         /// </summary>
         /// <param name="container">The injected container of the application</param>
         /// <param name="loggerService">The injected logger service of the application</param>
-        public AllFileHandler(IContainer container, ILoggerService loggerService)
+        public AllFileHandler(IContainerExtension container, ILoggerService loggerService)
         {
             _container = container;
             _loggerService = loggerService;

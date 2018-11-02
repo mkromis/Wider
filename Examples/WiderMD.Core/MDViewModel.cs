@@ -19,7 +19,7 @@ namespace WiderMD.Core
     internal class MDViewModel : TextViewModel
     {
         public MDViewModel(
-            AbstractWorkspace workspace, ICommandManager commandManager, ILoggerService logger, IMenuService menuService)
+            IWorkspace workspace, ICommandManager commandManager, ILoggerService logger, IMenuService menuService)
             : base(workspace, commandManager, logger, menuService)
         {
         }

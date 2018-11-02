@@ -14,8 +14,9 @@
         <copyright>Copyright 2018</copyright>
         <tags>IDE TestDocument Module</tags>
         <dependencies>
-            <dependency id="AvalonEdit" version="(5.0.4,6]" />
-            <dependency id="Prism.Autofac" version="6.3.0" />
+            <dependency id="AvalonEdit" version="[5.0.4,6)" />
+            <dependency id="Prism.Wpf" version="[7.1.0.431, 8)" />
+            <dependency id="Wider.Core" version="0.1.0" />
         </dependencies>
     </metadata>
 </package>

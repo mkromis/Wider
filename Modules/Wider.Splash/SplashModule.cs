@@ -1,5 +1,6 @@
 ﻿#region License
 
+// Copyright (c) 2018 Mark Kromis
 // Copyright (c) 2013 Chandramouleswaran Ravichandran
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -10,9 +11,8 @@
 
 #endregion
 
-using Autofac;
-using Prism.Autofac;
 using Prism.Events;
+using Prism.Ioc;
 using Prism.Modularity;
 using System;
 using System.Threading;
@@ -20,7 +20,6 @@ using System.Windows;
 using System.Windows.Threading;
 using Wider.Core.Events;
 using Wider.Core.Services;
-using Wider.Splash.ViewModels;
 using Wider.Splash.Views;
 
 namespace Wider.Splash
@@ -28,16 +27,8 @@ namespace Wider.Splash
     [Module(ModuleName = "Wider.Splash")]
     public sealed class SplashModule : IModule
     {
-        private readonly ContainerBuilder _builder;
-        private readonly IContainer _container;
-
         #region ctors
-        public SplashModule(ContainerBuilder builder, IContainer container, IEventAggregator eventAggregator_)
-        {
-            _builder = builder;
-            _container = container;
-            EventAggregator = eventAggregator_;
-        }
+        public SplashModule(IEventAggregator eventAggregator_) => EventAggregator = eventAggregator_;
 
         #endregion
 
@@ -53,32 +44,23 @@ namespace Wider.Splash
 
         #region IModule Members
 
-        public void Initialize()
+        public void RegisterTypes(IContainerRegistry containerRegistry) => containerRegistry.RegisterSingleton<ISplashView, SplashView>();
+
+        public void OnInitialized(IContainerProvider containerProvider)
         {
             Dispatcher.CurrentDispatcher.BeginInvoke((Action)(() =>
-           {
-               (_container.Resolve<IShell>() as Window).Show();
+            {
+               (containerProvider.Resolve<IShell>() as Window).Show();
                EventAggregator.GetEvent<SplashCloseEvent>().Publish(new SplashCloseEvent());
-           }));
+            }));
 
             WaitForCreation = new AutoResetEvent(false);
 
             void showSplash()
             {
                 Dispatcher.CurrentDispatcher.BeginInvoke((Action)(() =>
-               {
-                   _builder.RegisterType<SplashViewModel>();
-                   ISplashView iSplashView;
-                   try
-                   {
-                       //The end user might have set a splash view - try to use that
-                       iSplashView = _container.Resolve<ISplashView>();
-                   }
-                   catch (Exception)
-                   {
-                       _builder.RegisterType<SplashView>().As<ISplashView>();
-                       iSplashView = _container.Resolve<ISplashView>();
-                   }
+                {
+                   ISplashView iSplashView = containerProvider.Resolve<ISplashView>();
                    if (iSplashView is Window splash)
                    {
                        EventAggregator.GetEvent<SplashCloseEvent>().Subscribe(
@@ -88,7 +70,7 @@ namespace Wider.Splash
                        splash.Show();
                        WaitForCreation.Set();
                    }
-               }));
+                }));
 
                 Dispatcher.Run();
             }
@@ -99,7 +81,6 @@ namespace Wider.Splash
 
             WaitForCreation.WaitOne();
         }
-
         #endregion
     }
 }

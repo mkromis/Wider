@@ -10,41 +10,70 @@
 
 #endregion
 
-using Autofac;
-using Prism.Autofac;
 using System;
 using System.Windows;
+using Prism.Ioc;
+using Prism.Modularity;
+using Wider.Core;
 using Wider.Core.Services;
+using Wider.Splash;
+using WiderMD.Views;
 
 namespace WiderMD
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App : WiderApplication
     {
-        private MDBootstrapper b;
+        //private MDBootstrapper b;
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            base.OnStartup(e);
-            b = new MDBootstrapper();
-            b.Run();
-            IShell shell = b.Container.Resolve<IShell>();
-            (shell as Window).Loaded += App_Loaded;
-            (shell as Window).Unloaded += App_Unloaded;
+            base.RegisterTypes(containerRegistry);
+
+            //Register your splash view or else the default splash will load
+            containerRegistry.RegisterSingleton<ISplashView, AppSplash>();
+
+            //Register your workspace here - if you have any
+            containerRegistry.RegisterSingleton<IWorkspace, MDWorkspace>();
+
         }
 
-        void App_Unloaded(Object sender, System.EventArgs e)
+        protected override void InitializeModules()
         {
-            IShell shell = b.Container.Resolve<IShell>();
-            shell.SaveLayout();
+            // You can also override the logger service. Currently, NLog is used.
+            // Since the config file is there in the output location, text files should be available in the Logs folder.
+
+            //Initialize the original bootstrapper which will load modules from the probing path. Check app.config for probing path.
+            base.InitializeModules();
         }
 
-        void App_Loaded(Object sender, RoutedEventArgs e)
+        protected override IModuleCatalog CreateModuleCatalog()
         {
-            IShell shell = b.Container.Resolve<IShell>();
-            shell.LoadLayout();
+            MultipleDirectoryModuleCatalog catalog =
+                new MultipleDirectoryModuleCatalog(new String[] { @".", @".\External", @".\Internal" });
+            return catalog;
         }
+
+        //protected override void OnStartup(StartupEventArgs e)
+        //{
+        //    base.OnStartup(e);
+        //    IShell shell = Container.Resolve<IShell>();
+        //    (shell as Window).Loaded += App_Loaded;
+        //    (shell as Window).Unloaded += App_Unloaded;
+        //}
+
+        //void App_Unloaded(Object sender, System.EventArgs e)
+        //{
+        //    IShell shell = Container.Resolve<IShell>();
+        //    shell.SaveLayout();
+        //}
+
+        //void App_Loaded(Object sender, RoutedEventArgs e)
+        //{
+        //    IShell shell = Container.Resolve<IShell>();
+        //    shell.LoadLayout();
+        //}
     }
 }

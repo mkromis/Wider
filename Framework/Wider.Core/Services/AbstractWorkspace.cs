@@ -10,9 +10,8 @@
 
 #endregion
 
-using Autofac;
-using Prism.Autofac;
 using Prism.Events;
+using Prism.Ioc;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -24,7 +23,6 @@ using System.Windows.Media;
 using Wider.Core.Controls;
 using Wider.Core.Events;
 using Wider.Core.Services;
-using IContainer = Autofac.IContainer;
 
 namespace Wider.Core.Services
 {
@@ -38,7 +36,7 @@ namespace Wider.Core.Services
         /// <summary>
         /// The injected container
         /// </summary>
-        protected readonly Autofac.IContainer _container;
+        protected readonly IContainerExtension _container;
 
         /// <summary>
         /// The injected event aggregator
@@ -89,7 +87,7 @@ namespace Wider.Core.Services
         /// </summary>
         /// <param name="container">The injected container.</param>
         /// <param name="eventAggregator">The event aggregator.</param>
-        protected AbstractWorkspace(IContainer container, IEventAggregator eventAggregator)
+        protected AbstractWorkspace(IContainerExtension container, IEventAggregator eventAggregator)
         {
             _container = container;
             _eventAggregator = eventAggregator;

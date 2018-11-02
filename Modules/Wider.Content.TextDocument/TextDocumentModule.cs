@@ -1,7 +1,6 @@
-﻿using Autofac;
-using Prism.Events;
+﻿using Prism.Events;
+using Prism.Ioc;
 using Prism.Modularity;
-using Prism.Regions;
 using Wider.Content.Services;
 using Wider.Content.TextDocument.ViewModels;
 using Wider.Content.TextDocument.Views;
@@ -13,35 +12,25 @@ namespace Wider.Content.TextDocument
     [Module(ModuleName = "Wider.Content.TextDocument")]
     public class TextDocumentModule : IModule
     {
-        private readonly IRegionManager _regionManager;
-        private readonly ContainerBuilder _builder;
-        private readonly IContainer _container;
-
-        private IEventAggregator EventAggregator => _container.Resolve<IEventAggregator>();
-
-        public TextDocumentModule(ContainerBuilder builder, IContainer container, IRegionManager regionManager)
+        public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            _builder = builder;
-            _container = container;
-            _regionManager = regionManager;
+            // Register container types
+            containerRegistry.Register<TextViewModel>();
+            containerRegistry.Register<TextModel>();
+            containerRegistry.Register<TextView>();
+            containerRegistry.Register<AllFileHandler>();
         }
 
-        public void Initialize()
+        public void OnInitialized(IContainerProvider containerProvider)
         {
+            IEventAggregator eventAggregator = containerProvider.Resolve<IEventAggregator>();
             // Note splash page
-            EventAggregator.GetEvent<SplashMessageUpdateEvent>()
+            eventAggregator.GetEvent<SplashMessageUpdateEvent>()
                 .Publish(new SplashMessageUpdateEvent { Message = "Loading TextDocument Module" });
 
-            // Register container types
-            _builder.RegisterType<TextViewModel>();
-            _builder.RegisterType<TextModel>();
-            _builder.RegisterType<TextView>();
-            _builder.RegisterType<AllFileHandler>();
-            _builder.Update(_container);
-
             //Register a default file opener
-            IContentHandlerRegistry registry = _container.Resolve<IContentHandlerRegistry>();
-            registry.Register(_container.Resolve<AllFileHandler>());
+            IContentHandlerRegistry registry = containerProvider.Resolve<IContentHandlerRegistry>();
+            registry.Register(containerProvider.Resolve<AllFileHandler>());
         }
     }
 }

@@ -135,7 +135,9 @@
     <PackageReference Include="MahApps.Metro">
       <Version>1.6.5</Version>
     </PackageReference>
-    <PackageReference Include="Prism.Autofac" Version="6.3.0" />
+    <PackageReference Include="Prism.Wpf">
+      <Version>7.1.0.431</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\" />
