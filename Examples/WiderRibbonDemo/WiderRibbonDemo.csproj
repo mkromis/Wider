@@ -99,8 +99,15 @@
       <Project>{F4242FA3-2404-4EA4-95D9-D00057F277D1}</Project>
       <Name>Wider.Core.Wpf</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Modules\Wider.Shell.Ribbon\Wider.Shell.Ribbon.csproj">
+      <Project>{56a7df3e-1dd7-4b75-86e9-d27be729190f}</Project>
+      <Name>Wider.Shell.Ribbon</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Fluent.Ribbon">
+      <Version>6.1.0.326</Version>
+    </PackageReference>
     <PackageReference Include="Prism.DryIoc">
       <Version>7.1.0.431</Version>
     </PackageReference>

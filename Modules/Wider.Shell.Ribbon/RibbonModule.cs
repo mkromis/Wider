@@ -1,5 +1,7 @@
 ﻿using Prism.Ioc;
 using Prism.Modularity;
+using Wider.Core.Services;
+using Wider.Shell.Ribbon.Views;
 
 namespace Wider.Shell.Ribbon
 {
@@ -12,7 +14,7 @@ namespace Wider.Shell.Ribbon
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-
+            containerRegistry.Register<IShell, ShellView>();
         }
     }
 }

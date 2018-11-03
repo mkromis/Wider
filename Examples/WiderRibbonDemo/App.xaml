@@ -6,6 +6,6 @@
     xmlns:wider="clr-namespace:Wider.Core;assembly=Wider.Core"
     xmlns:local="clr-namespace:WiderRibbonDemo">
     <Application.Resources>
-
+        <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
     </Application.Resources>
 </wider:WiderApplication>

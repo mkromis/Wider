@@ -1,14 +1,13 @@
-﻿<Window 
-    x:Class="Wider.Core.Views.ShellView" 
+﻿<fluent:RibbonWindow 
+    x:Class="Wider.Shell.Ribbon.Views.ShellView" 
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" x:ClassModifier="internal"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
-    
-    xmlns:local="clr-namespace:Wider.Core" 
-    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-    xmlns:Converter="clr-namespace:Wider.Core.Converters"
+    xmlns:fluent="urn:fluent-ribbon"
+    xmlns:local="clr-namespace:Wider.Core;assembly=Wider.Core"
     xmlns:prism="http://prismlibrary.com/"
-    
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:Converter="clr-namespace:Wider.Core.Converters;assembly=Wider.Core"
     Title="{Binding Title}" Icon="{Binding Icon}" Closing="Window_Closing_1">
     <Window.Resources>
         <ResourceDictionary>
@@ -29,22 +28,32 @@
     </Window.Resources>
     <Border>
         <DockPanel>
+            <!-- Ribbon Menu -->
+            <fluent:Ribbon DockPanel.Dock="Top">
+                <fluent:RibbonTabItem Header="Sample1">
+                    
+                </fluent:RibbonTabItem>
+            </fluent:Ribbon>
+            
             <!--Menu-->
             <Menu 
                 DockPanel.Dock="Top" IsMainMenu="True" x:Name="mainMenu" VerticalAlignment="Top" 
                 ItemContainerStyle="{DynamicResource StandardMenuStyle}"
                 ItemsSource="{Binding Path=Menus, UpdateSourceTrigger=PropertyChanged}" />
+            
             <!--Toolbar (can we improve this?)-->
             <ContentControl Content="{Binding ToolBarTray}" DockPanel.Dock="Top" />
 
             <!--Status bar-->
-            <ContentControl DockPanel.Dock="Bottom" prism:RegionManager.RegionName="StatusBar" />
+            <ItemsControl Name="StatusBar" DockPanel.Dock="Bottom" prism:RegionManager.RegionName="StatusBar" />
 
             <!--The magical avalon dock-->
-            <avalonDock:DockingManager x:Name="dockManager" AnchorablesSource="{Binding Tools}"
-                                       DocumentsSource="{Binding Documents}"
-                                       ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource ActiveDocumentConverter}}" 
-                                       ActiveContentChanged="DockManager_ActiveContentChanged">
+            <avalonDock:DockingManager 
+                x:Name="dockManager" 
+                AnchorablesSource="{Binding Tools}"
+                DocumentsSource="{Binding Documents}"
+                ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource ActiveDocumentConverter}}" 
+                ActiveContentChanged="DockManager_ActiveContentChanged">
                 <!--<avalonDock:DockingManager.Theme>
                     <avalonDock:VS2012Theme />
                 </avalonDock:DockingManager.Theme>-->
@@ -101,4 +110,4 @@
             </avalonDock:DockingManager>
         </DockPanel>
     </Border>
-</Window>
+</fluent:RibbonWindow>
