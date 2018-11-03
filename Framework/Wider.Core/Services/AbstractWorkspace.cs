@@ -69,11 +69,6 @@ namespace Wider.Core.Services
         protected AbstractToolbar _toolbarService;
 
         /// <summary>
-        /// The status bar service
-        /// </summary>
-        protected IStatusbarService _statusbarService;
-
-        /// <summary>
         /// The list of tools
         /// </summary>
         protected ObservableCollection<ToolViewModel> _tools = new ObservableCollection<ToolViewModel>();
@@ -97,8 +92,7 @@ namespace Wider.Core.Services
             _menus = _container.Resolve<IMenuService>() as MenuItemViewModel;
             _menus.PropertyChanged += _menus_PropertyChanged;
             _toolbarService = _container.Resolve<IToolbarService>() as AbstractToolbar;
-            _statusbarService = _container.Resolve<IStatusbarService>() as IStatusbarService;
-            _commandManager = _container.Resolve<ICommandManager>() as ICommandManager;
+            _commandManager = _container.Resolve<ICommandManager>();
         }
 
         #endregion
@@ -116,8 +110,6 @@ namespace Wider.Core.Services
         /// </summary>
         /// <value>The tool bar tray.</value>
         public ToolBarTray ToolBarTray => (_toolbarService as IToolbarService).ToolBarTray;
-
-        public IStatusbarService StatusBar => _statusbarService;
 
         #endregion
 

@@ -19,10 +19,8 @@ namespace Wider.Core
             coreModule.RegisterTypes(containerRegistry);
         }
 
-        protected override IModuleCatalog CreateModuleCatalog()
-        {
-            return new DirectoryModuleCatalog { ModulePath = "." };
-        }
+        protected override IModuleCatalog CreateModuleCatalog() => 
+            new DirectoryModuleCatalog { ModulePath = "." };
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {

@@ -10,10 +10,10 @@
 
 #endregion
 
+using Fluent;
 using Prism.Events;
 using Prism.Ioc;
 using Prism.Logging;
-using Prism.Regions;
 using System;
 using System.Linq;
 using System.Windows;
@@ -23,12 +23,12 @@ using Xceed.Wpf.AvalonDock;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
 
-namespace Wider.Core.Views
+namespace Wider.Shell.Ribbon.Views
 {
     /// <summary>
     /// Interaction logic for Shell.xaml
     /// </summary>
-    internal partial class ShellView : Window, IShell
+    internal partial class ShellView : RibbonWindow, IShell
     {
         private readonly IContainerExtension _container;
         private IEventAggregator _eventAggregator;

@@ -23,7 +23,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\MenuItemViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ToolBarItemTemplateSelector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ToolbarViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\WiderStatusbar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\StatusbarService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ActiveDocumentConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BoolToInsertModeConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\MenuVisibilityConverter.cs" />
