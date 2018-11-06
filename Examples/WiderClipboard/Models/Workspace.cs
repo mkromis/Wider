@@ -21,7 +21,7 @@ namespace WiderClipboard.Models
 
             LoadCommand();
             LoadMenu();
-            //LoadToolbar();
+            LoadToolbar();
             LoadTools();
         }
 
