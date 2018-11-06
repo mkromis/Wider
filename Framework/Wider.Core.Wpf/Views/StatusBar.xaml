@@ -65,12 +65,12 @@
         <StatusBarItem Grid.Column="5" Visibility="{Binding Path=CharPosition, Converter={StaticResource ResourceKey=nullToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Foreground="{Binding Path=Foreground, UpdateSourceTrigger=PropertyChanged}" Text="Ch " />
-                <TextBlock Foreground="{Binding Path=Foreground, UpdateSourceTrigger=PropertyChanged}" Text="{Binding Path=StatusBar.CharPosition, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Foreground="{Binding Path=Foreground, UpdateSourceTrigger=PropertyChanged}" Text="{Binding Path=CharPosition, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
         </StatusBarItem>
         <!--Insert-->
         <StatusBarItem Grid.Column="6" HorizontalAlignment="Right" Visibility="{Binding Path=InsertMode, Converter={StaticResource ResourceKey=nullToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}">
-            <TextBlock Foreground="{Binding Path=Foreground, UpdateSourceTrigger=PropertyChanged}" Text="{Binding Path=StatusBar.InsertMode, Converter={StaticResource ResourceKey=booleanToInsertModeConverter}, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Foreground="{Binding Path=Foreground, UpdateSourceTrigger=PropertyChanged}" Text="{Binding Path=InsertMode, Converter={StaticResource ResourceKey=booleanToInsertModeConverter}, UpdateSourceTrigger=PropertyChanged}" />
         </StatusBarItem>
     </StatusBar>
 </UserControl>
