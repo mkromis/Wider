@@ -26,7 +26,7 @@ namespace Wider.Core.Services
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns><c>true</c> if successfully added, <c>false</c> otherwise</returns>
-        String Add(AbstractCommandable item);
+        String Add(AbstractToolbar item);
 
         /// <summary>
         /// Removes the specified key.
@@ -45,9 +45,8 @@ namespace Wider.Core.Services
         /// <summary>
         /// Gets the right click menu.
         /// </summary>
-        /// <value>The right click menu.</value>
-        //AbstractMenuItem RightClickMenu { get; }
-#warning fix Right click menu call
+        /// <returns>The right click menu.</returns>
+        AbstractMenuItem ContextMenuItems { get; }
 
         /// <summary>
         /// Notify to update main toolbar

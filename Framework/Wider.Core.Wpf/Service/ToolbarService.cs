@@ -27,20 +27,20 @@ namespace Wider.Core.Services
     /// </summary>
     internal sealed class ToolbarService : AbstractToolbar, IToolbarService
     {
-        private static BoolToVisibilityConverter btv = new BoolToVisibilityConverter();
-        private AbstractMenuItem menuItem;
-        private ToolBarTray tray;
+        //private ToolBarTray tray;
 
         public ToolbarService() : base("$MAIN$", 0)
         {
         }
+
+        public AbstractMenuItem ContextMenuItems { get; set; }
 
         /// <summary>
         /// Adds the specified item.
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns><c>true</c> if successfully added, <c>false</c> otherwise</returns>
-        public override String Add(AbstractCommandable item)
+        public String Add(AbstractToolbar item)
         {
             if (item is AbstractToolbar tb)
             {
@@ -50,82 +50,6 @@ namespace Wider.Core.Services
             return base.Add(item);
         }
 
-        /// <summary>
-        /// The toolbar tray which will be used in the application
-        /// </summary>
-        public ToolBarTray ToolBarTray
-        {
-            get
-            {
-                if (tray == null)
-                {
-                    tray = new ToolBarTray
-                    {
-                        ContextMenu = new ContextMenu()
-                    };
-                    tray.ContextMenu.ItemsSource = _children;
-                    IAddChild child = tray;
-                    foreach (AbstractCommandable node in Children)
-                    {
-                        if (node is AbstractToolbar value)
-                        {
-                            ToolBar tb = new ToolBar();
-
-                            DataTemplateSelector t =
-                                Application.Current.MainWindow.FindResource("toolBarItemTemplateSelector") as
-                                DataTemplateSelector;
-                            tb.SetValue(ItemsControl.ItemTemplateSelectorProperty, t);
-
-                            //Set the necessary bindings
-                            Binding bandBinding = new Binding("Band");
-                            Binding bandIndexBinding = new Binding("BandIndex");
-                            Binding visibilityBinding = new Binding("IsChecked")
-                            {
-                                Converter = btv
-                            };
-
-                            bandBinding.Source = value;
-                            bandIndexBinding.Source = value;
-                            visibilityBinding.Source = value;
-
-                            bandBinding.Mode = BindingMode.TwoWay;
-                            bandIndexBinding.Mode = BindingMode.TwoWay;
-
-                            tb.SetBinding(ToolBar.BandProperty, bandBinding);
-                            tb.SetBinding(ToolBar.BandIndexProperty, bandIndexBinding);
-                            tb.SetBinding(ToolBar.VisibilityProperty, visibilityBinding);
-
-                            tb.ItemsSource = value.Children;
-                            child.AddChild(tb);
-                        }
-                    }
-                    tray.ContextMenu.ItemContainerStyle =
-                        Application.Current.MainWindow.FindResource("ToolbarContextMenu") as Style;
-
-                }
-                return tray;
-            }
-        }
-
-        public AbstractMenuItem RightClickMenu
-        {
-            get
-            {
-                if (tray == null)
-                {
-                    tray = ToolBarTray;
-                }
-                if (menuItem == null)
-                {
-                    menuItem = new MenuItemViewModel("_Toolbars", 100);
-                    foreach (Object value in tray.ContextMenu.ItemsSource)
-                    {
-                        AbstractMenuItem menu = value as AbstractMenuItem;
-                        menuItem.Add(menu);
-                    }
-                }
-                return menuItem;
-            }
-        }
+        public override String Add(AbstractCommandable item) => throw new NotImplementedException();
     }
 }
