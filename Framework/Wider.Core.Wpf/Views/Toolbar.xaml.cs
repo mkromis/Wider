@@ -36,8 +36,17 @@ namespace Wider.Core.Views
             InitializeComponent();
 
             _toolbarService = toolbarService as ToolbarService;
-            _toolbarService.PropertyChanged += (s, e) => RefreshToolbar();
+
+            // Update toolbar if service changed.
+            _toolbarService.PropertyChanged += (s, e) =>
+            {
+                RefreshToolbar();
+                UpdateContextMenu();
+            };
+
+            // Inital refresh
             RefreshToolbar();
+            UpdateContextMenu();
         }
 
         /// <summary>
@@ -45,8 +54,6 @@ namespace Wider.Core.Views
         /// </summary>
         private void RefreshToolbar()
         {
-
-
             IAddChild child = tray;
             foreach (AbstractCommandable node in _toolbarService.Children)
             {
@@ -83,25 +90,18 @@ namespace Wider.Core.Views
             }
         }
 
-        public void UpdateContextMenu()
+        private void UpdateContextMenu()
         {
-#warning fix toolbartray context menu
-            tray.ContextMenu = new ContextMenu();
-            //tray.ContextMenu.ItemsSource = _toolbarService._children;
-            tray.ContextMenu.ItemContainerStyle = FindResource("ToolbarContextMenu") as Style;
-
-            //if (menuItem == null)
-            //{
-            MenuItemViewModel menuItem = new MenuItemViewModel("_Toolbars", 100);
-            foreach (Object value in tray.ContextMenu.ItemsSource)
+            tray.ContextMenu = null;
+            if (_toolbarService.ContextMenuItems != null && _toolbarService.ContextMenuItems.Children.Count() > 0)
             {
-                AbstractMenuItem menu = value as AbstractMenuItem;
-                menuItem.Add(menu);
+                // Update Context Menu
+                tray.ContextMenu = new ContextMenu
+                {
+                    ItemsSource = _toolbarService.ContextMenuItems.Children,
+                    ItemContainerStyle = FindResource("ToolbarContextMenu") as Style,
+                };
             }
-            //}
-            //return menuItem;
-
-            tray.ContextMenu.ItemsSource = menuItem.Children;
         }
     }
 }

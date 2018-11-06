@@ -59,19 +59,15 @@ namespace Wider.Core.Services
         protected ObservableCollection<ContentViewModel> _docs = new ObservableCollection<ContentViewModel>();
 
         /// <summary>
-        /// The menu service
-        /// </summary>
-        protected MenuItemViewModel _menus;
-
-        /// <summary>
         /// The toolbar service
         /// </summary>
-        protected AbstractToolbar _toolbarService;
+        protected IToolbarService _toolbarService;
 
         /// <summary>
         /// The list of tools
         /// </summary>
         protected ObservableCollection<ToolViewModel> _tools = new ObservableCollection<ToolViewModel>();
+        private readonly IMenuService _menus;
 
         #endregion
 
@@ -89,27 +85,10 @@ namespace Wider.Core.Services
             _docs = new ObservableCollection<ContentViewModel>();
             _docs.CollectionChanged += Docs_CollectionChanged;
             _tools = new ObservableCollection<ToolViewModel>();
-            _menus = _container.Resolve<IMenuService>() as MenuItemViewModel;
-            _menus.PropertyChanged += _menus_PropertyChanged;
-            _toolbarService = _container.Resolve<IToolbarService>() as AbstractToolbar;
+            _menus = _container.Resolve<IMenuService>();
+            _toolbarService = _container.Resolve<IToolbarService>();
             _commandManager = _container.Resolve<ICommandManager>();
         }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets the menu.
-        /// </summary>
-        /// <value>The menu.</value>
-        public IList<AbstractCommandable> Menus => _menus.Children;
-
-        /// <summary>
-        /// Gets the tool bar tray.
-        /// </summary>
-        /// <value>The tool bar tray.</value>
-        public ToolBarTray ToolBarTray => (_toolbarService as IToolbarService).ToolBarTray;
 
         #endregion
 
@@ -150,6 +129,7 @@ namespace Wider.Core.Services
                     RaisePropertyChanged("ActiveDocument");
                     _commandManager.Refresh();
                     _menus.Refresh();
+                    _toolbarService.Refresh();
                     _eventAggregator.GetEvent<ActiveContentChangedEvent>().Publish(_activeDocument);
                 }
             }
@@ -201,14 +181,6 @@ namespace Wider.Core.Services
         }
 
         #endregion
-
-        /// <summary>
-        /// Handles the PropertyChanged event of the menu control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
-        private void _menus_PropertyChanged(Object sender, PropertyChangedEventArgs e) => RaisePropertyChanged("Menus");
-
 
         protected void Docs_CollectionChanged(Object sender, NotifyCollectionChangedEventArgs e)
         {
