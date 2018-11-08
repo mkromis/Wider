@@ -41,12 +41,10 @@ namespace Wider.Core.Views
             _toolbarService.PropertyChanged += (s, e) =>
             {
                 RefreshToolbar();
-                UpdateContextMenu();
             };
 
             // Inital refresh
             RefreshToolbar();
-            UpdateContextMenu();
         }
 
         /// <summary>
@@ -54,15 +52,16 @@ namespace Wider.Core.Views
         /// </summary>
         private void RefreshToolbar()
         {
+            ToolBarTray tray = new ToolBarTray();
             IAddChild child = tray;
+
             foreach (AbstractCommandable node in _toolbarService.Children)
             {
                 if (node is AbstractToolbar value)
                 {
                     ToolBar tb = new ToolBar();
 
-                    DataTemplateSelector t = FindResource("toolBarItemTemplateSelector") as
-                        DataTemplateSelector;
+                    DataTemplateSelector t = FindResource("toolBarItemTemplateSelector") as DataTemplateSelector;
                     tb.SetValue(ItemsControl.ItemTemplateSelectorProperty, t);
 
                     //Set the necessary bindings
@@ -88,10 +87,8 @@ namespace Wider.Core.Views
                     child.AddChild(tb);
                 }
             }
-        }
 
-        private void UpdateContextMenu()
-        {
+            // update context menu if available
             tray.ContextMenu = null;
             if (_toolbarService.ContextMenuItems != null && _toolbarService.ContextMenuItems.Children.Count() > 0)
             {
@@ -102,6 +99,8 @@ namespace Wider.Core.Views
                     ItemContainerStyle = FindResource("ToolbarContextMenu") as Style,
                 };
             }
+
+            content.Content = tray;
         }
     }
 }

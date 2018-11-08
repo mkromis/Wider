@@ -19,5 +19,5 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <ToolBarTray x:Name="tray" ContextMenu="{Binding ContextMenu}" />
+    <ContentControl x:Name="content" />
 </UserControl>
