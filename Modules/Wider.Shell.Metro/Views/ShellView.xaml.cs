@@ -23,6 +23,7 @@ using System.Windows.Data;
 using Wider.Core.Converters;
 using Wider.Core.Events;
 using Wider.Core.Services;
+using Wider.Core.Views;
 using Xceed.Wpf.AvalonDock.Controls;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
@@ -36,133 +37,29 @@ namespace Wider.Shell.Metro.Views
     {
         private IContainerExtension _container;
         private IEventAggregator _eventAggregator;
-        private ILoggerService _logger;
-        private IWorkspace _workspace;
-        private ContextMenu _docContextMenu;
-        private MultiBinding _itemSourceBinding;
 
         public ShellView(IContainerExtension container, IEventAggregator eventAggregator)
         {
             InitializeComponent();
             _container = container;
             _eventAggregator = eventAggregator;
-            _eventAggregator.GetEvent<ThemeChangeEvent>().Subscribe(ThemeChanged);
-            _docContextMenu = new ContextMenu();
-            dockManager.DocumentContextMenu = _docContextMenu;
-            _docContextMenu.ContextMenuOpening += _docContextMenu_ContextMenuOpening;
-            _docContextMenu.Opened += _docContextMenu_Opened;
-            _itemSourceBinding = new MultiBinding
-            {
-                Converter = new DocumentContextMenuMixingConverter()
-            };
-            Binding origModel = new Binding(".");
-            Binding docMenus = new Binding("Model.Menus");
-            _itemSourceBinding.Bindings.Add(origModel);
-            _itemSourceBinding.Bindings.Add(docMenus);
-            origModel.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-            docMenus.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-            _itemSourceBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-            _docContextMenu.SetBinding(ContextMenu.ItemsSourceProperty, _itemSourceBinding);
         }
 
         #region IShell Members
-
         public void LoadLayout()
         {
-            XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(dockManager);
-            layoutSerializer.LayoutSerializationCallback += (s, e) =>
-            {
-                _workspace = _container.Resolve<IWorkspace>();
-
-                if (e.Model is LayoutAnchorable anchorable)
-                {
-                    ToolViewModel model =
-                        _workspace.Tools.FirstOrDefault(
-                            f => f.ContentId == e.Model.ContentId);
-                    if (model != null)
-                    {
-                        e.Content = model;
-                        model.IsVisible = anchorable.IsVisible;
-                        model.IsActive = anchorable.IsActive;
-                        model.IsSelected = anchorable.IsSelected;
-                    }
-                    else
-                    {
-                        e.Cancel = true;
-                    }
-                }
-                if (e.Model is LayoutDocument document)
-                {
-                    IOpenDocumentService fileService =
-                        _container.Resolve<IOpenDocumentService>();
-                    ContentViewModel model =
-                        fileService.OpenFromID(e.Model.ContentId);
-                    if (model != null)
-                    {
-                        e.Content = model;
-                        model.IsActive = document.IsActive;
-                        model.IsSelected = document.IsSelected;
-                    }
-                    else
-                    {
-                        e.Cancel = true;
-                    }
-                }
-            };
-            try
-            {
-                layoutSerializer.Deserialize(
-                    AppDomain.CurrentDomain.BaseDirectory + Path.DirectorySeparatorChar + "AvalonDock.Layout.config");
-            }
-            catch (Exception)
-            {
-            }
+            ContentManager content = contentManager.Content as ContentManager;
+            content.LoadLayout();
         }
 
         public void SaveLayout()
         {
-            XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(dockManager);
-            layoutSerializer.Serialize(AppDomain.CurrentDomain.BaseDirectory + Path.DirectorySeparatorChar + "AvalonDock.Layout.config");
+            ContentManager content = contentManager.Content as ContentManager;
+            content.LoadLayout();
         }
-
         #endregion
 
         #region Events
-
-        private void _docContextMenu_Opened(Object sender, RoutedEventArgs e) => RefreshMenuBinding();
-
-        private void _docContextMenu_ContextMenuOpening(Object sender, ContextMenuEventArgs e)
-        {
-            /* When you right click a document - move the focus to that document, so that commands on the context menu
-             * which are based on the ActiveDocument work correctly. Example: Save.
-             */
-            if (_docContextMenu.DataContext is LayoutDocumentItem doc)
-            {
-                if (doc.Model is ContentViewModel model && model != dockManager.ActiveContent)
-                {
-                    dockManager.ActiveContent = model;
-                }
-            }
-            e.Handled = false;
-        }
-
-        private void RefreshMenuBinding()
-        {
-            MultiBindingExpression b = 
-                BindingOperations.GetMultiBindingExpression(
-                    _docContextMenu,
-                    ContextMenu.ItemsSourceProperty);
-            b.UpdateTarget();
-        }
-
-        private void ThemeChanged(ITheme theme)
-        {
-            //HACK: Reset the context menu or else old menu status is retained and does not theme correctly
-            dockManager.DocumentContextMenu = null;
-            dockManager.DocumentContextMenu = _docContextMenu;
-            _docContextMenu.Style = FindResource("MetroContextMenu") as Style;
-            _docContextMenu.ItemContainerStyle = FindResource("MetroMenuStyle") as Style;
-        }
 
         private void Window_Closing_1(Object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -183,23 +80,6 @@ namespace Wider.Shell.Metro.Views
                 Object backup = c.Content;
                 c.Content = null;
                 c.Content = backup;
-            }
-        }
-
-        #endregion
-
-        #region Property
-
-        private ILoggerService Logger
-        {
-            get
-            {
-                if (_logger == null)
-                {
-                    _logger = _container.Resolve<ILoggerService>();
-                }
-
-                return _logger;
             }
         }
 

@@ -17,7 +17,7 @@
             <ContentControl DockPanel.Dock="Bottom" prism:RegionManager.RegionName="StatusBar" />
 
             <!--The magical avalon dock-->
-            <ContentControl prism:RegionManager.RegionName="ContentManager" />
+            <ContentControl x:Name="contentManager" prism:RegionManager.RegionName="ContentManager" />
         </DockPanel>
     </Border>
 </Window>
