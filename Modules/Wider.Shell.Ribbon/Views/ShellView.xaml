@@ -2,28 +2,19 @@
     x:Class="Wider.Shell.Ribbon.Views.ShellView" 
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" x:ClassModifier="internal"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-    xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
     xmlns:fluent="urn:fluent-ribbon"
     xmlns:local="clr-namespace:Wider.Core;assembly=Wider.Core"
     xmlns:prism="http://prismlibrary.com/"
-    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-    xmlns:Converter="clr-namespace:Wider.Core.Converters;assembly=Wider.Core"
     Title="{Binding Title}" Icon="{Binding Icon}" Closing="Window_Closing_1">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary x:Name="ThemeDictionary">
                     <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="pack://application:,,,/Wider.Core;component/Styles/Controls.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/Wider.Core;component/Styles/ToolbarBinding.xaml" />
+                        <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
-            <avalonDock:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-            <Converter:ActiveDocumentConverter x:Key="ActiveDocumentConverter" />
-            <Converter:NullObjectToVisibiltyConverter x:Key="nullToVisibilityConverter" />
-            <Converter:BoolToInsertModeConverter x:Key="booleanToInsertModeConverter" />
-            <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
         </ResourceDictionary>
     </Window.Resources>
     <Border>
@@ -31,83 +22,21 @@
             <!-- Ribbon Menu -->
             <fluent:Ribbon DockPanel.Dock="Top">
                 <fluent:RibbonTabItem Header="Sample1">
-                    
+                    <fluent:RibbonGroupBox Header="Test1">
+                        <fluent:Button Header="Button1"/>
+                    </fluent:RibbonGroupBox>
                 </fluent:RibbonTabItem>
             </fluent:Ribbon>
-            
-            <!--Menu-->
-            <Menu 
-                DockPanel.Dock="Top" IsMainMenu="True" x:Name="mainMenu" VerticalAlignment="Top" 
-                ItemContainerStyle="{DynamicResource StandardMenuStyle}"
-                ItemsSource="{Binding Path=Menus, UpdateSourceTrigger=PropertyChanged}" />
-            
-            <!--Toolbar (can we improve this?)-->
-            <ContentControl Content="{Binding ToolBarTray}" DockPanel.Dock="Top" />
+
+            <!--Menu And Toolbar-->
+            <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="MainMenu" />
+            <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="Toolbar" />
 
             <!--Status bar-->
-            <ItemsControl Name="StatusBar" DockPanel.Dock="Bottom" prism:RegionManager.RegionName="StatusBar" />
+            <ContentControl DockPanel.Dock="Bottom" prism:RegionManager.RegionName="StatusBar"/>
 
-            <!--The magical avalon dock-->
-            <avalonDock:DockingManager 
-                x:Name="dockManager" 
-                AnchorablesSource="{Binding Tools}"
-                DocumentsSource="{Binding Documents}"
-                ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource ActiveDocumentConverter}}" 
-                ActiveContentChanged="DockManager_ActiveContentChanged">
-                <!--<avalonDock:DockingManager.Theme>
-                    <avalonDock:VS2012Theme />
-                </avalonDock:DockingManager.Theme>-->
-                <avalonDock:DockingManager.LayoutItemTemplateSelector>
-                    <local:PanesTemplateSelector>
-                        <local:PanesTemplateSelector.ContentViewTemplate>
-                            <DataTemplate>
-                                <ContentPresenter Content="{Binding View, UpdateSourceTrigger=PropertyChanged}" />
-                            </DataTemplate>
-                        </local:PanesTemplateSelector.ContentViewTemplate>
-                        <local:PanesTemplateSelector.ToolViewTemplate>
-                            <DataTemplate>
-                                <ContentPresenter Content="{Binding View, UpdateSourceTrigger=PropertyChanged}" />
-                            </DataTemplate>
-                        </local:PanesTemplateSelector.ToolViewTemplate>
-                    </local:PanesTemplateSelector>
-                </avalonDock:DockingManager.LayoutItemTemplateSelector>
-
-                <avalonDock:DockingManager.LayoutItemContainerStyleSelector>
-                    <local:PanesStyleSelector>
-                        <local:PanesStyleSelector.ToolStyle>
-                            <Style TargetType="{x:Type avalonDock:LayoutAnchorableItem}">
-                                <Setter Property="Title" Value="{Binding Model.Title, Mode=OneWay}" />
-                                <Setter Property="IconSource" Value="{Binding Model.IconSource}" />
-                                <Setter Property="Visibility"
-                                        Value="{Binding Model.IsVisible, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter={x:Static Visibility.Hidden}}" />
-                                <Setter Property="ContentId" Value="{Binding Model.ContentId}" />
-                                <Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}" />
-                                <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}" />
-                            </Style>
-                        </local:PanesStyleSelector.ToolStyle>
-                        <local:PanesStyleSelector.ContentStyle>
-                            <Style TargetType="{x:Type avalonDock:LayoutItem}">
-                                <Setter Property="Title" Value="{Binding Model.Title, Mode=OneWay}" />
-                                <Setter Property="ToolTip" Value="{Binding Model.Tooltip}" />
-                                <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}" />
-                                <Setter Property="IconSource" Value="{Binding Model.IconSource}" />
-                                <Setter Property="ContentId" Value="{Binding Model.ContentId}" />
-                            </Style>
-                        </local:PanesStyleSelector.ContentStyle>
-                    </local:PanesStyleSelector>
-                </avalonDock:DockingManager.LayoutItemContainerStyleSelector>
-                <avalonDock:DockingManager.LayoutUpdateStrategy>
-                    <local:LayoutInitializer />
-                </avalonDock:DockingManager.LayoutUpdateStrategy>
-
-                <avalonDock:LayoutRoot>
-                    <avalonDock:LayoutPanel x:Name="VerticalPanel" Orientation="Vertical">
-                        <avalonDock:LayoutPanel x:Name="HorizontalPanel" Orientation="Horizontal">
-                            <avalonDock:LayoutDocumentPane />
-                        </avalonDock:LayoutPanel>
-                    </avalonDock:LayoutPanel>
-                </avalonDock:LayoutRoot>
-            </avalonDock:DockingManager>
+            <!-- Main Contnet Manager -->
+            <ContentControl prism:RegionManager.RegionName="ContentManager" />
         </DockPanel>
     </Border>
 </fluent:RibbonWindow>
