@@ -47,6 +47,10 @@ namespace WiderMD
 
             //Initialize the original bootstrapper which will load modules from the probing path. Check app.config for probing path.
             base.InitializeModules();
+
+            IShell shell = Container.Resolve<IShell>();
+            (shell as Window).Loaded += App_Loaded;
+            (shell as Window).Unloaded += App_Unloaded;
         }
 
         protected override IModuleCatalog CreateModuleCatalog()
@@ -56,24 +60,16 @@ namespace WiderMD
             return catalog;
         }
 
-        //protected override void OnStartup(StartupEventArgs e)
-        //{
-        //    base.OnStartup(e);
-        //    IShell shell = Container.Resolve<IShell>();
-        //    (shell as Window).Loaded += App_Loaded;
-        //    (shell as Window).Unloaded += App_Unloaded;
-        //}
+        void App_Unloaded(Object sender, System.EventArgs e)
+        {
+            IShell shell = Container.Resolve<IShell>();
+            shell.SaveLayout();
+        }
 
-        //void App_Unloaded(Object sender, System.EventArgs e)
-        //{
-        //    IShell shell = Container.Resolve<IShell>();
-        //    shell.SaveLayout();
-        //}
-
-        //void App_Loaded(Object sender, RoutedEventArgs e)
-        //{
-        //    IShell shell = Container.Resolve<IShell>();
-        //    shell.LoadLayout();
-        //}
+        void App_Loaded(Object sender, RoutedEventArgs e)
+        {
+            IShell shell = Container.Resolve<IShell>();
+            shell.LoadLayout();
+        }
     }
 }

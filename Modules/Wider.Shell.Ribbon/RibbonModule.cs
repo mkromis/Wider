@@ -12,9 +12,7 @@ namespace Wider.Shell.Ribbon
 
         }
 
-        public void RegisterTypes(IContainerRegistry containerRegistry)
-        {
+        public void RegisterTypes(IContainerRegistry containerRegistry) => 
             containerRegistry.Register<IShell, ShellView>();
-        }
     }
 }
