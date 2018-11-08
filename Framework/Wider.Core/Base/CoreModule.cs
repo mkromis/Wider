@@ -122,7 +122,7 @@ namespace Wider.Core
             IRegionManager regionManager = containerProvider.Resolve<IRegionManager>();
             regionManager.RegisterViewWithRegion("MainMenu", typeof(MainMenu));
             regionManager.RegisterViewWithRegion("Toolbar", typeof(Toolbar));
-            regionManager.RegisterViewWithRegion("ContentManger", typeof(ContentManager));
+            regionManager.RegisterViewWithRegion("ContentManager", typeof(ContentManager));
             regionManager.RegisterViewWithRegion("StatusBar", typeof(StatusBar));
         }
 
