@@ -126,7 +126,7 @@ namespace Wider.Core.Controls
         /// <param name="item">The item.</param>
         /// <returns><c>true</c> if successfully added, <c>false</c> otherwise</returns>
         /// <exception cref="System.ArgumentException">Expected a AbstractMenuItem as the argument. Only Menu's can be added within a Menu.</exception>
-        public override String Add(AbstractCommandable item)
+        public String Add(AbstractMenuItem item)
         {
             if (item.GetType().IsAssignableFrom(typeof (AbstractMenuItem)))
             {
