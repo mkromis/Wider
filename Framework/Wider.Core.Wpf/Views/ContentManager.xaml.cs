@@ -1,6 +1,8 @@
 ﻿using Prism.Events;
+using Prism.Ioc;
 using Prism.Logging;
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -9,6 +11,8 @@ using Wider.Core.Events;
 using Wider.Core.Services;
 using Xceed.Wpf.AvalonDock;
 using Xceed.Wpf.AvalonDock.Controls;
+using Xceed.Wpf.AvalonDock.Layout;
+using Xceed.Wpf.AvalonDock.Layout.Serialization;
 
 namespace Wider.Core.Views
 {
@@ -18,18 +22,20 @@ namespace Wider.Core.Views
     public partial class ContentManager : UserControl
     {
         private ContextMenu _docContextMenu;
-        private IEventAggregator _eventAggregator = null;
-        private ILoggerService _loggerService = null;
+        private IContainerExtension _container;
+        private IEventAggregator _eventAggregator;
+        private ILoggerService _loggerService;
         private MultiBinding _itemSourceBinding;
 
 
-        public ContentManager(IEventAggregator eventAggregator, ILoggerService loggerService)
+        public ContentManager(IContainerExtension container)
         {
             InitializeComponent();
 
-            _loggerService = loggerService;
+            _container = container;
+            _loggerService = container.Resolve<ILoggerService>();
 
-            _eventAggregator = eventAggregator;
+            _eventAggregator = container.Resolve<IEventAggregator>();
             _eventAggregator.GetEvent<ThemeChangeEvent>().Subscribe(ThemeChanged);
 
             _docContextMenu = new ContextMenu();
@@ -90,13 +96,77 @@ namespace Wider.Core.Views
             b.UpdateTarget();
         }
 
+        public void LoadLayout()
+        {
+            XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(dockManager);
+            layoutSerializer.LayoutSerializationCallback += (s, e) =>
+            {
+                if (e.Model is LayoutAnchorable anchorable)
+                {
+                    IWorkspace workspace = _container.Resolve<IWorkspace>();
+
+                    ToolViewModel model =
+                        workspace.Tools.FirstOrDefault(
+                            f => f.ContentId == e.Model.ContentId);
+                    if (model != null)
+                    {
+                        e.Content = model;
+                        model.IsVisible = anchorable.IsVisible;
+                        model.IsActive = anchorable.IsActive;
+                        model.IsSelected = anchorable.IsSelected;
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                    }
+                }
+                if (e.Model is LayoutDocument document)
+                {
+                    IOpenDocumentService fileService =
+                        _container.Resolve<IOpenDocumentService>();
+                    ContentViewModel model =
+                        fileService.OpenFromID(e.Model.ContentId);
+                    if (model != null)
+                    {
+                        e.Content = model;
+                        model.IsActive = document.IsActive;
+                        model.IsSelected = document.IsSelected;
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                    }
+                }
+            };
+            try
+            {
+                layoutSerializer.Deserialize(@".\AvalonDock.Layout.config");
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        public void SaveLayout()
+        {
+            XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(dockManager);
+            layoutSerializer.Serialize(@".\AvalonDock.Layout.config");
+        }
+
         private void ThemeChanged(ITheme theme)
         {
             //HACK: Reset the context menu or else old menu status is retained and does not theme correctly
             dockManager.DocumentContextMenu = null;
             dockManager.DocumentContextMenu = _docContextMenu;
-            _docContextMenu.Style = FindResource("MetroContextMenu") as Style;
-            _docContextMenu.ItemContainerStyle = FindResource("MetroMenuStyle") as Style;
+
+#warning Fix theme
+            try
+            {
+                _docContextMenu.Style = FindResource("MetroContextMenu") as Style;
+                _docContextMenu.ItemContainerStyle = FindResource("MetroMenuStyle") as Style;
+            } catch (Exception e) {
+                MessageBox.Show(e.Message, "Exception in ThemeChanged()");
+            }
         }
     }
 }

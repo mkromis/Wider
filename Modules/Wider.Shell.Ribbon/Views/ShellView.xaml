@@ -36,7 +36,7 @@
             <ContentControl DockPanel.Dock="Bottom" prism:RegionManager.RegionName="StatusBar"/>
 
             <!-- Main Contnet Manager -->
-            <ContentControl prism:RegionManager.RegionName="ContentManager" />
+            <ContentControl x:Name="contentManager" prism:RegionManager.RegionName="ContentManager" />
         </DockPanel>
     </Border>
 </fluent:RibbonWindow>
