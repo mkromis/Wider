@@ -11,6 +11,7 @@
 #endregion
 
 using System;
+using Wider.Core.Controls;
 
 namespace Wider.Core.Services
 {
@@ -22,7 +23,7 @@ namespace Wider.Core.Services
         /// <param name="item">The item.</param>
         /// <returns><c>true</c> if successfully added, <c>false</c> otherwise</returns>
         /// <exception cref="System.ArgumentException">Expected a AbstractMenuItem as the argument. Only Menu's can be added within a Menu.</exception>
-        String Add(AbstractCommandable item);
+        String Add(AbstractMenuItem item);
 
         /// <summary>
         /// Removes the specified key.
