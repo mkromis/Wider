@@ -91,7 +91,10 @@ namespace WiderMD.Core
             toolbarService.Get("Debug").Get("Debug").Add(new MenuItemViewModel("Debug with FireFox", 2, new BitmapImage(new Uri(@"pack://application:,,,/WiderMD.Core;component/Icons/Play.png")), manager.GetCommand("OPEN")));
             toolbarService.Get("Debug").Get("Debug").Add(new MenuItemViewModel("Debug with Explorer", 3, new BitmapImage(new Uri(@"pack://application:,,,/WiderMD.Core;component/Icons/Play.png")), manager.GetCommand("OPEN")));
 
-            menuService.Get("_Tools").Add(toolbarService.ContextMenuItems);
+            if (toolbarService.ContextMenuItems != null)
+            {
+                menuService.Get("_Tools").Add(toolbarService.ContextMenuItems);
+            }
 
             //Initiate the position settings changes for toolbar
             containerProvider.Resolve<IToolbarPositionSettings>();
