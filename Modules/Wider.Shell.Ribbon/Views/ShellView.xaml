@@ -20,13 +20,7 @@
     <Border>
         <DockPanel>
             <!-- Ribbon Menu -->
-            <fluent:Ribbon DockPanel.Dock="Top">
-                <fluent:RibbonTabItem Header="Sample1">
-                    <fluent:RibbonGroupBox Header="Test1">
-                        <fluent:Button Header="Button1"/>
-                    </fluent:RibbonGroupBox>
-                </fluent:RibbonTabItem>
-            </fluent:Ribbon>
+            <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="MainRibbon" />
 
             <!--Menu And Toolbar-->
             <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="MainMenu" />
