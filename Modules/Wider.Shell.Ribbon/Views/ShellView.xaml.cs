@@ -70,13 +70,16 @@ namespace Wider.Shell.Ribbon.Views
 
         private void Window_Closing_1(Object sender, System.ComponentModel.CancelEventArgs e)
         {
-            IWorkspace workspace = DataContext as IWorkspace;
-            if (!workspace.Closing(e))
+            if (DataContext != null)
             {
-                e.Cancel = true;
-                return;
+                IWorkspace workspace = DataContext as IWorkspace;
+                if (!workspace.Closing(e))
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                _eventAggregator.GetEvent<WindowClosingEvent>().Publish(this);
             }
-            _eventAggregator.GetEvent<WindowClosingEvent>().Publish(this);
         }
 
         private ILoggerService Logger

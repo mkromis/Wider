@@ -55,13 +55,17 @@ namespace Wider.Core.Views
 
         private void Window_Closing_1(Object sender, System.ComponentModel.CancelEventArgs e)
         {
-            IWorkspace workspace = DataContext as IWorkspace;
-            if (!workspace.Closing(e))
+            // This will be null if not proper initialized.
+            if (DataContext != null)
             {
-                e.Cancel = true;
-                return;
+                IWorkspace workspace = DataContext as IWorkspace;
+                if (!workspace.Closing(e))
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                _eventAggregator.GetEvent<WindowClosingEvent>().Publish(this);
             }
-            _eventAggregator.GetEvent<WindowClosingEvent>().Publish(this);
         }
     }
 }
