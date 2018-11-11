@@ -90,40 +90,15 @@ namespace Wider.Core.Services
                     Application.Current.Resources.MergedDictionaries.Add(appTheme);
                 }
 
-                //ResourceDictionary theme =
-                //    Application.Current.MainWindow.Resources.MergedDictionaries.Count > 0
-                //    ? Application.Current.Resources.MergedDictionaries[0] : null;
-
-                //if (theme == null)
-                //{
-                //    theme = new ResourceDictionary();
-
-                //}
-                //theme.MergedDictionaries.Clear();
-
                 appTheme.MergedDictionaries.Clear();
                 appTheme.BeginInit();
-                //theme.BeginInit();
 
                 foreach (Uri uri in newTheme.UriList)
                 {
                     ResourceDictionary newDict = new ResourceDictionary {Source = uri};
-                    /*AvalonDock and menu style needs to move to the application
-                     * 1. AvalonDock needs global styles as floatable windows can be created
-                     * 2. Menu's need global style as context menu can be created
-                    */
-                //    //if (uri.ToString().Contains("AvalonDock") ||
-                //    //    uri.ToString().Contains("Wider.Shell;component/Styles/VS2012/Menu.xaml"))
-                //    //{
-                        appTheme.MergedDictionaries.Add(newDict);
-                //    //}
-                //    //else
-                //    //{
-                //        theme.MergedDictionaries.Add(newDict);
-                //    //}
+                    appTheme.MergedDictionaries.Add(newDict);
                 }
                 appTheme.EndInit();
-                //theme.EndInit();
                 
                 _logger.Log($"Theme set to {name}", Category.Info, Priority.None);
                 _eventAggregator.GetEvent<ThemeChangeEvent>().Publish(newTheme);

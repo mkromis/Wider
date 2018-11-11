@@ -28,9 +28,12 @@ namespace Wider.Shell.Themes
         {
             UriList = new List<Uri>
             {
+                new Uri("pack://application:,,,/Xceed.Wpf.AvalonDock;component/Themes/generic.xaml"),
                 new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"),
                 new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml"),
                 new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Clean/Clean.xaml"),
+                new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml"),
+                new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"),
             };
         }
 
