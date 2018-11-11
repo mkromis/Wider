@@ -64,6 +64,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Themes\DarkTheme.cs" />
+    <Compile Include="Themes\CleanTheme.cs" />
+    <Compile Include="Themes\EmptyTheme.cs" />
     <Compile Include="Themes\DefaultTheme.cs" />
     <Compile Include="Themes\LightTheme.cs" />
     <Compile Include="Themes\VS2010.cs" />

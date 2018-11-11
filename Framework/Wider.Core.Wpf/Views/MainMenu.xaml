@@ -19,8 +19,10 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Menu 
+        x:Name="mainmenu"
         IsMainMenu="True" 
-        ItemContainerStyle="{DynamicResource StandardMenuStyle}"
+        Style="{DynamicResource StandardMenu}"
+        ItemContainerStyle="{DynamicResource StandardMenuItem}"
         ItemsSource="{Binding Path=Children, UpdateSourceTrigger=PropertyChanged}" 
         VerticalAlignment="Top" />
 </UserControl>

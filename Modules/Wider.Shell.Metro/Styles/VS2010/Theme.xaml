@@ -6,7 +6,7 @@
         <ResourceDictionary Source="pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2010/Brushes.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2010/StatusBar.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2010/Toolbar.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Wider.Shell.Metro;component/Styles/Controls.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Wider.Core;component/Styles/ControlStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type ContextMenu}"><!--  BasedOn="{StaticResource {x:Type ContextMenu}} -->

@@ -1,4 +1,4 @@
-﻿#region License
+﻿  #region License
 // Copyright (c) 2018 Mark Kromis
 // Copyright (c) 2013 Chandramouleswaran Ravichandran
 // 
@@ -77,23 +77,34 @@ namespace Wider.Core.Services
                 ITheme newTheme = ThemeDictionary[name];
                 CurrentTheme = newTheme;
 
-                ResourceDictionary theme = Application.Current.MainWindow.Resources.MergedDictionaries[0];
-                ResourceDictionary appTheme = Application.Current.Resources.MergedDictionaries.Count > 0
-                                                  ? Application.Current.Resources.MergedDictionaries[0]
-                                                  : null;
-                theme.BeginInit();
-                theme.MergedDictionaries.Clear();
-                if (appTheme != null)
-                {
-                    appTheme.BeginInit();
-                    appTheme.MergedDictionaries.Clear();
-                }
-                else
+                // May need to delete merged dictionary from all windows
+
+                // Setup app style
+                ResourceDictionary appTheme =
+                    Application.Current.Resources.MergedDictionaries.Count > 0
+                    ? Application.Current.Resources.MergedDictionaries[0] : null;
+
+                if (appTheme == null)
                 {
                     appTheme = new ResourceDictionary();
-                    appTheme.BeginInit();
                     Application.Current.Resources.MergedDictionaries.Add(appTheme);
                 }
+
+                //ResourceDictionary theme =
+                //    Application.Current.MainWindow.Resources.MergedDictionaries.Count > 0
+                //    ? Application.Current.Resources.MergedDictionaries[0] : null;
+
+                //if (theme == null)
+                //{
+                //    theme = new ResourceDictionary();
+
+                //}
+                //theme.MergedDictionaries.Clear();
+
+                appTheme.MergedDictionaries.Clear();
+                appTheme.BeginInit();
+                //theme.BeginInit();
+
                 foreach (Uri uri in newTheme.UriList)
                 {
                     ResourceDictionary newDict = new ResourceDictionary {Source = uri};
@@ -101,18 +112,19 @@ namespace Wider.Core.Services
                      * 1. AvalonDock needs global styles as floatable windows can be created
                      * 2. Menu's need global style as context menu can be created
                     */
-                    if (uri.ToString().Contains("AvalonDock") ||
-                        uri.ToString().Contains("Wider.Shell;component/Styles/VS2012/Menu.xaml"))
-                    {
+                //    //if (uri.ToString().Contains("AvalonDock") ||
+                //    //    uri.ToString().Contains("Wider.Shell;component/Styles/VS2012/Menu.xaml"))
+                //    //{
                         appTheme.MergedDictionaries.Add(newDict);
-                    }
-                    else
-                    {
-                        theme.MergedDictionaries.Add(newDict);
-                    }
+                //    //}
+                //    //else
+                //    //{
+                //        theme.MergedDictionaries.Add(newDict);
+                //    //}
                 }
                 appTheme.EndInit();
-                theme.EndInit();
+                //theme.EndInit();
+                
                 _logger.Log($"Theme set to {name}", Category.Info, Priority.None);
                 _eventAggregator.GetEvent<ThemeChangeEvent>().Publish(newTheme);
             }

@@ -1,5 +1,9 @@
-﻿using System.Windows.Controls;
+﻿using Prism.Events;
+using System;
+using System.Windows;
+using System.Windows.Controls;
 using Wider.Core.Controls;
+using Wider.Core.Events;
 using Wider.Core.Services;
 
 namespace Wider.Core.Views
@@ -8,15 +12,8 @@ namespace Wider.Core.Views
     /// Interaction logic for MainMenu.xaml
     /// </summary>
     public partial class MainMenu : UserControl
-    {
-
-        /// <summary>
-        /// The menu service
-        /// </summary>
-        protected MenuItemViewModel _menus;
-
-
-        public MainMenu(IMenuService menuService)
+    { 
+        public MainMenu(IMenuService menuService, IEventAggregator eventAggregator)
         {
             InitializeComponent();
             DataContext = menuService;

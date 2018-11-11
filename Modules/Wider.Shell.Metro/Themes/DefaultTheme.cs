@@ -28,8 +28,9 @@ namespace Wider.Shell.Themes
         {
             UriList = new List<Uri>
             {
-                new Uri("pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2012/DarkTheme.xaml"),
-                //new Uri("pack://application:,,,/AvalonDock.Themes.VS2012;component/DarkTheme.xaml")
+                new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"),
+                new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml"),
+                new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"),
             };
         }
 
@@ -45,7 +46,7 @@ namespace Wider.Shell.Themes
         /// The name of the theme - "Default"
         /// </summary>
         /// <value>The name.</value>
-        public String Name => "Default";
+        public String Name => "DefaultMetro";
 
         #endregion
     }
