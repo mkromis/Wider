@@ -36,8 +36,7 @@ namespace Wider.Shell.Themes
 
                 new Uri("pack://application:,,,/Xceed.Wpf.AvalonDock.Themes.VS2013;component/DarkTheme.xaml"),
 
-                new Uri("pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2012/DarkColors.xaml"),
-                new Uri("pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2012/Theme.xaml"),
+                new Uri("pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2013/DarkTheme.xaml"),
             };
         }
 

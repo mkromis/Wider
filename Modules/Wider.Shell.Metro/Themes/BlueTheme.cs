@@ -17,18 +17,27 @@ using Wider.Core.Services;
 namespace Wider.Shell.Themes
 {
     /// <summary>
-    /// Class DefaultTheme
+    /// Class LightTheme
     /// </summary>
-    public sealed class EmptyTheme : ITheme
+    public sealed class BlueTheme : ITheme
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmptyTheme"/> class.
+        /// Initializes a new instance of the <see cref="BlueTheme"/> class.
         /// </summary>
-        public EmptyTheme()
+        public BlueTheme()
         {
             UriList = new List<Uri>
             {
 
+                new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"),
+                new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"),
+                new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml"),
+                new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml"),
+                new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"),
+
+                new Uri("pack://application:,,,/Xceed.Wpf.AvalonDock.Themes.VS2013;component/BlueTheme.xaml"),
+
+                new Uri("pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2013/BlueTheme.xaml"),
             };
         }
 
@@ -41,10 +50,10 @@ namespace Wider.Shell.Themes
         public IList<Uri> UriList { get; internal set; }
 
         /// <summary>
-        /// The name of the theme - "Default"
+        /// The name of the theme - "Light"
         /// </summary>
         /// <value>The name.</value>
-        public String Name => "Empty";
+        public String Name => "Blue";
 
         #endregion
     }

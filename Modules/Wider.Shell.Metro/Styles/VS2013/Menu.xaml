@@ -102,7 +102,7 @@
                     <ColumnDefinition MinWidth="13" Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition MinHeight="20" Height="Auto " />
+                    <RowDefinition MinHeight="25" Height="Auto " />
                 </Grid.RowDefinitions>
                 <Border Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Name="CheckIcon"
                         Width="16" Height="16" Visibility="Visible" Margin="6,0,6,0" Background="Transparent" BorderThickness="1"
