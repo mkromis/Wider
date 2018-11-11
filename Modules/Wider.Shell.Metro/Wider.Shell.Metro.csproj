@@ -102,13 +102,10 @@
     <Page Include="Styles\VS2012\DarkColors.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\VS2012\DarkTheme.xaml">
+    <Page Include="Styles\VS2012\Theme.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\VS2012\LightColors.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\VS2012\LightTheme.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\VS2012\Menu.xaml">
@@ -139,6 +136,9 @@
     </PackageReference>
     <PackageReference Include="Prism.Wpf">
       <Version>7.1.0.431</Version>
+    </PackageReference>
+    <PackageReference Include="Xceed.Wpf.AvalonDock.Themes.VS2013">
+      <Version>2.9.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

@@ -21,8 +21,8 @@
     <Menu 
         x:Name="mainmenu"
         IsMainMenu="True" 
-        Style="{DynamicResource StandardMenu}"
-        ItemContainerStyle="{DynamicResource StandardMenuItem}"
         ItemsSource="{Binding Path=Children, UpdateSourceTrigger=PropertyChanged}" 
+        ItemContainerStyle="{DynamicResource StandardMenuItem}"
         VerticalAlignment="Top" />
+        <!--Style="{DynamicResource StandardMenu}" -->
 </UserControl>
