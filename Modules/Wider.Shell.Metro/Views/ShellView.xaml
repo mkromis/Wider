@@ -2,13 +2,8 @@
     x:Class="Wider.Shell.Metro.Views.ShellView" x:ClassModifier="internal"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-    xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
-    xmlns:Core="clr-namespace:Wider.Core;assembly=Wider.Core"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-    xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
-    xmlns:Converter="clr-namespace:Wider.Core.Converters;assembly=Wider.Core"
     xmlns:prism ="http://prismlibrary.com/"
-    xmlns:Utils="clr-namespace:Wider.Utils;assembly=Wider.Core"
     TitleForeground="#FF717171" 
     TitleCaps="False" 
     Title="{Binding Title}" 
@@ -17,35 +12,6 @@
     ResizeMode="CanResizeWithGrip"
     GlowBrush="{Binding ElementName=WiderStatusBar, Path=Background}"
     Closing="Window_Closing_1">
-    <!--xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"-->
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary x:Name="ThemeDictionary">
-                    <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2012/LightColors.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2012/LightTheme.xaml" />
-                    </ResourceDictionary.MergedDictionaries>
-                </ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
-            <avalonDock:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-            <Converter:ActiveDocumentConverter x:Key="ActiveDocumentConverter" />
-            <Converter:NullObjectToVisibiltyConverter x:Key="nullToVisibilityConverter" />
-            <Converter:BoolToInsertModeConverter x:Key="booleanToInsertModeConverter" />
-            <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
-            <Utils:DatabindingDebugConverter x:Key="bindDebug" />
-        </ResourceDictionary>
-    </Window.Resources>
-
-    <!--<i:Interaction.Behaviors>-->
-        <!--<behaviours:BorderlessWindowBehavior ResizeWithGrip="True" AllowsTransparency="False" />-->
-        <!--<behaviours:GlowWindowBehavior />-->
-    <!--</i:Interaction.Behaviors>-->
 
     <Border>
         <DockPanel>

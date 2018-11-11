@@ -1,5 +1,5 @@
 ﻿#region License
-// Copyright (c) 2018 Mark Kromis
+
 // Copyright (c) 2013 Chandramouleswaran Ravichandran
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -10,31 +10,44 @@
 
 #endregion
 
-using Prism.Events;
 using System;
-using System.Configuration;
-using Wider.Core.Events;
+using System.Collections.Generic;
 using Wider.Core.Services;
-using Wider.Core.Settings;
 
-namespace Wider.Core.Settings
+namespace Wider.Shell.Themes
 {
-    internal class ThemeSettings : AbstractSettings, IThemeSettings
+    /// <summary>
+    /// Class DefaultTheme
+    /// </summary>
+    public sealed class CleanTheme : ITheme
     {
-        public ThemeSettings(IEventAggregator eventAggregator) => eventAggregator.GetEvent<ThemeChangeEvent>().Subscribe(NewSelectedTheme);
-
-        private void NewSelectedTheme(ITheme theme)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DefaultTheme"/> class.
+        /// </summary>
+        public CleanTheme()
         {
-            SelectedTheme = theme.Name;
-            Save();
+            UriList = new List<Uri>
+            {
+                new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"),
+                new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml"),
+                new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Clean/Clean.xaml"),
+            };
         }
 
-        [UserScopedSetting()]
-        [DefaultSettingValue("Default")]
-        public String SelectedTheme
-        {
-            get => (String)this["SelectedTheme"];
-            set => this["SelectedTheme"] = value;
-        }
+        #region ITheme Members
+
+        /// <summary>
+        /// Lists of valid URIs which will be loaded in the theme dictionary
+        /// </summary>
+        /// <value>The URI list.</value>
+        public IList<Uri> UriList { get; internal set; }
+
+        /// <summary>
+        /// The name of the theme - "Default"
+        /// </summary>
+        /// <value>The name.</value>
+        public String Name => "CleanMetro";
+
+        #endregion
     }
 }

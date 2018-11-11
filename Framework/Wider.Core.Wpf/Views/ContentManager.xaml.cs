@@ -159,12 +159,14 @@ namespace Wider.Core.Views
             dockManager.DocumentContextMenu = null;
             dockManager.DocumentContextMenu = _docContextMenu;
 
-#warning Fix theme
             try
             {
-                _docContextMenu.Style = FindResource("MetroContextMenu") as Style;
-                _docContextMenu.ItemContainerStyle = FindResource("MetroMenuStyle") as Style;
-            } catch (Exception e) {
+                Window window = Application.Current.MainWindow;
+                _docContextMenu.Style = window.FindResource("DocumentContextMenu") as Style;
+                _docContextMenu.ItemContainerStyle = window.FindResource("DocumentMenuStyle") as Style;
+            }
+            catch (Exception e)
+            {
                 MessageBox.Show(e.Message, "Exception in ThemeChanged()");
             }
         }
