@@ -31,6 +31,7 @@ namespace Wider.Shell.Themes
                 new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"),
                 new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml"),
                 new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"),
+                new Uri("pack://application:,,,/Xceed.Wpf.AvalonDock;component/Themes/generic.xaml"),
             };
         }
 

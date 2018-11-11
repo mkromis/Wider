@@ -14,21 +14,24 @@ using System;
 using System.Collections.Generic;
 using Wider.Core.Services;
 
-namespace Wider.Core.Themes
+namespace Wider.Shell.Themes
 {
     /// <summary>
     /// Class VS2010
     /// </summary>
-    public sealed class VS2010 : ITheme
+    public sealed class VS2010Theme : ITheme
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VS2010"/> class.
         /// </summary>
-        public VS2010()
+        public VS2010Theme()
         {
             UriList = new List<Uri>
             {
-                //new Uri("pack://application:,,,/Xceed.Wpf.AvalonDock.Themes.VS2010;component/Theme.xaml"),
+                new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"),
+                new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml"),
+                new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Clean/Clean.xaml"),
+                new Uri("pack://application:,,,/Xceed.Wpf.AvalonDock.Themes.VS2010;component/Theme.xaml"),
                 new Uri("pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2010/Theme.xaml")
             };
         }

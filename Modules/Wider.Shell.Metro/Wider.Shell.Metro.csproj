@@ -68,7 +68,7 @@
     <Compile Include="Themes\EmptyTheme.cs" />
     <Compile Include="Themes\DefaultTheme.cs" />
     <Compile Include="Themes\LightTheme.cs" />
-    <Compile Include="Themes\VS2010.cs" />
+    <Compile Include="Themes\VS2010Theme.cs" />
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -84,7 +84,7 @@
     <None Include="Wider.Shell.Metro.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Styles\ControlsMetro.xaml">
+    <Page Include="Styles\VS2012\ControlsMetro.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\VS2010\Brushes.xaml">

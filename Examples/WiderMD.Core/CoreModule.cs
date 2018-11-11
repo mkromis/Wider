@@ -124,6 +124,7 @@ namespace WiderMD.Core
             manager.AddTheme(new EmptyTheme());
             manager.AddTheme(new DefaultTheme());
             manager.AddTheme(new CleanTheme());
+            manager.AddTheme(new VS2010Theme());
             //manager.AddTheme(new LightTheme());
             //manager.AddTheme(new DarkTheme());
             win.Dispatcher.InvokeAsync(() => manager.SetCurrent(themeSettings.SelectedTheme));
