@@ -3,9 +3,10 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Wider.Core;component/Styles/ToolbarStyle.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Wider.Core;component/Styles/ControlStyle.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2012/WindowCommands.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2012/ControlsMetro.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2012/SplitButton.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2012/Menu.xaml" />
+        <ResourceDictionary Source="ControlsMetro.xaml" />
+        <!--<ResourceDictionary Source="SplitButton.xaml" />-->
+        <!--<ResourceDictionary Source="Toolbar.xaml" />-->
+        <!--<ResourceDictionary Source="Tooltip.xaml" />-->
+        <ResourceDictionary Source="WindowCommands.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
