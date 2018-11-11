@@ -162,8 +162,8 @@ namespace Wider.Core.Views
             try
             {
                 Window window = Application.Current.MainWindow;
-                _docContextMenu.Style = window.FindResource("DocumentContextMenu") as Style;
-                _docContextMenu.ItemContainerStyle = window.FindResource("DocumentMenuStyle") as Style;
+                //_docContextMenu.Style = window.FindResource("DocumentContextMenu") as Style;
+                //_docContextMenu.ItemContainerStyle = window.FindResource("DocumentMenuStyle") as Style;
             }
             catch (Exception e)
             {
