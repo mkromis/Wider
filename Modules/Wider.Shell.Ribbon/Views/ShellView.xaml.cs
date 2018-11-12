@@ -23,10 +23,12 @@
 #endregion
 
 using Fluent;
+using MahApps.Metro.Controls;
 using Prism.Events;
 using Prism.Ioc;
 using Prism.Logging;
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using Wider.Core.Events;
@@ -41,7 +43,7 @@ namespace Wider.Shell.Ribbon.Views
     /// <summary>
     /// Interaction logic for Shell.xaml
     /// </summary>
-    internal partial class ShellView : RibbonWindow, IShell
+    internal partial class ShellView : MetroWindow, IShell, IRibbonWindow
     {
         private readonly IContainerExtension _container;
         private IEventAggregator _eventAggregator;
@@ -52,6 +54,8 @@ namespace Wider.Shell.Ribbon.Views
             InitializeComponent();
             _container = container;
             _eventAggregator = eventAggregator;
+
+            // MahApps specific
         }
 
         #region IShell Members
@@ -67,8 +71,19 @@ namespace Wider.Shell.Ribbon.Views
             content.LoadLayout();
         }
         #endregion
+        /// <summary>
+        /// Initial Metro setup see https://fluentribbon.github.io/documentation/interop_with_MahApps.Metro
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Loaded(Object sender, RoutedEventArgs e)
+        {
+            TitleBar = this.FindChild<RibbonTitleBar>("ribbonTitleBar");
+            TitleBar.InvalidateArrange();
+            TitleBar.UpdateLayout();
+        }
 
-        private void Window_Closing_1(Object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing(Object sender, CancelEventArgs e)
         {
             if (DataContext != null)
             {
@@ -94,5 +109,26 @@ namespace Wider.Shell.Ribbon.Views
                 return _logger;
             }
         }
+
+        #region TitelBar
+        /// <summary>
+        /// Gets ribbon titlebar
+        /// </summary>
+        public RibbonTitleBar TitleBar
+        {
+            get => (RibbonTitleBar)GetValue(TitleBarProperty);
+            private set => SetValue(TitleBarPropertyKey, value);
+        }
+
+        // ReSharper disable once InconsistentNaming
+        private static readonly DependencyPropertyKey TitleBarPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(TitleBar), typeof(RibbonTitleBar), typeof(ShellView), new PropertyMetadata());
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="TitleBar"/>.
+        /// </summary>
+        public static readonly DependencyProperty TitleBarProperty = TitleBarPropertyKey.DependencyProperty;
+
+        #endregion
     }
 }
