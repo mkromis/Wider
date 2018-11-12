@@ -91,7 +91,10 @@ namespace WiderMD.Core
             toolbarService.Get("Debug").Get("Debug").Add(new MenuItemViewModel("Debug with FireFox", 2, new BitmapImage(new Uri(@"pack://application:,,,/WiderMD.Core;component/Icons/Play.png")), manager.GetCommand("OPEN")));
             toolbarService.Get("Debug").Get("Debug").Add(new MenuItemViewModel("Debug with Explorer", 3, new BitmapImage(new Uri(@"pack://application:,,,/WiderMD.Core;component/Icons/Play.png")), manager.GetCommand("OPEN")));
 
-            menuService.Get("_Tools").Add(toolbarService.RightClickMenu);
+            if (toolbarService.ContextMenuItems != null)
+            {
+                menuService.Get("_Tools").Add(toolbarService.ContextMenuItems);
+            }
 
             //Initiate the position settings changes for toolbar
             containerProvider.Resolve<IToolbarPositionSettings>();
@@ -118,6 +121,10 @@ namespace WiderMD.Core
             IThemeManager manager = containerProvider.Resolve<IThemeManager>();
             IThemeSettings themeSettings = containerProvider.Resolve<IThemeSettings>();
             Window win = containerProvider.Resolve<IShell>() as Window;
+            manager.AddTheme(new DefaultTheme());
+            manager.AddTheme(new CleanTheme());
+            manager.AddTheme(new VS2010Theme());
+            manager.AddTheme(new BlueTheme());
             manager.AddTheme(new LightTheme());
             manager.AddTheme(new DarkTheme());
             win.Dispatcher.InvokeAsync(() => manager.SetCurrent(themeSettings.SelectedTheme));
@@ -234,23 +241,22 @@ namespace WiderMD.Core
 
             menuService.Get("_View").Add(new MenuItemViewModel("Themes", 1));
 
-            //Set the checkmark of the theme menu's based on which is currently selected
-            menuService.Get("_View").Get("Themes")
-                .Add(new MenuItemViewModel("Dark", 1, null,
+            // Get the listed themses and add to menu
+            IThemeManager themeManager = containerProvider.Resolve<IThemeManager>();
+            MenuItemViewModel themeMenu = menuService.Get("_View").Get("Themes") as MenuItemViewModel;
+
+            // add items based on theme programmed
+            foreach (ITheme theme in themeManager.Themes)
+            {
+                themeMenu
+                .Add(new MenuItemViewModel(theme.Name, 1, null,
                     manager.GetCommand("THEMECHANGE"))
                 {
                     IsCheckable = true,
-                    IsChecked = (themeSettings.SelectedTheme == "Dark"),
-                    CommandParameter = "Dark"
+                    IsChecked = (themeSettings.SelectedTheme == theme.Name),
+                    CommandParameter = theme.Name
                 });
-            menuService.Get("_View").Get("Themes")
-                .Add(new MenuItemViewModel("Light", 2, null,
-                    manager.GetCommand("THEMECHANGE"))
-                {
-                    IsCheckable = true,
-                    IsChecked = (themeSettings.SelectedTheme == "Light"),
-                    CommandParameter = "Light"
-                });
+            }
 
             menuService.Add(new MenuItemViewModel("_Tools", 4));
             menuService.Get("_Tools").Add(new MenuItemViewModel("Settings", 1, null, settingsManager.SettingsCommand));
@@ -315,25 +321,27 @@ namespace WiderMD.Core
             IThemeManager manager = containerProvider.Resolve<IThemeManager>();
             IMenuService menuService = containerProvider.Resolve<IMenuService>();
             Window win = containerProvider.Resolve<IShell>() as Window;
-            MenuItemViewModel mvm =
-                menuService.Get("_View").Get("Themes").Get(manager.CurrentTheme.Name) as MenuItemViewModel;
 
-            if (manager.CurrentTheme.Name != s)
+            MenuItemViewModel themeMenu = menuService.Get("_View").Get("Themes") as MenuItemViewModel;
+            MenuItemViewModel mvm = themeMenu.Get(s) as MenuItemViewModel;
+
+            // Clear all checkboxes
+            foreach (MenuItemViewModel menuitem in themeMenu.Children)
             {
-                if (mvm != null)
-                {
-                    mvm.IsChecked = false;
-                }
-
-                win.Dispatcher.InvokeAsync(() => manager.SetCurrent(s));
+                menuitem.IsChecked = false;
             }
-            else
+
+
+            if (manager.CurrentTheme?.Name != s)
             {
                 if (mvm != null)
                 {
                     mvm.IsChecked = true;
                 }
+
+                win.Dispatcher.InvokeAsync(() => manager.SetCurrent(s));
             }
+
         }
 
         #endregion

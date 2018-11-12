@@ -28,15 +28,16 @@ namespace Wider.Shell.Themes
         {
             UriList = new List<Uri>
             {
+
                 new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"),
                 new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"),
                 new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml"),
                 new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml"),
                 new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"),
-                new Uri("pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2012/LightColors.xaml"),
-                new Uri("pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2012/LightTheme.xaml"),
-                //new Uri("pack://application:,,,/AvalonDock.Themes.VS2012;component/LightTheme.xaml"),
-                new Uri("pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2012/Menu.xaml")
+
+                new Uri("pack://application:,,,/Xceed.Wpf.AvalonDock.Themes.VS2013;component/LightTheme.xaml"),
+
+                new Uri("pack://application:,,,/Wider.Shell.Metro;component/Styles/VS2013/LightTheme.xaml"),
             };
         }
 

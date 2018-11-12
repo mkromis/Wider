@@ -64,9 +64,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Themes\DarkTheme.cs" />
+    <Compile Include="Themes\CleanTheme.cs" />
     <Compile Include="Themes\DefaultTheme.cs" />
+    <Compile Include="Themes\BlueTheme.cs" />
     <Compile Include="Themes\LightTheme.cs" />
-    <Compile Include="Themes\VS2010.cs" />
+    <Compile Include="Themes\VS2010Theme.cs" />
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -82,7 +84,7 @@
     <None Include="Wider.Shell.Metro.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Styles\ControlsMetro.xaml">
+    <Page Include="Styles\VS2013\ControlsMetro.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\VS2010\Brushes.xaml">
@@ -97,31 +99,31 @@
     <Page Include="Styles\VS2010\Toolbar.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\VS2012\DarkColors.xaml">
+    <Page Include="Styles\VS2013\DarkTheme.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\VS2012\DarkTheme.xaml">
+    <Page Include="Styles\VS2013\BlueTheme.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\VS2012\LightColors.xaml">
+    <Page Include="Styles\VS2013\Theme.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\VS2012\LightTheme.xaml">
+    <Page Include="Styles\VS2013\LightTheme.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\VS2012\Menu.xaml">
+    <Page Include="Styles\VS2013\Menu.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\VS2012\SplitButton.xaml">
+    <Page Include="Styles\VS2013\SplitButton.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\VS2012\Toolbar.xaml">
+    <Page Include="Styles\VS2013\Toolbar.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\VS2012\Tooltip.xaml">
+    <Page Include="Styles\VS2013\Tooltip.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\VS2012\WindowCommands.xaml">
+    <Page Include="Styles\VS2013\WindowCommands.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ShellView.xaml">
@@ -137,6 +139,9 @@
     </PackageReference>
     <PackageReference Include="Prism.Wpf">
       <Version>7.1.0.431</Version>
+    </PackageReference>
+    <PackageReference Include="Xceed.Wpf.AvalonDock.Themes.VS2013">
+      <Version>2.9.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

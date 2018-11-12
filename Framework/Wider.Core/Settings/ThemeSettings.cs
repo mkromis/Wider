@@ -30,7 +30,7 @@ namespace Wider.Core.Settings
         }
 
         [UserScopedSetting()]
-        [DefaultSettingValue("Dark")]
+        [DefaultSettingValue("Default")]
         public String SelectedTheme
         {
             get => (String)this["SelectedTheme"];

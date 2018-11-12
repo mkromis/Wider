@@ -13,6 +13,7 @@
 using Prism.Events;
 using Prism.Ioc;
 using Prism.Logging;
+using Prism.Regions;
 using System;
 using System.Linq;
 using System.Windows;
@@ -29,110 +30,41 @@ namespace Wider.Core.Views
     /// </summary>
     internal partial class ShellView : Window, IShell
     {
-        private readonly IContainerExtension _container;
         private IEventAggregator _eventAggregator;
-        private ILoggerService _logger;
-        private IWorkspace _workspace;
-
-        public ShellView(IContainerExtension container, IEventAggregator eventAggregator)
+ 
+        public ShellView(IEventAggregator eventAggregator)
         {
             InitializeComponent();
-            _container = container;
             _eventAggregator = eventAggregator;
         }
 
         #region IShell Members
         public void LoadLayout()
         {
-            XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(dockManager);
-            layoutSerializer.LayoutSerializationCallback += (s, e) =>
-            {
-                _workspace = _container.Resolve<IWorkspace>();
-
-                if (e.Model is LayoutAnchorable anchorable)
-                {
-                    ToolViewModel model =
-                        _workspace.Tools.FirstOrDefault(
-                            f => f.ContentId == e.Model.ContentId);
-                    if (model != null)
-                    {
-                        e.Content = model;
-                        model.IsVisible = anchorable.IsVisible;
-                        model.IsActive = anchorable.IsActive;
-                        model.IsSelected = anchorable.IsSelected;
-                    }
-                    else
-                    {
-                        e.Cancel = true;
-                    }
-                }
-                if (e.Model is LayoutDocument document)
-                {
-                    IOpenDocumentService fileService =
-                        _container.Resolve<IOpenDocumentService>();
-                    ContentViewModel model =
-                        fileService.OpenFromID(e.Model.ContentId);
-                    if (model != null)
-                    {
-                        e.Content = model;
-                        model.IsActive = document.IsActive;
-                        model.IsSelected = document.IsSelected;
-                    }
-                    else
-                    {
-                        e.Cancel = true;
-                    }
-                }
-            };
-            try
-            {
-                layoutSerializer.Deserialize(@".\AvalonDock.Layout.config");
-            }
-            catch (Exception)
-            {
-            }
+            ContentManager content = contentManager.Content as ContentManager;
+            content.LoadLayout();
         }
 
         public void SaveLayout()
         {
-            XmlLayoutSerializer layoutSerializer = new XmlLayoutSerializer(dockManager);
-            layoutSerializer.Serialize(@".\AvalonDock.Layout.config");
+            ContentManager content = contentManager.Content as ContentManager;
+            content.LoadLayout();
         }
 
         #endregion
 
         private void Window_Closing_1(Object sender, System.ComponentModel.CancelEventArgs e)
         {
-            IWorkspace workspace = DataContext as IWorkspace;
-            if (!workspace.Closing(e))
+            // This will be null if not proper initialized.
+            if (DataContext != null)
             {
-                e.Cancel = true;
-                return;
-            }
-            _eventAggregator.GetEvent<WindowClosingEvent>().Publish(this);
-        }
-
-        private void DockManager_ActiveContentChanged(Object sender, EventArgs e)
-        {
-            DockingManager manager = sender as DockingManager;
-            ContentViewModel cvm = manager.ActiveContent as ContentViewModel;
-            _eventAggregator.GetEvent<ActiveContentChangedEvent>().Publish(cvm);
-            if (cvm != null)
-            {
-                Logger.Log("Active document changed to " + cvm.Title, Category.Info, Priority.None);
-            }
-        }
-
-        private ILoggerService Logger
-        {
-            get
-            {
-                if (_logger == null)
+                IWorkspace workspace = DataContext as IWorkspace;
+                if (!workspace.Closing(e))
                 {
-                    _logger = _container.Resolve<ILoggerService>();
+                    e.Cancel = true;
+                    return;
                 }
-
-                return _logger;
+                _eventAggregator.GetEvent<WindowClosingEvent>().Publish(this);
             }
         }
     }

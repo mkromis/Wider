@@ -68,6 +68,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Base\LayoutInitializer.cs" />
+    <Compile Include="Views\ContentManager.xaml.cs">
+      <DependentUpon>ContentManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainMenu.xaml.cs">
+      <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\NewFileWindow.xaml.cs">
       <DependentUpon>NewFileWindow.xaml</DependentUpon>
     </Compile>
@@ -80,6 +86,12 @@
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Base\WiderBootstrapper.cs" />
+    <Compile Include="Views\StatusBar.xaml.cs">
+      <DependentUpon>StatusBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Toolbar.xaml.cs">
+      <DependentUpon>Toolbar.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -92,11 +104,19 @@
     <None Include="Wider.Core.Wpf.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Styles\Controls.xaml">
+    <Page Include="Styles\ControlStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\ToolbarBinding.xaml">
+    <Page Include="Styles\ToolbarStyle.xaml">
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ContentManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NewFileWindow.xaml">
       <SubType>Designer</SubType>
@@ -106,6 +126,14 @@
     </Page>
     <Page Include="Views\ShellView.xaml">
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\StatusBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Toolbar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

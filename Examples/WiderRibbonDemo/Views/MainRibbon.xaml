@@ -1,0 +1,17 @@
+﻿<UserControl 
+    x:Class="WiderRibbonDemo.Views.MainRibbon"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:WiderRibbonDemo.Views"
+    xmlns:fluent="urn:fluent-ribbon"
+    mc:Ignorable="d" d:DesignWidth="800" Height="124.822">
+    <fluent:Ribbon>
+        <fluent:RibbonTabItem Header="Sample1">
+            <fluent:RibbonGroupBox Header="Test1">
+                <fluent:Button Header="Button1"/>
+            </fluent:RibbonGroupBox>
+        </fluent:RibbonTabItem>
+    </fluent:Ribbon>
+</UserControl>
