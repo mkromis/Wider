@@ -4,8 +4,8 @@
         <id>$id$</id>
         <version>$version$</version>
         <title>$title$</title>
-        <authors>Mark Kromis</authors>
-        <owners>Mark Kromis</owners>
+        <authors>$authors$</authors>
+        <owners>$authors$</owners>
         <licenseUrl>https://github.com/TorisanKitsune/Wider/blob/master/LICENSE.txt</licenseUrl>
         <projectUrl>https://github.com/TorisanKitsune/Wider</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -16,7 +16,7 @@
         <dependencies>
             <dependency id="AvalonEdit" version="[5.0.4,6)" />
             <dependency id="Prism.Wpf" version="[7.1.0.431, 8)" />
-            <dependency id="Wider.Core" version="0.1.0" />
+            <dependency id="Wider.Core" version="0.2.0" />
         </dependencies>
     </metadata>
 </package>
