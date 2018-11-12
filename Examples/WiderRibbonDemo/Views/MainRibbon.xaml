@@ -6,8 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:local="clr-namespace:WiderRibbonDemo.Views"
     xmlns:fluent="urn:fluent-ribbon"
-    mc:Ignorable="d" 
-    d:DesignHeight="450" d:DesignWidth="800">
+    mc:Ignorable="d" d:DesignWidth="800" Height="124.822">
     <fluent:Ribbon>
         <fluent:RibbonTabItem Header="Sample1">
             <fluent:RibbonGroupBox Header="Test1">
