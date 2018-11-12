@@ -34,6 +34,7 @@ using System.Windows;
 using Wider.Core.Events;
 using Wider.Core.Services;
 using Wider.Core.Views;
+using Wider.Shell.Ribbon.Themes;
 using Xceed.Wpf.AvalonDock;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
@@ -49,11 +50,21 @@ namespace Wider.Shell.Ribbon.Views
         private IEventAggregator _eventAggregator;
         private ILoggerService _logger;
 
-        public ShellView(IContainerExtension container, IEventAggregator eventAggregator)
+        public ShellView(IContainerExtension container, IEventAggregator eventAggregator, IThemeManager themeManager)
         {
             InitializeComponent();
+
+            // save initial resolved items
             _container = container;
             _eventAggregator = eventAggregator;
+
+            // Set an inital theme if not set by workspace
+            if (themeManager.Themes.Count == 0)
+            {
+                DefaultTheme defaultTheme = new DefaultTheme();
+                themeManager.AddTheme(defaultTheme);
+                themeManager.SetCurrent(defaultTheme.Name);
+            }
 
             // MahApps specific
         }
