@@ -21,6 +21,7 @@ using Prism.Events;
 using Prism.Ioc;
 using Prism.Logging;
 using Prism.Modularity;
+using Prism.Regions;
 using System;
 using System.Windows;
 using Wider.Core.Controls;
@@ -92,7 +93,7 @@ namespace Wider.Core
             registry.RegisterSingleton<IToolbarPositionSettings, ToolbarPositionSettings>();
             registry.RegisterSingleton<ICommandManager, CommandManager>();
             registry.RegisterSingleton<IContentHandlerRegistry, ContentHandlerRegistry>();
-            registry.RegisterSingleton<IStatusbarService, WiderStatusbar>();
+            registry.RegisterSingleton<IStatusbarService, StatusbarService>();
             registry.RegisterSingleton<IThemeManager, ThemeManager>();
 
             // Load menu and bars
@@ -103,24 +104,35 @@ namespace Wider.Core
 
             registry.RegisterSingleton<IWorkspace, Workspace>(); //PreserveExistingDefaults();
             registry.RegisterSingleton<ILoggerService, DebugLogService>(); //PreserveExistingDefaults();
+
         }
 
         public void OnInitialized(IContainerProvider containerProvider)
-        { 
-
+        {
+            SetRegions(containerProvider);
             AppCommands(containerProvider);
-
-            // This is done in bootstrapper to handle delayed loaded IShell
-            //LoadSettings();
+            LoadSettings();
         }
 
         #endregion
+
+        private void SetRegions(IContainerProvider containerProvider)
+        {
+            // Load regions
+            IRegionManager regionManager = containerProvider.Resolve<IRegionManager>();
+            regionManager.RegisterViewWithRegion("MainMenu", typeof(MainMenu));
+            regionManager.RegisterViewWithRegion("Toolbar", typeof(Toolbar));
+            regionManager.RegisterViewWithRegion("ContentManager", typeof(ContentManager));
+            regionManager.RegisterViewWithRegion("StatusBar", typeof(StatusBar));
+        }
+
 
         /// <summary>
         /// The AppCommands registered by the Core Module
         /// </summary>
         private void AppCommands(IContainerProvider provider)
         {
+            // This is done in bootstrapper to handle delayed loaded IShell
             ICommandManager manager = provider.Resolve<ICommandManager>();
             IContentHandlerRegistry registry = provider.Resolve<IContentHandlerRegistry>();
 

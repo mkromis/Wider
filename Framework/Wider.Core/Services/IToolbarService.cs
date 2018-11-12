@@ -22,17 +22,11 @@ namespace Wider.Core.Services
     public interface IToolbarService
     {
         /// <summary>
-        /// Gets the tool bar tray of the application.
-        /// </summary>
-        /// <value>The tool bar tray.</value>
-        ToolBarTray ToolBarTray { get; }
-
-        /// <summary>
         /// Adds the specified item.
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns><c>true</c> if successfully added, <c>false</c> otherwise</returns>
-        String Add(AbstractCommandable item);
+        String Add(AbstractToolbar item);
 
         /// <summary>
         /// Removes the specified key.
@@ -51,7 +45,12 @@ namespace Wider.Core.Services
         /// <summary>
         /// Gets the right click menu.
         /// </summary>
-        /// <value>The right click menu.</value>
-        AbstractMenuItem RightClickMenu { get; }
+        /// <returns>The right click menu.</returns>
+        AbstractMenuItem ContextMenuItems { get; }
+
+        /// <summary>
+        /// Notify to update main toolbar
+        /// </summary>
+        void Refresh();
     }
 }

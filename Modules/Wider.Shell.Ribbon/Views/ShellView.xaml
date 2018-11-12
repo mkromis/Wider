@@ -1,0 +1,34 @@
+﻿<metro:MetroWindow
+    x:Class="Wider.Shell.Ribbon.Views.ShellView" x:Name="metrowindow" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" x:ClassModifier="internal"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:fluent="urn:fluent-ribbon"
+    xmlns:local="clr-namespace:Wider.Core;assembly=Wider.Core"
+    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:prism="http://prismlibrary.com/"
+    Title="{Binding Title}" Icon="{Binding Icon}" 
+    Loaded="Window_Loaded" Closing="Window_Closing">
+
+    <metro:MetroWindow.TitleTemplate>
+        <DataTemplate>
+            <fluent:RibbonTitleBar x:Name="ribbonTitleBar" Header="{Binding ElementName=metrowindow,Path=Title}" />
+        </DataTemplate>
+    </metro:MetroWindow.TitleTemplate>
+    
+    <Border>
+        <DockPanel>
+            <!-- Ribbon Menu -->
+            <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="MainRibbon" />
+
+            <!--Menu And Toolbar-->
+            <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="MainMenu" />
+            <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="Toolbar" />
+
+            <!--Status bar-->
+            <ContentControl DockPanel.Dock="Bottom" prism:RegionManager.RegionName="StatusBar"/>
+
+            <!-- Main Contnet Manager -->
+            <ContentControl x:Name="contentManager" prism:RegionManager.RegionName="ContentManager" />
+        </DockPanel>
+    </Border>
+</metro:MetroWindow>

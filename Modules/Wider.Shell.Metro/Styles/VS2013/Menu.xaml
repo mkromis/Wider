@@ -12,7 +12,7 @@
     <SolidColorBrush x:Key="DisabledMenuItemBrush" Color="#FF9A9A9A" />
 
     <!-- Original style from http://www.jeff.wilcox.name/2010/05/zunelike-contextmenu-style/ -->
-    <Style TargetType="{x:Type Separator}" x:Key="MetroSeparator">
+    <Style x:Key="MetroSeparator" TargetType="{x:Type Separator}">
         <Setter Property="Background" Value="{DynamicResource SeparatorColorBrush}" />
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Margin" Value="6,2,6,2" />
@@ -102,7 +102,7 @@
                     <ColumnDefinition MinWidth="13" Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition MinHeight="20" Height="Auto " />
+                    <RowDefinition MinHeight="25" Height="Auto " />
                 </Grid.RowDefinitions>
                 <Border Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Name="CheckIcon"
                         Width="16" Height="16" Visibility="Visible" Margin="6,0,6,0" Background="Transparent" BorderThickness="1"
@@ -258,7 +258,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="{x:Type ContextMenu}" x:Key="MetroContextMenu">
+    <Style x:Key="MetroContextMenu" TargetType="{x:Type ContextMenu}">
         <Setter Property="Background" Value="{DynamicResource ControlOpenColorBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="{DynamicResource ControlOpenColorBrush}" />
@@ -288,7 +288,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="StandardMenu" TargetType="Menu">
+    <Style x:Key="MetroMenu" TargetType="{x:Type Menu}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Template">
@@ -306,7 +306,7 @@
     <!--Set default styles-->
     <Style TargetType="Separator" BasedOn="{StaticResource MetroSeparator}" />
     <Style TargetType="MenuItem" BasedOn="{StaticResource MetroMenuItem}" />
-    <Style TargetType="Menu" BasedOn="{StaticResource StandardMenu}" />
+    <Style TargetType="Menu" BasedOn="{StaticResource MetroMenu}" />
     <Style TargetType="ContextMenu" BasedOn="{StaticResource MetroContextMenu}" />
     <!--<Style TargetType="avalonDock:ContextMenuEx" BasedOn="{StaticResource MetroContextMenu}" />
     <Style TargetType="avalonDock:MenuItemEx" BasedOn="{StaticResource MetroMenuItem}" />-->

@@ -19,10 +19,8 @@ namespace Wider.Core
             coreModule.RegisterTypes(containerRegistry);
         }
 
-        protected override IModuleCatalog CreateModuleCatalog()
-        {
-            return new DirectoryModuleCatalog { ModulePath = "." };
-        }
+        protected override IModuleCatalog CreateModuleCatalog() => 
+            new DirectoryModuleCatalog { ModulePath = "." };
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
@@ -55,6 +53,14 @@ namespace Wider.Core
             // Assign main window object and show window.
             Window main = shell as Window;
             main.DataContext = Container.Resolve<IWorkspace>();
+
+            // make sure we are the only one.
+            WindowCollection windows = Application.Current.Windows;
+            foreach (Object item in windows)
+            {
+                Window window = item as Window;
+                if (window != main) { window.Close(); }
+            }
             return main;
         }
     }

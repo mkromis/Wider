@@ -16,12 +16,12 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Wider.Core.Services;
 
-namespace Wider.Core.Controls
+namespace Wider.Core.Services
 {
     /// <summary>
     /// Class Wider Status bar
     /// </summary>
-    internal class WiderStatusbar : BindableBase, IStatusbarService
+    internal class StatusbarService : BindableBase, IStatusbarService
     {
         #region Fields
         /// <summary>
@@ -76,9 +76,9 @@ namespace Wider.Core.Controls
 
         #region CTOR
         /// <summary>
-        /// Initializes a new instance of the <see cref="WiderStatusbar"/> class.
+        /// Initializes a new instance of the <see cref="StatusbarService"/> class.
         /// </summary>
-        public WiderStatusbar() => Clear();
+        public StatusbarService() => Clear();
         #endregion
 
         #region IStatusbarService members
