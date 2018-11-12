@@ -6,5 +6,10 @@
     xmlns:wider="clr-namespace:Wider.Core;assembly=Wider.Core"
     xmlns:local="clr-namespace:WiderRibbonDemo">
     <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Fluent;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </wider:WiderApplication>
