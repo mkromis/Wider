@@ -20,10 +20,6 @@
             <!-- Ribbon Menu -->
             <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="MainRibbon" />
 
-            <!--Menu And Toolbar-->
-            <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="MainMenu" />
-            <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="Toolbar" />
-
             <!--Status bar-->
             <ContentControl DockPanel.Dock="Bottom" prism:RegionManager.RegionName="StatusBar"/>
 

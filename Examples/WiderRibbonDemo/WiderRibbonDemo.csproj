@@ -97,12 +97,19 @@
       <Project>{F4242FA3-2404-4EA4-95D9-D00057F277D1}</Project>
       <Name>Wider.Core.Wpf</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Modules\Wider.Content.TextDocument\Wider.Content.TextDocument.csproj">
+      <Project>{B80E6695-0F27-4AE1-BD7A-EDA42B94A940}</Project>
+      <Name>Wider.Content.TextDocument</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Modules\Wider.Shell.Ribbon\Wider.Shell.Ribbon.csproj">
       <Project>{56a7df3e-1dd7-4b75-86e9-d27be729190f}</Project>
       <Name>Wider.Shell.Ribbon</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AvalonEdit">
+      <Version>5.0.4</Version>
+    </PackageReference>
     <PackageReference Include="Extended.Wpf.Toolkit">
       <Version>3.4.0</Version>
     </PackageReference>
@@ -121,6 +128,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\note3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

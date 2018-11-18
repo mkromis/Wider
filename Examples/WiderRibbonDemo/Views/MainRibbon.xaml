@@ -8,9 +8,9 @@
     xmlns:fluent="urn:fluent-ribbon"
     mc:Ignorable="d" d:DesignWidth="800" Height="124.822">
     <fluent:Ribbon>
-        <fluent:RibbonTabItem Header="Sample1">
-            <fluent:RibbonGroupBox Header="Test1">
-                <fluent:Button Header="Button1"/>
+        <fluent:RibbonTabItem Header="Samples">
+            <fluent:RibbonGroupBox Header="Simple Samples">
+                <fluent:Button Header="Text Sample" Icon="pack://application:,,,/WiderRibbonDemo;component/Resources/note3.png" Size="Middle" Command="{Binding OpenTextSample}"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
     </fluent:Ribbon>
