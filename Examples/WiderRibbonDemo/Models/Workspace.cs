@@ -29,7 +29,6 @@ namespace WiderRibbonDemo.Models
             IMenuService menuService = _container.Resolve<IMenuService>();
             menuService.Add(new MenuItemViewModel("_File", 100));
             menuService.Get("_File").Add(new MenuItemViewModel("_Save", 110));
-            //menuService.Get("_File").Get("_Save").Add(new MenuItemViewModel("Nope", 120));
         }
         
         public ICommand OpenTextSample => new DelegateCommand(() =>
@@ -54,6 +53,11 @@ namespace WiderRibbonDemo.Models
 
             Documents.Add(vm);
             ActiveDocument = vm;
+        });
+
+        public ICommand OpenMonoGameCube => new DelegateCommand(() =>
+        {
+            //
         });
     }
 }

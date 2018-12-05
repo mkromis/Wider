@@ -11,6 +11,7 @@
         <fluent:RibbonTabItem Header="Samples">
             <fluent:RibbonGroupBox Header="Simple Samples">
                 <fluent:Button Header="Text Sample" Icon="pack://application:,,,/WiderRibbonDemo;component/Resources/note3.png" Size="Middle" Command="{Binding OpenTextSample}"/>
+                <fluent:Button Header="3D Sample" Icon="pack://application:,,,/WiderRibbonDemo;component/Resources/note3.png" Size="Middle" Command="{Binding OpenTextSample}"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
     </fluent:Ribbon>
