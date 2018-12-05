@@ -41,14 +41,14 @@ steps:
     command: pack
     packagesToPack: 'Framework/**/*.csproj' # Required when command == Pack
     versioningScheme: 'byEnvVar' # Options: off, byPrereleaseNumber, byEnvVar, byBuildNumber
-    configuration: '$(GitVersion.NuGetVersion)'
+    configuration: '$(BuildConfiguration)'
 
 - task: NuGetCommand@2
   inputs:
     command: pack
     packagesToPack: 'Modules/**/*.csproj' # Required when command == Pack
     versioningScheme: 'byEnvVar' # Options: off, byPrereleaseNumber, byEnvVar, byBuildNumber
-    configuration: '$(GitVersion.NuGetVersion)'
+    configuration: '$(BuildConfiguration)'
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/build/artifacts?view=vsts
 - task: PublishBuildArtifacts@1
