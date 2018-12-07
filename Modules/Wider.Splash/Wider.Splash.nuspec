@@ -14,8 +14,8 @@
         <copyright>Copyright 2018</copyright>
         <tags>IDE Splash Module</tags>
         <dependencies>
-            <dependency id="Prism.Wpf" version="[7.1.0.431, 8)" />
-            <dependency id="Wider.Core" version="[0.2.0, 1)" />
+            <dependency id="Prism.Wpf" />
+            <dependency id="Wider.Core" version="$version$" />
         </dependencies>
     </metadata>
 </package>
