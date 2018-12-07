@@ -20,9 +20,6 @@ namespace WiderRibbonDemo.Views
     /// </summary>
     public partial class MainRibbon : UserControl
     {
-        public MainRibbon()
-        {
-            InitializeComponent();
-        }
+        public MainRibbon() => InitializeComponent();
     }
 }
