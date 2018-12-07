@@ -11,10 +11,7 @@ namespace WiderRibbonDemo
     /// </summary>
     public partial class App : WiderApplication
     {
-        protected override void RegisterTypes(IContainerRegistry containerRegistry)
-        {
-            base.RegisterTypes(containerRegistry);
-        }
+        protected override void RegisterTypes(IContainerRegistry containerRegistry) => base.RegisterTypes(containerRegistry);
 
         protected override void OnInitialized()
         {
