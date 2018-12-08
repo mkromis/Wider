@@ -16,7 +16,7 @@
         <dependencies>
             <dependency id="AvalonEdit" version="[5.0.4,6)" />
             <dependency id="Prism.Wpf" version="[7.1.0.431, 8)" />
-            <dependency id="Wider.Core" version="0.2.0" />
+            <dependency id="Wider.Core" version="$version$" />
         </dependencies>
     </metadata>
 </package>

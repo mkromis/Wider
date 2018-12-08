@@ -9,7 +9,7 @@
         <licenseUrl>https://github.com/TorisanKitsune/Wider/blob/master/LICENSE.txt</licenseUrl>
         <projectUrl>https://github.com/TorisanKitsune/Wider</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>$description$</description>
+        <description>Basic Ribbon interface for Wider</description>
         <releaseNotes>Added basic ribbon interface</releaseNotes>
         <copyright>Copyright 2018</copyright>
         <tags>wider ribbon IDE</tags>
@@ -18,7 +18,7 @@
             <dependency id="Fluent.Ribbon" version="[6.1.0, 7)" />
             <dependency id="MahApps.Metro" version="[1.6.5,2)" />
             <dependency id="Prism.Wpf" version="[7.1.0.431, 8)" />
-            <dependency id="Wider.Core" version="0.2.0" />
+            <dependency id="Wider.Core" version="$version$" />
         </dependencies>
     </metadata>
 </package>

@@ -17,7 +17,7 @@
             <dependency id="Extended.Wpf.Toolkit" version="[3.4.0,4)" />
             <dependency id="MahApps.Metro" version="[1.6.5,2)" />
             <dependency id="Prism.Wpf" version="[7.1.0.431, 8)" />
-            <dependency id="Wider.Core" version="0.2.0" />
+            <dependency id="Wider.Core" version="$version$" />
             <dependency id="Xceed.Wpf.AvalonDock.Themes.VS2013" version="[2.9.0, )" />
         </dependencies>
     </metadata>
