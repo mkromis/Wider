@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Controls;
 
-namespace Microsoft.Sample.Controls
+namespace Wider.Content.VirtualCanvas.Gestures
 {
 
     /// <summary>

@@ -10,7 +10,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace Microsoft.Sample.Controls
+namespace Wider.Content.VirtualCanvas.Gestures
 {
     /// <summary>
     /// EdgeBehavior defines what type of exponential animation to do.

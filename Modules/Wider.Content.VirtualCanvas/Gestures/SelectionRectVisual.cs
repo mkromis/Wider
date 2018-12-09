@@ -3,17 +3,16 @@
 //     Copyright (c) Microsoft Corporation.  All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace Microsoft.Sample.Controls
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Diagnostics;
+
+namespace Wider.Content.VirtualCanvas.Gestures
 {
-
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Media;
-    using System.Diagnostics;
-
     /// <summary>
     /// Create a host visual derived from the FrameworkElement class for drawing the
     /// selection rubber band.

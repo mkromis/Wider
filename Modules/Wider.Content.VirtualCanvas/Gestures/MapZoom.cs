@@ -13,7 +13,7 @@ using System.Text;
 using System.Windows.Input;
 using System.Windows.Controls.Primitives;
 
-namespace Microsoft.Sample.Controls
+namespace Wider.Content.VirtualCanvas.Gestures
 {
     /// <summary>
     /// The MapZoom gesture provides animated mouse wheel zooming behavior as well as a
