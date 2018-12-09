@@ -50,6 +50,12 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gestures\AutoScroll.cs" />
+    <Compile Include="Gestures\ExponentialAnimation.cs" />
+    <Compile Include="Gestures\MapZoom.cs" />
+    <Compile Include="Gestures\Pan.cs" />
+    <Compile Include="Gestures\RectangleSelectionGesture.cs" />
+    <Compile Include="Gestures\SelectionRectVisual.cs" />
     <Compile Include="VirtualCanvasModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -72,6 +78,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Documentation\A Simple Virtual Canvas.doc" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
