@@ -10,6 +10,7 @@
 
 #endregion
 
+using Prism.Ioc;
 using System.Windows.Controls;
 using Wider.Content.TextDocument.ViewModels;
 using Wider.Core.Services;
@@ -18,11 +19,7 @@ namespace WiderMD.Core
 {
     internal class MDViewModel : TextViewModel
     {
-        public MDViewModel(
-            IWorkspace workspace, ICommandManager commandManager, ILoggerService logger, IMenuService menuService)
-            : base(workspace, commandManager, logger, menuService)
-        {
-        }
+        public MDViewModel(IContainerExtension container) : base(container) { }
 
         internal void SetModel(ContentModel model) => base.Model = model;
 
