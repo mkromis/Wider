@@ -15,7 +15,7 @@ namespace WiderClipboard.Models
 {
     internal class Workspace : AbstractWorkspace
     {
-        public Workspace(IContainerExtension container, IEventAggregator eventAggregator) : base(container, eventAggregator)
+        public Workspace(IContainerExtension container) : base(container)
         {
             Title = "Wider Clipboard Viewer";
 

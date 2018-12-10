@@ -26,8 +26,7 @@ namespace Wider.Core
         /// </summary>
         /// <param name="container">The injected container - can be used by custom flavors of workspace</param>
         /// <param name="eventAggregator">The event aggregator.</param>
-        public Workspace(IContainerExtension container, IEventAggregator eventAggregator)
-            : base(container, eventAggregator)
+        public Workspace(IContainerExtension container) : base(container)
         {
         }
     }

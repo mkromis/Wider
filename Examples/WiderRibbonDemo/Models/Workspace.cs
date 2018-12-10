@@ -1,18 +1,33 @@
-﻿using Prism.Events;
+﻿using System;
+using Prism.Events;
 using Prism.Ioc;
+using Wider.Core.Events;
 using Wider.Core.Services;
 
 namespace WiderRibbonDemo.Models
 {
     internal class Workspace : AbstractWorkspace
     {
-        private readonly IContainerExtension container;
-        private readonly IEventAggregator eventAggregator;
 
-        public Workspace(IContainerExtension container, IEventAggregator eventAggregator) : base(container, eventAggregator)
+        public Workspace(IContainerExtension container) : base(container)
         {
-            this.container = container;
-            this.eventAggregator = eventAggregator;
+            _eventAggregator.GetEvent<ActiveContentChangedEvent>().Subscribe(ActiveDocumentChanged);
+        }
+
+        private void ActiveDocumentChanged(ContentViewModel obj)
+        {
+            switch (obj)
+            {
+                case Object obj2:
+                    // something;
+                    break;
+                default:
+                    break;
+            }
+            if (obj is Object)
+            {
+                // i
+            }
         }
     }
 }
