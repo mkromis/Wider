@@ -16,7 +16,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
     /// <summary>
     /// This class implements a mouse middle-button auto-scrolling feature over any target view.
     /// </summary>
-    internal class AutoScroll
+    public class AutoScroll
     {
         Panel _container;
         FrameworkElement _target;

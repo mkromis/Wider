@@ -17,7 +17,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
     /// <summary>
     /// This class provides the ability to pan the target object when dragging the mouse 
     /// </summary>
-    class Pan {
+    public class Pan {
 
         bool _dragging;
         FrameworkElement _target;
