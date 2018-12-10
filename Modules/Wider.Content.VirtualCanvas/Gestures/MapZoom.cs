@@ -20,7 +20,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
     /// general management of the scale and translate transformations and a "ScrollIntoView" 
     /// method than can be used by other gestures.
     /// </summary>
-    class MapZoom : Animatable
+    public class MapZoom : Animatable
     {
         // sensitivity is a number between 0 and 1 that controls how much each mouse wheel click
         // zooms in.  This value means one mouse click will zoom to 0.90 of the original size, but
