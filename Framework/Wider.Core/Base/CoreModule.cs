@@ -59,10 +59,10 @@ namespace Wider.Core
         /// </summary>
         /// <param name="container">The injected container used in the application</param>
         /// <param name="eventAggregator">The injected event aggregator</param>
-        public CoreModule(IContainerExtension container, IEventAggregator eventAggregator)
+        public CoreModule(IContainerExtension container)
         {
             _container = container;
-            EventAggregator = eventAggregator;
+            EventAggregator = container.Resolve<IEventAggregator>();
         }
 
         /// <summary>
