@@ -2,6 +2,8 @@
 using Prism.Ioc;
 using Prism.Regions;
 using Wider.Core;
+using Wider.Core.Services;
+using WiderRibbonDemo.Models;
 using WiderRibbonDemo.Views;
 
 namespace WiderRibbonDemo
@@ -11,7 +13,11 @@ namespace WiderRibbonDemo
     /// </summary>
     public partial class App : WiderApplication
     {
-        protected override void RegisterTypes(IContainerRegistry containerRegistry) => base.RegisterTypes(containerRegistry);
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            base.RegisterTypes(containerRegistry);
+            containerRegistry.Register<IWorkspace, Workspace>();
+        }
 
         protected override void OnInitialized()
         {
