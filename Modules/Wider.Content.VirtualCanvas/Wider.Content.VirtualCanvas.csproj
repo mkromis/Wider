@@ -56,6 +56,10 @@
     <Compile Include="Gestures\Pan.cs" />
     <Compile Include="Gestures\RectangleSelectionGesture.cs" />
     <Compile Include="Gestures\SelectionRectVisual.cs" />
+    <Compile Include="Models\HlsColor.cs" />
+    <Compile Include="Models\PerfTimer.cs" />
+    <Compile Include="Models\QuadTree.cs" />
+    <Compile Include="Models\VirtualCanvas.cs" />
     <Compile Include="VirtualCanvasModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -96,5 +100,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
