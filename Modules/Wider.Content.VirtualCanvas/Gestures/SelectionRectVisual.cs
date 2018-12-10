@@ -109,7 +109,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
 
             if (topLeftCorner.X != bottomRightCorner.X || topLeftCorner.Y != bottomRightCorner.Y)
             {
-                using (DrawingContext drawingContext = this._visualForRect.RenderOpen())
+                using (DrawingContext drawingContext = _visualForRect.RenderOpen())
                 {
 
                     // Calculate line thickness.
@@ -141,10 +141,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <summary>
         /// Provide a required override for the VisualChildrenCount property
         /// </summary>
-        protected override int VisualChildrenCount
-        {
-            get { return 1; }
-        }
+        protected override int VisualChildrenCount => 1;
 
         /// <summary>
         /// Provide a required override for the GetVisualChild method.
@@ -154,7 +151,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         protected override Visual GetVisualChild(int index)
         {
             Debug.Assert(index == 0);
-            return this._visualForRect;
+            return _visualForRect;
         }
 
         /// <summary>

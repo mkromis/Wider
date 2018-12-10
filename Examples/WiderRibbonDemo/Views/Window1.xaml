@@ -1,0 +1,75 @@
+﻿<!--=======================================================================
+<copyright file="Window1.xaml" company="Microsoft">
+   Copyright (c) Microsoft Corporation.  All rights reserved.
+</copyright>
+===========================================================================-->
+<Window x:Class="WpfApplication.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="clr-namespace:Microsoft.Sample.Controls"
+    Title="Window1" Height="600" Width="800">
+    <!--https://blogs.msdn.microsoft.com/jgoldb/2008/03/09/virtualized-wpf-canvas/-->
+  <DockPanel>
+    <Menu IsMainMenu="True" DockPanel.Dock="Top">
+      <MenuItem Header="_File">
+        <MenuItem Header="Dump QuadTree Log..." Click="OnSaveLog"/>
+      </MenuItem>
+      <MenuItem Header="_Dimension">
+        <MenuItem Header="10" Tag="10" Click="OnRowColChange" IsChecked="False"/>
+        <MenuItem Header="100" Tag="100" Click="OnRowColChange" IsChecked="True"/>
+        <MenuItem Header="500" Tag="500" Click="OnRowColChange" IsChecked="False"/>
+        <MenuItem Header="1000" Tag="1000" Click="OnRowColChange" IsChecked="False"/>
+      </MenuItem>
+      <MenuItem Header="_View">
+        <MenuItem Header="Show Grid Lines" Click="OnShowGridLines" IsChecked="False"/>
+        <MenuItem Header="Show Quad Tree" Click="OnShowQuadTree" IsChecked="False"/>
+        <MenuItem Header="Animate Status" Click="OnAnimateStatus" IsChecked="True"/>
+        <MenuItem Header="_Zoom">
+          <MenuItem Header="500%" Tag="500" Click="OnZoom"/>
+          <MenuItem Header="200%" Tag="200" Click="OnZoom"/>
+          <MenuItem Header="100%" Tag="100" Click="OnZoom"/>
+          <MenuItem Header="75%" Tag="75" Click="OnZoom"/>
+          <MenuItem Header="50%" Tag="50" Click="OnZoom"/>
+          <MenuItem Header="25%" Tag="25" Click="OnZoom"/>
+          <MenuItem Header="Fit" Tag="Fit" Click="OnZoom"/>
+
+          <Slider Minimum=".01" Maximum="5" x:Name="ZoomSlider" Value="1" Width="200" Height="30" AutoToolTipPrecision="3" />
+          <TextBlock>
+            Note if you hold down the Control key, <LineBreak/>
+            you can also spin the mouse wheel to <LineBreak/>
+            zoom in and out around the mouse position.<LineBreak/>
+          </TextBlock>
+
+        </MenuItem>
+      </MenuItem>
+      <MenuItem Header="_Help" >
+        <MenuItem Header="_User Interface" Click="OnHelp"/>
+      </MenuItem>
+    </Menu>
+    <StatusBar DockPanel.Dock="Bottom">
+      <StatusBarItem Width="200" HorizontalAlignment="Left">
+        <TextBlock x:Name="StatusText" Width="200">Status</TextBlock>
+      </StatusBarItem>
+      <StatusBarItem Width="500" HorizontalAlignment="Left">
+        <Grid Width="500">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="10"/>
+          </Grid.RowDefinitions>
+          <StackPanel Orientation="Horizontal" Grid.Row="0" >
+            <Rectangle Fill="Green" x:Name="Created" Height="5" Width="0" HorizontalAlignment="Left"/>
+            <TextBlock x:Name="CreatedLabel" FontSize="9"></TextBlock>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <Rectangle Fill="Red" x:Name="Destroyed" Height="5" Width="0"  HorizontalAlignment="Left"/>
+            <TextBlock x:Name="DestroyedLabel" FontSize="9"></TextBlock>
+          </StackPanel>
+        </Grid>
+      </StatusBarItem>
+    </StatusBar>
+    <ScrollViewer x:Name="Scroller" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+      <!--<ui:VirtualCanvas x:Name="Graph"/>-->
+    </ScrollViewer>
+  </DockPanel>
+</Window>
