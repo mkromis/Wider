@@ -20,9 +20,8 @@ using System.Xml;
 using System.Globalization;
 using Wider.Content.VirtualCanvas.Gestures;
 
-namespace Microsoft.Sample.Controls
+namespace Wider.Content.VirtualCanvas.Models
 {
-#if ANIMATE_FEEDBACK
     public class VisualChangeEventArgs : EventArgs
     {
         public int Added { get; set; }
@@ -33,7 +32,6 @@ namespace Microsoft.Sample.Controls
             Removed = removed;
         }
     }
-#endif 
 
     /// <summary>
     /// This interface is implemented by the objects that you want to put in the VirtualCanvas.
@@ -211,10 +209,10 @@ namespace Microsoft.Sample.Controls
                 }
                 if (_children != null)
                 {
-                    _children.CollectionChanged -= new System.Collections.Specialized.NotifyCollectionChangedEventHandler(OnChildrenCollectionChanged);
+                    _children.CollectionChanged -= new NotifyCollectionChangedEventHandler(OnChildrenCollectionChanged);
                 }
                 _children = value;
-                _children.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(OnChildrenCollectionChanged);
+                _children.CollectionChanged += new NotifyCollectionChangedEventHandler(OnChildrenCollectionChanged);
                 RebuildVisuals();
             }
         }

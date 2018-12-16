@@ -7,11 +7,31 @@
     xmlns:local="clr-namespace:WiderRibbonDemo.Views"
     xmlns:fluent="urn:fluent-ribbon"
     mc:Ignorable="d" d:DesignWidth="800" Height="124.822">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <!--http://modernuiicons.com/-->
+            <Canvas x:Key="appbar_save" Width="32" Height="32" VerticalAlignment="Center" HorizontalAlignment="Center" Clip="F1 M 0,0L 76,0L 76,76L 0,76L 0,0">
+                <Path 
+                    Width="30" Height="30" Stretch="Fill" Fill="#FF0000FF" 
+                    Data="F1 M 20.5833,20.5833L 55.4167,20.5833L 55.4167,55.4167L 45.9167,55.4167L 45.9167,44.3333L 30.0833,44.3333L 30.0833,55.4167L 20.5833,55.4167L 20.5833,20.5833 Z M 33.25,55.4167L 
+                    33.25,50.6667L 39.5833,50.6667L 39.5833,55.4167L 33.25,55.4167 Z M 26.9167,23.75L 26.9167,33.25L 49.0833,33.25L 49.0833,23.75L 26.9167,23.75 Z "/>
+            </Canvas>
+
+            <Canvas x:Key="appbar_question" Width="32" Height="32" Clip="F1 M 0,0L 76,0L 76,76L 0,76L 0,0">
+
+                <Path Width="30" Height="30" Stretch="Fill" Fill="#FF000077" 
+                      Data="F1 M 37.2083,49.0833C 39.3945,49.0833 41.1667,50.8555 41.1667,53.0417C 41.1667,55.2278 39.3945,57 37.2083,57C 35.0222,57 33.25,55.2278 33.25,53.0417C 33.25,50.8555 35.0222,49.0833 
+                      37.2083,49.0833 Z M 38,17.4167C 44.9956,17.4167 50.6666,21.9416 50.6666,28.5C 50.6666,30.875 49.0833,34.8333 45.9167,36.4167C 42.75,38 41.1667,40.1267 41.1667,42.75L 41.1667,45.9167L 
+                      33.25,45.9167L 33.25,43.5417C 33.25,38.1571 38,34.8333 39.5833,33.25C 42.75,30.0833 42.75,29.644 42.75,28.5C 42.75,25.8767 40.6233,23.75 38,23.75C 35.3766,23.75 33.25,25.8767 33.25,28.5L 
+                      33.25,30.875L 25.3333,30.875L 25.3333,29.2917C 25.3333,22.7333 31.0044,17.4167 38,17.4167 Z "/>
+
+            </Canvas>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <fluent:Ribbon>
         <fluent:Ribbon.ContextualGroups>
-            <fluent:RibbonContextualTabGroup 
-                x:Name="canvasGroup" Header="Virtual Canvas" Visibility="Visible" Background="Green" BorderBrush="Green">
-            </fluent:RibbonContextualTabGroup>
+            <!-- This will give our context menu a green look -->
+            <fluent:RibbonContextualTabGroup x:Name="canvasGroup" Header="Virtual Canvas" Visibility="Visible" Background="Green" BorderBrush="Green" />
         </fluent:Ribbon.ContextualGroups>
         
         <fluent:RibbonTabItem Header="Samples">
@@ -19,9 +39,95 @@
                 <fluent:Button Header="Virtual Content" Size="Middle" Command="{Binding OpenCanvasCommand}"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
-        <fluent:RibbonTabItem Header="Canvas" Group="{Binding Source={x:Reference canvasGroup}}" Visibility="{Binding CanvasVisibility}">
-            <fluent:RibbonGroupBox Header="2">
-                <fluent:Button Header="3" />
+        <!-- Bind context group to tab item -->
+        <fluent:RibbonTabItem Header="Canvas" Group="{Binding Source={x:Reference canvasGroup}}" DataContext="{Binding CanvasViewModel}">
+            <fluent:RibbonTabItem.Style>
+                <Style TargetType="fluent:RibbonTabItem">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ShowContextRibbon}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </fluent:RibbonTabItem.Style>
+            <fluent:RibbonGroupBox Header="File">
+                <fluent:Button 
+                    Header="Dump QuadTree Log..."
+                    LargeIcon="{DynamicResource appbar_save}"
+                    Command="{Binding CanvasSaveLogCommand}">
+                    <!-- Click="OnSaveLog" -->
+                </fluent:Button>
+            </fluent:RibbonGroupBox>
+            <fluent:RibbonGroupBox Header="Dimension">
+                <!-- Click=OnRowColChange -->
+                <fluent:Button Header="10" Tag="10" Command="{Binding CanvasRowColChange}" Size="Middle" />
+                <fluent:Button Header="50" Tag="50" Command="{Binding CanvasRowColChange}" Size="Middle" />
+                <fluent:Button Header="100" Tag="100" Command="{Binding CanvasRowColChange}" Size="Middle" />
+                <fluent:Button Header="250" Tag="250" Command="{Binding CanvasRowColChange}" Size="Middle" />
+                <fluent:Button Header="500" Tag="500" Command="{Binding CanvasRowColChange}" Size="Middle" />
+                <fluent:Button Header="1000" Tag="1000" Command="{Binding CanvasRowColChange}" Size="Middle" />
+            </fluent:RibbonGroupBox>
+            <fluent:RibbonGroupBox Header="View">
+                <fluent:CheckBox Header="Show Grid Lines" /> <!-- Click="OnShowGridLines" -->
+                <fluent:CheckBox Header="Show Quad Tree" /> <!-- Click="OnShowQuadTree" -->
+                <fluent:CheckBox Header="Animate Status" IsChecked="True" /> <!-- OnAnimateStatus -->
+            </fluent:RibbonGroupBox>
+            <fluent:RibbonGroupBox Header="Zoom">
+                <!-- OnZoom -->
+                <fluent:Button Header="500%" Tag="500" Size="Middle"/>
+                <fluent:Button Header="200%" Tag="200" Size="Middle"/>
+                <fluent:Button Header="100%" Tag="100" Size="Middle"/>
+                <fluent:Button Header="75%" Tag="75" Size="Middle"/>
+                <fluent:Button Header="50%" Tag="50" Size="Middle"/>
+                <fluent:Button Header="25%" Tag="25" Size="Middle"/>
+                <fluent:Button Header="25%" Tag="25" Size="Middle"/>
+                <fluent:Button Header="Fit" Tag="Fit" Size="Middle"/>
+                <Slider Minimum=".01" Maximum="5" x:Name="ZoomSlider" Value="1" Width="80" Height="30" AutoToolTipPrecision="3" />
+            </fluent:RibbonGroupBox>
+        </fluent:RibbonTabItem>
+        <fluent:RibbonTabItem 
+            Header="Status Info" Group="{Binding Source={x:Reference canvasGroup}}" 
+            DataContext="{Binding CanvasViewModel}">
+            <fluent:RibbonTabItem.Style>
+                <Style TargetType="fluent:RibbonTabItem">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ShowContextRibbon}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </fluent:RibbonTabItem.Style>
+            <fluent:RibbonGroupBox>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" >
+                    <Rectangle Fill="Green" x:Name="Created" Height="5" Width="0" HorizontalAlignment="Left"/>
+                    <TextBlock x:Name="CreatedLabel" FontSize="9" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2">
+                    <Rectangle Fill="Red" x:Name="Destroyed" Height="5" Width="0"  HorizontalAlignment="Left"/>
+                    <TextBlock x:Name="DestroyedLabel" FontSize="9" />
+                </StackPanel>
+            </fluent:RibbonGroupBox>
+        </fluent:RibbonTabItem>
+        <fluent:RibbonTabItem Header="Mouse Help" Group="{Binding Source={x:Reference canvasGroup}}" DataContext="{Binding CanvasViewModel}">
+            <fluent:RibbonTabItem.Style>
+                <Style TargetType="fluent:RibbonTabItem">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ShowContextRibbon}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </fluent:RibbonTabItem.Style>
+            <fluent:RibbonGroupBox Header="Help">
+                <TextBlock>
+                    Note if you hold down the Control key, <LineBreak/>
+                    you can also spin the mouse wheel to <LineBreak/>
+                    zoom in and out around the mouse position.<LineBreak/>
+                </TextBlock>
+                <fluent:Button Header="User Interface" Command="{Binding OnHelpCommand}" LargeIcon="{StaticResource appbar_question}"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
     </fluent:Ribbon>

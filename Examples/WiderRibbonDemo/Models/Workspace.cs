@@ -14,18 +14,19 @@ namespace WiderRibbonDemo.Models
 {
     public class Workspace : AbstractWorkspace
     {
-        private Visibility _canvasVisibility = Visibility.Collapsed;
+        // Handles data context for ribbon.
+        private VirtualCanvasViewModel _canvasViewModel;
 
 
-        public Visibility CanvasVisibility
+        public VirtualCanvasViewModel CanvasViewModel
         {
-            get => _canvasVisibility;
-            set => SetProperty(ref _canvasVisibility, value);
+            get => _canvasViewModel;
+            set => SetProperty(ref _canvasViewModel, value);
         }
 
         public ICommand OpenCanvasCommand => new DelegateCommand(() =>
         {
-            IEnumerable<ContentViewModel> docs = Documents.Where(x => x is CanvasSampleViewModel);
+            IEnumerable<ContentViewModel> docs = Documents.Where(x => x is VirtualCanvasViewModel);
             if (docs.Count() > 0)
             {
                 ActiveDocument = docs.First();
@@ -33,9 +34,9 @@ namespace WiderRibbonDemo.Models
             }
 
             // if not exist
-            CanvasSampleViewModel newItem = _container.Resolve<CanvasSampleViewModel>();
-            Documents.Add(newItem);
-            ActiveDocument = newItem;
+            CanvasViewModel = _container.Resolve<VirtualCanvasViewModel>();
+            Documents.Add(CanvasViewModel);
+            ActiveDocument = CanvasViewModel;
         });
 
         public Workspace(IContainerExtension container) : base(container)
@@ -45,15 +46,14 @@ namespace WiderRibbonDemo.Models
 
         private void ActiveDocumentChanged(ContentViewModel obj)
         {
-            CanvasVisibility = Visibility.Collapsed;
-            switch (obj)
-            {
-                case CanvasSampleViewModel canvas:
-                    CanvasVisibility = Visibility.Visible;
-                    break;
-                default:
-                    break;
-            }
+            //switch (obj)
+            //{
+            //    case VirtualCanvasViewModel canvas:
+            //        CanvasVisibility = Visibility.Visible;
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
     }
 }

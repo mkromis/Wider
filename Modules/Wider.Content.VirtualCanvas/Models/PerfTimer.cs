@@ -7,7 +7,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Microsoft.Sample.Controls
+namespace Wider.Content.VirtualCanvas.Models
 {
     /// <summary>
     /// This class implements a high precision timer using the Win32 QueryPerformanceCounter API.

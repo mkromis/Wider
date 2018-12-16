@@ -56,9 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Views\Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Models\EmptyModel.cs" />
+    <Compile Include="Models\HlsColor.cs" />
+    <Compile Include="Models\TestShape.cs" />
+    <Compile Include="ViewModels\VirtualCanvasViewModel.cs" />
     <Page Include="Views\MainRibbon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -71,10 +72,6 @@
     <Compile Include="Views\MainRibbon.xaml.cs">
       <DependentUpon>MainRibbon.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\Window1.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -104,6 +101,10 @@
       <Project>{F4242FA3-2404-4EA4-95D9-D00057F277D1}</Project>
       <Name>Wider.Core.Wpf</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Modules\Wider.Content.VirtualCanvas\Wider.Content.VirtualCanvas.csproj">
+      <Project>{d2f57b95-bcd2-411f-bc79-7dcebaf74b16}</Project>
+      <Name>Wider.Content.VirtualCanvas</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Modules\Wider.Shell.Ribbon\Wider.Shell.Ribbon.csproj">
       <Project>{56a7df3e-1dd7-4b75-86e9-d27be729190f}</Project>
       <Name>Wider.Shell.Ribbon</Name>
@@ -126,8 +127,6 @@
       <Version>2.9.0.1</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

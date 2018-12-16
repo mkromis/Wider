@@ -2,7 +2,7 @@ using System;
 using System.Windows;
 using System.Windows.Media;
 
-namespace Microsoft.VisualStudio.Controls
+namespace WiderRibbonDemo.Models
 {
     /// <include file='doc\ControlPaint.uex' path='docs/doc[@for="ControlPaint.HLSColor"]/*' />
     /// <devdoc>
