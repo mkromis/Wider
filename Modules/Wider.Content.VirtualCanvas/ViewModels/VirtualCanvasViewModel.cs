@@ -35,12 +35,13 @@ namespace Wider.Content.VirtualCanvas.ViewModels
     /// </summary>
     public class VirtualCanvasViewModel : ContentViewModel
     {
-        public Models.VirtualCanvas Graph { get; set; }
+        public Controls.VirtualCanvas Graph { get; set; }
 
         public VirtualCanvasViewModel(IContainerExtension containerExtension) : base(containerExtension)
         {
-            Graph = new Models.VirtualCanvas();
-            View = new Views.VirtualCanvas();
+            Views.VirtualCanvas canvas = new Views.VirtualCanvas();
+            Graph = canvas.Graph;
+            View = canvas;
         }
     }
 }

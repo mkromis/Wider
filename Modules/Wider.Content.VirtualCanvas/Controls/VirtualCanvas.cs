@@ -19,14 +19,15 @@ using System.IO;
 using System.Xml;
 using System.Globalization;
 using Wider.Content.VirtualCanvas.Gestures;
+using Wider.Content.VirtualCanvas.Models;
 
-namespace Wider.Content.VirtualCanvas.Models
+namespace Wider.Content.VirtualCanvas.Controls
 {
     public class VisualChangeEventArgs : EventArgs
     {
-        public int Added { get; set; }
-        public int Removed { get; set; }
-        public VisualChangeEventArgs(int added, int removed)
+        public Int32 Added { get; set; }
+        public Int32 Removed { get; set; }
+        public VisualChangeEventArgs(Int32 added, Int32 removed)
         {
             Added = added;
             Removed = removed;
@@ -74,30 +75,18 @@ namespace Wider.Content.VirtualCanvas.Models
     /// </summary>
     public class VirtualCanvas : VirtualizingPanel, IScrollInfo
     {
-        ScrollViewer _owner;
         Size _viewPortSize;
-        bool _canHScroll = false;
-        bool _canVScroll = false;
         QuadTree<IVirtualChild> _index;
         ObservableCollection<IVirtualChild> _children;
         Size _smallScrollIncrement = new Size(10, 10);
-        Canvas _content;
-        Border _backdrop;
-        TranslateTransform _translate;
-        ScaleTransform _scale;
         Size _extent;
-        IList<Rect> _dirtyRegions = new List<Rect>();
-        IList<Rect> _visibleRegions = new List<Rect>();
-        IDictionary<IVirtualChild, int> _visualPositions;
-        int _nodeCollectCycle;
-        bool _done = true;
-        MapZoom _zoom;
-
+        readonly IList<Rect> _dirtyRegions = new List<Rect>();
+        readonly IList<Rect> _visibleRegions = new List<Rect>();
+        IDictionary<IVirtualChild, Int32> _visualPositions;
+        Int32 _nodeCollectCycle;
         public static DependencyProperty VirtualChildProperty = DependencyProperty.Register("VirtualChild", typeof(IVirtualChild), typeof(VirtualCanvas));
 
-#if ANIMATE_FEEDBACK
         public event EventHandler<VisualChangeEventArgs> VisualsChanged;
-#endif 
 
         delegate void UpdateHandler();
 
@@ -108,21 +97,21 @@ namespace Wider.Content.VirtualCanvas.Models
         {
             _index = new QuadTree<IVirtualChild>();
             _children = new ObservableCollection<IVirtualChild>();
-            _children.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(OnChildrenCollectionChanged);
-            _content = new Canvas();
-            _backdrop = new Border();
-            _content.Children.Add(_backdrop);
+            _children.CollectionChanged += new NotifyCollectionChangedEventHandler(OnChildrenCollectionChanged);
+            ContentCanvas = new Canvas();
+            Backdrop = new Border();
+            ContentCanvas.Children.Add(Backdrop);
 
             TransformGroup g = new TransformGroup();
-            _scale = new ScaleTransform();
-            _translate = new TranslateTransform();
-            g.Children.Add(_scale);
-            g.Children.Add(_translate);
-            _content.RenderTransform = g;
+            Scale = new ScaleTransform();
+            Translate = new TranslateTransform();
+            g.Children.Add(Scale);
+            g.Children.Add(Translate);
+            ContentCanvas.RenderTransform = g;
 
-            _translate.Changed += new EventHandler(OnTranslateChanged);
-            _scale.Changed += new EventHandler(OnScaleChanged);
-            this.Children.Add(_content);
+            Translate.Changed += new EventHandler(OnTranslateChanged);
+            Scale.Changed += new EventHandler(OnScaleChanged);
+            Children.Add(ContentCanvas);
         }
 
         /// <summary>
@@ -130,28 +119,18 @@ namespace Wider.Content.VirtualCanvas.Models
         /// </summary>
         /// <param name="sender">This</param>
         /// <param name="e">noop</param>
-        void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            RebuildVisuals();
-        }
+        void OnChildrenCollectionChanged(Object sender, NotifyCollectionChangedEventArgs e) => RebuildVisuals();
 
         /// <summary>
         /// Get/Set the MapZoom object used for manipulating the scale and translation on this canvas.
         /// </summary>
-        internal MapZoom Zoom
-        {
-            get { return _zoom; }
-            set { _zoom = value; }
-        }
+        internal MapZoom Zoom { get; set; }
 
         /// <summary>
         /// Returns true if all Visuals have been created for the current scroll position
         /// and there is no more idle processing needed.
         /// </summary>
-        public bool IsDone
-        {
-            get { return _done; }
-        }
+        public Boolean IsDone { get; private set; } = true;
 
         /// <summary>
         /// Resets the state so there is no Visuals associated with this canvas.
@@ -162,18 +141,17 @@ namespace Wider.Content.VirtualCanvas.Models
             _index = null;
             _visualPositions = null;
             _visible = Rect.Empty;
-            _done = false;
-            foreach (UIElement e in _content.Children)
+            IsDone = false;
+            foreach (UIElement e in ContentCanvas.Children)
             {
-                IVirtualChild n = e.GetValue(VirtualChildProperty) as IVirtualChild;
-                if (n != null)
+                if (e.GetValue(VirtualChildProperty) is IVirtualChild n)
                 {
                     e.ClearValue(VirtualChildProperty);
                     n.DisposeVisual();
                 }
             }
-            _content.Children.Clear();
-            _content.Children.Add(_backdrop);
+            ContentCanvas.Children.Clear();
+            ContentCanvas.Children.Add(Backdrop);
             InvalidateArrange();
             StartLazyUpdate();
         }
@@ -181,18 +159,12 @@ namespace Wider.Content.VirtualCanvas.Models
         /// <summary>
         /// The current zoom transform.
         /// </summary>
-        public ScaleTransform Scale
-        {
-            get { return _scale; }
-        }
+        public ScaleTransform Scale { get; }
 
         /// <summary>
         /// The current translate transform.
         /// </summary>
-        public TranslateTransform Translate
-        {
-            get { return _translate; }
-        }
+        public TranslateTransform Translate { get; }
 
         /// <summary>
         /// Get/Set the IVirtualChild collection.  The VirtualCanvas will call CreateVisual on them
@@ -200,18 +172,14 @@ namespace Wider.Content.VirtualCanvas.Models
         /// </summary>
         public ObservableCollection<IVirtualChild> VirtualChildren
         {
-            get { return _children; }
+            get => _children;
             set
             {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value");
-                }
                 if (_children != null)
                 {
                     _children.CollectionChanged -= new NotifyCollectionChangedEventHandler(OnChildrenCollectionChanged);
                 }
-                _children = value;
+                _children = value ?? throw new ArgumentNullException("value");
                 _children.CollectionChanged += new NotifyCollectionChangedEventHandler(OnChildrenCollectionChanged);
                 RebuildVisuals();
             }
@@ -222,8 +190,8 @@ namespace Wider.Content.VirtualCanvas.Models
         /// </summary>
         public Size SmallScrollIncrement
         {
-            get { return _smallScrollIncrement; }
-            set { _smallScrollIncrement = value; }
+            get => SmallScrollIncrement1;
+            set => SmallScrollIncrement1 = value;
         }
 
         /// <summary>
@@ -231,10 +199,7 @@ namespace Wider.Content.VirtualCanvas.Models
         /// when the Bounds of your child intersects the current visible view port.
         /// </summary>
         /// <param name="c"></param>
-        public void AddVirtualChild(IVirtualChild child)
-        {
-            _children.Add(child);
-        }
+        public void AddVirtualChild(IVirtualChild child) => _children.Add(child);
 
         /// <summary>
         /// Return the list of virtual children that intersect the given bounds.
@@ -255,7 +220,7 @@ namespace Wider.Content.VirtualCanvas.Models
         /// </summary>
         /// <param name="bounds">The bounds to test</param>
         /// <returns>True if a node is found whose bounds intersect the given bounds</returns>
-        public bool HasChildrenIntersecting(Rect bounds)
+        public Boolean HasChildrenIntersecting(Rect bounds)
         {
             if (_index != null)
             {
@@ -267,62 +232,47 @@ namespace Wider.Content.VirtualCanvas.Models
         /// <summary>
         /// The number of visual children that are visible right now.
         /// </summary>
-        public int LiveVisualCount
-        {
-            get { return _content.Children.Count - 1; }
-        }
-        
+        public Int32 LiveVisualCount => ContentCanvas.Children.Count - 1;
+
         /// <summary>
         /// Callback whenever the current TranslateTransform is changed.
         /// </summary>
         /// <param name="sender">TranslateTransform</param>
         /// <param name="e">noop</param>
-        void OnTranslateChanged(object sender, EventArgs e)
-        {
-            OnScrollChanged();
-        }
+        void OnTranslateChanged(Object sender, EventArgs e) => OnScrollChanged();
 
         /// <summary>
         /// Callback whenever the current ScaleTransform is changed.
         /// </summary>
         /// <param name="sender">ScaleTransform</param>
         /// <param name="e">noop</param>
-        void OnScaleChanged(object sender, EventArgs e)
-        {
-            OnScrollChanged();
-        }
+        void OnScaleChanged(Object sender, EventArgs e) => OnScrollChanged();
 
         /// <summary>
         /// The ContentCanvas that is actually the parent of all the VirtualChildren Visuals.
         /// </summary>
-        public Canvas ContentCanvas
-        {
-            get { return _content; }
-        }
+        public Canvas ContentCanvas { get; }
 
         /// <summary>
         /// The backgrop is the back most child of the ContentCanvas used for drawing any sort
         /// of background that is guarenteed to fill the ViewPort.
         /// </summary>
-        public Border Backdrop
-        {
-            get { return _backdrop; }
-        }
+        public Border Backdrop { get; }
 
         /// <summary>
         /// Calculate the size needed to display all the virtual children.
         /// </summary>
-        void CalculateExtent() 
+        void CalculateExtent()
         {
-            bool rebuild = false;
-            if (_index == null || _extent.Width==0 || _extent.Height == 0 ||
-                double.IsNaN(_extent.Width) || double.IsNaN(_extent.Height))
+            Boolean rebuild = false;
+            if (_index == null || _extent.Width == 0 || _extent.Height == 0 ||
+                Double.IsNaN(_extent.Width) || Double.IsNaN(_extent.Height))
             {
-                rebuild= true;
-                bool first = true;
+                rebuild = true;
+                Boolean first = true;
                 Rect extent = new Rect();
-                _visualPositions = new Dictionary<IVirtualChild, int>();
-                int index = 0;
+                _visualPositions = new Dictionary<IVirtualChild, Int32>();
+                Int32 index = 0;
                 foreach (IVirtualChild c in _children)
                 {
                     _visualPositions[c] = index++;
@@ -330,9 +280,9 @@ namespace Wider.Content.VirtualCanvas.Models
                     Rect childBounds = c.Bounds;
                     if (childBounds.Width != 0 && childBounds.Height != 0)
                     {
-                        if (double.IsNaN(childBounds.Width) || double.IsNaN(childBounds.Height))
+                        if (Double.IsNaN(childBounds.Width) || Double.IsNaN(childBounds.Height))
                         {
-                            throw new InvalidOperationException(string.Format(System.Globalization.CultureInfo.CurrentUICulture,
+                            throw new InvalidOperationException(String.Format(System.Globalization.CultureInfo.CurrentUICulture,
                                 "Child type '{0}' returned NaN bounds", c.GetType().Name));
                         }
                         if (first)
@@ -348,8 +298,10 @@ namespace Wider.Content.VirtualCanvas.Models
                 }
                 _extent = extent.Size;
                 // Ok, now we know the size we can create the index.
-                _index = new QuadTree<IVirtualChild>();
-                _index.Bounds = new Rect(0, 0, extent.Width, extent.Height);
+                _index = new QuadTree<IVirtualChild>
+                {
+                    Bounds = new Rect(0, 0, extent.Width, extent.Height)
+                };
                 foreach (IVirtualChild n in _children)
                 {
                     if (n.Bounds.Width > 0 && n.Bounds.Height > 0)
@@ -360,28 +312,28 @@ namespace Wider.Content.VirtualCanvas.Models
             }
 
             // Make sure we honor the min width & height.
-            double w = Math.Max(_content.MinWidth, _extent.Width);
-            double h = Math.Max(_content.MinHeight, _extent.Height);
-            _content.Width = w;
-            _content.Height = h;
+            Double w = Math.Max(ContentCanvas.MinWidth, _extent.Width);
+            Double h = Math.Max(ContentCanvas.MinHeight, _extent.Height);
+            ContentCanvas.Width = w;
+            ContentCanvas.Height = h;
 
             // Make sure the backdrop covers the ViewPort bounds.
-            double zoom = _scale.ScaleX;
-            if (!double.IsInfinity(this.ViewportHeight) &&
-                !double.IsInfinity(this.ViewportHeight))
+            Double zoom = Scale.ScaleX;
+            if (!Double.IsInfinity(ViewportHeight) &&
+                !Double.IsInfinity(ViewportHeight))
             {
-                w = Math.Max(w, this.ViewportWidth / zoom);
-                h = Math.Max(h, this.ViewportHeight / zoom);
-                _backdrop.Width = w;
-                _backdrop.Height = h;
+                w = Math.Max(w, ViewportWidth / zoom);
+                h = Math.Max(h, ViewportHeight / zoom);
+                Backdrop.Width = w;
+                Backdrop.Height = h;
             }
 
-            if (_owner != null)
+            if (ScrollOwner != null)
             {
-                _owner.InvalidateScrollInfo();
+                ScrollOwner.InvalidateScrollInfo();
             }
 
-            if (rebuild) 
+            if (rebuild)
             {
                 AddVisibleRegion();
             }
@@ -404,16 +356,15 @@ namespace Wider.Content.VirtualCanvas.Models
                 SetViewportSize(availableSize);
             }
 
-            foreach (UIElement child in this.InternalChildren)
+            foreach (UIElement child in InternalChildren)
             {
-                IVirtualChild n = child.GetValue(VirtualChildProperty) as IVirtualChild;
-                if (n != null)
+                if (child.GetValue(VirtualChildProperty) is IVirtualChild n)
                 {
                     Rect bounds = n.Bounds;
                     child.Measure(bounds.Size);
                 }
             }
-            if (double.IsInfinity(availableSize.Width))
+            if (Double.IsInfinity(availableSize.Width))
             {
                 return _extent;
             }
@@ -431,21 +382,21 @@ namespace Wider.Content.VirtualCanvas.Models
         protected override Size ArrangeOverride(Size finalSize)
         {
             base.ArrangeOverride(finalSize);
-            
+
             CalculateExtent();
 
             if (finalSize != _viewPortSize)
             {
                 SetViewportSize(finalSize);
             }
-            
-            _content.Arrange(new Rect(0, 0, _content.Width, _content.Height));
 
-            if (_index == null) 
+            ContentCanvas.Arrange(new Rect(0, 0, ContentCanvas.Width, ContentCanvas.Height));
+
+            if (_index == null)
             {
-                StartLazyUpdate();                
+                StartLazyUpdate();
             }
-        
+
             return finalSize;
         }
 
@@ -459,7 +410,7 @@ namespace Wider.Content.VirtualCanvas.Models
             if (_timer == null)
             {
                 _timer = new DispatcherTimer(TimeSpan.FromMilliseconds(10), DispatcherPriority.Normal,
-                    new EventHandler(OnStartLazyUpdate), this.Dispatcher);
+                    new EventHandler(OnStartLazyUpdate), Dispatcher);
             }
             _timer.Start();
         }
@@ -469,10 +420,10 @@ namespace Wider.Content.VirtualCanvas.Models
         /// </summary>
         /// <param name="sender">DispatchTimer </param>
         /// <param name="args">noop</param>
-        void OnStartLazyUpdate(object sender, EventArgs args)
+        void OnStartLazyUpdate(Object sender, EventArgs args)
         {
             _timer.Stop();
-            this.LazyUpdateVisuals();
+            LazyUpdateVisuals();
         }
 
         /// <summary>
@@ -488,14 +439,13 @@ namespace Wider.Content.VirtualCanvas.Models
             }
         }
 
-        int _createQuanta = 1000;
-        int _removeQuanta = 2000;
-        int _gcQuanta = 5000;
-        int _idealDuration = 50; // 50 milliseconds.
-        int _added;
-        int _removed;
+        Int32 _createQuanta = 1000;
+        Int32 _removeQuanta = 2000;
+        Int32 _gcQuanta = 5000;
+        readonly Int32 _idealDuration = 50; // 50 milliseconds.
+        Int32 _added;
         Rect _visible = Rect.Empty;
-        delegate int QuantizedWorkHandler(int quantum);
+        delegate Int32 QuantizedWorkHandler(Int32 quantum);
 
         /// <summary>
         /// Do a quantized unit of work for creating newly visible visuals, and cleaning up visuals that are no
@@ -505,33 +455,29 @@ namespace Wider.Content.VirtualCanvas.Models
         {
             if (_index == null)
             {
-                this.CalculateExtent();
+                CalculateExtent();
             }
 
-            _done = true;
+            IsDone = true;
             _added = 0;
-            _removed = 0;
+            Removed = 0;
 
             _createQuanta = SelfThrottlingWorker(_createQuanta, _idealDuration, new QuantizedWorkHandler(LazyCreateNodes));
             _removeQuanta = SelfThrottlingWorker(_removeQuanta, _idealDuration, new QuantizedWorkHandler(LazyRemoveNodes));
             _gcQuanta = SelfThrottlingWorker(_gcQuanta, _idealDuration, new QuantizedWorkHandler(LazyGarbageCollectNodes));
-           
-#if ANIMATE_FEEDBACK
-            if (VisualsChanged != null)
-            {
-                VisualsChanged(this, new VisualChangeEventArgs(_added, _removed));
-            }
-#endif
+
+            VisualsChanged?.Invoke(this, new VisualChangeEventArgs(_added, Removed));
+
             if (_added > 0)
             {
                 InvalidateArrange();
             }
-            if (!_done)
+            if (!IsDone)
             {
                 StartLazyUpdate();
                 //this.Dispatcher.BeginInvoke(DispatcherPriority.Background, new UpdateHandler(LazyUpdateVisuals));
             }
-            this.InvalidateVisual();
+            InvalidateVisual();
         }
 
         /// <summary>
@@ -541,20 +487,20 @@ namespace Wider.Content.VirtualCanvas.Models
         /// <param name="idealDuration">The time in milliseconds we want to take</param>
         /// <param name="handler">The handler to call that does the work being throttled</param>
         /// <returns>Returns the new quantum to use next time that will more likely hit the ideal time</returns>
-        private static int SelfThrottlingWorker(int quantum, int idealDuration, QuantizedWorkHandler handler)
+        private static Int32 SelfThrottlingWorker(Int32 quantum, Int32 idealDuration, QuantizedWorkHandler handler)
         {
             PerfTimer timer = new PerfTimer();
             timer.Start();
-            int count = handler(quantum);
+            Int32 count = handler(quantum);
 
             timer.Stop();
-            long duration = timer.GetDuration();
+            Int64 duration = timer.GetDuration();
 
             if (duration > 0 && count > 0)
             {
-                long estimatedFullDuration = duration * (quantum / count);
-                long newQuanta = (quantum * idealDuration) / estimatedFullDuration;
-                quantum = Math.Max(100, (int)Math.Min(newQuanta, int.MaxValue));
+                Int64 estimatedFullDuration = duration * (quantum / count);
+                Int64 newQuanta = (quantum * idealDuration) / estimatedFullDuration;
+                quantum = Math.Max(100, (Int32)Math.Min(newQuanta, Int32.MaxValue));
             }
 
             return quantum;
@@ -565,16 +511,18 @@ namespace Wider.Content.VirtualCanvas.Models
         /// </summary>
         /// <param name="quantum">Amount of work we can do here</param>
         /// <returns>Amount of work we did</returns>
-        private int LazyCreateNodes(int quantum) {
+        private Int32 LazyCreateNodes(Int32 quantum)
+        {
 
-            if (_visible == Rect.Empty) {
+            if (_visible == Rect.Empty)
+            {
                 _visible = GetVisibleRect();
                 _visibleRegions.Add(_visible);
-                _done = false;
+                IsDone = false;
             }
 
-            int count = 0;
-            int regionCount = 0;
+            Int32 count = 0;
+            Int32 regionCount = 0;
             while (_visibleRegions.Count > 0 && count < quantum)
             {
                 Rect r = _visibleRegions[0];
@@ -604,12 +552,12 @@ namespace Wider.Content.VirtualCanvas.Models
                         {
                             _visibleRegions.Add(r); // put it back since we're not done!
                         }
-                        _done = false;
+                        IsDone = false;
                         break;
                     }
                 }
 
-            }            
+            }
             return count;
         }
 
@@ -636,7 +584,7 @@ namespace Wider.Content.VirtualCanvas.Models
             {
                 return;
             }
-            
+
             UIElement e = child.CreateVisual(this);
             e.SetValue(VirtualChildProperty, child);
             Rect bounds = child.Bounds;
@@ -644,21 +592,20 @@ namespace Wider.Content.VirtualCanvas.Models
             Canvas.SetTop(e, bounds.Top);
 
             // Get the correct absolute position of this child.
-            int position = _visualPositions[child];
+            Int32 position = _visualPositions[child];
 
             // Now do a binary search for the correct insertion position based
             // on the visual positions of the existing visible children.
-            UIElementCollection c = _content.Children;
-            int min = 0;
-            int max = c.Count - 1;
+            UIElementCollection c = ContentCanvas.Children;
+            Int32 min = 0;
+            Int32 max = c.Count - 1;
             while (max > min + 1)
             {
-                int i = (min + max) / 2;
-                UIElement v = _content.Children[i];
-                IVirtualChild n = v.GetValue(VirtualChildProperty) as IVirtualChild;
-                if (n != null)
+                Int32 i = (min + max) / 2;
+                UIElement v = ContentCanvas.Children[i];
+                if (v.GetValue(VirtualChildProperty) is IVirtualChild n)
                 {
-                    int index = _visualPositions[n];
+                    Int32 index = _visualPositions[n];
                     if (index > position)
                     {
                         // search from min to i.
@@ -683,9 +630,8 @@ namespace Wider.Content.VirtualCanvas.Models
             if (max == c.Count - 1)
             {
                 UIElement v = c[max];
-                IVirtualChild maxchild = v.GetValue(VirtualChildProperty) as IVirtualChild;
-                int maxpos = position;
-                if (maxchild == null || position > _visualPositions[maxchild])
+                Int32 maxpos = position;
+                if (!(v.GetValue(VirtualChildProperty) is IVirtualChild maxchild) || position > _visualPositions[maxchild])
                 {
                     // Then we have a new last child!
                     max++;
@@ -704,20 +650,20 @@ namespace Wider.Content.VirtualCanvas.Models
         /// <param name="regions">List to add to</param>
         private void SplitRegion(Rect r, IList<Rect> regions)
         {
-            double minWidth = this.SmallScrollIncrement.Width * 2;
-            double minHeight = this.SmallScrollIncrement.Height * 2;
+            Double minWidth = SmallScrollIncrement.Width * 2;
+            Double minHeight = SmallScrollIncrement.Height * 2;
 
             if (r.Width > r.Height && r.Height > minHeight)
             {
                 // horizontal slices
-                double h = r.Height / 2;
+                Double h = r.Height / 2;
                 regions.Add(new Rect(r.Left, r.Top, r.Width, h + 10));
                 regions.Add(new Rect(r.Left, r.Top + h, r.Width, h + 10));
             }
             else if (r.Width < r.Height && r.Width > minWidth)
             {
                 // vertical slices
-                double w = r.Width / 2;
+                Double w = r.Width / 2;
                 regions.Add(new Rect(r.Left, r.Top, w + 10, r.Height));
                 regions.Add(new Rect(r.Left + w, r.Top, w + 10, r.Height));
             }
@@ -732,16 +678,16 @@ namespace Wider.Content.VirtualCanvas.Models
         /// </summary>
         /// <param name="quantum">Amount of work we can do here</param>
         /// <returns>Amount of work we did</returns>
-        private int LazyRemoveNodes(int quantum)
-        {            
+        private Int32 LazyRemoveNodes(Int32 quantum)
+        {
             Rect visible = GetVisibleRect();
-            int count = 0;
-            
+            Int32 count = 0;
+
             // Also remove nodes that are no longer visible.
-            int regionCount = 0;
+            Int32 regionCount = 0;
             while (_dirtyRegions.Count > 0 && count < quantum)
             {
-                int last = _dirtyRegions.Count - 1;
+                Int32 last = _dirtyRegions.Count - 1;
                 Rect dirty = _dirtyRegions[last];
                 _dirtyRegions.RemoveAt(last);
                 regionCount++;
@@ -756,9 +702,9 @@ namespace Wider.Content.VirtualCanvas.Models
                         if (!nrect.IntersectsWith(visible))
                         {
                             e.ClearValue(VirtualChildProperty);
-                            _content.Children.Remove(e);
+                            ContentCanvas.Children.Remove(e);
                             n.DisposeVisual();
-                            _removed++;                            
+                            Removed++;
                         }
                     }
 
@@ -774,10 +720,10 @@ namespace Wider.Content.VirtualCanvas.Models
                         {
                             _dirtyRegions.Add(dirty); // put it back since we're not done!
                         }
-                        _done = false;
+                        IsDone = false;
                         break;
                     }
-                }                
+                }
             }
             return count;
         }
@@ -787,30 +733,33 @@ namespace Wider.Content.VirtualCanvas.Models
         /// </summary>
         /// <param name="quantum">Amount of work we can do here</param>
         /// <returns>The amount of work we did</returns>
-        int LazyGarbageCollectNodes(int quantum) {
+        Int32 LazyGarbageCollectNodes(Int32 quantum)
+        {
 
-            int count = 0;
+            Int32 count = 0;
             // Now after every update also do a full incremental scan over all the children
             // to make sure we didn't leak any nodes that need to be removed.
-            while (count < quantum && _nodeCollectCycle < _content.Children.Count)
+            while (count < quantum && _nodeCollectCycle < ContentCanvas.Children.Count)
             {
-                UIElement e = _content.Children[_nodeCollectCycle++];
-                IVirtualChild n = e.GetValue(VirtualChildProperty) as IVirtualChild;                
-                if (n != null) {
+                UIElement e = ContentCanvas.Children[_nodeCollectCycle++];
+                if (e.GetValue(VirtualChildProperty) is IVirtualChild n)
+                {
                     Rect nrect = n.Bounds;
-                    if (!nrect.IntersectsWith(_visible)) {
+                    if (!nrect.IntersectsWith(_visible))
+                    {
                         e.ClearValue(VirtualChildProperty);
-                        _content.Children.Remove(e);
+                        ContentCanvas.Children.Remove(e);
                         n.DisposeVisual();
-                        _removed++;
+                        Removed++;
                     }
                     count++;
                 }
                 _nodeCollectCycle++;
             }
 
-            if (_nodeCollectCycle < _content.Children.Count) {
-                _done = false;
+            if (_nodeCollectCycle < ContentCanvas.Children.Count)
+            {
+                IsDone = false;
             }
 
             return count;
@@ -845,82 +794,53 @@ namespace Wider.Content.VirtualCanvas.Models
             }
         }
 #endif
-        
+
         /// <summary>
         /// Return the full size of this canvas.
         /// </summary>
-        public Size Extent
-        {
-            get { return _extent; }
-        }
+        public Size Extent => _extent;
 
         #region IScrollInfo Members
 
         /// <summary>
         /// Return whether we are allowed to scroll horizontally.
         /// </summary>
-        public bool CanHorizontallyScroll
-        {
-            get { return _canHScroll; }
-            set { _canHScroll = value; }
-        }
+        public Boolean CanHorizontallyScroll { get; set; } = false;
 
         /// <summary>
         /// Return whether we are allowed to scroll vertically.
         /// </summary>
-        public bool CanVerticallyScroll
-        {
-            get { return _canVScroll; }
-            set { _canVScroll = value; }
-        }
+        public Boolean CanVerticallyScroll { get; set; } = false;
 
         /// <summary>
         /// The height of the canvas to be scrolled.
         /// </summary>
-        public double ExtentHeight
-        {
-            get { return _extent.Height * _scale.ScaleY; }            
-        }
+        public Double ExtentHeight => _extent.Height * Scale.ScaleY;
 
         /// <summary>
         /// The width of the canvas to be scrolled.
         /// </summary>
-        public double ExtentWidth
-        {
-            get { return _extent.Width * _scale.ScaleX; }            
-        }
+        public Double ExtentWidth => _extent.Width * Scale.ScaleX;
 
         /// <summary>
         /// Scroll down one small scroll increment.
         /// </summary>
-        public void LineDown()
-        {
-            SetVerticalOffset(VerticalOffset + (_smallScrollIncrement.Height * _scale.ScaleX));
-        }
+        public void LineDown() => SetVerticalOffset(VerticalOffset + (SmallScrollIncrement1.Height * Scale.ScaleX));
 
         /// <summary>
         /// Scroll left by one small scroll increment.
         /// </summary>
-        public void LineLeft()
-        {
-            SetHorizontalOffset(HorizontalOffset - (_smallScrollIncrement.Width * _scale.ScaleX));
-        }
+        public void LineLeft() => SetHorizontalOffset(HorizontalOffset - (SmallScrollIncrement1.Width * Scale.ScaleX));
 
         /// <summary>
         /// Scroll right by one small scroll increment
         /// </summary>
-        public void LineRight()
-        {
-            SetHorizontalOffset(HorizontalOffset + (_smallScrollIncrement.Width * _scale.ScaleX));
-        }
+        public void LineRight() => SetHorizontalOffset(HorizontalOffset + (SmallScrollIncrement1.Width * Scale.ScaleX));
 
         /// <summary>
         /// Scroll up by one small scroll increment
         /// </summary>
-        public void LineUp()
-        {
-            SetVerticalOffset(VerticalOffset - (_smallScrollIncrement.Height * _scale.ScaleX));
-        }
+        public void LineUp() => SetVerticalOffset(VerticalOffset - (SmallScrollIncrement1.Height * Scale.ScaleX));
 
         /// <summary>
         /// Make the given visual at the given bounds visible.
@@ -930,9 +850,9 @@ namespace Wider.Content.VirtualCanvas.Models
         /// <returns>The bounds that is actually visible.</returns>
         public Rect MakeVisible(System.Windows.Media.Visual visual, Rect rectangle)
         {
-            if (_zoom != null && visual != this)
+            if (Zoom != null && visual != this)
             {
-                return _zoom.ScrollIntoView(visual as FrameworkElement);
+                return Zoom.ScrollIntoView(visual as FrameworkElement);
             }
             return rectangle;
         }
@@ -940,84 +860,56 @@ namespace Wider.Content.VirtualCanvas.Models
         /// <summary>
         /// Scroll down by one mouse wheel increment.
         /// </summary>
-        public void MouseWheelDown()
-        {
-            SetVerticalOffset(VerticalOffset + (_smallScrollIncrement.Height * _scale.ScaleX));
-        }
+        public void MouseWheelDown() => SetVerticalOffset(VerticalOffset + (SmallScrollIncrement1.Height * Scale.ScaleX));
 
         /// <summary>
         /// Scroll left by one mouse wheel increment.
         /// </summary>
-        public void MouseWheelLeft()
-        {
-            SetHorizontalOffset(HorizontalOffset + (_smallScrollIncrement.Width * _scale.ScaleX));
-        }
+        public void MouseWheelLeft() => SetHorizontalOffset(HorizontalOffset + (SmallScrollIncrement1.Width * Scale.ScaleX));
 
         /// <summary>
         /// Scroll right by one mouse wheel increment.
         /// </summary>
-        public void MouseWheelRight()
-        {
-            SetHorizontalOffset(HorizontalOffset - (_smallScrollIncrement.Width * _scale.ScaleX));
-        }
+        public void MouseWheelRight() => SetHorizontalOffset(HorizontalOffset - (SmallScrollIncrement1.Width * Scale.ScaleX));
 
         /// <summary>
         /// Scroll up by one mouse wheel increment.
         /// </summary>
-        public void MouseWheelUp()
-        {
-            SetVerticalOffset(VerticalOffset - (_smallScrollIncrement.Height * _scale.ScaleX));
-        }
+        public void MouseWheelUp() => SetVerticalOffset(VerticalOffset - (SmallScrollIncrement1.Height * Scale.ScaleX));
 
         /// <summary>
         /// Page down by one view port height amount.
         /// </summary>
-        public void PageDown()
-        {
-            SetVerticalOffset(VerticalOffset + _viewPortSize.Height);
-        }
+        public void PageDown() => SetVerticalOffset(VerticalOffset + _viewPortSize.Height);
 
         /// <summary>
         /// Page left by one view port width amount.
         /// </summary>
-        public void PageLeft()
-        {
-            SetHorizontalOffset(HorizontalOffset - _viewPortSize.Width);
-        }
+        public void PageLeft() => SetHorizontalOffset(HorizontalOffset - _viewPortSize.Width);
 
         /// <summary>
         /// Page right by one view port width amount.
         /// </summary>
-        public void PageRight()
-        {
-            SetHorizontalOffset(HorizontalOffset + _viewPortSize.Width);
-        }
+        public void PageRight() => SetHorizontalOffset(HorizontalOffset + _viewPortSize.Width);
 
         /// <summary>
         /// Page up by one view port height amount.
         /// </summary>
-        public void PageUp()
-        {
-            SetVerticalOffset(VerticalOffset - _viewPortSize.Height);
-        }
+        public void PageUp() => SetVerticalOffset(VerticalOffset - _viewPortSize.Height);
 
         /// <summary>
         /// Return the ScrollViewer that contains this object.
         /// </summary>
-        public ScrollViewer ScrollOwner
-        {
-            get { return _owner; }
-            set { _owner = value; }
-        }
+        public ScrollViewer ScrollOwner { get; set; }
 
         /// <summary>
         /// Scroll to the given absolute horizontal scroll position.
         /// </summary>
         /// <param name="offset">The horizontal position to scroll to</param>
-        public void SetHorizontalOffset(double offset)
+        public void SetHorizontalOffset(Double offset)
         {
-            double xoffset = Math.Max(Math.Min(offset, ExtentWidth - ViewportWidth), 0);
-            _translate.X = -xoffset;
+            Double xoffset = Math.Max(Math.Min(offset, ExtentWidth - ViewportWidth), 0);
+            Translate.X = -xoffset;
             OnScrollChanged();
         }
 
@@ -1025,44 +917,35 @@ namespace Wider.Content.VirtualCanvas.Models
         /// Scroll to the given absolute vertical scroll position.
         /// </summary>
         /// <param name="offset">The vertical position to scroll to</param>
-        public void SetVerticalOffset(double offset)
+        public void SetVerticalOffset(Double offset)
         {
-            double yoffset = Math.Max(Math.Min(offset, ExtentHeight - ViewportHeight), 0);
-            _translate.Y = -yoffset;
+            Double yoffset = Math.Max(Math.Min(offset, ExtentHeight - ViewportHeight), 0);
+            Translate.Y = -yoffset;
             OnScrollChanged();
         }
 
         /// <summary>
         /// Get the current horizontal scroll position.
         /// </summary>
-        public double HorizontalOffset
-        {
-            get { return -_translate.X; }
-        }
+        public Double HorizontalOffset => -Translate.X;
 
         /// <summary>
         /// Return the current vertical scroll position.
         /// </summary>
-        public double VerticalOffset
-        {
-            get { return -_translate.Y; }
-        }
+        public Double VerticalOffset => -Translate.Y;
 
         /// <summary>
         /// Return the height of the current viewport that is visible in the ScrollViewer.
         /// </summary>
-        public double ViewportHeight
-        {
-            get { return _viewPortSize.Height; }
-        }
+        public Double ViewportHeight => _viewPortSize.Height;
 
         /// <summary>
         /// Return the width of the current viewport that is visible in the ScrollViewer.
         /// </summary>
-        public double ViewportWidth
-        {
-            get { return _viewPortSize.Width; }
-        }
+        public Double ViewportWidth => _viewPortSize.Width;
+
+        public Size SmallScrollIncrement1 { get => _smallScrollIncrement; set => _smallScrollIncrement = value; }
+        public Int32 Removed { get; set; }
 
         #endregion
 
@@ -1074,10 +957,10 @@ namespace Wider.Content.VirtualCanvas.Models
         Rect GetVisibleRect()
         {
             // Add a bit of extra around the edges so we are sure to create nodes that have a tiny bit showing.
-            double xstart = (this.HorizontalOffset - _smallScrollIncrement.Width) / _scale.ScaleX;
-            double ystart = (this.VerticalOffset - _smallScrollIncrement.Height) / _scale.ScaleY;
-            double xend = (this.HorizontalOffset + (_viewPortSize.Width + (2 * _smallScrollIncrement.Width))) / _scale.ScaleX;
-            double yend = (this.VerticalOffset + (_viewPortSize.Height + (2 * _smallScrollIncrement.Height))) / _scale.ScaleY;
+            Double xstart = (HorizontalOffset - SmallScrollIncrement1.Width) / Scale.ScaleX;
+            Double ystart = (VerticalOffset - SmallScrollIncrement1.Height) / Scale.ScaleY;
+            Double xend = (HorizontalOffset + (_viewPortSize.Width + (2 * SmallScrollIncrement1.Width))) / Scale.ScaleX;
+            Double yend = (VerticalOffset + (_viewPortSize.Height + (2 * SmallScrollIncrement1.Height))) / Scale.ScaleY;
             return new Rect(xstart, ystart, xend - xstart, yend - ystart);
         }
 
@@ -1090,7 +973,7 @@ namespace Wider.Content.VirtualCanvas.Models
             Rect dirty = _visible;
             AddVisibleRegion();
             _nodeCollectCycle = 0;
-            _done = false;
+            IsDone = false;
 
             Rect intersection = Rect.Intersect(dirty, _visible);
             if (intersection == Rect.Empty)
@@ -1130,9 +1013,9 @@ namespace Wider.Content.VirtualCanvas.Models
         /// </summary>
         public void InvalidateScrollInfo()
         {
-            if (_owner != null)
+            if (ScrollOwner != null)
             {
-                _owner.InvalidateScrollInfo();
+                ScrollOwner.InvalidateScrollInfo();
             }
         }
 

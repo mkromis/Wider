@@ -58,7 +58,7 @@
     <Compile Include="Gestures\SelectionRectVisual.cs" />
     <Compile Include="Models\PerfTimer.cs" />
     <Compile Include="Models\QuadTree.cs" />
-    <Compile Include="Models\VirtualCanvas.cs" />
+    <Compile Include="Controls\VirtualCanvas.cs" />
     <Compile Include="ViewModels\VirtualCanvasViewModel.cs" />
     <Compile Include="Views\VirtualCanvas.xaml.cs">
       <DependentUpon>VirtualCanvas.xaml</DependentUpon>

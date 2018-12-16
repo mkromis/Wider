@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
-    xmlns:ui="clr-namespace:Wider.Content.VirtualCanvas.Models"
+    xmlns:ui="clr-namespace:Wider.Content.VirtualCanvas.Controls"
     x:Class="Wider.Content.VirtualCanvas.Views.VirtualCanvas"
     d:DesignHeight="233.333" d:DesignWidth="411.333" >
     <ScrollViewer 
@@ -11,6 +11,6 @@
         HorizontalScrollBarVisibility="Auto" 
         VerticalScrollBarVisibility="Auto" 
         CanContentScroll="True">
-        <ContentControl Content="{Binding Graph}" /> <!-- ui:VirtualCanvas x:Name="Graph" -->
+        <ui:VirtualCanvas x:Name="Graph" />
     </ScrollViewer>
 </UserControl>
