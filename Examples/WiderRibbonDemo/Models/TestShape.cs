@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Wider.Content.VirtualCanvas.Controls;
 using Wider.Content.VirtualCanvas.Models;
 
 namespace WiderRibbonDemo.Models

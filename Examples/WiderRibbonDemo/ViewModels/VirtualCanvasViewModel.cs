@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Wider.Content.VirtualCanvas.Controls;
 using Wider.Content.VirtualCanvas.Gestures;
 using Wider.Content.VirtualCanvas.Models;
 using Wider.Core.Services;
@@ -36,6 +37,8 @@ namespace WiderRibbonDemo.ViewModels
         int _totalVisuals = 0;
         int rows = 100;
         int cols = 100;
+
+        public Boolean ShowContextRibbon => true;
 
         public VirtualCanvasViewModel(IContainerExtension containerExtension) : base(containerExtension)
         {
