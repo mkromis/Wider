@@ -40,6 +40,16 @@ namespace WiderRibbonDemo.ViewModels
 
         public Boolean ShowContextRibbon => true;
 
+        public ICommand OnHelpCommand => new DelegateCommand(() =>
+        {
+            MessageBox.Show(
+                "Click left mouse button and drag to pan the view " +
+                "Hold Control-Key and run mouse wheel to zoom in and out " +
+                "Click middle mouse button to turn on auto-scrolling " +
+                "Hold Control-Key and drag the mouse with left button down to draw a rectangle to zoom into that region.",
+                "User Interface", MessageBoxButton.OK, MessageBoxImage.Information);
+        });
+
         public VirtualCanvasViewModel(IContainerExtension containerExtension) : base(containerExtension)
         {
             Model = new EmptyModel();
