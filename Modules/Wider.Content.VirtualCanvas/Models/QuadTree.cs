@@ -15,8 +15,7 @@ using System.Windows.Media;
 using System.Xml;
 #endif
 
-namespace Microsoft.Sample.Controls
-
+namespace Wider.Content.VirtualCanvas.Models
 {
 
     /// <summary>

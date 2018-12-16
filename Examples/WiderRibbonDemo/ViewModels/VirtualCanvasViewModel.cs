@@ -1,41 +1,31 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="Window1.xaml.cs" company="Microsoft">
-//     Copyright (c) Microsoft Corporation.  All rights reserved.
-// </copyright>
-//-----------------------------------------------------------------------
+﻿using Prism.Commands;
+using Prism.Ioc;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Microsoft.VisualStudio.Controls;
-using System.Windows.Media.Animation;
-using System.Diagnostics;
-using Microsoft.Sample.Controls;
-using System.Globalization;
-using Microsoft.Win32;
+using Wider.Content.VirtualCanvas.Gestures;
+using Wider.Content.VirtualCanvas.Models;
+using Wider.Core.Services;
+using WiderRibbonDemo.Models;
 
-namespace WpfApplication
+namespace WiderRibbonDemo.ViewModels
 {
     /// <summary>
     /// This demo shows the VirtualCanvas managing up to 50,000 random WPF shapes providing smooth scrolling and
     /// zooming while creating those shapes on the fly.  This helps make a WPF canvas that is a lot more
     /// scalable.
     /// </summary>
-    public partial class Window1 : Window
+    public class VirtualCanvasViewModel : Wider.Content.VirtualCanvas.ViewModels.VirtualCanvasViewModel
     {
         MapZoom zoom;
         Pan pan;
         RectangleSelectionGesture rectZoom;
         AutoScroll autoScroll;
-        VirtualCanvas grid;
 
         bool _showGridLines;
         bool _animateStatus = true;
@@ -47,16 +37,15 @@ namespace WpfApplication
         int rows = 100;
         int cols = 100;
 
-        public Window1()
+        public VirtualCanvasViewModel(IContainerExtension containerExtension) : base(containerExtension)
         {
-            InitializeComponent();
-
+            Model = new EmptyModel();
 
             grid = Graph;// new VirtualCanvas();
             grid.SmallScrollIncrement = new Size(_tileWidth + _tileMargin, _tileHeight + _tileMargin);
 
             //Scroller.Content = grid;
-            object v = Scroller.GetValue(ScrollViewer.CanContentScrollProperty);
+            //Object v = Scroller.GetValue(ScrollViewer.CanContentScrollProperty);
 
             Canvas target = grid.ContentCanvas;
             zoom = new MapZoom(target);
@@ -66,8 +55,9 @@ namespace WpfApplication
             autoScroll = new AutoScroll(target, zoom);
             zoom.ZoomChanged += new EventHandler(OnZoomChanged);
 
-            grid.VisualsChanged += new EventHandler<VisualChangeEventArgs>(OnVisualsChanged);
-            ZoomSlider.ValueChanged += new RoutedPropertyChangedEventHandler<double>(OnZoomSliderValueChanged);
+#warning fix zoom slider
+            //grid.VisualsChanged += new EventHandler<VisualChangeEventArgs>(OnVisualsChanged);
+            //ZoomSlider.ValueChanged += new RoutedPropertyChangedEventHandler<double>(OnZoomSliderValueChanged);
 
             grid.Scale.Changed += new EventHandler(OnScaleChanged);
             grid.Translate.Changed += new EventHandler(OnScaleChanged);
@@ -75,8 +65,7 @@ namespace WpfApplication
             grid.Background = new SolidColorBrush(Color.FromRgb(0xd0, 0xd0, 0xd0));
             grid.ContentCanvas.Background = Brushes.White;
 
-            AllocateNodes();   
-
+            AllocateNodes();
         }
 
         private void AllocateNodes()
@@ -97,12 +86,12 @@ namespace WpfApplication
             {
                 double x = r.NextDouble() * width;
                 double y = r.NextDouble() * height;
-                
+
                 Point pos = new Point(_tileMargin + x, _tileMargin + y);
                 Size s = new Size(r.Next((int)_tileWidth, (int)_tileWidth * 5),
                                     r.Next((int)_tileHeight, (int)_tileHeight * 5));
                 TestShapeType type = (TestShapeType)r.Next(0, (int)TestShapeType.Last);
-                
+
                 //Color color = HlsColor.ColorFromHLS((x * 240) / cols, 100, 240 - ((y * 240) / rows));                    
                 TestShape shape = new TestShape(new Rect(pos, s), type, r);
                 SetRandomBrushes(shape, r);
@@ -137,19 +126,19 @@ namespace WpfApplication
             }
 
             s.Label = _colorNames[i];
-            s.Stroke = _strokeBrushes[i]; 
+            s.Stroke = _strokeBrushes[i];
             s.Fill = _fillBrushes[i];
         }
 
         void OnSaveLog(object sender, RoutedEventArgs e)
         {
 #if DEBUG_DUMP
-            SaveFileDialog s = new SaveFileDialog();
-            s.FileName = "quadtree.xml";
-            if (s.ShowDialog() == true)
-            {
-                grid.Dump(s.FileName);
-            }
+                    SaveFileDialog s = new SaveFileDialog();
+                    s.FileName = "quadtree.xml";
+                    if (s.ShowDialog() == true)
+                    {
+                        grid.Dump(s.FileName);
+                    }
 #else
             MessageBox.Show("You need to build the assembly with 'DEBUG_DUMP' to get this feature");
 #endif
@@ -158,7 +147,7 @@ namespace WpfApplication
         void OnScaleChanged(object sender, EventArgs e)
         {
             // Make the grid lines get thinner as you zoom in
-            double t =  _gridLines.StrokeThickness = 0.1 / grid.Scale.ScaleX;            
+            double t = _gridLines.StrokeThickness = 0.1 / grid.Scale.ScaleX;
             grid.Backdrop.BorderThickness = new Thickness(t);
         }
 
@@ -168,79 +157,82 @@ namespace WpfApplication
 
         void OnVisualsChanged(object sender, VisualChangeEventArgs e)
         {
-            if (_animateStatus)
-            {
-                StatusText.Text = string.Format(CultureInfo.InvariantCulture, "{0} live visuals of {1} total", grid.LiveVisualCount, _totalVisuals);
+#warning fix status
+            //if (_animateStatus)
+            //{
+            //    StatusText.Text = string.Format(CultureInfo.InvariantCulture, "{0} live visuals of {1} total", grid.LiveVisualCount, _totalVisuals);
 
-                int tick = Environment.TickCount;
-                if (e.Added != 0 || e.Removed != 0)
-                {
-                    addedPerSecond += e.Added;
-                    removedPerSecond += e.Removed;
-                    if (tick > lastTick + 100)
-                    {
-                        Created.BeginAnimation(Rectangle.WidthProperty, new DoubleAnimation(
-                            Math.Min(addedPerSecond, 450),
-                            new Duration(TimeSpan.FromMilliseconds(100))));
-                        CreatedLabel.Text = addedPerSecond.ToString(CultureInfo.InvariantCulture) + " created";
-                        addedPerSecond = 0;
+            //    int tick = Environment.TickCount;
+            //    if (e.Added != 0 || e.Removed != 0)
+            //    {
+            //        addedPerSecond += e.Added;
+            //        removedPerSecond += e.Removed;
+            //        if (tick > lastTick + 100)
+            //        {
+            //            Created.BeginAnimation(Rectangle.WidthProperty, new DoubleAnimation(
+            //                Math.Min(addedPerSecond, 450),
+            //                new Duration(TimeSpan.FromMilliseconds(100))));
+            //            CreatedLabel.Text = addedPerSecond.ToString(CultureInfo.InvariantCulture) + " created";
+            //            addedPerSecond = 0;
 
-                        Destroyed.BeginAnimation(Rectangle.WidthProperty, new DoubleAnimation(
-                            Math.Min(removedPerSecond, 450),
-                            new Duration(TimeSpan.FromMilliseconds(100))));
-                        DestroyedLabel.Text = removedPerSecond.ToString(CultureInfo.InvariantCulture) + " disposed";
-                        removedPerSecond = 0;
-                    }
-                }
-                if (tick > lastTick + 1000)
-                {
-                    lastTick = tick;
-                }
-            }
+            //            Destroyed.BeginAnimation(Rectangle.WidthProperty, new DoubleAnimation(
+            //                Math.Min(removedPerSecond, 450),
+            //                new Duration(TimeSpan.FromMilliseconds(100))));
+            //            DestroyedLabel.Text = removedPerSecond.ToString(CultureInfo.InvariantCulture) + " disposed";
+            //            removedPerSecond = 0;
+            //        }
+            //    }
+            //    if (tick > lastTick + 1000)
+            //    {
+            //        lastTick = tick;
+            //    }
+            //}
         }
 
         void OnAnimateStatus(object sender, RoutedEventArgs e)
         {
-            MenuItem item = (MenuItem)sender;
-            _animateStatus = item.IsChecked = !item.IsChecked;
+#warning fix animate status
+            //MenuItem item = (MenuItem)sender;
+            //_animateStatus = item.IsChecked = !item.IsChecked;
 
-            StatusText.Text = "";
-            Created.BeginAnimation(Rectangle.WidthProperty, null);
-            Created.Width = 0;
-            CreatedLabel.Text = "";
-            Destroyed.BeginAnimation(Rectangle.WidthProperty, null); 
-            Destroyed.Width = 0;
-            DestroyedLabel.Text = "";
+            //StatusText.Text = "";
+            //Created.BeginAnimation(Rectangle.WidthProperty, null);
+            //Created.Width = 0;
+            //CreatedLabel.Text = "";
+            //Destroyed.BeginAnimation(Rectangle.WidthProperty, null);
+            //Destroyed.Width = 0;
+            //DestroyedLabel.Text = "";
         }
 
         delegate void BooleanEventHandler(bool arg);
 
         void OnShowQuadTree(object sender, RoutedEventArgs e)
         {
-            MenuItem item = (MenuItem)sender;
-            item.IsChecked = !item.IsChecked;
-            if (item.IsChecked)
-            {
-                if (MessageBoxResult.OK == MessageBox.Show("This could take a while...please be patient", "Warning",
-                    MessageBoxButton.OKCancel, MessageBoxImage.Exclamation))
-                {
-                    StatusText.Text = "Building quad tree visuals...";
-                    Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal,
-                        new BooleanEventHandler(ShowQuadTree), true);
-                }
-            }
-            else
-            {
-                Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal,
-                    new BooleanEventHandler(ShowQuadTree), false);
-            }
+#warning fix quad tree
+            //MenuItem item = (MenuItem)sender;
+            //item.IsChecked = !item.IsChecked;
+            //if (item.IsChecked)
+            //{
+            //    if (MessageBoxResult.OK == MessageBox.Show("This could take a while...please be patient", "Warning",
+            //        MessageBoxButton.OKCancel, MessageBoxImage.Exclamation))
+            //    {
+            //        StatusText.Text = "Building quad tree visuals...";
+            //        Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal,
+            //            new BooleanEventHandler(ShowQuadTree), true);
+            //    }
+            //}
+            //else
+            //{
+            //    Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal,
+            //        new BooleanEventHandler(ShowQuadTree), false);
+            //}
         }
 
         void ShowQuadTree(bool arg)
         {
 #if DEBUG_DUMP
-            grid.ShowQuadTree(arg);
-            StatusText.Text = "Done.";
+                    grid.ShowQuadTree(arg);
+                    StatusText.Text = "Done.";
 #else
             MessageBox.Show("You need to build the assembly with 'DEBUG_DUMP' to get this feature");
 #endif
@@ -248,21 +240,24 @@ namespace WpfApplication
 
         void OnRowColChange(object sender, RoutedEventArgs e)
         {
-            MenuItem item = sender as MenuItem;
-            int d = int.Parse((string)item.Tag, CultureInfo.InvariantCulture);
-            rows = cols = d;
-            AllocateNodes();
+#warning fix row col change
+            //MenuItem item = sender as MenuItem;
+            //int d = int.Parse((string)item.Tag, CultureInfo.InvariantCulture);
+            //rows = cols = d;
+            //AllocateNodes();
         }
 
         void OnShowGridLines(object sender, RoutedEventArgs e)
         {
-            MenuItem item= (MenuItem)sender;
-            this.ShowGridLines = item.IsChecked = !item.IsChecked; 
+#warning fix show grid lines
+            //MenuItem item = (MenuItem)sender;
+            //this.ShowGridLines = item.IsChecked = !item.IsChecked;
         }
 
         Polyline _gridLines = new Polyline();
+        private VirtualCanvas grid;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming","CA1702")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1702")]
         public bool ShowGridLines
         {
             get { return _showGridLines; }
@@ -294,7 +289,7 @@ namespace WpfApplication
                     outerRect.Height = 10.0;
                     outerRect.Fill = gridLines;
                     outerVB.Visual = outerRect;
-                    outerVB.Viewport = new Rect(0, 0, 
+                    outerVB.Viewport = new Rect(0, 0,
                         width * numTileToAccumulate, height * numTileToAccumulate);
                     outerVB.ViewportUnits = BrushMappingMode.Absolute;
                     outerVB.TileMode = TileMode.Tile;
@@ -311,15 +306,6 @@ namespace WpfApplication
                     grid.Backdrop.Background = null;
                 }
             }
-        }
-
-        void OnHelp(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(@"Click left mouse button and drag to pan the view
-Hold Control-Key and run mouse wheel to zoom in and out
-Click middle mouse button to turn on auto-scrolling
-Hold Control-Key and drag the mouse with left button down to draw a rectangle to zoom into that region.",
-                "User Interface", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         void OnZoom(object sender, RoutedEventArgs e)
@@ -341,15 +327,16 @@ Hold Control-Key and drag the mouse with left button down to draw a rectangle to
                     zoom.Zoom = zoomPercent / 100;
                 }
             }
-            
+
         }
 
         void OnZoomChanged(object sender, EventArgs e)
         {
-            if (ZoomSlider.Value != zoom.Zoom)
-            {
-                ZoomSlider.Value = zoom.Zoom;
-            }
+#warning fix zoom slider
+            //if (ZoomSlider.Value != zoom.Zoom)
+            //{
+            //    ZoomSlider.Value = zoom.Zoom;
+            //}
         }
 
 
@@ -361,7 +348,7 @@ Hold Control-Key and drag the mouse with left button down to draw a rectangle to
             }
         }
 
-        enum TestShapeType { Ellipse, Curve, Rectangle, Last};
+        enum TestShapeType { Ellipse, Curve, Rectangle, Last };
 
         class TestShape : IVirtualChild
         {
@@ -372,11 +359,11 @@ Hold Control-Key and drag the mouse with left button down to draw a rectangle to
             UIElement _visual;
             TestShapeType _shape;
             Point[] _points;
-            
+
             public event EventHandler BoundsChanged;
 
-            public TestShape(Rect bounds, TestShapeType s, Random r) 
-            {                
+            public TestShape(Rect bounds, TestShapeType s, Random r)
+            {
                 _bounds = bounds;
                 _shape = s;
                 if (s == TestShapeType.Curve)
@@ -410,7 +397,7 @@ Hold Control-Key and drag the mouse with left button down to draw a rectangle to
                             break;
                         case 4:
                             _points[0] = bounds.TopLeft;
-                            _points[1] = new Point(bounds.Right, bounds.Height/2);
+                            _points[1] = new Point(bounds.Right, bounds.Height / 2);
                             _points[2] = bounds.BottomLeft;
                             break;
                         case 5:
@@ -420,29 +407,29 @@ Hold Control-Key and drag the mouse with left button down to draw a rectangle to
                             break;
                         case 6:
                             _points[0] = bounds.TopLeft;
-                            _points[1] = new Point(bounds.Width/2, bounds.Bottom);
+                            _points[1] = new Point(bounds.Width / 2, bounds.Bottom);
                             _points[2] = bounds.TopRight;
                             break;
                         case 7:
                             _points[0] = bounds.BottomLeft;
-                            _points[1] = new Point(bounds.Width/2, bounds.Top);
+                            _points[1] = new Point(bounds.Width / 2, bounds.Top);
                             _points[2] = bounds.BottomRight;
                             break;
                     }
                 }
             }
 
-
             public UIElement Visual
             {
-                get { return _visual; }                
+                get { return _visual; }
             }
 
             public UIElement CreateVisual(VirtualCanvas parent)
             {
                 if (_visual == null)
                 {
-                    switch (_shape) {
+                    switch (_shape)
+                    {
                         case TestShapeType.Curve:
                             {
                                 PathGeometry g = new PathGeometry();
@@ -555,8 +542,5 @@ Hold Control-Key and drag the mouse with left button down to draw a rectangle to
                 return new Size(ft.Width, ft.Height);
             }
         }
-
-
-
     }
 }
