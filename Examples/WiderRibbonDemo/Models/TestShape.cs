@@ -21,8 +21,8 @@ namespace WiderRibbonDemo.Models
         Rect _bounds;
         public Brush Fill { get; set; }
         public Brush Stroke { get; set; }
-        public string Label { get; set; }
-        UIElement _visual;
+        public String Label { get; set; }
+
         TestShapeType _shape;
         Point[] _points;
 
@@ -85,40 +85,41 @@ namespace WiderRibbonDemo.Models
             }
         }
 
-        public UIElement Visual
-        {
-            get { return _visual; }
-        }
+        public UIElement Visual { get; private set; }
 
         public UIElement CreateVisual(VirtualCanvas parent)
         {
-            if (_visual == null)
+            if (Visual == null)
             {
                 switch (_shape)
                 {
                     case TestShapeType.Curve:
                         {
                             PathGeometry g = new PathGeometry();
-                            PathFigure f = new PathFigure();
-                            f.StartPoint = _points[0];
+                            PathFigure f = new PathFigure
+                            {
+                                StartPoint = _points[0]
+                            };
                             g.Figures.Add(f);
-                            for (int i = 0, n = _points.Length; i < n; i += 3)
+                            for (Int32 i = 0, n = _points.Length; i < n; i += 3)
                             {
                                 BezierSegment s = new BezierSegment(_points[i], _points[i + 1], _points[i + 2], true);
                                 f.Segments.Add(s);
                             }
-                            Path p = new Path();
-                            p.Data = g;
+                            Path p = new Path
+                            {
+                                Data = g,
 
-                            p.Stroke = Stroke;
-                            p.StrokeThickness = 2;
+                                Stroke = Stroke,
+                                StrokeThickness = 2
+                            };
 
                             //DropShadowBitmapEffect effect = new DropShadowBitmapEffect();
                             //effect.Opacity = 0.8;
                             //effect.ShadowDepth = 3;
                             //effect.Direction = 270;
                             //c.BitmapEffect = effect;
-                            _visual = p;
+                            Visual = p;
                             break;
                         }
                     case TestShapeType.Ellipse:
@@ -131,11 +132,13 @@ namespace WiderRibbonDemo.Models
                             c.Children.Add(e);
 
                             Size s = MeasureText(parent, Label);
-                            double x = (_bounds.Width - s.Width) / 2;
-                            double y = (_bounds.Height - s.Height) / 2;
+                            Double x = (_bounds.Width - s.Width) / 2;
+                            Double y = (_bounds.Height - s.Height) / 2;
 
-                            TextBlock text = new TextBlock();
-                            text.Text = Label;
+                            TextBlock text = new TextBlock
+                            {
+                                Text = Label
+                            };
                             Canvas.SetLeft(text, x);
                             Canvas.SetTop(text, y);
                             c.Children.Add(text);
@@ -149,19 +152,23 @@ namespace WiderRibbonDemo.Models
                             //effect.ShadowDepth = 3;
                             //effect.Direction = 270;
                             //c.BitmapEffect = effect;
-                            _visual = c;
+                            Visual = c;
                             break;
                         }
                     case TestShapeType.Rectangle:
                         {
-                            Border b = new Border();
-                            b.CornerRadius = new CornerRadius(3);
-                            b.Width = _bounds.Width;
-                            b.Height = _bounds.Height;
-                            TextBlock text = new TextBlock();
-                            text.Text = Label;
-                            text.VerticalAlignment = VerticalAlignment.Center;
-                            text.HorizontalAlignment = HorizontalAlignment.Center;
+                            Border b = new Border
+                            {
+                                CornerRadius = new CornerRadius(3),
+                                Width = _bounds.Width,
+                                Height = _bounds.Height
+                            };
+                            TextBlock text = new TextBlock
+                            {
+                                Text = Label,
+                                VerticalAlignment = VerticalAlignment.Center,
+                                HorizontalAlignment = HorizontalAlignment.Center
+                            };
                             b.Child = text;
                             b.Background = Fill;
                             //DropShadowBitmapEffect effect = new DropShadowBitmapEffect();
@@ -169,29 +176,23 @@ namespace WiderRibbonDemo.Models
                             //effect.ShadowDepth = 3;
                             //effect.Direction = 270;
                             //b.BitmapEffect = effect;
-                            _visual = b;
+                            Visual = b;
                             break;
                         }
                 }
             }
-            return _visual;
+            return Visual;
         }
 
-        public void DisposeVisual()
-        {
-            _visual = null;
-        }
+        public void DisposeVisual() => Visual = null;
 
-        public Rect Bounds
-        {
-            get { return _bounds; }
-        }
+        public Rect Bounds => _bounds;
 
         VirtualCanvas _parent;
         Typeface _typeface;
         Double _fontSize;
 
-        public Size MeasureText(VirtualCanvas parent, string label)
+        public Size MeasureText(VirtualCanvas parent, String label)
         {
             if (_parent != parent)
             {
@@ -199,7 +200,7 @@ namespace WiderRibbonDemo.Models
                 FontStyle fontStyle = (FontStyle)parent.GetValue(TextBlock.FontStyleProperty);
                 FontWeight fontWeight = (FontWeight)parent.GetValue(TextBlock.FontWeightProperty);
                 FontStretch fontStretch = (FontStretch)parent.GetValue(TextBlock.FontStretchProperty);
-                _fontSize = (double)parent.GetValue(TextBlock.FontSizeProperty);
+                _fontSize = (Double)parent.GetValue(TextBlock.FontSizeProperty);
                 _typeface = new Typeface(fontFamily, fontStyle, fontWeight, fontStretch);
                 _parent = parent;
             }

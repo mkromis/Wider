@@ -17,25 +17,24 @@ namespace Wider.Content.VirtualCanvas.Models
     ///     t.Start();
     ///     ...
     ///     t.Stop();
-    ///     long ms = t.GetDuration();
+    ///     Int64 ms = t.GetDuration();
     /// </code>
     /// You can also use it to add up a bunch of times in a loop and report average, mininum
     /// and maximum times.
     /// </summary>
     public class PerfTimer
     {
-        long _start;
-        long _end;
-        long _freq;
-        long _min;
-        long _max;
-        long _count;
-        long _sum;
+        Int64 _start;
+        Int64 _end;
+        readonly Int64 _freq;
+        Int64 _min;
+        Int64 _max;
+        Int64 _count;
+        Int64 _sum;
 
         /// <summary>
         /// 
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage","CA1806")]
         public PerfTimer()
         {
             _start = _end = 0;
@@ -55,52 +54,36 @@ namespace Wider.Content.VirtualCanvas.Models
         /// <summary>
         /// Set the current time as the end time.
         /// </summary>
-        public void Stop()
-        {
-            _end = GetCurrentTime();
-        }
+        public void Stop() => _end = GetCurrentTime();
 
         /// <summary>
         /// Get the time in milliseconds between Start() and Stop().
         /// </summary>
         /// <returns>Milliseconds</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024")]
-        public long GetDuration()
-        { // in milliseconds.            
-            return GetMilliseconds(GetDurationInTicks());
-        }
+        public Int64 GetDuration() => GetMilliseconds(GetDurationInTicks());
 
         /// <summary>
         /// Convert the given argument from "ticks" to milliseconds.
         /// </summary>
         /// <param name="ticks">Number of ticks returned from GetTicks()</param>
         /// <returns>Milliseconds</returns>
-        public long GetMilliseconds(long ticks)
-        {
-            return (ticks * (long)1000) / _freq;
-        }
+        public Int64 GetMilliseconds(Int64 ticks) => (ticks * (Int64)1000) / _freq;
 
         /// <summary>
         /// Get the time between Start() and Stop() in the highest fidelity possible
         /// as defined by Windows QueryPerformanceFrequency.  Usually this is nanoseconds.
         /// </summary>
         /// <returns>High fidelity tick count</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024")]
-        public long GetDurationInTicks()
-        { // in nanoseconds.
-            return (_end - _start);
-        }
+        public Int64 GetDurationInTicks() => (_end - _start);
 
         /// <summary>
         /// Get current time in ighest fidelity possible as defined by Windows QueryPerformanceCounter.  
         /// Usually this is nanoseconds.
         /// </summary>
         /// <returns>High fidelity tick count</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024")]
-        public static long GetCurrentTime()
+        public static Int64 GetCurrentTime()
         { // in nanoseconds.
-            long i = 0;
+            Int64 i = 0;
             QueryPerformanceCounter(ref i);
             return i;
         }
@@ -112,11 +95,12 @@ namespace Wider.Content.VirtualCanvas.Models
         /// Add the given time to a running total so we can compute minimum, maximum and average.
         /// </summary>
         /// <param name="time">The time to record</param>
-        public void Count(long time)
+        public void Count(Int64 time)
         {
-            if (_min == 0) _min = time;
-            if (time < _min) _min = time;
-            if (time > _max) _max = time;
+            if (_min == 0) { _min = time; }
+            if (time < _min) { _min = time; }
+            if (time > _max) { _max = time; }
+
             _sum += time;
             _count++;
         }
@@ -125,37 +109,28 @@ namespace Wider.Content.VirtualCanvas.Models
         /// Return the minimum time recorded by the Count() method since the last Clear
         /// </summary>
         /// <returns>The minimum value</returns>
-        public long Minimum()
-        {
-            return _min;
-        }
+        public Int64 Minimum() => _min;
 
         /// <summary>
         /// Return the maximum time recorded by the Count() method since the last Clear
         /// </summary>
         /// <returns>The maximum value</returns>
-        public long Max()
-        {
-            return _max;
-        }
+        public Int64 Max() => _max;
 
         /// <summary>
         /// Return the median of the values recorded by the Count() method since the last Clear
         /// </summary>
         /// <returns>The median value</returns>
-        public double Median()
-        {
-            return (_min + ((_max - _min) / 2.0));
-        }
+        public Double Median() => (_min + ((_max - _min) / 2.0));
 
         /// <summary>
         /// Return the variance in the numbers recorded by the Count() method since the last Clear
         /// </summary>
         /// <returns>Percentage between 0 and 100</returns>
-        public double PercentError()
+        public Double PercentError()
         {
-            double spread = (_max - _min) / 2.0;
-            double percent = ((double)(spread * 100.0) / (double)(_min));
+            Double spread = (_max - _min) / 2.0;
+            Double percent = ((Double)(spread * 100.0) / _min);
             return percent;
         }
 
@@ -163,29 +138,26 @@ namespace Wider.Content.VirtualCanvas.Models
         /// Return the avergae of the values recorded by the Count() method since the last Clear
         /// </summary>
         /// <returns>The average value</returns>
-        public long Average()
+        public Int64 Average()
         {
-            if (_count == 0) return 0;
+            if (_count == 0) { return 0; }
             return _sum / _count;
         }
 
         /// <summary>
         /// Reset the timer to its initial state.
         /// </summary>
-        public void Clear()
-        {
-            _start = _end = _min = _max = _sum = _count = 0;
-        }
+        public void Clear() => _start = _end = _min = _max = _sum = _count = 0;
 
         [DllImport("KERNEL32.DLL", EntryPoint = "QueryPerformanceCounter", SetLastError = true,
                     CharSet = CharSet.Unicode, ExactSpelling = true,
                     CallingConvention = CallingConvention.StdCall)]
-        static extern int QueryPerformanceCounter(ref long time);
+        static extern Int32 QueryPerformanceCounter(ref Int64 time);
 
         [DllImport("KERNEL32.DLL", EntryPoint = "QueryPerformanceFrequency", SetLastError = true,
              CharSet = CharSet.Unicode, ExactSpelling = true,
              CallingConvention = CallingConvention.StdCall)]
-        static extern int QueryPerformanceFrequency(ref long freq);
+        static extern Int32 QueryPerformanceFrequency(ref Int64 freq);
 
 
     }
