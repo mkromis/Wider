@@ -52,7 +52,7 @@ namespace Wider.Core
         /// <summary>
         /// The container used in the application
         /// </summary>
-        private IContainerExtension _container;
+        private readonly IContainerExtension _container;
 
         /// <summary>
         /// The constructor of the CoreModule

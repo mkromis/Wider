@@ -31,7 +31,7 @@ namespace Wider.Core.Services
         /// <summary>
         /// The injected container
         /// </summary>
-        private readonly IContainerExtension _container;
+        // private IContainerExtension Container { get; private set; }
 
         /// <summary>
         /// The injected event aggregator
@@ -46,22 +46,22 @@ namespace Wider.Core.Services
         /// <summary>
         /// The Open file dialog
         /// </summary>
-        private OpenFileDialog _dialog;
+        private readonly OpenFileDialog _dialog;
 
         /// <summary>
         /// The workspace
         /// </summary>
-        private IWorkspace _workspace;
+        private readonly IWorkspace _workspace;
 
         /// <summary>
         /// The content handler registry
         /// </summary>
-        private ContentHandlerRegistry _handler;
+        private readonly ContentHandlerRegistry _handler;
 
         /// <summary>
         /// The recent settings
         /// </summary>
-        private RecentViewSettings _recentSettings;
+        private readonly RecentViewSettings _recentSettings;
 
         /// <summary>
         /// Constructor for Open file service
@@ -69,17 +69,14 @@ namespace Wider.Core.Services
         /// <param name="container">The injected container</param>
         /// <param name="eventAggregator">The injected event aggregator</param>
         /// <param name="logger">The injected logger</param>
-        public OpenDocumentService(
-            IContainerExtension container, IEventAggregator eventAggregator, ILoggerService logger,
-            IWorkspace workspace, IContentHandlerRegistry handler, IRecentViewSettings recentSettings)
+        public OpenDocumentService(IContainerExtension container)
         {
-            _container = container;
-            _eventAggregator = eventAggregator;
-            _logger = logger;
-            _dialog = new OpenFileDialog();
-            _workspace = workspace;
-            _handler = handler as ContentHandlerRegistry;
-            _recentSettings = recentSettings as RecentViewSettings;
+            _eventAggregator = container.Resolve<IEventAggregator>();
+            _logger = container.Resolve<ILoggerService>();
+            _workspace = container.Resolve<IWorkspace>();
+            _handler = container.Resolve<IContentHandlerRegistry>() as ContentHandlerRegistry;
+            _recentSettings = container.Resolve<IRecentViewSettings>() as RecentViewSettings;
+            //_dialog = new OpenFileDialog();
         }
 
         #region IOpenDocumentService Members
