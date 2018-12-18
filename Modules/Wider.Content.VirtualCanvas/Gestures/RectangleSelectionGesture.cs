@@ -18,18 +18,16 @@ namespace Wider.Content.VirtualCanvas.Gestures
     /// </summary>
     public class RectangleSelectionGesture
     {
-        SelectionRectVisual _selectionRectVisual;
-        Point _start;
-        bool _watching;
-        FrameworkElement _target;
-        MapZoom _zoom;
-        Panel _container;
-        Point _mouseDownPoint;
-        Rect _selectionRect;
-        bool _zoomSelection;
-        int _zoomSizeThreshold = 20;
-        int _selectionThreshold = 5; // allow some mouse wiggle on mouse down without actually selecting stuff!
-        ModifierKeys _mods;
+        private SelectionRectVisual _selectionRectVisual;
+        private Point _start;
+        private Boolean _watching;
+        private readonly FrameworkElement _target;
+        private readonly MapZoom _zoom;
+        private readonly Panel _container;
+        private Point _mouseDownPoint;
+        private Rect _selectionRect;
+        private readonly Int32 _selectionThreshold = 5; // allow some mouse wiggle on mouse down without actually selecting stuff!
+        private readonly ModifierKeys _mods;
 
         public event EventHandler Selected;
 
@@ -56,26 +54,19 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <summary>
         /// Get the rectangle the user drew on the target object.
         /// </summary>
-        public Rect SelectionRectangle
-        {
-            get { return _selectionRect; }
-        }
+        public Rect SelectionRectangle => _selectionRect;
 
         /// <summary>
         /// Get/Set whether to also zoom the selected rectangle.
         /// </summary>
-        public bool ZoomSelection
-        {
-            get { return _zoomSelection; }
-            set { _zoomSelection = value; }
-        }            
+        public Boolean ZoomSelection { get; set; }
 
         /// <summary>
         /// Handle the mouse left button down event
         /// </summary>
         /// <param name="sender">Mouse</param>
         /// <param name="e">Mouse down information</param>
-        void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        void OnMouseLeftButtonDown(Object sender, MouseButtonEventArgs e)
         {
             if (!e.Handled && (Keyboard.Modifiers & _mods) == _mods)
             {
@@ -90,11 +81,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// This allows user to start drawing a rectangle by then change their mind and mouse up
         /// without trigging an almost infinite zoom out to a very smalle piece of real-estate.
         /// </summary>
-        public int ZoomSizeThreshold
-        {
-            get { return _zoomSizeThreshold; }
-            set { _zoomSizeThreshold = value; }
-        }
+        public Int32 ZoomSizeThreshold { get; set; } = 20;
 
         /// <summary>
         /// Handle Mouse Move event.  Here we detect whether we've exceeded the _selectionThreshold
@@ -102,7 +89,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         /// <param name="sender">Mouse</param>
         /// <param name="e">Mouse move information.</param>
-        void OnMouseMove(object sender, MouseEventArgs e)
+        void OnMouseMove(Object sender, MouseEventArgs e)
         {
             if (_watching)
             {
@@ -132,22 +119,20 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         /// <param name="sender">Mouse</param>
         /// <param name="e">Mouse button information</param>
-        void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        void OnMouseLeftButtonUp(Object sender, MouseButtonEventArgs e)
         {
             _watching = false;
             if (_selectionRectVisual != null)
             {
                 Mouse.Capture(_target, CaptureMode.None);
                 Point pos = e.GetPosition(_container);
-                double f = Math.Min(Math.Abs(pos.X - _mouseDownPoint.X), Math.Abs(pos.Y - _mouseDownPoint.Y));
+                Double f = Math.Min(Math.Abs(pos.X - _mouseDownPoint.X), Math.Abs(pos.Y - _mouseDownPoint.Y));
                 Rect r = GetSelectionRect(pos);
                 _selectionRect = r;
-                if (Selected != null)
-                {
-                    Selected(this, EventArgs.Empty);
-                }
 
-                if (_zoomSelection && f > _zoomSizeThreshold )
+                Selected?.Invoke(this, EventArgs.Empty);
+
+                if (ZoomSelection && f > ZoomSizeThreshold )
                 {
                     _zoom.ZoomToRect(r);
                 }

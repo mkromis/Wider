@@ -8,9 +8,6 @@ namespace Wider.Content.VirtualCanvas.Views
     /// </summary>
     public partial class VirtualCanvas : IContentView
     {
-        public VirtualCanvas()
-        {
-            InitializeComponent();
-        }
+        public VirtualCanvas() => InitializeComponent();
     }
 }

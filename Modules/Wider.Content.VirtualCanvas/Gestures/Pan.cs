@@ -19,14 +19,14 @@ namespace Wider.Content.VirtualCanvas.Gestures
     /// </summary>
     public class Pan {
 
-        bool _dragging;
-        FrameworkElement _target;
-        MapZoom _zoom;
-        bool _captured;
-        Panel _container;
-        Point _mouseDownPoint;
-        Point _startTranslate;
-        ModifierKeys _mods = ModifierKeys.None;
+        private Boolean _dragging;
+        private readonly FrameworkElement _target;
+        private readonly MapZoom _zoom;
+        private Boolean _captured;
+        private readonly Panel _container;
+        private Point _mouseDownPoint;
+        private Point _startTranslate;
+        private readonly ModifierKeys _mods = ModifierKeys.None;
 
         /// <summary>
         /// Construct new Pan gesture object.
@@ -34,13 +34,13 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <param name="target">The target to be panned, must live inside a container Panel</param>
         /// <param name="zoom"></param>
         public Pan(FrameworkElement target, MapZoom zoom) {
-            this._target = target;
-            this._container = target.Parent as Panel;
-            if (this._container == null) {
+            _target = target;
+            _container = target.Parent as Panel;
+            if (_container == null) {
                 // todo: localization
                 throw new ArgumentException("Target object must live in a Panel");
             }
-            this._zoom = zoom;
+            _zoom = zoom;
             _container.MouseLeftButtonDown += new MouseButtonEventHandler(OnMouseLeftButtonDown);
             _container.MouseLeftButtonUp += new MouseButtonEventHandler(OnMouseLeftButtonUp);
             _container.MouseMove += new MouseEventHandler(OnMouseMove);
@@ -52,13 +52,13 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         /// <param name="sender">Container</param>
         /// <param name="e">Mouse information</param>
-        void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
+        void OnMouseLeftButtonDown(Object sender, MouseButtonEventArgs e) {
 
             ModifierKeys mask = Keyboard.Modifiers & _mods;
             if (!e.Handled && mask == _mods && mask == Keyboard.Modifiers)
             {
-                this._container.Cursor = Cursors.Hand;
-                _mouseDownPoint = e.GetPosition(this._container);
+                _container.Cursor = Cursors.Hand;
+                _mouseDownPoint = e.GetPosition(_container);
                 Point offset = _zoom.Offset;
                 _startTranslate = new Point(offset.X, offset.Y);
                 _dragging = true;
@@ -72,14 +72,14 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         /// <param name="sender">Mouse</param>
         /// <param name="e">Move information</param>
-        void OnMouseMove(object sender, MouseEventArgs e) {
-            if (this._dragging) {
+        void OnMouseMove(Object sender, MouseEventArgs e) {
+            if (_dragging) {
                 if (!_captured) {
                     _captured = true;
                     _target.Cursor = Cursors.Hand;
-                    Mouse.Capture(this._target, CaptureMode.SubTree);
+                    Mouse.Capture(_target, CaptureMode.SubTree);
                 }
-                this.MoveBy(_mouseDownPoint - e.GetPosition(this._container));
+                MoveBy(_mouseDownPoint - e.GetPosition(_container));
             }
         }
 
@@ -88,10 +88,10 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+        void OnMouseLeftButtonUp(Object sender, MouseButtonEventArgs e) {
 
             if (_captured) {
-                Mouse.Capture(this._target, CaptureMode.None);
+                Mouse.Capture(_target, CaptureMode.None);
                 e.Handled = true;
                 _target.Cursor = Cursors.Arrow; ;
                 _captured = false;   

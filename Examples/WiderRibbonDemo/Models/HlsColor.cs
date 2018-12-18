@@ -11,122 +11,100 @@ namespace WiderRibbonDemo.Models
     /// </devdoc>
     public struct HlsColor
     {
-        private const int ShadowAdj = -333;
-        private const int HilightAdj = 500;
-        private const int WatermarkAdj = -50;
+        private const Int32 ShadowAdj = -333;
+        private const Int32 HilightAdj = 500;
 
-        private const int Range = 240;
-        private const int HLSMax = Range;
-        private const int RGBMax = 255;
-        private const int Undefined = HLSMax * 2 / 3;
-
-        private int hue;
-        private int saturation;
-        private int luminosity;
+        private const Int32 Range = 240;
+        private const Int32 HLSMax = Range;
+        private const Int32 RGBMax = 255;
+        private const Int32 Undefined = HLSMax * 2 / 3;
 
         /// <include file='doc\ControlPaint.uex' path='docs/doc[@for="ControlPaint.HLSColor.HLSColor"]/*' />
         /// <devdoc>
         /// </devdoc>
         public HlsColor(Color color)
         {
-            int r = color.R;
-            int g = color.G;
-            int b = color.B;
-            int max, min;        /* max and min RGB values */
-            int sum, dif;
-            int Rdelta, Gdelta, Bdelta;  /* intermediate value: % of spread from max */
+            Int32 r = color.R;
+            Int32 g = color.G;
+            Int32 b = color.B;
+            Int32 max, min;        /* max and min RGB values */
+            Int32 sum, dif;
+            Int32 Rdelta, Gdelta, Bdelta;  /* intermediate value: % of spread from max */
 
             /* calculate lightness */
             max = Math.Max(Math.Max(r, g), b);
             min = Math.Min(Math.Min(r, g), b);
             sum = max + min;
 
-            luminosity = (((sum * HLSMax) + RGBMax) / (2 * RGBMax));
+            Luminosity = (((sum * HLSMax) + RGBMax) / (2 * RGBMax));
 
             dif = max - min;
             if (dif == 0)
             {       /* r=g=b --> achromatic case */
-                saturation = 0;                         /* saturation */
-                hue = Undefined;                 /* hue */
+                Saturation = 0;                         /* saturation */
+                Hue = Undefined;                 /* hue */
             }
             else
             {                           /* chromatic case */
                 /* saturation */
-                if (luminosity <= (HLSMax / 2))
-                    saturation = (int)(((dif * (int)HLSMax) + (sum / 2)) / sum);
-                else
-                    saturation = (int)((int)((dif * (int)HLSMax) + (int)((2 * RGBMax - sum) / 2))
-                        / (2 * RGBMax - sum));
+                Saturation = Luminosity <= (HLSMax / 2)
+                    ? ((dif * HLSMax) + (sum / 2)) / sum
+                    : ((dif * HLSMax) + (2 * RGBMax - sum) / 2) / (2 * RGBMax - sum);
                 /* hue */
-                Rdelta = (int)((((max - r) * (int)(HLSMax / 6)) + (dif / 2)) / dif);
-                Gdelta = (int)((((max - g) * (int)(HLSMax / 6)) + (dif / 2)) / dif);
-                Bdelta = (int)((((max - b) * (int)(HLSMax / 6)) + (dif / 2)) / dif);
+                Rdelta = (((max - r) * (HLSMax / 6)) + (dif / 2)) / dif;
+                Gdelta = (((max - g) * (HLSMax / 6)) + (dif / 2)) / dif;
+                Bdelta = (((max - b) * (HLSMax / 6)) + (dif / 2)) / dif;
 
-                if ((int)r == max)
-                    hue = Bdelta - Gdelta;
-                else if ((int)g == max)
-                    hue = (HLSMax / 3) + Rdelta - Bdelta;
-                else /* B == cMax */
-                    hue = ((2 * HLSMax) / 3) + Gdelta - Rdelta;
+                if (r == max)
+                {
+                    Hue = Bdelta - Gdelta;
+                }
+                else
+                {
+                    Hue = g == max 
+                        ? (HLSMax / 3) + Rdelta - Bdelta 
+                        : ((2 * HLSMax) / 3) + Gdelta - Rdelta;
+                }
 
-                if (hue < 0)
-                    hue += HLSMax;
-                if (hue > HLSMax)
-                    hue -= HLSMax;
+                if (Hue < 0)
+                {
+                    Hue += HLSMax;
+                }
+
+                if (Hue > HLSMax)
+                {
+                    Hue -= HLSMax;
+                }
             }
         }
 
         /// <include file='doc\ControlPaint.uex' path='docs/doc[@for="ControlPaint.HLSColor.Hue"]/*' />
         /// <devdoc>
         /// </devdoc>
-        public int Hue
-        {
-            get
-            {
-                return hue;
-            }
-        }
+        public Int32 Hue { get; }
 
         /// <include file='doc\ControlPaint.uex' path='docs/doc[@for="ControlPaint.HLSColor.Luminosity"]/*' />
         /// <devdoc>
         /// </devdoc>
-        public int Luminosity
-        {
-            get
-            {
-                return luminosity;
-            }
-        }
+        public Int32 Luminosity { get; }
 
         /// <include file='doc\ControlPaint.uex' path='docs/doc[@for="ControlPaint.HLSColor.Saturation"]/*' />
         /// <devdoc>
         /// </devdoc>
-        public int Saturation
+        public Int32 Saturation { get; }
+
+        public Color Darker(Single percDarker)
         {
-            get
-            {
-                return saturation;
-            }
+            Int32 oneLum = 0;
+            Int32 zeroLum = NewLuma(ShadowAdj, true);
+            return ColorFromHLS(Hue, zeroLum - (Int32)((zeroLum - oneLum) * percDarker), Saturation);
         }
 
-        public Color Darker(float percDarker)
-        {
-            int oneLum = 0;
-            int zeroLum = NewLuma(ShadowAdj, true);
-            return ColorFromHLS(hue, zeroLum - (int)((zeroLum - oneLum) * percDarker), saturation);
-        }
+        public static Boolean operator ==(HlsColor a, HlsColor b) => a.Equals(b);
 
-        public static bool operator ==(HlsColor a, HlsColor b)
-        {
-            return a.Equals(b);
-        }
+        public static Boolean operator !=(HlsColor a, HlsColor b) => !a.Equals(b);
 
-        public static bool operator !=(HlsColor a, HlsColor b)
-        {
-            return !a.Equals(b);
-        }
-
-        public override bool Equals(object o)
+        public override Boolean Equals(Object o)
         {
             if (!(o is HlsColor))
             {
@@ -134,52 +112,53 @@ namespace WiderRibbonDemo.Models
             }
 
             HlsColor c = (HlsColor)o;
-            return hue == c.hue &&
-                saturation == c.saturation &&
-                luminosity == c.luminosity;
+            return Hue == c.Hue &&
+                Saturation == c.Saturation &&
+                Luminosity == c.Luminosity;
         }
 
-        public override int GetHashCode()
+        public override Int32 GetHashCode() => Hue << 6 | Saturation << 2 | Luminosity;
+
+        public Color Lighter(Single percLighter)
         {
-            return hue << 6 | saturation << 2 | luminosity;
+            Int32 zeroLum = Luminosity;
+            Int32 oneLum = NewLuma(HilightAdj, true);
+            return ColorFromHLS(Hue, zeroLum + (Int32)((oneLum - zeroLum) * percLighter), Saturation);
         }
 
-        public Color Lighter(float percLighter)
-        {
-            int zeroLum = luminosity;
-            int oneLum = NewLuma(HilightAdj, true);
-            return ColorFromHLS(hue, zeroLum + (int)((oneLum - zeroLum) * percLighter), saturation);
-        }
+        private Int32 NewLuma(Int32 n, Boolean scale) => NewLuma(Luminosity, n, scale);
 
-        private int NewLuma(int n, bool scale)
-        {
-            return NewLuma(luminosity, n, scale);
-        }
-
-        private static int NewLuma(int luminosity, int n, bool scale)
+        private static Int32 NewLuma(Int32 luminosity, Int32 n, Boolean scale)
         {
             if (n == 0)
+            {
                 return luminosity;
+            }
 
             if (scale)
             {
                 if (n > 0)
                 {
-                    return (int)(((int)luminosity * (1000 - n) + (Range + 1L) * n) / 1000);
+                    return (Int32)((luminosity * (1000 - n) + (Range + 1L) * n) / 1000);
                 }
                 else
                 {
-                    return (int)(((int)luminosity * (n + 1000)) / 1000);
+                    return (luminosity * (n + 1000)) / 1000;
                 }
             }
 
-            int newLum = luminosity;
-            newLum += (int)((long)n * Range / 1000);
+            Int32 newLum = luminosity;
+            newLum += (Int32)((Int64)n * Range / 1000);
 
             if (newLum < 0)
+            {
                 newLum = 0;
+            }
+
             if (newLum > HLSMax)
+            {
                 newLum = HLSMax;
+            }
 
             return newLum;
         }
@@ -187,14 +166,14 @@ namespace WiderRibbonDemo.Models
         /// <include file='doc\ControlPaint.uex' path='docs/doc[@for="ControlPaint.HLSColor.ColorFromHLS"]/*' />
         /// <devdoc>
         /// </devdoc>
-        public static Color ColorFromHLS(int hue, int luminosity, int saturation)
+        public static Color ColorFromHLS(Int32 hue, Int32 luminosity, Int32 saturation)
         {
-            byte r, g, b;                      /* RGB component values */
-            int magic1, magic2;       /* calculated magic numbers (really!) */
+            Byte r, g, b;                      /* RGB component values */
+            Int32 magic1, magic2;       /* calculated magic numbers (really!) */
 
             if (saturation == 0)
             {                /* achromatic case */
-                r = g = b = (byte)((luminosity * RGBMax) / HLSMax);
+                r = g = b = (Byte)((luminosity * RGBMax) / HLSMax);
                 if (hue != Undefined)
                 {
                     /* ERROR */
@@ -204,15 +183,20 @@ namespace WiderRibbonDemo.Models
             {                         /* chromatic case */
                 /* set up magic numbers */
                 if (luminosity <= (HLSMax / 2))
-                    magic2 = (int)((luminosity * ((int)HLSMax + saturation) + (HLSMax / 2)) / HLSMax);
+                {
+                    magic2 = (luminosity * (HLSMax + saturation) + (HLSMax / 2)) / HLSMax;
+                }
                 else
-                    magic2 = luminosity + saturation - (int)(((luminosity * saturation) + (int)(HLSMax / 2)) / HLSMax);
+                {
+                    magic2 = luminosity + saturation - ((luminosity * saturation) + HLSMax / 2) / HLSMax;
+                }
+
                 magic1 = 2 * luminosity - magic2;
 
                 /* get RGB, change units from HLSMax to RGBMax */
-                r = (byte)(((HueToRGB(magic1, magic2, (int)(hue + (int)(HLSMax / 3))) * (int)RGBMax + (HLSMax / 2))) / (int)HLSMax);
-                g = (byte)(((HueToRGB(magic1, magic2, hue) * (int)RGBMax + (HLSMax / 2))) / HLSMax);
-                b = (byte)(((HueToRGB(magic1, magic2, (int)(hue - (int)(HLSMax / 3))) * (int)RGBMax + (HLSMax / 2))) / (int)HLSMax);
+                r = (Byte)((HueToRGB(magic1, magic2, hue + HLSMax / 3) * RGBMax + (HLSMax / 2)) / HLSMax);
+                g = (Byte)((HueToRGB(magic1, magic2, hue) * RGBMax + (HLSMax / 2)) / HLSMax);
+                b = (Byte)((HueToRGB(magic1, magic2, hue - HLSMax / 3) * RGBMax + (HLSMax / 2)) / HLSMax);
             }
             return Color.FromRgb(r, g, b);
         }
@@ -220,32 +204,42 @@ namespace WiderRibbonDemo.Models
         /// <include file='doc\ControlPaint.uex' path='docs/doc[@for="ControlPaint.HLSColor.HueToRGB"]/*' />
         /// <devdoc>
         /// </devdoc>
-        private static int HueToRGB(int n1, int n2, int hue)
+        private static Int32 HueToRGB(Int32 n1, Int32 n2, Int32 hue)
         {
             /* range check: note values passed add/subtract thirds of range */
 
             /* The following is redundant for WORD (unsigned int) */
             if (hue < 0)
+            {
                 hue += HLSMax;
+            }
 
             if (hue > HLSMax)
+            {
                 hue -= HLSMax;
+            }
 
             /* return r,g, or b value from this tridrant */
             if (hue < (HLSMax / 6))
+            {
                 return (n1 + (((n2 - n1) * hue + (HLSMax / 12)) / (HLSMax / 6)));
+            }
+
             if (hue < (HLSMax / 2))
+            {
                 return (n2);
+            }
+
             if (hue < ((HLSMax * 2) / 3))
+            {
                 return (n1 + (((n2 - n1) * (((HLSMax * 2) / 3) - hue) + (HLSMax / 12)) / (HLSMax / 6)));
+            }
             else
+            {
                 return (n1);
-
+            }
         }
 
-        public override string ToString()
-        {
-            return this.hue + ", " + this.luminosity + ", " + this.saturation;
-        }
+        public override String ToString() => $"{Hue}, {Luminosity}, {Saturation}";
     }
 }

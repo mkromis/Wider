@@ -27,14 +27,14 @@ namespace Wider.Content.VirtualCanvas.Gestures
         // multiple mouse clicks when you flick the mouse wheel accumulate so it can be more than this.
         // 0.10 feels about right, but you can increase the number if you feel you have to work the
         // mouse wheel to hard to zoom in as fast as you want to.
-        const double _sensitivity = .10;
+        const Double _sensitivity = .10;
         // defaultZoomTime is the amount of time in milliseconds the zoom animation takes to give 
         // a smooth zoom in behavior.  This time increases when you flick the mouse wheel up to maxZoomTime.
-        const double _defaultZoomTime = 100;
-        const double _maxZoomTime = 300;
+        const Double _defaultZoomTime = 100;
+        const Double _maxZoomTime = 300;
 
-        FrameworkElement _container;
-        FrameworkElement _target;
+        private readonly FrameworkElement _container;
+        private readonly FrameworkElement _target;
                 
         // Note that because we want to animate the zoom and translate while spinning the mouse
         // we keep two sets of values.  Note that when an animation is active on a given property it
@@ -44,16 +44,16 @@ namespace Wider.Content.VirtualCanvas.Gestures
         // _offset and these values are copied to the master _scale and _translate on each animation
         // step.  If some external change is made to the _scale and _translate transforms then
         // we "StopAnimation" and sync up the _offset and _zoom variables.
-        ScaleTransform _scale;
-        TranslateTransform _translate;
-        double _zoom = 1;
-        double _newZoom = 1;
+        private readonly ScaleTransform _scale;
+        private readonly TranslateTransform _translate;
+        Double _zoom = 1;
+        Double _newZoom = 1;
         Point _offset;
         Point _mouse;
         Point _onTarget;
-        double _zoomTime = _defaultZoomTime;
-        long _startTime;
-        double _lastAmount;
+        Double _zoomTime = _defaultZoomTime;
+        Int64 _startTime;
+        Double _lastAmount;
         Rect _targetRect;
 
         /// <summary>
@@ -63,11 +63,11 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <summary>
         /// When we are zooming to a point this property can be animated
         /// </summary>
-        public static readonly DependencyProperty ZoomToPointProperty = DependencyProperty.Register("ZoomToPoint", typeof(double), typeof(MapZoom));
+        public static readonly DependencyProperty ZoomToPointProperty = DependencyProperty.Register("ZoomToPoint", typeof(Double), typeof(MapZoom));
         /// <summary>
         /// When we are zooming to a rectangle this property can be animated.
         /// </summary>
-        public static readonly DependencyProperty ZoomToRectProperty = DependencyProperty.Register("ZoomToRect", typeof(double), typeof(MapZoom));
+        public static readonly DependencyProperty ZoomToRectProperty = DependencyProperty.Register("ZoomToRect", typeof(Double), typeof(MapZoom));
 
         /// <summary>
         /// This event is raised when the scale or translation is changed.
@@ -81,8 +81,8 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <param name="target">The target object we will be zooming.</param>
         public MapZoom(FrameworkElement target)
         {
-            this._container = target.Parent as FrameworkElement;
-            this._target = target;
+            _container = target.Parent as FrameworkElement;
+            _target = target;
 
             _container.MouseMove += new MouseEventHandler(OnMouseMove);
             _container.MouseWheel += new MouseWheelEventHandler(OnMouseWheel);
@@ -97,9 +97,9 @@ namespace Wider.Content.VirtualCanvas.Gestures
             TransformGroup g = target.RenderTransform as TransformGroup;
             if (g != null)
             {
-                this._scale = g.Children.Count > 1 ? g.Children[0] as ScaleTransform : null;
-                this._translate = g.Children.Count > 0 ? g.Children[1] as TranslateTransform : null;
-                if (this._scale == null || this._translate == null)
+                _scale = g.Children.Count > 1 ? g.Children[0] as ScaleTransform : null;
+                _translate = g.Children.Count > 0 ? g.Children[1] as TranslateTransform : null;
+                if (_scale == null || _translate == null)
                 {
                     g = null; // then the TransformGroup cannot be re-used
                 }
@@ -107,18 +107,18 @@ namespace Wider.Content.VirtualCanvas.Gestures
             if (g == null)
             {
                 g = new TransformGroup();
-                this._scale = new ScaleTransform(1, 1);
-                g.Children.Add(this._scale);
-                this._translate = new TranslateTransform();
-                g.Children.Add(this._translate);
+                _scale = new ScaleTransform(1, 1);
+                g.Children.Add(_scale);
+                _translate = new TranslateTransform();
+                g.Children.Add(_translate);
                 target.RenderTransform = g;
             }
 
-            this._zoom = this._newZoom = _scale.ScaleX;
+            _zoom = _newZoom = _scale.ScaleX;
 
             // track changes made by the ScrolLViewer.
-            this._translate.Changed += new EventHandler(OnTranslateChanged);
-            this._scale.Changed += new EventHandler(OnScaleChanged);
+            _translate.Changed += new EventHandler(OnTranslateChanged);
+            _scale.Changed += new EventHandler(OnScaleChanged);
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         /// <param name="sender">The TranslateTransform object</param>
         /// <param name="e">noop</param>
-        void OnTranslateChanged(object sender, EventArgs e)
+        void OnTranslateChanged(Object sender, EventArgs e)
         {
             if (_offset.X != _translate.X || _offset.Y != _translate.Y)
             {
@@ -142,7 +142,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         /// <param name="sender">The ScaleTransform object</param>
         /// <param name="e">noop</param>
-        void OnScaleChanged(object sender, EventArgs e)
+        void OnScaleChanged(Object sender, EventArgs e)
         {
             if (_zoom != _scale.ScaleX)
             {
@@ -156,7 +156,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         /// <param name="sender">Keyboard</param>
         /// <param name="e">Key information</param>
-        void OnKeyDown(object sender, KeyEventArgs e)
+        void OnKeyDown(Object sender, KeyEventArgs e)
         {
             if (e.Key == Key.RightCtrl || e.Key == Key.LeftCtrl)
             {
@@ -169,7 +169,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         /// <param name="sender">Keyboard</param>
         /// <param name="e">Key information</param>
-        void OnKeyUp(object sender, KeyEventArgs e)
+        void OnKeyUp(Object sender, KeyEventArgs e)
         {
             if (e.Key == Key.RightCtrl || e.Key == Key.LeftCtrl)
             {
@@ -183,17 +183,17 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         /// <param name="sender">Mouse</param>
         /// <param name="e">Mouse move information</param>
-        void OnMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        void OnMouseMove(Object sender, System.Windows.Input.MouseEventArgs e)
         {
-            this._mouse = _container.PointToScreen(e.GetPosition(_container));
-            this._onTarget = e.GetPosition(_target);
+            _mouse = _container.PointToScreen(e.GetPosition(_container));
+            _onTarget = e.GetPosition(_target);
 
             // Create a 50 pixel margin on the edges of the target object so that if the mouse is inside
             // that band, then that edge stays pinned on screen and doesn't slide off the edge as we zoom in.
-            if (this._onTarget.X < 50 / _zoom) this._onTarget.X = 0;
-            if (this._onTarget.Y < 50 / _zoom) this._onTarget.Y = 0;
-            if (this._onTarget.X + 50 / _zoom > _target.ActualWidth) this._onTarget.X = _target.ActualWidth;
-            if (this._onTarget.Y + 50 / _zoom > _target.ActualHeight) this._onTarget.Y = _target.ActualHeight;
+            if (_onTarget.X < 50 / _zoom) { _onTarget.X = 0; }
+            if (_onTarget.Y < 50 / _zoom) { _onTarget.Y = 0; }
+            if (_onTarget.X + 50 / _zoom > _target.ActualWidth) { _onTarget.X = _target.ActualWidth; }
+            if (_onTarget.Y + 50 / _zoom > _target.ActualHeight) { _onTarget.Y = _target.ActualHeight; }
         }
 
         /// <summary>
@@ -201,11 +201,11 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         /// <param name="sender">Mouse</param>
         /// <param name="e">Mouse wheel information</param>
-        public void OnMouseWheel(object sender, MouseWheelEventArgs e)
+        public void OnMouseWheel(Object sender, MouseWheelEventArgs e)
         {
             if (e.Delta != 0 && (Keyboard.Modifiers & ModifierKeys.Control) != 0)
             {
-                HandleZoom((double)e.Delta / (double)Mouse.MouseWheelDeltaForOneLine);
+                HandleZoom(e.Delta / (Double)Mouse.MouseWheelDeltaForOneLine);
                 e.Handled = true;
             }
         }
@@ -215,9 +215,9 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         void OnZoomChanged()
         {
-            _scale.ScaleX = _scale.ScaleY = this._zoom;
+            _scale.ScaleX = _scale.ScaleY = _zoom;
 
-            if (ZoomChanged != null) ZoomChanged(this, EventArgs.Empty);
+            ZoomChanged?.Invoke(this, EventArgs.Empty);
 
             // focus rectangles may need to be repainted.
             _target.InvalidateVisual();
@@ -239,13 +239,12 @@ namespace Wider.Content.VirtualCanvas.Gestures
         {
             get
             {
-                IScrollInfo si = _target as IScrollInfo;
-                if (si != null)
+                if (_target is IScrollInfo si)
                 {
                     return new Size(si.ViewportWidth, si.ViewportHeight);
                 }
                 // Basically the visible rect...
-                return new Size(this._container.ActualWidth, this._container.ActualHeight);
+                return new Size(_container.ActualWidth, _container.ActualHeight);
             }
         }
 
@@ -263,29 +262,29 @@ namespace Wider.Content.VirtualCanvas.Gestures
             Point moved;
             try
             {
-                moved = _target.PointFromScreen(this._mouse);
+                moved = _target.PointFromScreen(_mouse);
             }
             catch (Exception)
             {
                 return;
             }
 
-            Point delta = new Point(moved.X - this._onTarget.X, moved.Y - this._onTarget.Y);
+            Point delta = new Point(moved.X - _onTarget.X, moved.Y - _onTarget.Y);
 
-            double x = this._translate.X + (delta.X * _zoom);
-            double y = this._translate.Y + (delta.Y * _zoom);
+            Double x = _translate.X + (delta.X * _zoom);
+            Double y = _translate.Y + (delta.Y * _zoom);
 
             Size containerSize = ContainerSize;
-            double width = containerSize.Width;
-            double height = containerSize.Height;
+            Double width = containerSize.Width;
+            Double height = containerSize.Height;
             
-            double right = (this._target.ActualWidth * _zoom) + x;
+            Double right = (_target.ActualWidth * _zoom) + x;
             if (right < width && x < 0)
             {
                 x += (width - right);
             }
 
-            double bottom = (this._target.ActualHeight * _zoom) + y;
+            Double bottom = (_target.ActualHeight * _zoom) + y;
             if (bottom < height && y < 0)
             {
                 y += (height - bottom);
@@ -301,16 +300,16 @@ namespace Wider.Content.VirtualCanvas.Gestures
         void KeepRectStable()
         {
             // Find out where we are now that zoom has changed.
-            Rect cr = _target.TransformToAncestor(this._container).TransformBounds(_targetRect);
+            Rect cr = _target.TransformToAncestor(_container).TransformBounds(_targetRect);
             // Keep it centered.
             Size containerSize = ContainerSize;
-            double width = containerSize.Width;
-            double height = containerSize.Height;
+            Double width = containerSize.Width;
+            Double height = containerSize.Height;
             
-            double cx = (width - cr.Width) / 2;
-            double cy = (height - cr.Height) / 2;
-            double dx = _translate.X + cx - cr.X;
-            double dy = _translate.Y + cy - cr.Y;
+            Double cx = (width - cr.Width) / 2;
+            Double cy = (height - cr.Height) / 2;
+            Double dx = _translate.X + cx - cr.X;
+            Double dy = _translate.Y + cy - cr.Y;
             Translate(dx, dy);
         }
 
@@ -319,20 +318,19 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         /// <param name="x">The x-cordinate</param>
         /// <param name="y">The y-coordinate</param>
-        void Translate(double x, double y)
+        void Translate(Double x, Double y)
         {
-            IScrollInfo si = _target as IScrollInfo;
-            if (si != null)
+            if (_target is IScrollInfo si)
             {
                 // If the target object is smaller than the current viewport size then ignore this request.
-                Size s = this.ContainerSize;
+                Size s = ContainerSize;
                 if (_target.ActualWidth <= s.Width && _target.ActualHeight <= s.Height)
                 {
                     x = y = 0;
                 }
             }
-            if (x > 0) x = 0;
-            if (y > 0) y = 0;
+            if (x > 0) { x = 0; }
+            if (y > 0) { y = 0; }
 
             _translate.X = _offset.X = x;
             _translate.Y = _offset.Y = y;
@@ -345,13 +343,13 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// Get/set the current zoom level - this is a scale factor, 0.5 means zoom out so everything is half
         /// the normal size.  A value of 2 means zoom in so everything on the target object is twice the normal size.
         /// </summary>
-        public double Zoom
+        public Double Zoom
         {
-            get { return this._zoom; }
+            get => _zoom;
             set
             {
                 StopAnimations();
-                this._scale.ScaleX = this._scale.ScaleY = this._zoom = value;
+                _scale.ScaleX = _scale.ScaleY = _zoom = value;
                 OnZoomChanged();
             }
         }
@@ -361,7 +359,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         public Point Offset
         {
-            get { return this._offset; }
+            get => _offset;
             set
             {
                 StopAnimations();
@@ -377,13 +375,13 @@ namespace Wider.Content.VirtualCanvas.Gestures
         void StopAnimations()
         {
             // Stop the animation at the current point.
-            this._newZoom = this._zoom;
-            this.BeginAnimation(ZoomToPointProperty, null);
-            this.BeginAnimation(ZoomToRectProperty, null);
+            _newZoom = _zoom;
+            BeginAnimation(ZoomToPointProperty, null);
+            BeginAnimation(ZoomToRectProperty, null);
 
             // make sure offset and translate are in sync.
             Point t = new Point(_translate.X, _translate.Y);
-            this.BeginAnimation(OffsetProperty, null);
+            BeginAnimation(OffsetProperty, null);
             Translate(t.X, t.Y);
         }
 
@@ -392,10 +390,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         /// <param name="r">The rectangle</param>
         /// <returns>The center of that rectangle</returns>
-        static Point Center(Rect r)
-        {
-            return new Point(r.X + (r.Width / 2), r.Y + (r.Height / 2));
-        }
+        static Point Center(Rect r) => new Point(r.X + (r.Width / 2), r.Y + (r.Height / 2));
 
         /// <summary>
         /// Animate a zoom out and translate scroll so that the given rectangle is entirely visible.
@@ -406,20 +401,20 @@ namespace Wider.Content.VirtualCanvas.Gestures
             StopAnimations();
 
             // Convert it to container coordinates 
-            Rect cr = _target.TransformToAncestor(this._container).TransformBounds(r);
+            Rect cr = _target.TransformToAncestor(_container).TransformBounds(r);
 
             Size containerSize = ContainerSize;
-            double width = containerSize.Width;
-            double height = containerSize.Height;
+            Double width = containerSize.Width;
+            Double height = containerSize.Height;
             
-            double xzoom = width / cr.Width;
-            double yzoom = height / cr.Height;
-            double zoom = this._zoom * Math.Min(xzoom, yzoom);
+            Double xzoom = width / cr.Width;
+            Double yzoom = height / cr.Height;
+            Double zoom = _zoom * Math.Min(xzoom, yzoom);
 
-            double oldZoom = this._zoom;
+            Double oldZoom = _zoom;
 
-            this._targetRect = r;
-            this._startTime = 0;
+            _targetRect = r;
+            _startTime = 0;
             AnimateZoom(ZoomToRectProperty, oldZoom, zoom, new Duration(TimeSpan.FromMilliseconds(_defaultZoomTime)));
 
             // focus rectangles may need to be repainted.
@@ -432,10 +427,10 @@ namespace Wider.Content.VirtualCanvas.Gestures
         public void Reset()
         {
             StopAnimations();
-            _scale.ScaleX = _scale.ScaleY = this._zoom = this._newZoom = 1;
-            this._translate.X = _offset.X = 0;
-            this._translate.Y = _offset.Y = 0;
-            this._startTime = 0;
+            _scale.ScaleX = _scale.ScaleY = _zoom = _newZoom = 1;
+            _translate.X = _offset.X = 0;
+            _translate.Y = _offset.Y = 0;
+            _startTime = 0;
             OnZoomChanged();
             // focus rectangles may need to be repainted.
             _target.InvalidateVisual();
@@ -446,15 +441,15 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// user wants - for example, how hard did they spin the mouse.
         /// </summary>
         /// <param name="amount">Value between -1 and 1</param>
-        void HandleZoom(double clicks)
+        void HandleZoom(Double clicks)
         {
-            double amount = clicks;
-            double oldZoom = this._zoom;
-            if (amount > 1) amount = 1;
-            if (amount < -1) amount = -1;
+            Double amount = clicks;
+            Double oldZoom = _zoom;
+            if (amount > 1) { amount = 1; }
+            if (amount < -1) { amount = -1; }
 
             // If we've changed direction since the last animation then stop animations.
-            bool sameSign = (Math.Sign(amount) == Math.Sign(this._lastAmount));
+            Boolean sameSign = (Math.Sign(amount) == Math.Sign(_lastAmount));
             if (!sameSign || _startTime == 0)
             {
                 StopAnimations();
@@ -462,43 +457,43 @@ namespace Wider.Content.VirtualCanvas.Gestures
 
             // Accumulate the desired _newZoom amount as this method is called while the
             // user is repeatedly spinning the mouse.
-            double sensitivity = _sensitivity;
-            double extra = Math.Abs(clicks);
+            Double sensitivity = _sensitivity;
+            Double extra = Math.Abs(clicks);
             if (extra > 1)
             {
                 // mouse wheel is spinning fast.
                 sensitivity = Math.Min(0.5, sensitivity * extra);
             }
-            double delta = 1 - (Math.Abs(amount) * sensitivity);
+            Double delta = 1 - (Math.Abs(amount) * sensitivity);
             if (amount < 0)
             {
                 // zoom in
-                this._newZoom *= delta;
+                _newZoom *= delta;
             }
             else
             {
                 // zoom out
-                this._newZoom /= delta;
+                _newZoom /= delta;
             }
 
             // Calculate how long we want to keep zooming (_zoomTime) and increase this time
             // if the user keeps spinning the mouse so we get a nice momentum effect.
-            long tick = Environment.TickCount;
+            Int64 tick = Environment.TickCount;
 
             if (sameSign && _startTime != 0 && _startTime + _zoomTime > tick)
             {
                 // then make the time cumulative so you get nice smooth animation when you flick the wheel.
-                this._zoomTime += (_startTime + _zoomTime - tick);
-                if (this._zoomTime > _maxZoomTime) this._zoomTime = _maxZoomTime;
+                _zoomTime += (_startTime + _zoomTime - tick);
+                if (_zoomTime > _maxZoomTime) { _zoomTime = _maxZoomTime; }
             }
             else
             {
                 _startTime = tick;
-                this._zoomTime = _defaultZoomTime;
+                _zoomTime = _defaultZoomTime;
             }
-            this._lastAmount = amount;
+            _lastAmount = amount;
 
-            AnimateZoom(ZoomToPointProperty, oldZoom, _newZoom, new Duration(TimeSpan.FromMilliseconds(this._zoomTime)));
+            AnimateZoom(ZoomToPointProperty, oldZoom, _newZoom, new Duration(TimeSpan.FromMilliseconds(_zoomTime)));
         }
 
         /// <summary>
@@ -509,10 +504,10 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <param name="oldZoom">The old zoom value</param>
         /// <param name="newZoom">The new value we want to be at</param>
         /// <param name="d">The amound of time we can take to do the animation</param>
-        void AnimateZoom(DependencyProperty property, double oldZoom, double newZoom, Duration d)
+        void AnimateZoom(DependencyProperty property, Double oldZoom, Double newZoom, Duration d)
         {
             ExponentialDoubleAnimation a = new ExponentialDoubleAnimation(oldZoom, newZoom, 2, EdgeBehavior.EaseOut, d);
-            this.BeginAnimation(property, a);
+            BeginAnimation(property, a);
         }
 
         /// <summary>
@@ -560,15 +555,12 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// Zoom and scroll the given rectangle into view.
         /// </summary>
         /// <param name="rect">The rectangle to scroll into view</param>
-        public void ScrollIntoView(Rect rect)
-        {
-            ScrollIntoView(rect, new Duration(TimeSpan.FromMilliseconds(_defaultZoomTime)), true);
-        }
+        public void ScrollIntoView(Rect rect) => ScrollIntoView(rect, new Duration(TimeSpan.FromMilliseconds(_defaultZoomTime)), true);
 
         /// <summary>
         /// The margin around the rectangle that we zoom into view so it doesn't take up all the visible space.
         /// </summary>
-        const double margin = 20;
+        const Double margin = 20;
 
         /// <summary>
         /// Start the zoom/scroll animation
@@ -576,18 +568,18 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <param name="rect">Rect is in 'container' coordinates.</param>
         /// <param name="duration">Time allowed for the animation</param>
         /// <param name="zoom">Whether we can zoom or not</param>
-        void ScrollIntoView(Rect rect, Duration duration, bool zoom)
+        void ScrollIntoView(Rect rect, Duration duration, Boolean zoom)
         {
             Size containerSize = ContainerSize;
-            double width = containerSize.Width;
-            double height = containerSize.Height;
+            Double width = containerSize.Width;
+            Double height = containerSize.Height;
             
             // Get the bounds of the container so we can see if the selected node is inside these bounds right now.
             Rect window = new Rect(0, 0, width, height);
 
             if ((rect.Width > width || rect.Height > height))
             {
-                Rect tr = _container.TransformToDescendant(this._target).TransformBounds(rect);
+                Rect tr = _container.TransformToDescendant(_target).TransformBounds(rect);
                 if (zoom)
                 {
                     ZoomToRect(tr);
@@ -620,14 +612,14 @@ namespace Wider.Content.VirtualCanvas.Gestures
                 // amount.
 
                 Point startPos = new Point(_translate.X, _translate.Y);
-                double x = startPos.X + delta.X;
-                if (x > 0) x = 0;
-                double y = startPos.Y + delta.Y;
-                if (y > 0) y = 0;
+                Double x = startPos.X + delta.X;
+                if (x > 0) { x = 0; }
+                Double y = startPos.Y + delta.Y;
+                if (y > 0) { y = 0; }
 
                 Point newPos = new Point(x, y);
                 PointAnimation pa = new PointAnimation(startPos, newPos, duration);
-                this.BeginAnimation(OffsetProperty, pa);
+                BeginAnimation(OffsetProperty, pa);
             }
         }
 
@@ -639,22 +631,22 @@ namespace Wider.Content.VirtualCanvas.Gestures
         {
             if (e.Property == ZoomToPointProperty)
             {
-                double o = (double)e.OldValue;
-                double v = (double)e.NewValue;
+                Double o = (Double)e.OldValue;
+                Double v = (Double)e.NewValue;
                 if (v != 0 && v != o)
                 {
-                    this._zoom = v;
+                    _zoom = v;
                     OnZoomChanged();
                     KeepPositionStable();
                 }
             }
             else if (e.Property == ZoomToRectProperty)
             {
-                double o = (double)e.OldValue;
-                double v = (double)e.NewValue;
+                Double o = (Double)e.OldValue;
+                Double v = (Double)e.NewValue;
                 if (v != 0 && v != o)
                 {
-                    this._zoom = v;
+                    _zoom = v;
                     OnZoomChanged();
                     KeepRectStable();
                 }
@@ -665,7 +657,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
                 Point o = (Point)e.OldValue;
                 if (p.X != o.X || p.Y != o.Y)
                 {
-                    this.Offset = p;
+                    Offset = p;
                 }
             }
         }
@@ -674,10 +666,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// Every Freezable subclass must implement this method.
         /// </summary>
         /// <returns>A new instance of this object</returns>
-        protected override Freezable CreateInstanceCore()
-        {
-            return new MapZoom(this._target);
-        }
+        protected override Freezable CreateInstanceCore() => new MapZoom(_target);
 
     }
 }

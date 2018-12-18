@@ -23,8 +23,8 @@ namespace WiderRibbonDemo.Models
         public Brush Stroke { get; set; }
         public String Label { get; set; }
 
-        TestShapeType _shape;
-        Point[] _points;
+        private readonly TestShapeType _shape;
+        private readonly Point[] _points;
 
         public event EventHandler BoundsChanged;
 

@@ -34,7 +34,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// Property for defining the exponential power of the animation.
         /// </summary>
         public static readonly DependencyProperty PowerProperty =
-            DependencyProperty.Register("Power", typeof(double), typeof(ExponentialDoubleAnimation), new PropertyMetadata(2.0));
+            DependencyProperty.Register("Power", typeof(Double), typeof(ExponentialDoubleAnimation), new PropertyMetadata(2.0));
 
         /// <summary>
         /// Construct new empty ExponentialDoubleAnimation object.
@@ -50,38 +50,38 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <param name="power">With this exponential power</param>
         /// <param name="behavior">Using this type of behavior</param>
         /// <param name="duration">For this long</param>
-        public ExponentialDoubleAnimation(double from, double to, double power, EdgeBehavior behavior, Duration duration) {
-            this.EdgeBehavior = behavior;
-            this.Duration = duration;
-            this.Power = power;
-            this.From = from;
-            this.To = to;
+        public ExponentialDoubleAnimation(Double from, Double to, Double power, EdgeBehavior behavior, Duration duration) {
+            EdgeBehavior = behavior;
+            Duration = duration;
+            Power = power;
+            From = from;
+            To = to;
         }
 
         /// <summary>
         /// Get/Set the exponential behavior.  It can either start fast and finish slow (EaseIn), or it can start slow
         /// and finish fast (EaseOut) or it can do both (like a parabola) which is EaseInOut. Default is EaseIn.
         /// </summary>
-        public EdgeBehavior EdgeBehavior {
-            get {
-                return (EdgeBehavior)GetValue(EdgeBehaviorProperty);
-            }
-            set {
-                SetValue(EdgeBehaviorProperty, value);
-            }
+        public EdgeBehavior EdgeBehavior
+        {
+            get => (EdgeBehavior)GetValue(EdgeBehaviorProperty);
+            set => SetValue(EdgeBehaviorProperty, value);
         }
 
         /// <summary>
         /// Get/Set the power of the exponential.  The default is 2.
         /// </summary>
-        public double Power {
-            get {
-                return (double)GetValue(PowerProperty);
-            }
-            set {
-                if (value > 0.0) {
+        public Double Power
+        {
+            get => (Double)GetValue(PowerProperty);
+            set
+            {
+                if (value > 0.0)
+                {
                     SetValue(PowerProperty, value);
-                } else {
+                }
+                else
+                {
                     throw new ArgumentException("cannot set power to less than 0.0. Value: " + value);
                 }
             }
@@ -95,16 +95,16 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <param name="defaultDestinationValue"></param>
         /// <param name="clock"></param>
         /// <returns></returns>
-        protected override double GetCurrentValueCore(double defaultOriginValue, double defaultDestinationValue, AnimationClock animationClock) {
-            double returnValue;
-            double start = (double)From;
-            double delta = (double)To - start;
-            double timeFraction = animationClock.CurrentProgress.Value;
+        protected override Double GetCurrentValueCore(Double defaultOriginValue, Double defaultDestinationValue, AnimationClock animationClock) {
+            Double returnValue;
+            Double start = (Double)From;
+            Double delta = (Double)To - start;
+            Double timeFraction = animationClock.CurrentProgress.Value;
             if (timeFraction == 1)
             {
-                return (double)this.To;
+                return (Double)To;
             }
-            switch (this.EdgeBehavior) {
+            switch (EdgeBehavior) {
                 case EdgeBehavior.EaseIn:
                     returnValue = EaseIn(timeFraction, start, delta, Power);
                     break;
@@ -123,9 +123,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// All Freesable objects have to implement this method.
         /// </summary>
         /// <returns></returns>
-        protected override Freezable CreateInstanceCore() {
-            return new ExponentialDoubleAnimation();
-        }
+        protected override Freezable CreateInstanceCore() => new ExponentialDoubleAnimation();
 
         /// <summary>
         /// Impelement the EaseIn style of exponential animation which is one of exponential growth.
@@ -135,8 +133,8 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <param name="delta">Delta between start value and the end value we want</param>
         /// <param name="power">The rate of exponental growth</param>
         /// <returns></returns>
-        private static double EaseIn(double timeFraction, double start, double delta, double power) {
-            double returnValue = 0.0;
+        private static Double EaseIn(Double timeFraction, Double start, Double delta, Double power) {
+            Double returnValue = 0.0;
             // math magic: simple exponential growth
             returnValue = Math.Pow(timeFraction, power);
             returnValue *= delta;
@@ -152,9 +150,9 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <param name="delta">Delta between start value and the end value we want</param>
         /// <param name="power">The rate of exponental decay</param>
         /// <returns></returns>
-        private static double EaseOut(double timeFraction, double start, double delta, double power)
+        private static Double EaseOut(Double timeFraction, Double start, Double delta, Double power)
         {
-            double returnValue = 0.0;
+            Double returnValue = 0.0;
 
             // math magic: simple exponential decay
             returnValue = Math.Pow(timeFraction, 1 / power);
@@ -172,9 +170,9 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <param name="delta">Delta between start value and the end value we want</param>
         /// <param name="power">The rate of exponental growth/decay</param>
         /// <returns></returns>
-        private static double EaseInOut(double timeFraction, double start, double delta, double power)
+        private static Double EaseInOut(Double timeFraction, Double start, Double delta, Double power)
         {
-            double returnValue = 0.0;
+            Double returnValue = 0.0;
 
             // we cut each effect in half by multiplying the time fraction by two and halving the distance.
             if (timeFraction <= 0.5) {

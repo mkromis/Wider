@@ -22,8 +22,8 @@ namespace WiderMD.Core
     /// </summary>
     public partial class MDView : IContentView
     {
-        private Markdown _md;
-        private IStatusbarService _statusbar;
+        private readonly Markdown _md;
+        private readonly IStatusbarService _statusbar;
         private Thread t;
 
         public MDView(IStatusbarService statusbar)
