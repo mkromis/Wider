@@ -39,10 +39,8 @@ namespace WiderRibbonDemo.Models
             ActiveDocument = CanvasViewModel;
         });
 
-        public Workspace(IContainerExtension container) : base(container)
-        {
+        public Workspace(IContainerExtension container) : base(container) => 
             _eventAggregator.GetEvent<ActiveContentChangedEvent>().Subscribe(ActiveDocumentChanged);
-        }
 
         private void ActiveDocumentChanged(ContentViewModel obj)
         {
