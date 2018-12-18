@@ -20,19 +20,18 @@ namespace Wider.Content.VirtualCanvas.Gestures
     internal class SelectionRectVisual : FrameworkElement
     {
 
-        private const double _dashRepeatLength = 8;
-        private TileBrush _horizontalDashBrush;
-        private TileBrush _verticalDashBrush;
+        private const Double _dashRepeatLength = 8;
+        private readonly TileBrush _horizontalDashBrush;
+        private readonly TileBrush _verticalDashBrush;
 
-        Point _firstPoint;
-        Point _secondPoint;
-        double _zoom;
-        DrawingVisual _visualForRect;
+        private Point _firstPoint;
+        private Point _secondPoint;
+        private readonly DrawingVisual _visualForRect;
 
         /// <summary>
         /// Construct new SelectionRectVisual object for the given rectangle
         /// </summary>
-        public SelectionRectVisual(Point firstPointP, Point secondPointP, double zoomP)
+        public SelectionRectVisual(Point firstPointP, Point secondPointP, Double zoomP)
         {
             DrawingGroup drawing = new DrawingGroup();
             DrawingContext context = drawing.Open();
@@ -44,25 +43,27 @@ namespace Wider.Content.VirtualCanvas.Gestures
             // Create a drawing brush that tiles the unit square from the drawing created above.
             // The size of the viewport and the rotation angle will be updated as we use the
             // dashed pen.
-            DrawingBrush drawingBrush = new DrawingBrush(drawing);
-            drawingBrush.ViewportUnits = BrushMappingMode.Absolute;
-            drawingBrush.Viewport = new Rect(0, 0, _dashRepeatLength, _dashRepeatLength);
-            drawingBrush.ViewboxUnits = BrushMappingMode.Absolute;
-            drawingBrush.Viewbox = new Rect(0, 0, 1, 1);
-            drawingBrush.Stretch = Stretch.Uniform;
-            drawingBrush.TileMode = TileMode.Tile;
+            DrawingBrush drawingBrush = new DrawingBrush(drawing)
+            {
+                ViewportUnits = BrushMappingMode.Absolute,
+                Viewport = new Rect(0, 0, _dashRepeatLength, _dashRepeatLength),
+                ViewboxUnits = BrushMappingMode.Absolute,
+                Viewbox = new Rect(0, 0, 1, 1),
+                Stretch = Stretch.Uniform,
+                TileMode = TileMode.Tile
+            };
 
             // Store the drawing brush and a copy that's rotated by 90 degrees.
             _horizontalDashBrush = drawingBrush;
             _verticalDashBrush = drawingBrush.Clone();
             _verticalDashBrush.Transform = new RotateTransform(90);
 
-            this._firstPoint = firstPointP;
-            this._secondPoint = secondPointP;
-            this._zoom = zoomP;
+            _firstPoint = firstPointP;
+            _secondPoint = secondPointP;
+            Zoom = zoomP;
             _visualForRect = new DrawingVisual();
-            this.AddVisualChild(_visualForRect);
-            this.AddLogicalChild(_visualForRect);      
+            AddVisualChild(_visualForRect);
+            AddLogicalChild(_visualForRect);      
         }
 
         /// <summary>
@@ -70,8 +71,8 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         public Point FirstPoint
         {
-            get { return _firstPoint; }
-            set { _firstPoint = value; }
+            get => _firstPoint;
+            set => _firstPoint = value;
         }
 
         /// <summary>
@@ -79,7 +80,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         public Point SecondPoint
         {
-            get { return _secondPoint; }
+            get => _secondPoint;
             set
             {
                 _secondPoint = value;
@@ -90,11 +91,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <summary>
         /// Get/Set the current Zoom level.
         /// </summary>
-        public double Zoom
-        {
-            get { return _zoom; }
-            set { _zoom = value; }
-        }
+        public Double Zoom { get; set; }
 
         /// <summary>
         /// Actually draw the rubber band
@@ -113,7 +110,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
                 {
 
                     // Calculate line thickness.
-                    double thickness = 1;
+                    Double thickness = 1;
                     Vector cornerSize = new Vector(thickness, thickness);
                     Vector lineOffset = cornerSize / 2;
 
@@ -141,14 +138,14 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <summary>
         /// Provide a required override for the VisualChildrenCount property
         /// </summary>
-        protected override int VisualChildrenCount => 1;
+        protected override Int32 VisualChildrenCount => 1;
 
         /// <summary>
         /// Provide a required override for the GetVisualChild method.
         /// </summary>
         /// <param name="index">Index of the child</param>
         /// <returns>The child visual</returns>
-        protected override Visual GetVisualChild(int index)
+        protected override Visual GetVisualChild(Int32 index)
         {
             Debug.Assert(index == 0);
             return _visualForRect;
@@ -157,9 +154,6 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <summary>
         /// Get the actual Rectangle of the rubber band.
         /// </summary>
-        internal Rect SelectedRect
-        {
-            get { return new Rect(_firstPoint, SecondPoint); }
-        }
+        internal Rect SelectedRect => new Rect(_firstPoint, SecondPoint);
     }
 }

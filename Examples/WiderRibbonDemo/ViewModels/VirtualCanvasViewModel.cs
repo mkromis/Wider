@@ -23,20 +23,20 @@ namespace WiderRibbonDemo.ViewModels
     /// </summary>
     public class VirtualCanvasViewModel : Wider.Content.VirtualCanvas.ViewModels.VirtualCanvasViewModel
     {
-        MapZoom zoom;
-        Pan pan;
-        RectangleSelectionGesture rectZoom;
-        AutoScroll autoScroll;
+        public readonly MapZoom zoom;
+        private readonly Pan pan;
+        private readonly RectangleSelectionGesture rectZoom;
+        private readonly AutoScroll autoScroll;
 
-        bool _showGridLines;
-        bool _animateStatus = true;
+        private Boolean _showGridLines;
+        private readonly Boolean _animateStatus = true;
 
-        double _tileWidth = 50;
-        double _tileHeight = 30;
-        double _tileMargin = 10;
-        int _totalVisuals = 0;
-        int rows = 100;
-        int cols = 100;
+        private readonly Double _tileWidth = 50;
+        private readonly Double _tileHeight = 30;
+        private readonly Double _tileMargin = 10;
+        private readonly Int16 _totalVisuals = 0;
+        private readonly Int16 rows = 100;
+        private readonly Int16 cols = 100;
 
         public Boolean ShowContextRibbon => true;
 
@@ -63,8 +63,10 @@ namespace WiderRibbonDemo.ViewModels
             Canvas target = grid.ContentCanvas;
             zoom = new MapZoom(target);
             pan = new Pan(target, zoom);
-            rectZoom = new RectangleSelectionGesture(target, zoom, ModifierKeys.Control);
-            rectZoom.ZoomSelection = true;
+            rectZoom = new RectangleSelectionGesture(target, zoom, ModifierKeys.Control)
+            {
+                ZoomSelection = true
+            };
             autoScroll = new AutoScroll(target, zoom);
             zoom.ZoomChanged += new EventHandler(OnZoomChanged);
 
@@ -90,20 +92,20 @@ namespace WiderRibbonDemo.ViewModels
             // with hue across x-axis and saturation on y-axis, brightness is fixed at 100;
             Random r = new Random(Environment.TickCount);
             grid.VirtualChildren.Clear();
-            double w = _tileWidth + _tileMargin;
-            double h = _tileHeight + _tileMargin;
-            int count = (rows * cols) / 20;
-            double width = (w * (cols - 1));
-            double height = (h * (rows - 1));
+            Double w = _tileWidth + _tileMargin;
+            Double h = _tileHeight + _tileMargin;
+            Int32 count = (rows * cols) / 20;
+            Double width = (w * (cols - 1));
+            Double height = (h * (rows - 1));
             while (count > 0)
             {
-                double x = r.NextDouble() * width;
-                double y = r.NextDouble() * height;
+                Double x = r.NextDouble() * width;
+                Double y = r.NextDouble() * height;
 
                 Point pos = new Point(_tileMargin + x, _tileMargin + y);
-                Size s = new Size(r.Next((int)_tileWidth, (int)_tileWidth * 5),
-                                    r.Next((int)_tileHeight, (int)_tileHeight * 5));
-                TestShapeType type = (TestShapeType)r.Next(0, (int)TestShapeType.Last);
+                Size s = new Size(r.Next((Int32)_tileWidth, (Int32)_tileWidth * 5),
+                                    r.Next((Int32)_tileHeight, (Int32)_tileHeight * 5));
+                TestShapeType type = (TestShapeType)r.Next(0, (Int32)TestShapeType.Last);
 
                 //Color color = HlsColor.ColorFromHLS((x * 240) / cols, 100, 240 - ((y * 240) / rows));                    
                 TestShape shape = new TestShape(new Rect(pos, s), type, r);
@@ -113,16 +115,16 @@ namespace WiderRibbonDemo.ViewModels
             }
         }
 
-        string[] _colorNames = new string[10];
-        Brush[] _strokeBrushes = new Brush[10];
-        Brush[] _fillBrushes = new Brush[10];
+        private readonly String[] _colorNames = new String[10];
+        private readonly Brush[] _strokeBrushes = new Brush[10];
+        private readonly Brush[] _fillBrushes = new Brush[10];
 
         void SetRandomBrushes(TestShape s, Random r)
         {
-            int i = r.Next(0, 10);
+            Int32 i = r.Next(0, 10);
             if (_strokeBrushes[i] == null)
             {
-                Color color = Color.FromRgb((byte)r.Next(0, 255), (byte)r.Next(0, 255), (byte)r.Next(0, 255));
+                Color color = Color.FromRgb((Byte)r.Next(0, 255), (Byte)r.Next(0, 255), (Byte)r.Next(0, 255));
                 HlsColor hls = new HlsColor(color);
                 Color c1 = hls.Darker(0.25f);
                 Color c2 = hls.Lighter(0.25f);
@@ -143,7 +145,7 @@ namespace WiderRibbonDemo.ViewModels
             s.Fill = _fillBrushes[i];
         }
 
-        void OnSaveLog(object sender, RoutedEventArgs e)
+        void OnSaveLog(Object sender, RoutedEventArgs e)
         {
 #if DEBUG_DUMP
                     SaveFileDialog s = new SaveFileDialog();
@@ -157,18 +159,18 @@ namespace WiderRibbonDemo.ViewModels
 #endif
         }
 
-        void OnScaleChanged(object sender, EventArgs e)
+        void OnScaleChanged(Object sender, EventArgs e)
         {
             // Make the grid lines get thinner as you zoom in
-            double t = _gridLines.StrokeThickness = 0.1 / grid.Scale.ScaleX;
+            Double t = _gridLines.StrokeThickness = 0.1 / grid.Scale.ScaleX;
             grid.Backdrop.BorderThickness = new Thickness(t);
         }
 
-        int lastTick = Environment.TickCount;
-        int addedPerSecond = 0;
-        int removedPerSecond = 0;
+        private readonly Int32 lastTick = Environment.TickCount;
+        private readonly Int32 addedPerSecond = 0;
+        private readonly Int32 removedPerSecond = 0;
 
-        void OnVisualsChanged(object sender, VisualChangeEventArgs e)
+        void OnVisualsChanged(Object sender, VisualChangeEventArgs e)
         {
 #warning fix status
             //if (_animateStatus)
@@ -202,7 +204,7 @@ namespace WiderRibbonDemo.ViewModels
             //}
         }
 
-        void OnAnimateStatus(object sender, RoutedEventArgs e)
+        void OnAnimateStatus(Object sender, RoutedEventArgs e)
         {
 #warning fix animate status
             //MenuItem item = (MenuItem)sender;
@@ -217,9 +219,9 @@ namespace WiderRibbonDemo.ViewModels
             //DestroyedLabel.Text = "";
         }
 
-        delegate void BooleanEventHandler(bool arg);
+        delegate void BooleanEventHandler(Boolean arg);
 
-        void OnShowQuadTree(object sender, RoutedEventArgs e)
+        void OnShowQuadTree(Object sender, RoutedEventArgs e)
         {
 #warning fix quad tree
             //MenuItem item = (MenuItem)sender;
@@ -241,7 +243,7 @@ namespace WiderRibbonDemo.ViewModels
             //}
         }
 
-        void ShowQuadTree(bool arg)
+        void ShowQuadTree(Boolean arg)
         {
 #if DEBUG_DUMP
                     grid.ShowQuadTree(arg);
@@ -251,7 +253,7 @@ namespace WiderRibbonDemo.ViewModels
 #endif
         }
 
-        void OnRowColChange(object sender, RoutedEventArgs e)
+        void OnRowColChange(Object sender, RoutedEventArgs e)
         {
 #warning fix row col change
             //MenuItem item = sender as MenuItem;
@@ -260,29 +262,29 @@ namespace WiderRibbonDemo.ViewModels
             //AllocateNodes();
         }
 
-        void OnShowGridLines(object sender, RoutedEventArgs e)
+        void OnShowGridLines(Object sender, RoutedEventArgs e)
         {
 #warning fix show grid lines
             //MenuItem item = (MenuItem)sender;
             //this.ShowGridLines = item.IsChecked = !item.IsChecked;
         }
 
-        Polyline _gridLines = new Polyline();
-        private VirtualCanvas grid;
+        private readonly Polyline _gridLines = new Polyline();
+        private readonly VirtualCanvas grid;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1702")]
-        public bool ShowGridLines
+        public Boolean ShowGridLines
         {
-            get { return _showGridLines; }
+            get => _showGridLines;
             set
             {
                 _showGridLines = value;
                 if (value)
                 {
-                    double width = _tileWidth + _tileMargin;
-                    double height = _tileHeight + _tileMargin;
+                    Double width = _tileWidth + _tileMargin;
+                    Double height = _tileHeight + _tileMargin;
 
-                    double numTileToAccumulate = 16;
+                    Double numTileToAccumulate = 16;
 
                     Polyline gridCell = _gridLines;
                     gridCell.Margin = new Thickness(_tileMargin);
@@ -290,17 +292,21 @@ namespace WiderRibbonDemo.ViewModels
                     gridCell.StrokeThickness = 0.1;
                     gridCell.Points = new PointCollection(new Point[] { new Point(0, height-0.1),
                         new Point(width-0.1, height-0.1), new Point(width-0.1, 0) });
-                    VisualBrush gridLines = new VisualBrush(gridCell);
-                    gridLines.TileMode = TileMode.Tile;
-                    gridLines.Viewport = new Rect(0, 0, 1.0 / numTileToAccumulate, 1.0 / numTileToAccumulate);
-                    gridLines.AlignmentX = AlignmentX.Center;
-                    gridLines.AlignmentY = AlignmentY.Center;
+                    VisualBrush gridLines = new VisualBrush(gridCell)
+                    {
+                        TileMode = TileMode.Tile,
+                        Viewport = new Rect(0, 0, 1.0 / numTileToAccumulate, 1.0 / numTileToAccumulate),
+                        AlignmentX = AlignmentX.Center,
+                        AlignmentY = AlignmentY.Center
+                    };
 
                     VisualBrush outerVB = new VisualBrush();
-                    Rectangle outerRect = new Rectangle();
-                    outerRect.Width = 10.0;  //can be any size
-                    outerRect.Height = 10.0;
-                    outerRect.Fill = gridLines;
+                    Rectangle outerRect = new Rectangle
+                    {
+                        Width = 10.0,  //can be any size
+                        Height = 10.0,
+                        Fill = gridLines
+                    };
                     outerVB.Visual = outerRect;
                     outerVB.Viewport = new Rect(0, 0,
                         width * numTileToAccumulate, height * numTileToAccumulate);
@@ -321,21 +327,20 @@ namespace WiderRibbonDemo.ViewModels
             }
         }
 
-        void OnZoom(object sender, RoutedEventArgs e)
+        void OnZoom(Object sender, RoutedEventArgs e)
         {
             MenuItem item = (MenuItem)sender;
-            string tag = item.Tag as string;
+            String tag = item.Tag as String;
             if (tag == "Fit")
             {
-                double scaleX = grid.ViewportWidth / grid.Extent.Width;
-                double scaleY = grid.ViewportHeight / grid.Extent.Height;
+                Double scaleX = grid.ViewportWidth / grid.Extent.Width;
+                Double scaleY = grid.ViewportHeight / grid.Extent.Height;
                 zoom.Zoom = Math.Min(scaleX, scaleY);
                 zoom.Offset = new Point(0, 0);
             }
             else
             {
-                double zoomPercent;
-                if (double.TryParse(tag, out zoomPercent))
+                if (Double.TryParse(tag, out Double zoomPercent))
                 {
                     zoom.Zoom = zoomPercent / 100;
                 }
@@ -343,7 +348,7 @@ namespace WiderRibbonDemo.ViewModels
 
         }
 
-        void OnZoomChanged(object sender, EventArgs e)
+        void OnZoomChanged(Object sender, EventArgs e)
         {
 #warning fix zoom slider
             //if (ZoomSlider.Value != zoom.Zoom)
@@ -353,7 +358,7 @@ namespace WiderRibbonDemo.ViewModels
         }
 
 
-        void OnZoomSliderValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        void OnZoomSliderValueChanged(Object sender, RoutedPropertyChangedEventArgs<Double> e)
         {
             if (zoom.Zoom != e.NewValue)
             {
@@ -368,10 +373,10 @@ namespace WiderRibbonDemo.ViewModels
             Rect _bounds;
             public Brush Fill { get; set; }
             public Brush Stroke { get; set; }
-            public string Label { get; set; }
-            UIElement _visual;
-            TestShapeType _shape;
-            Point[] _points;
+            public String Label { get; set; }
+
+            private readonly TestShapeType _shape;
+            private readonly Point[] _points;
 
             public event EventHandler BoundsChanged;
 
@@ -432,40 +437,41 @@ namespace WiderRibbonDemo.ViewModels
                 }
             }
 
-            public UIElement Visual
-            {
-                get { return _visual; }
-            }
+            public UIElement Visual { get; private set; }
 
             public UIElement CreateVisual(VirtualCanvas parent)
             {
-                if (_visual == null)
+                if (Visual == null)
                 {
                     switch (_shape)
                     {
                         case TestShapeType.Curve:
                             {
                                 PathGeometry g = new PathGeometry();
-                                PathFigure f = new PathFigure();
-                                f.StartPoint = _points[0];
+                                PathFigure f = new PathFigure
+                                {
+                                    StartPoint = _points[0]
+                                };
                                 g.Figures.Add(f);
-                                for (int i = 0, n = _points.Length; i < n; i += 3)
+                                for (Int32 i = 0, n = _points.Length; i < n; i += 3)
                                 {
                                     BezierSegment s = new BezierSegment(_points[i], _points[i + 1], _points[i + 2], true);
                                     f.Segments.Add(s);
                                 }
-                                Path p = new Path();
-                                p.Data = g;
+                                Path p = new Path
+                                {
+                                    Data = g,
 
-                                p.Stroke = Stroke;
-                                p.StrokeThickness = 2;
+                                    Stroke = Stroke,
+                                    StrokeThickness = 2
+                                };
 
                                 //DropShadowBitmapEffect effect = new DropShadowBitmapEffect();
                                 //effect.Opacity = 0.8;
                                 //effect.ShadowDepth = 3;
                                 //effect.Direction = 270;
                                 //c.BitmapEffect = effect;
-                                _visual = p;
+                                Visual = p;
                                 break;
                             }
                         case TestShapeType.Ellipse:
@@ -478,11 +484,13 @@ namespace WiderRibbonDemo.ViewModels
                                 c.Children.Add(e);
 
                                 Size s = MeasureText(parent, Label);
-                                double x = (_bounds.Width - s.Width) / 2;
-                                double y = (_bounds.Height - s.Height) / 2;
+                                Double x = (_bounds.Width - s.Width) / 2;
+                                Double y = (_bounds.Height - s.Height) / 2;
 
-                                TextBlock text = new TextBlock();
-                                text.Text = Label;
+                                TextBlock text = new TextBlock
+                                {
+                                    Text = Label
+                                };
                                 Canvas.SetLeft(text, x);
                                 Canvas.SetTop(text, y);
                                 c.Children.Add(text);
@@ -496,19 +504,23 @@ namespace WiderRibbonDemo.ViewModels
                                 //effect.ShadowDepth = 3;
                                 //effect.Direction = 270;
                                 //c.BitmapEffect = effect;
-                                _visual = c;
+                                Visual = c;
                                 break;
                             }
                         case TestShapeType.Rectangle:
                             {
-                                Border b = new Border();
-                                b.CornerRadius = new CornerRadius(3);
-                                b.Width = _bounds.Width;
-                                b.Height = _bounds.Height;
-                                TextBlock text = new TextBlock();
-                                text.Text = Label;
-                                text.VerticalAlignment = VerticalAlignment.Center;
-                                text.HorizontalAlignment = HorizontalAlignment.Center;
+                                Border b = new Border
+                                {
+                                    CornerRadius = new CornerRadius(3),
+                                    Width = _bounds.Width,
+                                    Height = _bounds.Height
+                                };
+                                TextBlock text = new TextBlock
+                                {
+                                    Text = Label,
+                                    VerticalAlignment = VerticalAlignment.Center,
+                                    HorizontalAlignment = HorizontalAlignment.Center
+                                };
                                 b.Child = text;
                                 b.Background = Fill;
                                 //DropShadowBitmapEffect effect = new DropShadowBitmapEffect();
@@ -516,29 +528,23 @@ namespace WiderRibbonDemo.ViewModels
                                 //effect.ShadowDepth = 3;
                                 //effect.Direction = 270;
                                 //b.BitmapEffect = effect;
-                                _visual = b;
+                                Visual = b;
                                 break;
                             }
                     }
                 }
-                return _visual;
+                return Visual;
             }
 
-            public void DisposeVisual()
-            {
-                _visual = null;
-            }
+            public void DisposeVisual() => Visual = null;
 
-            public Rect Bounds
-            {
-                get { return _bounds; }
-            }
+            public Rect Bounds => _bounds;
 
             VirtualCanvas _parent;
             Typeface _typeface;
-            double _fontSize;
+            Double _fontSize;
 
-            public Size MeasureText(VirtualCanvas parent, string label)
+            public Size MeasureText(VirtualCanvas parent, String label)
             {
                 if (_parent != parent)
                 {
@@ -546,7 +552,7 @@ namespace WiderRibbonDemo.ViewModels
                     FontStyle fontStyle = (FontStyle)parent.GetValue(TextBlock.FontStyleProperty);
                     FontWeight fontWeight = (FontWeight)parent.GetValue(TextBlock.FontWeightProperty);
                     FontStretch fontStretch = (FontStretch)parent.GetValue(TextBlock.FontStretchProperty);
-                    _fontSize = (double)parent.GetValue(TextBlock.FontSizeProperty);
+                    _fontSize = (Double)parent.GetValue(TextBlock.FontSizeProperty);
                     _typeface = new Typeface(fontFamily, fontStyle, fontWeight, fontStretch);
                     _parent = parent;
                 }

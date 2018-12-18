@@ -37,8 +37,6 @@ namespace Wider.Content.VirtualCanvas.Models
         internal class QuadNode
         {
             Rect _bounds;
-            QuadNode _next; // linked in a circular list.
-            T _node; // the actual visual object being stored here.
 
             /// <summary>
             /// Construct new QuadNode to wrap the given node with given bounds
@@ -47,35 +45,24 @@ namespace Wider.Content.VirtualCanvas.Models
             /// <param name="bounds">The bounds of that node</param>
             public QuadNode(T node, Rect bounds)
             {
-                _node = node;
+                Node = node;
                 _bounds = bounds;
             }
 
             /// <summary>
             /// The node
             /// </summary>
-            public T Node
-            {
-                get { return _node; }
-                set { _node = value; }
-            }
+            public T Node { get; set; }
 
             /// <summary>
             /// The Rect bounds of the node
             /// </summary>
-            public Rect Bounds
-            {
-                get { return _bounds; }
-            }
+            public Rect Bounds => _bounds;
 
             /// <summary>
             /// QuadNodes form a linked list in the Quadrant.
             /// </summary>
-            public QuadNode Next
-            {
-                get { return _next; }
-                set { _next = value; }
-            }
+            public QuadNode Next { get; set; }
         }
 
 
@@ -86,7 +73,6 @@ namespace Wider.Content.VirtualCanvas.Models
         /// </summary>
         internal class Quadrant
         {
-            Quadrant _parent;
             Rect _bounds; // quadrant bounds.
 
             QuadNode _nodes; // nodes that overlap the sub quadrant boundaries.
@@ -157,7 +143,7 @@ namespace Wider.Content.VirtualCanvas.Models
             /// <param name="bounds">The bounds of this quadrant</param>
             public Quadrant(Quadrant parent, Rect bounds)
             {
-                _parent = parent;
+                Parent = parent;
                 Debug.Assert(bounds.Width != 0 && bounds.Height != 0);
                 if (bounds.Width == 0 || bounds.Height == 0)                
                 {
@@ -170,18 +156,12 @@ namespace Wider.Content.VirtualCanvas.Models
             /// <summary>
             /// The parent Quadrant or null if this is the root
             /// </summary>
-            internal Quadrant Parent
-            {
-                get { return _parent; }
-            }
+            internal Quadrant Parent { get; }
 
             /// <summary>
             /// The bounds of this quadrant
             /// </summary>
-            internal Rect Bounds 
-            { 
-                get { return _bounds; } 
-            }
+            internal Rect Bounds => _bounds;
 
             /// <summary>
             /// Insert the given node
@@ -198,12 +178,12 @@ namespace Wider.Content.VirtualCanvas.Models
                     throw new ArgumentException("Bounds of quadrant cannot be zero width or height");
                 }
 
-                double w = _bounds.Width / 2;
+                Double w = _bounds.Width / 2;
                 if (w == 0)
                 {
                     w = 1;
                 }
-                double h = _bounds.Height / 2;
+                Double h = _bounds.Height / 2;
                 if (h == 0)
                 {
                     h = 1;
@@ -284,9 +264,9 @@ namespace Wider.Content.VirtualCanvas.Models
             /// <param name="bounds">The bounds that contains the nodes you want returned</param>
             internal void GetIntersectingNodes(List<QuadNode> nodes, Rect bounds)
             {
-                if (bounds.IsEmpty) return;
-                double w = _bounds.Width / 2;
-                double h = _bounds.Height / 2;
+                if (bounds.IsEmpty) { return; }
+                Double w = _bounds.Width / 2;
+                Double h = _bounds.Height / 2;
 
                 // assumption that the Rect struct is almost as fast as doing the operations
                 // manually since Rect is a value type.
@@ -348,11 +328,11 @@ namespace Wider.Content.VirtualCanvas.Models
             /// </summary>
             /// <param name="bounds">The bounds to test</param>
             /// <returns>boolean</returns>
-            internal bool HasIntersectingNodes(Rect bounds)
+            internal Boolean HasIntersectingNodes(Rect bounds)
             {
-                if (bounds.IsEmpty) return false;
-                double w = _bounds.Width / 2;
-                double h = _bounds.Height / 2;
+                if (bounds.IsEmpty) { return false; }
+                Double w = _bounds.Width / 2;
+                Double h = _bounds.Height / 2;
 
                 // assumption that the Rect struct is almost as fast as doing the operations
                 // manually since Rect is a value type.
@@ -362,7 +342,7 @@ namespace Wider.Content.VirtualCanvas.Models
                 Rect bottomLeft = new Rect(_bounds.Left, _bounds.Top + h, w, h);
                 Rect bottomRight = new Rect(_bounds.Left + w, _bounds.Top + h, w, h);
 
-                bool found = false;
+                Boolean found = false;
 
                 // See if any child quadrants completely contain this node.
                 if (topLeft.IntersectsWith(bounds) && _topLeft != null)
@@ -397,7 +377,7 @@ namespace Wider.Content.VirtualCanvas.Models
             /// <param name="last">The last node in the circularly linked list.</param>
             /// <param name="bounds">Bounds to test</param>
             /// <returns>Return true if a node in the list intersects the bounds</returns>
-            static bool HasIntersectingNodes(QuadNode last, Rect bounds)
+            static Boolean HasIntersectingNodes(QuadNode last, Rect bounds)
             {
                 if (last != null)
                 {
@@ -419,9 +399,9 @@ namespace Wider.Content.VirtualCanvas.Models
             /// </summary>
             /// <param name="node">The node to remove</param>
             /// <returns>Returns true if the node was found and removed.</returns>
-            internal bool RemoveNode(T node)
+            internal Boolean RemoveNode(T node)
             {
-                bool rc = false;
+                Boolean rc = false;
                 if (_nodes != null)
                 {
                     QuadNode p = _nodes;
@@ -440,7 +420,7 @@ namespace Wider.Content.VirtualCanvas.Models
                         }
                         else
                         {
-                            if (_nodes == n) _nodes = p;
+                            if (_nodes == n) { _nodes = p; }
                             p.Next = n.Next;
                         }
                     }
@@ -456,8 +436,8 @@ namespace Wider.Content.VirtualCanvas.Models
         /// </summary>
         public Rect Bounds
         {
-            get { return _bounds; }
-            set { _bounds = value; ReIndex();  }
+            get => _bounds;
+            set { _bounds = value; ReIndex(); }
         }
 
         /// <summary>
@@ -511,7 +491,7 @@ namespace Wider.Content.VirtualCanvas.Models
         /// </summary>
         /// <param name="bounds">The bounds to test</param>
         /// <returns>List of zero or mode nodes found inside the given bounds</returns>
-        public bool HasNodesInside(Rect bounds)
+        public Boolean HasNodesInside(Rect bounds)
         {
             if (_root != null)
             {
@@ -540,12 +520,11 @@ namespace Wider.Content.VirtualCanvas.Models
         /// </summary>
         /// <param name="node">The node to remove</param>
         /// <returns>True if the node was found and removed.</returns>
-        public bool Remove(T node)
+        public Boolean Remove(T node)
         {
             if (_table != null)
             {
-                Quadrant parent = null;
-                if (_table.TryGetValue(node, out parent))
+                if (_table.TryGetValue(node, out Quadrant parent))
                 {
                     parent.RemoveNode(node);
                     _table.Remove(node);

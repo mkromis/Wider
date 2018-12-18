@@ -18,12 +18,11 @@ namespace Wider.Content.VirtualCanvas.Gestures
     /// </summary>
     public class AutoScroll
     {
-        Panel _container;
-        FrameworkElement _target;
-        bool _autoScrolling ;
-        Point _startPos;
-        MapZoom _zoom;
-        Canvas _marker;
+        private readonly Panel _container;
+        private Boolean _autoScrolling;
+        private Point _startPos;
+        private readonly MapZoom _zoom;
+        private Canvas _marker;
 
         /// <summary>
         /// Construct new AutoScroll object that will scroll the given target object within it's container
@@ -34,7 +33,6 @@ namespace Wider.Content.VirtualCanvas.Gestures
         public AutoScroll(FrameworkElement target, MapZoom zoom)
         {
             _container = target.Parent as Panel;
-            _target = target;
             _container.MouseDown += new MouseButtonEventHandler(OnMouseDown);
             _container.MouseMove += new MouseEventHandler(OnMouseMove);
             _container.MouseWheel += new MouseWheelEventHandler(OnMouseWheel);
@@ -47,24 +45,21 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         /// <param name="sender">The container</param>
         /// <param name="e">Mouse wheel info</param>
-        void OnMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            StopAutoScrolling();
-        }
+        void OnMouseWheel(Object sender, MouseWheelEventArgs e) => StopAutoScrolling();
 
         /// <summary>
         /// Receive mouse move event and do the actual autoscroll if it is active.
         /// </summary>
         /// <param name="sender">The container</param>
         /// <param name="e">Mouse move info</param>
-        void OnMouseMove(object sender, MouseEventArgs e)
+        void OnMouseMove(Object sender, MouseEventArgs e)
         {
             if (_autoScrolling)
             {
                 Point pt = e.GetPosition(_container);
                 Vector v = new Vector(pt.X - _startPos.X, pt.Y - _startPos.Y);
                 Vector v2 = new Vector(pt.X - _startPos.X, _startPos.Y);
-                double angle = Vector.AngleBetween(v, v2);
+                Double angle = Vector.AngleBetween(v, v2);
 
                 // Calculate which quadrant the mouse is in relative to start position.
                 Cursor c = null;
@@ -102,7 +97,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
                 }
                 _container.Cursor = c;
 
-                double length = v.Length;
+                Double length = v.Length;
                 if (length > 0)
                 {
                     v.Normalize();
@@ -121,7 +116,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         /// <param name="sender">Mouse</param>
         /// <param name="e">Mouse button information</param>
-        void OnMouseDown(object sender, MouseButtonEventArgs e)
+        void OnMouseDown(Object sender, MouseButtonEventArgs e)
         {
             if (e.MiddleButton == MouseButtonState.Pressed)
             {
@@ -142,31 +137,41 @@ namespace Wider.Content.VirtualCanvas.Gestures
                         sign.Height = 40;
                         _marker.Children.Add(sign);
 
-                        Polygon down = new Polygon();
-                        down.Points = new PointCollection(new Point[] { new Point(20 - 6, 28), new Point(20 + 6, 28), new Point(20, 34) });
-                        down.Fill = brush;
+                        Polygon down = new Polygon
+                        {
+                            Points = new PointCollection(new Point[] { new Point(20 - 6, 28), new Point(20 + 6, 28), new Point(20, 34) }),
+                            Fill = brush
+                        };
                         _marker.Children.Add(down);
 
-                        Polygon up = new Polygon();
-                        up.Points = new PointCollection(new Point[] { new Point(20 - 6, 12), new Point(20 + 6, 12), new Point(20, 6) });
-                        up.Fill = brush;
+                        Polygon up = new Polygon
+                        {
+                            Points = new PointCollection(new Point[] { new Point(20 - 6, 12), new Point(20 + 6, 12), new Point(20, 6) }),
+                            Fill = brush
+                        };
                         _marker.Children.Add(up);
 
-                        Polygon left = new Polygon();
-                        left.Points = new PointCollection(new Point[] { new Point(28, 20-6), new Point(28, 20+6), new Point(34, 20) });
-                        left.Fill = brush;
+                        Polygon left = new Polygon
+                        {
+                            Points = new PointCollection(new Point[] { new Point(28, 20 - 6), new Point(28, 20 + 6), new Point(34, 20) }),
+                            Fill = brush
+                        };
                         _marker.Children.Add(left);
 
-                        Polygon right = new Polygon();
-                        right.Points = new PointCollection(new Point[] { new Point(12, 20 - 6), new Point(12, 20 + 6), new Point(6, 20) });
-                        right.Fill = brush;
+                        Polygon right = new Polygon
+                        {
+                            Points = new PointCollection(new Point[] { new Point(12, 20 - 6), new Point(12, 20 + 6), new Point(6, 20) }),
+                            Fill = brush
+                        };
                         _marker.Children.Add(right);
 
-                        Ellipse dot = new Ellipse();
-                        dot.Fill = brush;
-                        dot.Width = 3;
-                        dot.Height = 3;
-                        dot.RenderTransform = new TranslateTransform(18,18);
+                        Ellipse dot = new Ellipse
+                        {
+                            Fill = brush,
+                            Width = 3,
+                            Height = 3,
+                            RenderTransform = new TranslateTransform(18, 18)
+                        };
                         _marker.Children.Add(dot);
                     }
                     _container.Children.Add(_marker);
@@ -190,10 +195,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         /// <param name="sender">Keyboard</param>
         /// <param name="e">Event information</param>
-        void OnKeyDown(object sender, RoutedEventArgs e)
-        {
-            StopAutoScrolling();
-        }
+        void OnKeyDown(Object sender, RoutedEventArgs e) => StopAutoScrolling();
 
         /// <summary>
         /// Stop any active auto-scrolling behavior.

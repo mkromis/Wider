@@ -323,7 +323,6 @@ namespace WiderMD.Core
             Window win = containerProvider.Resolve<IShell>() as Window;
 
             MenuItemViewModel themeMenu = menuService.Get("_View").Get("Themes") as MenuItemViewModel;
-            MenuItemViewModel mvm = themeMenu.Get(s) as MenuItemViewModel;
 
             // Clear all checkboxes
             foreach (MenuItemViewModel menuitem in themeMenu.Children)
@@ -334,7 +333,7 @@ namespace WiderMD.Core
 
             if (manager.CurrentTheme?.Name != s)
             {
-                if (mvm != null)
+                if (themeMenu.Get(s) is MenuItemViewModel mvm)
                 {
                     mvm.IsChecked = true;
                 }
