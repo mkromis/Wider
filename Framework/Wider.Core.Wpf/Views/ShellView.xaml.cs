@@ -30,7 +30,7 @@ namespace Wider.Core.Views
     /// </summary>
     internal partial class ShellView : Window, IShell
     {
-        private IEventAggregator _eventAggregator;
+        private readonly IEventAggregator _eventAggregator;
  
         public ShellView(IEventAggregator eventAggregator)
         {

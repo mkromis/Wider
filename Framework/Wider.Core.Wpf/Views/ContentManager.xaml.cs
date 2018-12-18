@@ -21,11 +21,11 @@ namespace Wider.Core.Views
     /// </summary>
     public partial class ContentManager : UserControl
     {
-        private ContextMenu _docContextMenu;
-        private IContainerExtension _container;
-        private IEventAggregator _eventAggregator;
-        private ILoggerService _loggerService;
-        private MultiBinding _itemSourceBinding;
+        private readonly ContextMenu _docContextMenu;
+        private readonly IContainerExtension _container;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly ILoggerService _loggerService;
+        private readonly MultiBinding _itemSourceBinding;
 
 
         public ContentManager(IContainerExtension container)
