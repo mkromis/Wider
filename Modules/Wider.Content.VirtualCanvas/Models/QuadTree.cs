@@ -8,12 +8,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
-#if DEBUG_DUMP
-using System.Windows.Controls;
-using System.Windows.Shapes;
-using System.Windows.Media;
-using System.Xml;
-#endif
 
 namespace Wider.Content.VirtualCanvas.Models
 {
@@ -565,68 +559,4 @@ namespace Wider.Content.VirtualCanvas.Models
         }
 #endif
     }
-
-#if DEBUG_DUMP
-    public class LogWriter : IDisposable
-    {
-        XmlWriter _xw;
-        int _indent;
-        int _maxdepth;
-
-        public LogWriter(TextWriter w)
-        {
-            XmlWriterSettings s = new XmlWriterSettings();
-            s.Indent = true;            
-            _xw = XmlWriter.Create(w, s);
-        }
-
-        public int MaxDepth
-        {
-            get
-            {
-                return _maxdepth;
-            }
-        }
-
-        public void Open(string label)
-        {
-            _xw.WriteStartElement(label);
-            _indent++;
-            if (_indent > _maxdepth) _maxdepth = _indent;
-
-        }
-        public void Close()
-        {
-            _indent--;
-            _xw.WriteEndElement();
-        }
-        public void WriteAttribute(string name, string value)
-        {
-            _xw.WriteAttributeString(name, value);
-        }
-
-    #region IDisposable Members
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing && _xw != null)
-            {
-                using (_xw)
-                {
-                    _xw.Flush();
-                }
-                _xw = null;
-            }
-        }
-
-        #endregion
-    }
-#endif
-
 }

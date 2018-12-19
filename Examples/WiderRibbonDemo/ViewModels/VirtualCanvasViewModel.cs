@@ -1,8 +1,10 @@
-﻿using Prism.Commands;
+﻿using Microsoft.Win32;
+using Prism.Commands;
 using Prism.Ioc;
 using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -38,6 +40,8 @@ namespace WiderRibbonDemo.ViewModels
         private readonly Int16 rows = 100;
         private readonly Int16 cols = 100;
 
+        private readonly Polyline _gridLines = new Polyline();
+
         public Boolean ShowContextRibbon => true;
 
         public ICommand OnHelpCommand => new DelegateCommand(() =>
@@ -50,17 +54,53 @@ namespace WiderRibbonDemo.ViewModels
                 "User Interface", MessageBoxButton.OK, MessageBoxImage.Information);
         });
 
+        public ICommand CanvasSaveLogCommand => new DelegateCommand(() =>
+        {
+            SaveFileDialog s = new SaveFileDialog
+            {
+                FileName = "quadtree.xml"
+            };
+            if (s.ShowDialog() == true)
+            {
+                using (StreamWriter w = new StreamWriter(s.FileName))
+                {
+                    using (LogWriter log = new LogWriter(w))
+                    {
+                        log.Open("QuadTree");
+                        //_index.Dump(log);
+                        log.Open("Other");
+                        log.WriteAttribute("MaxDepth", log.MaxDepth.ToString(CultureInfo.CurrentUICulture));
+                        log.Close();
+                        log.Close();
+                    }
+                }
+            }
+        });
+
+#if DEBUG_DUMP
+        public void ShowQuadTree(bool show)
+        {
+            if (show)
+            {
+                _index.ShowQuadTree(_content);
+            }
+            else
+            {
+                RebuildVisuals();
+            }
+        }
+#endif
+
         public VirtualCanvasViewModel(IContainerExtension containerExtension) : base(containerExtension)
         {
             Model = new EmptyModel();
 
-            grid = Graph;// new VirtualCanvas();
-            grid.SmallScrollIncrement = new Size(_tileWidth + _tileMargin, _tileHeight + _tileMargin);
+            Graph.SmallScrollIncrement = new Size(_tileWidth + _tileMargin, _tileHeight + _tileMargin);
 
             //Scroller.Content = grid;
             //Object v = Scroller.GetValue(ScrollViewer.CanContentScrollProperty);
 
-            Canvas target = grid.ContentCanvas;
+            Canvas target = Graph.ContentCanvas;
             zoom = new MapZoom(target);
             pan = new Pan(target, zoom);
             rectZoom = new RectangleSelectionGesture(target, zoom, ModifierKeys.Control)
@@ -74,11 +114,11 @@ namespace WiderRibbonDemo.ViewModels
             //grid.VisualsChanged += new EventHandler<VisualChangeEventArgs>(OnVisualsChanged);
             //ZoomSlider.ValueChanged += new RoutedPropertyChangedEventHandler<double>(OnZoomSliderValueChanged);
 
-            grid.Scale.Changed += new EventHandler(OnScaleChanged);
-            grid.Translate.Changed += new EventHandler(OnScaleChanged);
+            Graph.Scale.Changed += new EventHandler(OnScaleChanged);
+            Graph.Translate.Changed += new EventHandler(OnScaleChanged);
 
-            grid.Background = new SolidColorBrush(Color.FromRgb(0xd0, 0xd0, 0xd0));
-            grid.ContentCanvas.Background = Brushes.White;
+            Graph.Background = new SolidColorBrush(Color.FromRgb(0xd0, 0xd0, 0xd0));
+            Graph.ContentCanvas.Background = Brushes.White;
 
             AllocateNodes();
         }
@@ -91,7 +131,7 @@ namespace WiderRibbonDemo.ViewModels
             // Fill a sparse grid of rectangular color palette nodes with each tile being 50x30.    
             // with hue across x-axis and saturation on y-axis, brightness is fixed at 100;
             Random r = new Random(Environment.TickCount);
-            grid.VirtualChildren.Clear();
+            Graph.VirtualChildren.Clear();
             Double w = _tileWidth + _tileMargin;
             Double h = _tileHeight + _tileMargin;
             Int32 count = (rows * cols) / 20;
@@ -110,7 +150,7 @@ namespace WiderRibbonDemo.ViewModels
                 //Color color = HlsColor.ColorFromHLS((x * 240) / cols, 100, 240 - ((y * 240) / rows));                    
                 TestShape shape = new TestShape(new Rect(pos, s), type, r);
                 SetRandomBrushes(shape, r);
-                grid.AddVirtualChild(shape);
+                Graph.AddVirtualChild(shape);
                 count--;
             }
         }
@@ -145,25 +185,11 @@ namespace WiderRibbonDemo.ViewModels
             s.Fill = _fillBrushes[i];
         }
 
-        void OnSaveLog(Object sender, RoutedEventArgs e)
-        {
-#if DEBUG_DUMP
-                    SaveFileDialog s = new SaveFileDialog();
-                    s.FileName = "quadtree.xml";
-                    if (s.ShowDialog() == true)
-                    {
-                        grid.Dump(s.FileName);
-                    }
-#else
-            MessageBox.Show("You need to build the assembly with 'DEBUG_DUMP' to get this feature");
-#endif
-        }
-
         void OnScaleChanged(Object sender, EventArgs e)
         {
             // Make the grid lines get thinner as you zoom in
-            Double t = _gridLines.StrokeThickness = 0.1 / grid.Scale.ScaleX;
-            grid.Backdrop.BorderThickness = new Thickness(t);
+            Double t = _gridLines.StrokeThickness = 0.1 / Graph.Scale.ScaleX;
+            Graph.Backdrop.BorderThickness = new Thickness(t);
         }
 
         private readonly Int32 lastTick = Environment.TickCount;
@@ -269,9 +295,6 @@ namespace WiderRibbonDemo.ViewModels
             //this.ShowGridLines = item.IsChecked = !item.IsChecked;
         }
 
-        private readonly Polyline _gridLines = new Polyline();
-        private readonly VirtualCanvas grid;
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1702")]
         public Boolean ShowGridLines
         {
@@ -313,16 +336,16 @@ namespace WiderRibbonDemo.ViewModels
                     outerVB.ViewportUnits = BrushMappingMode.Absolute;
                     outerVB.TileMode = TileMode.Tile;
 
-                    grid.Backdrop.Background = outerVB;
+                    Graph.Backdrop.Background = outerVB;
 
-                    Border border = grid.Backdrop;
+                    Border border = Graph.Backdrop;
                     border.BorderBrush = Brushes.Blue;
                     border.BorderThickness = new Thickness(0.1);
-                    grid.InvalidateVisual();
+                    Graph.InvalidateVisual();
                 }
                 else
                 {
-                    grid.Backdrop.Background = null;
+                    Graph.Backdrop.Background = null;
                 }
             }
         }
@@ -333,8 +356,8 @@ namespace WiderRibbonDemo.ViewModels
             String tag = item.Tag as String;
             if (tag == "Fit")
             {
-                Double scaleX = grid.ViewportWidth / grid.Extent.Width;
-                Double scaleY = grid.ViewportHeight / grid.Extent.Height;
+                Double scaleX = Graph.ViewportWidth / Graph.Extent.Width;
+                Double scaleY = Graph.ViewportHeight / Graph.Extent.Height;
                 zoom.Zoom = Math.Min(scaleX, scaleY);
                 zoom.Offset = new Point(0, 0);
             }

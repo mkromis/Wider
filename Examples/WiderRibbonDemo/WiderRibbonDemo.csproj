@@ -58,6 +58,7 @@
     </ApplicationDefinition>
     <Compile Include="Models\EmptyModel.cs" />
     <Compile Include="Models\HlsColor.cs" />
+    <Compile Include="Models\LogWriter.cs" />
     <Compile Include="Models\TestShape.cs" />
     <Compile Include="ViewModels\VirtualCanvasViewModel.cs" />
     <Page Include="Views\MainRibbon.xaml">

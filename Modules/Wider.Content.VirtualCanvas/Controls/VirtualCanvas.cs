@@ -765,36 +765,6 @@ namespace Wider.Content.VirtualCanvas.Controls
             return count;
         }
 
-#if DEBUG_DUMP
-        public void ShowQuadTree(bool show)
-        {
-            if (show)
-            {
-                _index.ShowQuadTree(_content);
-            }
-            else
-            {
-                RebuildVisuals();
-            }
-        }
-
-        public void Dump(string fileName)
-        {
-            using (StreamWriter w = new StreamWriter(fileName))
-            {
-                using (LogWriter log = new LogWriter(w))
-                {
-                    log.Open("QuadTree");
-                    _index.Dump(log);
-                    log.Open("Other");
-                    log.WriteAttribute("MaxDepth", log.MaxDepth.ToString(CultureInfo.CurrentUICulture));
-                    log.Close();
-                    log.Close();
-                }
-            }
-        }
-#endif
-
         /// <summary>
         /// Return the full size of this canvas.
         /// </summary>
@@ -1028,37 +998,5 @@ namespace Wider.Content.VirtualCanvas.Controls
             _visibleRegions.Clear();
             _visibleRegions.Add(_visible);
         }
-
-
-#if DEBUG_QUAD_TREE
-        public void ShowQuadTree(bool show)
-        {
-            if (show)
-            {
-                _index.ShowQuadTree(_content);
-            }
-            else
-            {
-                RebuildVisuals();
-            }
-        }
-
-        public void Dump(string filename)
-        {
-            using (StreamWriter w = new StreamWriter(filename))
-            {
-                using (LogWriter log = new LogWriter(w))
-                {
-                    log.Open("QuadTree");
-                    _index.Dump(log);
-                    log.Open("Other");
-                    log.WriteAttribute("MaxDepth", log.MaxDepth.ToString());
-                    log.Close();
-                    log.Close();
-                }
-            }
-        }
-#endif
     }
-
 }
