@@ -30,10 +30,10 @@ namespace Wider.Content.VirtualCanvas.Models
 
         // The quadrant is subdivided when nodes are inserted that are 
         // completely contained within those subdivisions.
-        Quadrant<T> _topLeft;
-        Quadrant<T> _topRight;
-        Quadrant<T> _bottomLeft;
-        Quadrant<T> _bottomRight;
+        public Quadrant<T> TopLeft { get; private set; }
+        public Quadrant<T> TopRight { get; private set; }
+        public Quadrant<T> BottomLeft { get; private set; }
+        public Quadrant<T> BottomRight { get; private set; }
 
 #warning update show quad tree
         public void ShowQuadTree(Canvas c)
@@ -51,10 +51,10 @@ namespace Wider.Content.VirtualCanvas.Models
             r.StrokeDashArray = new DoubleCollection(new Double[] { 2.0, 3.0 });
             c.Children.Add(r);
 
-            _topLeft?.ShowQuadTree(c);
-            _topRight?.ShowQuadTree(c);
-            _bottomLeft?.ShowQuadTree(c);
-            _bottomRight?.ShowQuadTree(c);
+            TopLeft?.ShowQuadTree(c);
+            TopRight?.ShowQuadTree(c);
+            BottomLeft?.ShowQuadTree(c);
+            BottomRight?.ShowQuadTree(c);
         }
 
         /// <summary>
@@ -119,35 +119,35 @@ namespace Wider.Content.VirtualCanvas.Models
             // See if any child quadrants completely contain this node.
             if (topLeft.Contains(bounds))
             {
-                if (_topLeft == null)
+                if (TopLeft == null)
                 {
-                    _topLeft = new Quadrant<T>(this, topLeft);
+                    TopLeft = new Quadrant<T>(this, topLeft);
                 }
-                child = _topLeft;
+                child = TopLeft;
             }
             else if (topRight.Contains(bounds))
             {
-                if (_topRight == null)
+                if (TopRight == null)
                 {
-                    _topRight = new Quadrant<T>(this, topRight);
+                    TopRight = new Quadrant<T>(this, topRight);
                 }
-                child = _topRight;
+                child = TopRight;
             }
             else if (bottomLeft.Contains(bounds))
             {
-                if (_bottomLeft == null)
+                if (BottomLeft == null)
                 {
-                    _bottomLeft = new Quadrant<T>(this, bottomLeft);
+                    BottomLeft = new Quadrant<T>(this, bottomLeft);
                 }
-                child = _bottomLeft;
+                child = BottomLeft;
             }
             else if (bottomRight.Contains(bounds))
             {
-                if (_bottomRight == null)
+                if (BottomRight == null)
                 {
-                    _bottomRight = new Quadrant<T>(this, bottomRight);
+                    BottomRight = new Quadrant<T>(this, bottomRight);
                 }
-                child = _bottomRight;
+                child = BottomRight;
             }
 
             if (child != null)
@@ -194,24 +194,24 @@ namespace Wider.Content.VirtualCanvas.Models
             Rect bottomRight = new Rect(Bounds.Left + w, Bounds.Top + h, w, h);
 
             // See if any child quadrants completely contain this node.
-            if (topLeft.IntersectsWith(bounds) && _topLeft != null)
+            if (topLeft.IntersectsWith(bounds) && TopLeft != null)
             {
-                _topLeft.GetIntersectingNodes(nodes, bounds);
+                TopLeft.GetIntersectingNodes(nodes, bounds);
             }
 
-            if (topRight.IntersectsWith(bounds) && _topRight != null)
+            if (topRight.IntersectsWith(bounds) && TopRight != null)
             {
-                _topRight.GetIntersectingNodes(nodes, bounds);
+                TopRight.GetIntersectingNodes(nodes, bounds);
             }
 
-            if (bottomLeft.IntersectsWith(bounds) && _bottomLeft != null)
+            if (bottomLeft.IntersectsWith(bounds) && BottomLeft != null)
             {
-                _bottomLeft.GetIntersectingNodes(nodes, bounds);
+                BottomLeft.GetIntersectingNodes(nodes, bounds);
             }
 
-            if (bottomRight.IntersectsWith(bounds) && _bottomRight != null)
+            if (bottomRight.IntersectsWith(bounds) && BottomRight != null)
             {
-                _bottomRight.GetIntersectingNodes(nodes, bounds);
+                BottomRight.GetIntersectingNodes(nodes, bounds);
             }
 
             GetIntersectingNodes(Nodes, nodes, bounds);
@@ -262,24 +262,24 @@ namespace Wider.Content.VirtualCanvas.Models
             Boolean found = false;
 
             // See if any child quadrants completely contain this node.
-            if (topLeft.IntersectsWith(bounds) && _topLeft != null)
+            if (topLeft.IntersectsWith(bounds) && TopLeft != null)
             {
-                found = _topLeft.HasIntersectingNodes(bounds);
+                found = TopLeft.HasIntersectingNodes(bounds);
             }
 
-            if (!found && topRight.IntersectsWith(bounds) && _topRight != null)
+            if (!found && topRight.IntersectsWith(bounds) && TopRight != null)
             {
-                found = _topRight.HasIntersectingNodes(bounds);
+                found = TopRight.HasIntersectingNodes(bounds);
             }
 
-            if (!found && bottomLeft.IntersectsWith(bounds) && _bottomLeft != null)
+            if (!found && bottomLeft.IntersectsWith(bounds) && BottomLeft != null)
             {
-                found = _bottomLeft.HasIntersectingNodes(bounds);
+                found = BottomLeft.HasIntersectingNodes(bounds);
             }
 
-            if (!found && bottomRight.IntersectsWith(bounds) && _bottomRight != null)
+            if (!found && bottomRight.IntersectsWith(bounds) && BottomRight != null)
             {
-                found = _bottomRight.HasIntersectingNodes(bounds);
+                found = BottomRight.HasIntersectingNodes(bounds);
             }
             if (!found)
             {
