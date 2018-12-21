@@ -57,6 +57,8 @@
     <Compile Include="Gestures\RectangleSelectionGesture.cs" />
     <Compile Include="Gestures\SelectionRectVisual.cs" />
     <Compile Include="Models\PerfTimer.cs" />
+    <Compile Include="Models\QuadNode.cs" />
+    <Compile Include="Models\Quadrant.cs" />
     <Compile Include="Models\QuadTree.cs" />
     <Compile Include="Controls\VirtualCanvas.cs" />
     <Compile Include="ViewModels\VirtualCanvasViewModel.cs" />

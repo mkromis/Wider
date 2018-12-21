@@ -76,7 +76,7 @@ namespace Wider.Content.VirtualCanvas.Controls
     public class VirtualCanvas : VirtualizingPanel, IScrollInfo
     {
         Size _viewPortSize;
-        QuadTree<IVirtualChild> _index;
+        public QuadTree<IVirtualChild> Index { get; private set; }
         ObservableCollection<IVirtualChild> _children;
         Size _smallScrollIncrement = new Size(10, 10);
         Size _extent;
@@ -95,7 +95,7 @@ namespace Wider.Content.VirtualCanvas.Controls
         /// </summary>
         public VirtualCanvas()
         {
-            _index = new QuadTree<IVirtualChild>();
+            Index = new QuadTree<IVirtualChild>();
             _children = new ObservableCollection<IVirtualChild>();
             _children.CollectionChanged += new NotifyCollectionChangedEventHandler(OnChildrenCollectionChanged);
             ContentCanvas = new Canvas();
@@ -138,7 +138,7 @@ namespace Wider.Content.VirtualCanvas.Controls
         private void RebuildVisuals()
         {
             // need to rebuild the index.
-            _index = null;
+            Index = null;
             _visualPositions = null;
             _visible = Rect.Empty;
             IsDone = false;
@@ -208,9 +208,9 @@ namespace Wider.Content.VirtualCanvas.Controls
         /// <returns>The list of virtual children found or null if there are none</returns>
         public IEnumerable<IVirtualChild> GetChildrenIntersecting(Rect bounds)
         {
-            if (_index != null)
+            if (Index != null)
             {
-                return _index.GetNodesInside(bounds);
+                return Index.GetNodesInside(bounds);
             }
             return null;
         }
@@ -222,9 +222,9 @@ namespace Wider.Content.VirtualCanvas.Controls
         /// <returns>True if a node is found whose bounds intersect the given bounds</returns>
         public Boolean HasChildrenIntersecting(Rect bounds)
         {
-            if (_index != null)
+            if (Index != null)
             {
-                return _index.HasNodesInside(bounds);
+                return Index.HasNodesInside(bounds);
             }
             return false;
         }
@@ -265,7 +265,7 @@ namespace Wider.Content.VirtualCanvas.Controls
         void CalculateExtent()
         {
             Boolean rebuild = false;
-            if (_index == null || _extent.Width == 0 || _extent.Height == 0 ||
+            if (Index == null || _extent.Width == 0 || _extent.Height == 0 ||
                 Double.IsNaN(_extent.Width) || Double.IsNaN(_extent.Height))
             {
                 rebuild = true;
@@ -298,7 +298,7 @@ namespace Wider.Content.VirtualCanvas.Controls
                 }
                 _extent = extent.Size;
                 // Ok, now we know the size we can create the index.
-                _index = new QuadTree<IVirtualChild>
+                Index = new QuadTree<IVirtualChild>
                 {
                     Bounds = new Rect(0, 0, extent.Width, extent.Height)
                 };
@@ -306,7 +306,7 @@ namespace Wider.Content.VirtualCanvas.Controls
                 {
                     if (n.Bounds.Width > 0 && n.Bounds.Height > 0)
                     {
-                        _index.Insert(n, n.Bounds);
+                        Index.Insert(n, n.Bounds);
                     }
                 }
             }
@@ -392,7 +392,7 @@ namespace Wider.Content.VirtualCanvas.Controls
 
             ContentCanvas.Arrange(new Rect(0, 0, ContentCanvas.Width, ContentCanvas.Height));
 
-            if (_index == null)
+            if (Index == null)
             {
                 StartLazyUpdate();
             }
@@ -453,7 +453,7 @@ namespace Wider.Content.VirtualCanvas.Controls
         /// </summary>
         void LazyUpdateVisuals()
         {
-            if (_index == null)
+            if (Index == null)
             {
                 CalculateExtent();
             }
@@ -530,7 +530,7 @@ namespace Wider.Content.VirtualCanvas.Controls
                 regionCount++;
 
                 // Iterate over the visible range of nodes and make sure they have visuals.
-                foreach (IVirtualChild n in _index.GetNodesInside(r))
+                foreach (IVirtualChild n in Index.GetNodesInside(r))
                 {
                     if (n.Visual == null)
                     {
@@ -693,7 +693,7 @@ namespace Wider.Content.VirtualCanvas.Controls
                 regionCount++;
 
                 // Iterate over the visible range of nodes and make sure they have visuals.
-                foreach (IVirtualChild n in _index.GetNodesInside(dirty))
+                foreach (IVirtualChild n in Index.GetNodesInside(dirty))
                 {
                     UIElement e = n.Visual;
                     if (e != null)
