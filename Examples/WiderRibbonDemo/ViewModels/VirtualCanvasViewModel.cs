@@ -14,6 +14,7 @@ using Wider.Content.VirtualCanvas.Controls;
 using Wider.Content.VirtualCanvas.Gestures;
 using Wider.Content.VirtualCanvas.Models;
 using Wider.Core.Services;
+using WiderRibbonDemo.Extensions;
 using WiderRibbonDemo.Models;
 
 namespace WiderRibbonDemo.ViewModels
@@ -67,7 +68,7 @@ namespace WiderRibbonDemo.ViewModels
                     using (LogWriter log = new LogWriter(w))
                     {
                         log.Open("QuadTree");
-                        //_index.Dump(log);
+                        Graph.Index.Dump(log);
                         log.Open("Other");
                         log.WriteAttribute("MaxDepth", log.MaxDepth.ToString(CultureInfo.CurrentUICulture));
                         log.Close();
