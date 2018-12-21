@@ -10,7 +10,7 @@ namespace Wider.Content.VirtualCanvas.Models
     /// <summary>
     /// Each node stored in the tree has a position, width & height.
     /// </summary>
-    internal class QuadNode<T>
+    public class QuadNode<T>
     {
         Rect _bounds;
 

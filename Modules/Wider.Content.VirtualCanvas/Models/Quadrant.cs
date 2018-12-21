@@ -21,9 +21,12 @@ namespace Wider.Content.VirtualCanvas.Models
     /// </summary>
     public class Quadrant<T>
     {
-        Rect _bounds; // quadrant bounds.
+        /// <summary>
+        /// The bounds of this quadrant
+        /// </summary>
+        public Rect Bounds { get; private set; } // quadrant bounds.
 
-        QuadNode<T> _nodes; // nodes that overlap the sub quadrant boundaries.
+        public QuadNode<T> Nodes { get; private set; } // nodes that overlap the sub quadrant boundaries.
 
         // The quadrant is subdivided when nodes are inserted that are 
         // completely contained within those subdivisions.
@@ -37,12 +40,12 @@ namespace Wider.Content.VirtualCanvas.Models
         {
             Rectangle r = new Rectangle
             {
-                Width = _bounds.Width,
-                Height = _bounds.Height
+                Width = Bounds.Width,
+                Height = Bounds.Height
             };
 
-            Canvas.SetLeft(r, _bounds.Left);
-            Canvas.SetTop(r, _bounds.Top);
+            Canvas.SetLeft(r, Bounds.Left);
+            Canvas.SetTop(r, Bounds.Top);
             r.Stroke = Brushes.DarkRed;
             r.StrokeThickness = 1;
             r.StrokeDashArray = new DoubleCollection(new Double[] { 2.0, 3.0 });
@@ -53,39 +56,6 @@ namespace Wider.Content.VirtualCanvas.Models
             _bottomLeft?.ShowQuadTree(c);
             _bottomRight?.ShowQuadTree(c);
         }
-
-#warning remove export
-        //public void Dump(LogWriter w)
-        //{
-        //    w.WriteAttribute("Bounds", _bounds.ToString());
-        //    if (_nodes != null)
-        //    {
-        //        QuadNode n = _nodes;
-        //        do
-        //        {
-        //            n = n.Next; // first node.
-        //            w.Open("node");
-        //            w.WriteAttribute("Bounds", n.Bounds.ToString());
-        //            w.Close();
-        //        } while (n != _nodes);
-        //    }
-        //    DumpQuadrant("TopLeft", _topLeft, w);
-        //    DumpQuadrant("TopRight", _topRight, w);
-        //    DumpQuadrant("BottomLeft", _bottomLeft, w);
-        //    DumpQuadrant("BottomRight", _bottomRight, w);
-        //}
-
-#warning remove export 2
-        //public void DumpQuadrant(String label, Quadrant q, LogWriter w)
-        //{
-        //    if (q != null)
-        //    {
-        //        w.Open("Quadrant");
-        //        w.WriteAttribute("Name", label);
-        //        q.Dump(w);
-        //        w.Close();
-        //    }
-        //}
 
         /// <summary>
         /// Construct new Quadrant with a given bounds all nodes stored inside this quadrant
@@ -102,18 +72,13 @@ namespace Wider.Content.VirtualCanvas.Models
                 // todo: localize
                 throw new ArgumentException("Bounds of quadrant cannot be zero width or height");
             }
-            _bounds = bounds;
+            Bounds = bounds;
         }
 
         /// <summary>
         /// The parent Quadrant or null if this is the root
         /// </summary>
         internal Quadrant<T> Parent { get; }
-
-        /// <summary>
-        /// The bounds of this quadrant
-        /// </summary>
-        internal Rect Bounds => _bounds;
 
         /// <summary>
         /// Insert the given node
@@ -130,12 +95,12 @@ namespace Wider.Content.VirtualCanvas.Models
                 throw new ArgumentException("Bounds of quadrant cannot be zero width or height");
             }
 
-            Double w = _bounds.Width / 2;
+            Double w = Bounds.Width / 2;
             if (w == 0)
             {
                 w = 1;
             }
-            Double h = _bounds.Height / 2;
+            Double h = Bounds.Height / 2;
             if (h == 0)
             {
                 h = 1;
@@ -144,10 +109,10 @@ namespace Wider.Content.VirtualCanvas.Models
             // assumption that the Rect struct is almost as fast as doing the operations
             // manually since Rect is a value type.
 
-            Rect topLeft = new Rect(_bounds.Left, _bounds.Top, w, h);
-            Rect topRight = new Rect(_bounds.Left + w, _bounds.Top, w, h);
-            Rect bottomLeft = new Rect(_bounds.Left, _bounds.Top + h, w, h);
-            Rect bottomRight = new Rect(_bounds.Left + w, _bounds.Top + h, w, h);
+            Rect topLeft = new Rect(Bounds.Left, Bounds.Top, w, h);
+            Rect topRight = new Rect(Bounds.Left + w, Bounds.Top, w, h);
+            Rect bottomLeft = new Rect(Bounds.Left, Bounds.Top + h, w, h);
+            Rect bottomRight = new Rect(Bounds.Left + w, Bounds.Top + h, w, h);
 
             Quadrant<T> child = null;
 
@@ -192,18 +157,18 @@ namespace Wider.Content.VirtualCanvas.Models
             else
             {
                 QuadNode<T> n = new QuadNode<T>(node, bounds);
-                if (_nodes == null)
+                if (Nodes == null)
                 {
                     n.Next = n;
                 }
                 else
                 {
                     // link up in circular link list.
-                    QuadNode<T> x = _nodes;
+                    QuadNode<T> x = Nodes;
                     n.Next = x.Next;
                     x.Next = n;
                 }
-                _nodes = n;
+                Nodes = n;
                 return this;
             }
         }
@@ -217,16 +182,16 @@ namespace Wider.Content.VirtualCanvas.Models
         internal void GetIntersectingNodes(List<QuadNode<T>> nodes, Rect bounds)
         {
             if (bounds.IsEmpty) { return; }
-            Double w = _bounds.Width / 2;
-            Double h = _bounds.Height / 2;
+            Double w = Bounds.Width / 2;
+            Double h = Bounds.Height / 2;
 
             // assumption that the Rect struct is almost as fast as doing the operations
             // manually since Rect is a value type.
 
-            Rect topLeft = new Rect(_bounds.Left, _bounds.Top, w, h);
-            Rect topRight = new Rect(_bounds.Left + w, _bounds.Top, w, h);
-            Rect bottomLeft = new Rect(_bounds.Left, _bounds.Top + h, w, h);
-            Rect bottomRight = new Rect(_bounds.Left + w, _bounds.Top + h, w, h);
+            Rect topLeft = new Rect(Bounds.Left, Bounds.Top, w, h);
+            Rect topRight = new Rect(Bounds.Left + w, Bounds.Top, w, h);
+            Rect bottomLeft = new Rect(Bounds.Left, Bounds.Top + h, w, h);
+            Rect bottomRight = new Rect(Bounds.Left + w, Bounds.Top + h, w, h);
 
             // See if any child quadrants completely contain this node.
             if (topLeft.IntersectsWith(bounds) && _topLeft != null)
@@ -249,7 +214,7 @@ namespace Wider.Content.VirtualCanvas.Models
                 _bottomRight.GetIntersectingNodes(nodes, bounds);
             }
 
-            GetIntersectingNodes(_nodes, nodes, bounds);
+            GetIntersectingNodes(Nodes, nodes, bounds);
         }
 
         /// <summary>
@@ -283,16 +248,16 @@ namespace Wider.Content.VirtualCanvas.Models
         internal Boolean HasIntersectingNodes(Rect bounds)
         {
             if (bounds.IsEmpty) { return false; }
-            Double w = _bounds.Width / 2;
-            Double h = _bounds.Height / 2;
+            Double w = Bounds.Width / 2;
+            Double h = Bounds.Height / 2;
 
             // assumption that the Rect struct is almost as fast as doing the operations
             // manually since Rect is a value type.
 
-            Rect topLeft = new Rect(_bounds.Left, _bounds.Top, w, h);
-            Rect topRight = new Rect(_bounds.Left + w, _bounds.Top, w, h);
-            Rect bottomLeft = new Rect(_bounds.Left, _bounds.Top + h, w, h);
-            Rect bottomRight = new Rect(_bounds.Left + w, _bounds.Top + h, w, h);
+            Rect topLeft = new Rect(Bounds.Left, Bounds.Top, w, h);
+            Rect topRight = new Rect(Bounds.Left + w, Bounds.Top, w, h);
+            Rect bottomLeft = new Rect(Bounds.Left, Bounds.Top + h, w, h);
+            Rect bottomRight = new Rect(Bounds.Left + w, Bounds.Top + h, w, h);
 
             Boolean found = false;
 
@@ -318,7 +283,7 @@ namespace Wider.Content.VirtualCanvas.Models
             }
             if (!found)
             {
-                found = HasIntersectingNodes(_nodes, bounds);
+                found = HasIntersectingNodes(Nodes, bounds);
             }
             return found;
         }
@@ -354,10 +319,10 @@ namespace Wider.Content.VirtualCanvas.Models
         internal Boolean RemoveNode(T node)
         {
             Boolean rc = false;
-            if (_nodes != null)
+            if (Nodes != null)
             {
-                QuadNode<T> p = _nodes;
-                while (!p.Next.Node.Equals(node) && p.Next != _nodes)
+                QuadNode<T> p = Nodes;
+                while (!p.Next.Node.Equals(node) && p.Next != Nodes)
                 {
                     p = p.Next;
                 }
@@ -368,11 +333,11 @@ namespace Wider.Content.VirtualCanvas.Models
                     if (p == n)
                     {
                         // list goes to empty
-                        _nodes = null;
+                        Nodes = null;
                     }
                     else
                     {
-                        if (_nodes == n) { _nodes = p; }
+                        if (Nodes == n) { Nodes = p; }
                         p.Next = n.Next;
                     }
                 }

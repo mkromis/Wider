@@ -14,7 +14,7 @@ namespace WiderRibbonDemo.Extensions
         {
             if (source.Root != null)
             {
-                //source.Root.Dump(w);
+                source.Root.Dump(w);
             }
         }
     }
