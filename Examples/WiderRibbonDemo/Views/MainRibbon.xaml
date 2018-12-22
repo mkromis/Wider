@@ -79,7 +79,7 @@
                 <fluent:Button Header="75%" Tag="75" Size="Middle"/>
                 <fluent:Button Header="50%" Tag="50" Size="Middle"/>
                 <fluent:Button Header="25%" Tag="25" Size="Middle"/>
-                <fluent:Button Header="25%" Tag="25" Size="Middle"/>
+                <fluent:Button Header="10%" Tag="10" Size="Middle"/>
                 <fluent:Button Header="Fit" Tag="Fit" Size="Middle"/>
                 <Slider Minimum=".01" Maximum="5" x:Name="ZoomSlider" Value="1" Width="80" Height="30" AutoToolTipPrecision="3" />
             </fluent:RibbonGroupBox>
