@@ -115,6 +115,21 @@ namespace Wider.Content.VirtualCanvas.Controls
         }
 
         /// <summary>
+        /// Statitics for internal rendering.
+        /// </summary>
+        public void ShowQuadTree(Boolean drawing)
+        {
+            if (drawing)
+            {
+                Index.ShowQuadTree(ContentCanvas);
+            }
+            else
+            {
+                RebuildVisuals();
+            }
+        }
+
+        /// <summary>
         /// Callback when _children collection is changed.
         /// </summary>
         /// <param name="sender">This</param>

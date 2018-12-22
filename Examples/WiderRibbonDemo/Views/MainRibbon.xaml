@@ -54,8 +54,7 @@
                 <fluent:Button 
                     Header="Dump QuadTree Log..."
                     LargeIcon="{DynamicResource appbar_save}"
-                    Command="{Binding CanvasSaveLogCommand}">
-                    <!-- Click="OnSaveLog" -->
+                    Command="{Binding DumpQuadTreeCommand}">
                 </fluent:Button>
             </fluent:RibbonGroupBox>
             <fluent:RibbonGroupBox Header="Dimension">
@@ -69,7 +68,7 @@
             </fluent:RibbonGroupBox>
             <fluent:RibbonGroupBox Header="View">
                 <fluent:CheckBox Header="Show Grid Lines" /> <!-- Click="OnShowGridLines" -->
-                <fluent:CheckBox Header="Show Quad Tree" /> <!-- Click="OnShowQuadTree" -->
+                <fluent:CheckBox Header="Show Quad Tree" IsChecked="{Binding ShowQuadTree}"/>
                 <fluent:CheckBox Header="Animate Status" IsChecked="True" /> <!-- OnAnimateStatus -->
             </fluent:RibbonGroupBox>
             <fluent:RibbonGroupBox Header="Zoom">

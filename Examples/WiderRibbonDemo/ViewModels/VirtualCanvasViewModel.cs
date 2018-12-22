@@ -5,6 +5,7 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -43,6 +44,9 @@ namespace WiderRibbonDemo.ViewModels
 
         private readonly Polyline _gridLines = new Polyline();
 
+        private Boolean _showQuadTree = false;
+        private IStatusbarService _statusbarService;
+
         public Boolean ShowContextRibbon => true;
 
         public ICommand OnHelpCommand => new DelegateCommand(() =>
@@ -55,7 +59,7 @@ namespace WiderRibbonDemo.ViewModels
                 "User Interface", MessageBoxButton.OK, MessageBoxImage.Information);
         });
 
-        public ICommand CanvasSaveLogCommand => new DelegateCommand(() =>
+        public ICommand DumpQuadTreeCommand => new DelegateCommand(() =>
         {
             SaveFileDialog s = new SaveFileDialog
             {
@@ -78,22 +82,34 @@ namespace WiderRibbonDemo.ViewModels
             }
         });
 
-#if DEBUG_DUMP
-        public void ShowQuadTree(bool show)
+        public Boolean ShowQuadTree
         {
-            if (show)
+            get => _showQuadTree;
+            set
             {
-                _index.ShowQuadTree(_content);
-            }
-            else
-            {
-                RebuildVisuals();
+                if (SetProperty(ref _showQuadTree, value))
+                {
+                    if (value == true)
+                    {
+                        if (MessageBox.Show("This could take a while...please be patient", "Warning",
+                            MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
+                        {
+                            _statusbarService.Text = "Building quad tree visuals...";
+                        }
+                    }
+
+                    Graph.ShowQuadTree(value);
+                    _statusbarService.Text = "Ready";
+                }
             }
         }
-#endif
 
-        public VirtualCanvasViewModel(IContainerExtension containerExtension) : base(containerExtension)
+
+        public VirtualCanvasViewModel(IContainerExtension containerExtension, IStatusbarService statusbarService) : base(containerExtension)
         {
+            _statusbarService = statusbarService;
+            _statusbarService.Text = "Loading";
+
             Model = new EmptyModel();
 
             Graph.SmallScrollIncrement = new Size(_tileWidth + _tileMargin, _tileHeight + _tileMargin);
@@ -122,6 +138,7 @@ namespace WiderRibbonDemo.ViewModels
             Graph.ContentCanvas.Background = Brushes.White;
 
             AllocateNodes();
+            _statusbarService.Text = "Ready";
         }
 
         private void AllocateNodes()
@@ -244,40 +261,6 @@ namespace WiderRibbonDemo.ViewModels
             //Destroyed.BeginAnimation(Rectangle.WidthProperty, null);
             //Destroyed.Width = 0;
             //DestroyedLabel.Text = "";
-        }
-
-        delegate void BooleanEventHandler(Boolean arg);
-
-        void OnShowQuadTree(Object sender, RoutedEventArgs e)
-        {
-#warning fix quad tree
-            //MenuItem item = (MenuItem)sender;
-            //item.IsChecked = !item.IsChecked;
-            //if (item.IsChecked)
-            //{
-            //    if (MessageBoxResult.OK == MessageBox.Show("This could take a while...please be patient", "Warning",
-            //        MessageBoxButton.OKCancel, MessageBoxImage.Exclamation))
-            //    {
-            //        StatusText.Text = "Building quad tree visuals...";
-            //        Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal,
-            //            new BooleanEventHandler(ShowQuadTree), true);
-            //    }
-            //}
-            //else
-            //{
-            //    Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal,
-            //        new BooleanEventHandler(ShowQuadTree), false);
-            //}
-        }
-
-        void ShowQuadTree(Boolean arg)
-        {
-#if DEBUG_DUMP
-                    grid.ShowQuadTree(arg);
-                    StatusText.Text = "Done.";
-#else
-            MessageBox.Show("You need to build the assembly with 'DEBUG_DUMP' to get this feature");
-#endif
         }
 
         void OnRowColChange(Object sender, RoutedEventArgs e)
