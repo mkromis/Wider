@@ -35,7 +35,10 @@ namespace Wider.Content.VirtualCanvas.Models
         public Quadrant<T> BottomLeft { get; private set; }
         public Quadrant<T> BottomRight { get; private set; }
 
-#warning update show quad tree
+        /// <summary>
+        /// Statictial information for rendering use.
+        /// </summary>
+        /// <param name="c"></param>
         public void ShowQuadTree(Canvas c)
         {
             Rectangle r = new Rectangle

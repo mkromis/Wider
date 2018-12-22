@@ -143,13 +143,10 @@ namespace Wider.Content.VirtualCanvas.Models
             }
         }
 
-#warning update show 2
-        public void ShowQuadTree(Canvas container)
-        {
-            if (Root != null)
-            {
-                Root.ShowQuadTree(container);
-            }
-        }
+        /// <summary>
+        /// Staticail visual information
+        /// </summary>
+        /// <param name="container"></param>
+        public void ShowQuadTree(Canvas container) => Root?.ShowQuadTree(container);
     }
 }

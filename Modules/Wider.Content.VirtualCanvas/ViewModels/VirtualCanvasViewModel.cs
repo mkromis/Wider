@@ -42,6 +42,7 @@ namespace Wider.Content.VirtualCanvas.ViewModels
             Views.VirtualCanvas canvas = new Views.VirtualCanvas();
             Graph = canvas.Graph;
             View = canvas;
+
         }
     }
 }
