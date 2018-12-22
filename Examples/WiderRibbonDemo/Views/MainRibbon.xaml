@@ -67,7 +67,7 @@
                 <fluent:Button Header="1000" Tag="1000" Command="{Binding CanvasRowColChange}" Size="Middle" />
             </fluent:RibbonGroupBox>
             <fluent:RibbonGroupBox Header="View">
-                <fluent:CheckBox Header="Show Grid Lines" /> <!-- Click="OnShowGridLines" -->
+                <fluent:CheckBox Header="Show Grid Lines" IsChecked="{Binding ShowGridLines}"/>
                 <fluent:CheckBox Header="Show Quad Tree" IsChecked="{Binding ShowQuadTree}"/>
                 <fluent:CheckBox Header="Animate Status" IsChecked="True" /> <!-- OnAnimateStatus -->
             </fluent:RibbonGroupBox>
