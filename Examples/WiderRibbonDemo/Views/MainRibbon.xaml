@@ -59,12 +59,12 @@
             </fluent:RibbonGroupBox>
             <fluent:RibbonGroupBox Header="Dimension">
                 <!-- Click=OnRowColChange -->
-                <fluent:Button Header="10" Tag="10" Command="{Binding CanvasRowColChange}" Size="Middle" />
-                <fluent:Button Header="50" Tag="50" Command="{Binding CanvasRowColChange}" Size="Middle" />
-                <fluent:Button Header="100" Tag="100" Command="{Binding CanvasRowColChange}" Size="Middle" />
-                <fluent:Button Header="250" Tag="250" Command="{Binding CanvasRowColChange}" Size="Middle" />
-                <fluent:Button Header="500" Tag="500" Command="{Binding CanvasRowColChange}" Size="Middle" />
-                <fluent:Button Header="1000" Tag="1000" Command="{Binding CanvasRowColChange}" Size="Middle" />
+                <fluent:Button Header="10" CommandParameter="10" Command="{Binding RowColChange}" Size="Middle" />
+                <fluent:Button Header="50" CommandParameter="50" Command="{Binding RowColChange}" Size="Middle" />
+                <fluent:Button Header="100" CommandParameter="100" Command="{Binding RowColChange}" Size="Middle" />
+                <fluent:Button Header="250" CommandParameter="250" Command="{Binding RowColChange}" Size="Middle" />
+                <fluent:Button Header="500" CommandParameter="500" Command="{Binding RowColChange}" Size="Middle" />
+                <fluent:Button Header="1000" CommandParameter="1000" Command="{Binding RowColChange}" Size="Middle" />
             </fluent:RibbonGroupBox>
             <fluent:RibbonGroupBox Header="View">
                 <fluent:CheckBox Header="Show Grid Lines" IsChecked="{Binding ShowGridLines}"/>

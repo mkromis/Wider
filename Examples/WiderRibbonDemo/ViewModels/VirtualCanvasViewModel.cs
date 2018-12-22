@@ -33,9 +33,9 @@ namespace WiderRibbonDemo.ViewModels
         private readonly Double _tileWidth = 50;
         private readonly Double _tileHeight = 30;
         private readonly Double _tileMargin = 10;
-        private readonly Int16 _totalVisuals = 0;
-        private readonly Int16 rows = 100;
-        private readonly Int16 cols = 100;
+        private readonly Int32 _totalVisuals = 0;
+        private Int32 rows = 100;
+        private Int32 cols = 100;
 
         private readonly Polyline _gridLines = new Polyline();
 
@@ -76,6 +76,14 @@ namespace WiderRibbonDemo.ViewModels
                 }
             }
         });
+
+        public ICommand RowColChange => new DelegateCommand<Object>((x) => 
+        {
+            Int32 value = Int32.Parse(x.ToString());
+            rows = cols = value;
+            AllocateNodes();
+        });
+
 
         public Boolean ShowQuadTree
         {
@@ -245,14 +253,7 @@ namespace WiderRibbonDemo.ViewModels
             //DestroyedLabel.Text = "";
         }
 
-        void OnRowColChange(Object sender, RoutedEventArgs e)
-        {
-#warning fix row col change
-            //MenuItem item = sender as MenuItem;
-            //int d = int.Parse((string)item.Tag, CultureInfo.InvariantCulture);
-            //rows = cols = d;
-            //AllocateNodes();
-        }
+
 
         public Boolean ShowGridLines
         {
@@ -341,6 +342,7 @@ namespace WiderRibbonDemo.ViewModels
 
         void OnZoomSliderValueChanged(Object sender, RoutedPropertyChangedEventArgs<Double> e)
         {
+#warning fix zoom slider value changed
             //if (zoom.Zoom != e.NewValue)
             //{
             //    zoom.Zoom = e.NewValue;
