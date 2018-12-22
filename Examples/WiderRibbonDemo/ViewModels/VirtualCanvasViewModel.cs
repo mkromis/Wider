@@ -27,11 +27,6 @@ namespace WiderRibbonDemo.ViewModels
     /// </summary>
     public class VirtualCanvasViewModel : Wider.Content.VirtualCanvas.ViewModels.VirtualCanvasViewModel
     {
-        public readonly MapZoom zoom;
-        private readonly Pan pan;
-        private readonly RectangleSelectionGesture rectZoom;
-        private readonly AutoScroll autoScroll;
-
         private Boolean _showGridLines;
         private readonly Boolean _animateStatus = true;
 
@@ -107,30 +102,17 @@ namespace WiderRibbonDemo.ViewModels
 
         public VirtualCanvasViewModel(IContainerExtension containerExtension, IStatusbarService statusbarService) : base(containerExtension)
         {
-            _statusbarService = statusbarService;
-            _statusbarService.Text = "Loading";
-
             Model = new EmptyModel();
 
-            Graph.SmallScrollIncrement = new Size(_tileWidth + _tileMargin, _tileHeight + _tileMargin);
-
-            //Scroller.Content = grid;
-            //Object v = Scroller.GetValue(ScrollViewer.CanContentScrollProperty);
-
-            Canvas target = Graph.ContentCanvas;
-            zoom = new MapZoom(target);
-            pan = new Pan(target, zoom);
-            rectZoom = new RectangleSelectionGesture(target, zoom, ModifierKeys.Control)
-            {
-                ZoomSelection = true
-            };
-            autoScroll = new AutoScroll(target, zoom);
-            zoom.ZoomChanged += new EventHandler(OnZoomChanged);
+            _statusbarService = statusbarService;
+            _statusbarService.Text = "Loading";
 
 #warning fix zoom slider
             //grid.VisualsChanged += new EventHandler<VisualChangeEventArgs>(OnVisualsChanged);
             //ZoomSlider.ValueChanged += new RoutedPropertyChangedEventHandler<double>(OnZoomSliderValueChanged);
 
+            Zoom.ZoomChanged += new EventHandler(OnZoomChanged);
+            Graph.SmallScrollIncrement = new Size(_tileWidth + _tileMargin, _tileHeight + _tileMargin);
             Graph.Scale.Changed += new EventHandler(OnScaleChanged);
             Graph.Translate.Changed += new EventHandler(OnScaleChanged);
 
@@ -143,8 +125,8 @@ namespace WiderRibbonDemo.ViewModels
 
         private void AllocateNodes()
         {
-            zoom.Zoom = 1;
-            zoom.Offset = new Point(0, 0);
+            Zoom.Zoom = 1;
+            Zoom.Offset = new Point(0, 0);
 
             // Fill a sparse grid of rectangular color palette nodes with each tile being 50x30.    
             // with hue across x-axis and saturation on y-axis, brightness is fixed at 100;
@@ -336,22 +318,22 @@ namespace WiderRibbonDemo.ViewModels
 
         void OnZoom(Object sender, RoutedEventArgs e)
         {
-            MenuItem item = (MenuItem)sender;
-            String tag = item.Tag as String;
-            if (tag == "Fit")
-            {
-                Double scaleX = Graph.ViewportWidth / Graph.Extent.Width;
-                Double scaleY = Graph.ViewportHeight / Graph.Extent.Height;
-                zoom.Zoom = Math.Min(scaleX, scaleY);
-                zoom.Offset = new Point(0, 0);
-            }
-            else
-            {
-                if (Double.TryParse(tag, out Double zoomPercent))
-                {
-                    zoom.Zoom = zoomPercent / 100;
-                }
-            }
+            //MenuItem item = (MenuItem)sender;
+            //String tag = item.Tag as String;
+            //if (tag == "Fit")
+            //{
+            //    Double scaleX = Graph.ViewportWidth / Graph.Extent.Width;
+            //    Double scaleY = Graph.ViewportHeight / Graph.Extent.Height;
+            //    zoom.Zoom = Math.Min(scaleX, scaleY);
+            //    zoom.Offset = new Point(0, 0);
+            //}
+            //else
+            //{
+            //    if (Double.TryParse(tag, out Double zoomPercent))
+            //    {
+            //        zoom.Zoom = zoomPercent / 100;
+            //    }
+            //}
 
         }
 
@@ -367,10 +349,10 @@ namespace WiderRibbonDemo.ViewModels
 
         void OnZoomSliderValueChanged(Object sender, RoutedPropertyChangedEventArgs<Double> e)
         {
-            if (zoom.Zoom != e.NewValue)
-            {
-                zoom.Zoom = e.NewValue;
-            }
+            //if (zoom.Zoom != e.NewValue)
+            //{
+            //    zoom.Zoom = e.NewValue;
+            //}
         }
     }
 }
