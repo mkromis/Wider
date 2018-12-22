@@ -254,14 +254,6 @@ namespace WiderRibbonDemo.ViewModels
             //AllocateNodes();
         }
 
-        void OnShowGridLines(Object sender, RoutedEventArgs e)
-        {
-#warning fix show grid lines
-            //MenuItem item = (MenuItem)sender;
-            //this.ShowGridLines = item.IsChecked = !item.IsChecked;
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1702")]
         public Boolean ShowGridLines
         {
             get => _showGridLines;
