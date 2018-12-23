@@ -84,29 +84,27 @@ namespace WiderRibbonDemo.ViewModels
             AllocateNodes();
         });
 
-
-        public Boolean ShowQuadTree
+        public ICommand ZoomCommand => new DelegateCommand<String>((x) =>
         {
-            get => _showQuadTree;
-            set
+            if (x == "Fit")
             {
-                if (SetProperty(ref _showQuadTree, value))
-                {
-                    if (value == true)
-                    {
-                        if (MessageBox.Show("This could take a while...please be patient", "Warning",
-                            MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.OK)
-                        {
-                            _statusbarService.Text = "Building quad tree visuals...";
-                        }
-                    }
-
-                    Graph.ShowQuadTree(value);
-                    _statusbarService.Text = "Ready";
-                }
+                Double scaleX = Graph.ViewportWidth / Graph.Extent.Width;
+                Double scaleY = Graph.ViewportHeight / Graph.Extent.Height;
+                Zoom.Zoom = Math.Min(scaleX, scaleY);
+                Zoom.Offset = new Point(0, 0);
             }
-        }
+            else {
+                Double value = Double.Parse(x);
+                Zoom.Zoom = value / 100;
+                _statusbarService.Text = $"Zoom is {value}";
+            }
+        });
 
+        public Double ZoomValue
+        {
+            get => Zoom.Zoom;
+            set => Zoom.Zoom = value;
+        }
 
         public VirtualCanvasViewModel(IContainerExtension containerExtension, IStatusbarService statusbarService) : base(containerExtension)
         {
@@ -115,11 +113,12 @@ namespace WiderRibbonDemo.ViewModels
             _statusbarService = statusbarService;
             _statusbarService.Text = "Loading";
 
-#warning fix zoom slider
-            //grid.VisualsChanged += new EventHandler<VisualChangeEventArgs>(OnVisualsChanged);
-            //ZoomSlider.ValueChanged += new RoutedPropertyChangedEventHandler<double>(OnZoomSliderValueChanged);
+            Zoom.ZoomChanged += (s, e) =>
+            {
+                RaisePropertyChanged("ZoomValue");
+                _statusbarService.Text = $"Zoom:{ZoomValue}";
+            };
 
-            Zoom.ZoomChanged += new EventHandler(OnZoomChanged);
             Graph.SmallScrollIncrement = new Size(_tileWidth + _tileMargin, _tileHeight + _tileMargin);
             Graph.Scale.Changed += new EventHandler(OnScaleChanged);
             Graph.Translate.Changed += new EventHandler(OnScaleChanged);
@@ -253,8 +252,6 @@ namespace WiderRibbonDemo.ViewModels
             //DestroyedLabel.Text = "";
         }
 
-
-
         public Boolean ShowGridLines
         {
             get => _showGridLines;
@@ -307,46 +304,6 @@ namespace WiderRibbonDemo.ViewModels
                     Graph.Backdrop.Background = null;
                 }
             }
-        }
-
-        void OnZoom(Object sender, RoutedEventArgs e)
-        {
-            //MenuItem item = (MenuItem)sender;
-            //String tag = item.Tag as String;
-            //if (tag == "Fit")
-            //{
-            //    Double scaleX = Graph.ViewportWidth / Graph.Extent.Width;
-            //    Double scaleY = Graph.ViewportHeight / Graph.Extent.Height;
-            //    zoom.Zoom = Math.Min(scaleX, scaleY);
-            //    zoom.Offset = new Point(0, 0);
-            //}
-            //else
-            //{
-            //    if (Double.TryParse(tag, out Double zoomPercent))
-            //    {
-            //        zoom.Zoom = zoomPercent / 100;
-            //    }
-            //}
-
-        }
-
-        void OnZoomChanged(Object sender, EventArgs e)
-        {
-#warning fix zoom slider
-            //if (ZoomSlider.Value != zoom.Zoom)
-            //{
-            //    ZoomSlider.Value = zoom.Zoom;
-            //}
-        }
-
-
-        void OnZoomSliderValueChanged(Object sender, RoutedPropertyChangedEventArgs<Double> e)
-        {
-#warning fix zoom slider value changed
-            //if (zoom.Zoom != e.NewValue)
-            //{
-            //    zoom.Zoom = e.NewValue;
-            //}
         }
     }
 }
