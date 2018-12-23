@@ -24,11 +24,12 @@ namespace Wider.Core.Settings
 {
     internal class RecentViewSettings : AbstractSettings, IRecentViewSettings
     {
-        private AbstractMenuItem recentMenu;
-        private List<String> menuGuids;
+        private readonly AbstractMenuItem recentMenu;
+        private readonly List<String> menuGuids;
         private readonly DelegateCommand<String> recentOpen;
+        private readonly IContainerExtension _container;
+
         private IOpenDocumentService fileService;
-        private IContainerExtension _container;
 
         public RecentViewSettings(IContainerExtension container)
         {

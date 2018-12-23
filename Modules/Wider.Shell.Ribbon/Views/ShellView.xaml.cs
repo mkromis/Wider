@@ -26,18 +26,13 @@ using Fluent;
 using MahApps.Metro.Controls;
 using Prism.Events;
 using Prism.Ioc;
-using Prism.Logging;
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using Wider.Core.Events;
 using Wider.Core.Services;
 using Wider.Core.Views;
 using Wider.Shell.Ribbon.Themes;
-using Xceed.Wpf.AvalonDock;
-using Xceed.Wpf.AvalonDock.Layout;
-using Xceed.Wpf.AvalonDock.Layout.Serialization;
 
 namespace Wider.Shell.Ribbon.Views
 {
@@ -46,18 +41,16 @@ namespace Wider.Shell.Ribbon.Views
     /// </summary>
     internal partial class ShellView : MetroWindow, IShell, IRibbonWindow
     {
-        private readonly IContainerExtension _container;
-        private IEventAggregator _eventAggregator;
-        private ILoggerService _logger;
+        private readonly IEventAggregator _eventAggregator;
 
-        public ShellView(IContainerExtension container, IEventAggregator eventAggregator, IThemeManager themeManager)
+        public ShellView(IContainerExtension container)
         {
             InitializeComponent();
 
             // save initial resolved items
-            _container = container;
-            _eventAggregator = eventAggregator;
+            _eventAggregator = container.Resolve<IEventAggregator>();
 
+            IThemeManager themeManager = container.Resolve<IThemeManager>();
             // Set an inital theme if not set by workspace
             if (themeManager.Themes.Count == 0)
             {
@@ -105,19 +98,6 @@ namespace Wider.Shell.Ribbon.Views
                     return;
                 }
                 _eventAggregator.GetEvent<WindowClosingEvent>().Publish(this);
-            }
-        }
-
-        private ILoggerService Logger
-        {
-            get
-            {
-                if (_logger == null)
-                {
-                    _logger = _container.Resolve<ILoggerService>();
-                }
-
-                return _logger;
             }
         }
 

@@ -10,6 +10,7 @@
 
 #endregion
 
+using Prism.Ioc;
 using System;
 using Wider.Core.Services;
 
@@ -27,8 +28,7 @@ namespace Wider.Content.TextDocument.ViewModels
         /// <param name="commandManager">The injected command manager.</param>
         /// <param name="logger">The injected logger.</param>
         /// <param name="menuService">The menu service.</param>
-        public TextViewModel(IWorkspace workspace, ICommandManager commandManager, ILoggerService logger, IMenuService menuService)
-            : base(workspace, commandManager, logger, menuService)
+        public TextViewModel(IContainerExtension container) : base (container)
         {
         }
 

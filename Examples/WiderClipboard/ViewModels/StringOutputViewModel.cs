@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prism.Ioc;
+using System;
 using Wider.Core.Services;
 using WiderClipboard.Models;
 using WiderClipboard.Views;
@@ -9,8 +10,7 @@ namespace WiderClipboard.ViewModels
     {
         public String Content { get; set; }
 
-        public StringOutputViewModel(IWorkspace workspace, ICommandManager commandManager, ILoggerService logger, IMenuService menuService) :
-            base(workspace, commandManager, logger, menuService)
+        public StringOutputViewModel(IContainerExtension container) : base (container)
         {
             Model = new EmptyModel();
             View = new StringOutputView();

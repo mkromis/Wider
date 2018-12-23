@@ -11,6 +11,7 @@
 #endregion
 
 using Prism.Commands;
+using Prism.Ioc;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -61,11 +62,6 @@ namespace Wider.Core.Services
         protected Boolean _isSelected = false;
 
         /// <summary>
-        /// The logger instance
-        /// </summary>
-        protected ILoggerService _logger;
-
-        /// <summary>
         /// The title of the document
         /// </summary>
         protected String _title = null;
@@ -74,11 +70,6 @@ namespace Wider.Core.Services
         /// The tool tip to display on the document
         /// </summary>
         protected String _tooltip = null;
-
-        /// <summary>
-        /// The workspace instance
-        /// </summary>
-        protected IWorkspace _workspace;
 
         /// <summary>
         /// The menu service
@@ -95,13 +86,10 @@ namespace Wider.Core.Services
         /// <param name="workspace">The injected workspace.</param>
         /// <param name="commandManager">The injected command manager.</param>
         /// <param name="logger">The injected logger.</param>
-        protected ContentViewModel(IWorkspace workspace, ICommandManager commandManager, ILoggerService logger,
-                                   IMenuService menuService)
+        protected ContentViewModel(IContainerExtension continer)
         {
-            _workspace = workspace;
-            _commandManager = commandManager;
-            _logger = logger;
-            _menuService = menuService;
+            _commandManager = continer.Resolve<ICommandManager>();
+            _menuService = continer.Resolve<IMenuService>();
             CloseCommand = new DelegateCommand<Object>(Close, CanClose);
         }
 
@@ -140,7 +128,7 @@ namespace Wider.Core.Services
         /// The content view
         /// </summary>
         /// <value>The view.</value>
-        public virtual /*UserControl*/ IContentView View { get; set; }
+        public virtual IContentView View { get; set; }
 
         /// <summary>
         /// The content menu that should be available for the document pane

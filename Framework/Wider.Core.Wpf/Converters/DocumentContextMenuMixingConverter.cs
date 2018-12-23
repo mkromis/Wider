@@ -28,7 +28,6 @@ namespace Wider.Core.Converters
         {
             AbstractMenuItem root = new MenuItemViewModel("$CROOT$", 1);
             Int32 i = 1;
-            IReadOnlyCollection<AbstractMenuItem> menus = values[1] as IReadOnlyCollection<AbstractMenuItem>;
             ContextMenu cm;
             if (values[0] is LayoutDocumentItem doc)
             {
@@ -47,7 +46,7 @@ namespace Wider.Core.Converters
                 {
                 }
 
-                if (menus != null)
+                if (values[1] is IReadOnlyCollection<AbstractMenuItem>menus)
                 {
                     foreach (AbstractMenuItem abstractMenuItem in menus)
                     {

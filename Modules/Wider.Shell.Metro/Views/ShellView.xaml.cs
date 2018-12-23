@@ -35,14 +35,12 @@ namespace Wider.Shell.Metro.Views
     /// </summary>
     internal partial class ShellView : IShell
     {
-        private IContainerExtension _container;
-        private IEventAggregator _eventAggregator;
+        private readonly IEventAggregator _eventAggregator;
 
-        public ShellView(IContainerExtension container, IEventAggregator eventAggregator)
+        public ShellView(IContainerExtension container)
         {
             InitializeComponent();
-            _container = container;
-            _eventAggregator = eventAggregator;
+            _eventAggregator = container.Resolve<IEventAggregator>(); ;
         }
 
         #region IShell Members
@@ -72,16 +70,16 @@ namespace Wider.Shell.Metro.Views
             _eventAggregator.GetEvent<WindowClosingEvent>().Publish(this);
         }
 
-        private void ContentControl_IsVisibleChanged(Object sender, DependencyPropertyChangedEventArgs e)
-        {
-            //HACK: Refresh the content control because in AutoHide mode this disappears. Needs to be fixed in AvalonDock.
-            if (sender is ContentControl c)
-            {
-                Object backup = c.Content;
-                c.Content = null;
-                c.Content = backup;
-            }
-        }
+        //private void ContentControl_IsVisibleChanged(Object sender, DependencyPropertyChangedEventArgs e)
+        //{
+        //    //HACK: Refresh the content control because in AutoHide mode this disappears. Needs to be fixed in AvalonDock.
+        //    if (sender is ContentControl c)
+        //    {
+        //        Object backup = c.Content;
+        //        c.Content = null;
+        //        c.Content = backup;
+        //    }
+        //}
 
         #endregion
     }

@@ -34,12 +34,12 @@ namespace Wider.Core.Services
         /// <summary>
         /// The _available new content
         /// </summary>
-        private List<NewContentAttribute> _availableNewContent;
+        private readonly List<NewContentAttribute> _availableNewContent;
 
         /// <summary>
         /// The dictionary
         /// </summary>
-        private Dictionary<NewContentAttribute, IContentHandler> _dictionary;
+        private readonly Dictionary<NewContentAttribute, IContentHandler> _dictionary;
 
         /// <summary>
         /// The workspace - NEEDS to be resolved in function call. Else this leads to recursive resolution in constructor.

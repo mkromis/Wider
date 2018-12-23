@@ -11,6 +11,7 @@
 #endregion
 
 using Prism.Events;
+using Prism.Ioc;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,19 +19,18 @@ using System.Windows;
 using Wider.Core.Controls;
 using Wider.Core.Events;
 using Wider.Core.Services;
-using Wider.Core.Settings;
 
 namespace Wider.Core.Settings
 {
     internal class ToolbarPositionSettings : AbstractSettings, IToolbarPositionSettings
     {
-        private AbstractToolbar _toolTray;
-        private Dictionary<String, ToolbarSettingItem> _loadDict;
+        private readonly AbstractToolbar _toolTray;
+        private readonly Dictionary<String, ToolbarSettingItem> _loadDict;
 
-        public ToolbarPositionSettings(IEventAggregator eventAggregator, IToolbarService toolbarService)
+        public ToolbarPositionSettings(IContainerExtension container)
         {
-            eventAggregator.GetEvent<WindowClosingEvent>().Subscribe(SaveToolbarPositions);
-            _toolTray = toolbarService as AbstractToolbar;
+            container.Resolve<IEventAggregator>().GetEvent<WindowClosingEvent>().Subscribe(SaveToolbarPositions);
+            _toolTray = container.Resolve<IToolbarService>() as AbstractToolbar;
             _loadDict = new Dictionary<String, ToolbarSettingItem>();
 
             if (Toolbars != null && Toolbars.Count > 0)
