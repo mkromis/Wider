@@ -15,9 +15,6 @@ namespace Wider.Content.NodeEditor.Views
             InitializeComponent();
         }
 
-        internal VirtualCanvas.Controls.VirtualCanvas GetGraph()
-        {
-            return this.Graph;
-        }
+        internal VirtualCanvas.Controls.VirtualCanvas GetGraph() => Graph;
     }
 }

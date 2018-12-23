@@ -36,10 +36,12 @@
         <fluent:RibbonTabItem Header="Samples">
             <fluent:RibbonGroupBox Header="Content ">
                 <fluent:Button Header="Virtual Content" Size="Middle" Command="{Binding OpenCanvasCommand}"/>
+                <fluent:Button Header="Node Editor" Size="Middle" Command="{Binding OpenNodeEditor}" />
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
         <!-- Bind context group to tab item -->
-        <fluent:RibbonTabItem Header="Canvas" Group="{Binding Source={x:Reference canvasGroup}}" DataContext="{Binding CanvasViewModel}">
+        <fluent:RibbonTabItem 
+            Header="Canvas" Group="{Binding Source={x:Reference canvasGroup}}" DataContext="{Binding CanvasViewModel}">
             <fluent:RibbonTabItem.Style>
                 <Style TargetType="fluent:RibbonTabItem">
                     <Setter Property="Visibility" Value="Collapsed"/>

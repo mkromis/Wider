@@ -7,7 +7,6 @@
     x:Class="Wider.Content.VirtualCanvas.Views.VirtualCanvas"
     d:DesignHeight="233.333" d:DesignWidth="411.333" >
     <ScrollViewer 
-        x:Name="Scroller" 
         HorizontalScrollBarVisibility="Auto" 
         VerticalScrollBarVisibility="Auto" 
         CanContentScroll="True">
