@@ -94,8 +94,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
             _container.Focus();
 
             // Try and reuse the existing TransformGroup if we can.
-            TransformGroup g = target.RenderTransform as TransformGroup;
-            if (g != null)
+            if (target.RenderTransform is TransformGroup g)
             {
                 _scale = g.Children.Count > 1 ? g.Children[0] as ScaleTransform : null;
                 _translate = g.Children.Count > 0 ? g.Children[1] as TranslateTransform : null;
@@ -104,7 +103,8 @@ namespace Wider.Content.VirtualCanvas.Gestures
                     g = null; // then the TransformGroup cannot be re-used
                 }
             }
-            if (g == null)
+            else
+            //if (g == null)
             {
                 g = new TransformGroup();
                 _scale = new ScaleTransform(1, 1);
