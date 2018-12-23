@@ -37,6 +37,7 @@ namespace WiderRibbonDemo.ViewModels
         private Int32 rows = 100;
         private Int32 cols = 100;
         private Boolean _showGridLines;
+        private Boolean _showQuadTree;
         private readonly Polyline _gridLines = new Polyline();
         private readonly IStatusbarService _statusbarService;
 
@@ -82,6 +83,18 @@ namespace WiderRibbonDemo.ViewModels
             AllocateNodes();
         });
 
+        public Boolean ShowQuadTree
+        {
+            get => _showQuadTree;
+            set
+            {
+                if (SetProperty(ref _showQuadTree, value))
+                {
+                    Graph.ShowQuadTree(value);
+                }
+            }
+        }
+
         public ICommand ZoomCommand => new DelegateCommand<String>((x) =>
         {
             if (x == "Fit")
@@ -107,6 +120,7 @@ namespace WiderRibbonDemo.ViewModels
         public VirtualCanvasViewModel(IContainerExtension containerExtension, IStatusbarService statusbarService) : base(containerExtension)
         {
             Model = new EmptyModel();
+            Title = "Virtual Canvas";
 
             _statusbarService = statusbarService;
             _statusbarService.Text = "Loading";

@@ -62,6 +62,7 @@ namespace WiderRibbonDemo.Models
 
         private void ActiveDocumentChanged(ContentViewModel obj)
         {
+
             //switch (obj)
             //{
             //    case VirtualCanvasViewModel canvas:

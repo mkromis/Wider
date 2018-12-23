@@ -10,10 +10,7 @@ namespace Wider.Content.NodeEditor.Views
     /// </summary>
     public partial class NodeEditor : UserControl, IContentView
     {
-        public NodeEditor()
-        {
-            InitializeComponent();
-        }
+        public NodeEditor() => InitializeComponent();
 
         internal VirtualCanvas.Controls.VirtualCanvas GetGraph() => Graph;
     }

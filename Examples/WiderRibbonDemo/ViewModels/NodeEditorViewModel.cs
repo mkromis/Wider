@@ -13,6 +13,8 @@ namespace WiderRibbonDemo.ViewModels
         public NodeEditorViewModel(IContainerExtension container) : base (container)
         {
             Model = new EmptyModel();
+
+            Title = "Node Editor";
         }
     }
 }
