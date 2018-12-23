@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+    <metadata>
+        <id>$id$</id>
+        <version>$version$</version>
+        <title>$title$</title>
+        <authors>Mark Kromis</authors>
+        <owners>Mark Kromis</owners>
+        <licenseUrl>https://github.com/TorisanKitsune/Wider/blob/master/LICENSE.txt</licenseUrl>
+        <projectUrl>https://github.com/TorisanKitsune/Wider</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Easy Virtual Canvas with zoom</description>
+        <releaseNotes>Initial Alpha release</releaseNotes>
+        <copyright>Copyright 2018</copyright>
+        <tags>IDE VirtualCanvas Module</tags>
+        <dependencies>
+            <dependency id="Prism.Wpf" version="[7.1.0.431, 8)" />
+            <dependency id="Wider.Core" version="$version$" />
+        </dependencies>
+    </metadata>
+</package>

@@ -89,8 +89,14 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Wider.Content.VirtualCanvas.nuspec" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="GitVersionTask">
+      <Version>4.0.0</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Prism.Wpf">
       <Version>7.1.0.431</Version>
     </PackageReference>
