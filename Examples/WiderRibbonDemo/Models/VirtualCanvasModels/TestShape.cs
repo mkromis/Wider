@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 using Wider.Content.VirtualCanvas.Controls;
 using Wider.Content.VirtualCanvas.Models;
 
-namespace WiderRibbonDemo.Models
+namespace WiderRibbonDemo.Models.VirtualCanvasModels
 {
 
     enum TestShapeType { Ellipse, Curve, Rectangle, Last };

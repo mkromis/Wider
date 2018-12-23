@@ -18,6 +18,9 @@ namespace WiderRibbonDemo.Models
         private VirtualCanvasViewModel _canvasViewModel;
 
 
+        /// <summary>
+        /// This is needed for ribbon control
+        /// </summary>
         public VirtualCanvasViewModel CanvasViewModel
         {
             get => _canvasViewModel;
@@ -38,6 +41,21 @@ namespace WiderRibbonDemo.Models
             Documents.Add(CanvasViewModel);
             ActiveDocument = CanvasViewModel;
         });
+
+        public ICommand OpenNodeEditor => new DelegateCommand(() =>
+        {
+            IEnumerable<ContentViewModel> docs = Documents.Where(x => x is NodeEditorViewModel);
+            if (docs.Count() > 0)
+            {
+                ActiveDocument = docs.First();
+            }
+
+            NodeEditorViewModel = _container.Resolve<NodeEditorViewModel>();
+            Documents.Add(NodeEditorViewModel);
+            ActiveDocument = NodeEditorViewModel;
+        });
+
+        public NodeEditorViewModel NodeEditorViewModel { get; private set; }
 
         public Workspace(IContainerExtension container) : base(container) => 
             _eventAggregator.GetEvent<ActiveContentChangedEvent>().Subscribe(ActiveDocumentChanged);

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Wider.Content.VirtualCanvas.Models;
 using WiderRibbonDemo.Models;
+using WiderRibbonDemo.Models.VirtualCanvasModels;
 
 namespace WiderRibbonDemo.Extensions
 {

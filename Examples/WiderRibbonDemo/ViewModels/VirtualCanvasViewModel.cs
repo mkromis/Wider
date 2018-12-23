@@ -17,6 +17,7 @@ using Wider.Content.VirtualCanvas.Models;
 using Wider.Core.Services;
 using WiderRibbonDemo.Extensions;
 using WiderRibbonDemo.Models;
+using WiderRibbonDemo.Models.VirtualCanvasModels;
 
 namespace WiderRibbonDemo.ViewModels
 {
