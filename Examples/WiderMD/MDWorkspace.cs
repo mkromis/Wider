@@ -27,8 +27,7 @@ namespace WiderMD
         private ILoggerService _logger;
         private const String _title = "Wider MD";
 
-        public MDWorkspace(IContainerExtension container, IEventAggregator eventAggregator)
-            : base(container, eventAggregator)
+        public MDWorkspace(IContainerExtension container) : base(container)
         {
             IEventAggregator aggregator = _container.Resolve<IEventAggregator>();
             aggregator.GetEvent<ActiveContentChangedEvent>().Subscribe(ContentChanged);

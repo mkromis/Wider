@@ -28,8 +28,8 @@ namespace Wider.Core.Views
         // So trying to use toolbar service in more of a data context way, and generate
         // here instead of service.
 
-        private ToolbarService _toolbarService;
-        private static BoolToVisibilityConverter btv = new BoolToVisibilityConverter();
+        private readonly ToolbarService _toolbarService;
+        private static readonly BoolToVisibilityConverter btv = new BoolToVisibilityConverter();
 
         public Toolbar(IToolbarService toolbarService)
         {

@@ -33,10 +33,6 @@ namespace Wider.Core.Services
         /// <param name="aggregator">The injected event aggregator</param>
         public DebugLogService(IEventAggregator aggregator = null) => _aggregator = aggregator;
 
-        private void WriteMessage(String message, Category category, Priority priority)
-        {
-        }
-
         #region ILoggerService Members
 
         /// <summary>

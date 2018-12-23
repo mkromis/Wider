@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prism.Ioc;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -15,8 +16,7 @@ namespace WiderClipboard.ViewModels
     {
         public ImageSource ImageSource { get; set; }
 
-        public BitmapViewModel(IWorkspace workspace, ICommandManager commandManager, ILoggerService logger, IMenuService menuService) :
-            base(workspace, commandManager, logger, menuService)
+        public BitmapViewModel(IContainerExtension container) : base (container)
         {
             Model = new EmptyModel();
             View = new BitmapView();

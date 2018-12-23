@@ -52,17 +52,17 @@ namespace Wider.Core
         /// <summary>
         /// The container used in the application
         /// </summary>
-        private IContainerExtension _container;
+        private readonly IContainerExtension _container;
 
         /// <summary>
         /// The constructor of the CoreModule
         /// </summary>
         /// <param name="container">The injected container used in the application</param>
         /// <param name="eventAggregator">The injected event aggregator</param>
-        public CoreModule(IContainerExtension container, IEventAggregator eventAggregator)
+        public CoreModule(IContainerExtension container)
         {
             _container = container;
-            EventAggregator = eventAggregator;
+            EventAggregator = container.Resolve<IEventAggregator>();
         }
 
         /// <summary>

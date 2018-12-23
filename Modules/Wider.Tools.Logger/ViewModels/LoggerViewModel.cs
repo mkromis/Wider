@@ -24,11 +24,9 @@ namespace Wider.Tools.Logger.ViewModels
         private readonly IEventAggregator _aggregator;
         private readonly LoggerModel _model;
         private readonly LoggerView _view;
-        private readonly IWorkspace _workspace;
 
-        public LoggerViewModel(IWorkspace workspace, IEventAggregator eventAggregator)
+        public LoggerViewModel(IEventAggregator eventAggregator)
         {
-            _workspace = workspace;
             Name = "Logger";
             Title = "Logger";
             ContentId = "Logger";

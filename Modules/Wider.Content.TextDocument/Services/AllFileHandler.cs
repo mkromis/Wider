@@ -46,7 +46,7 @@ namespace Wider.Content.Services
         /// <summary>
         /// The save file dialog
         /// </summary>
-        private SaveFileDialog _dialog;
+        private readonly SaveFileDialog _dialog;
 
         /// <summary>
         /// Constructor of AllFileHandler - all parameters are injected

@@ -78,10 +78,10 @@ namespace Wider.Core.Services
         /// </summary>
         /// <param name="container">The injected container.</param>
         /// <param name="eventAggregator">The event aggregator.</param>
-        protected AbstractWorkspace(IContainerExtension container, IEventAggregator eventAggregator)
+        protected AbstractWorkspace(IContainerExtension container)
         {
             _container = container;
-            _eventAggregator = eventAggregator;
+            _eventAggregator = _container.Resolve<IEventAggregator>();
             _docs = new ObservableCollection<ContentViewModel>();
             _docs.CollectionChanged += Docs_CollectionChanged;
             _tools = new ObservableCollection<ToolViewModel>();
