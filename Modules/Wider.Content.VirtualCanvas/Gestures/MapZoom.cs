@@ -386,13 +386,6 @@ namespace Wider.Content.VirtualCanvas.Gestures
         }
 
         /// <summary>
-        /// Helper method to return the center of the given rectangle.
-        /// </summary>
-        /// <param name="r">The rectangle</param>
-        /// <returns>The center of that rectangle</returns>
-        static Point Center(Rect r) => new Point(r.X + (r.Width / 2), r.Y + (r.Height / 2));
-
-        /// <summary>
         /// Animate a zoom out and translate scroll so that the given rectangle is entirely visible.
         /// </summary>
         /// <param name="r">Given rectangle is in "target" coordinates.</param>

@@ -27,20 +27,17 @@ namespace WiderRibbonDemo.ViewModels
     /// </summary>
     public class VirtualCanvasViewModel : Wider.Content.VirtualCanvas.ViewModels.VirtualCanvasViewModel
     {
-        private Boolean _showGridLines;
-        private readonly Boolean _animateStatus = true;
+        //private readonly Boolean _animateStatus = true;
+        //private readonly Int32 _totalVisuals = 0;
 
         private readonly Double _tileWidth = 50;
         private readonly Double _tileHeight = 30;
         private readonly Double _tileMargin = 10;
-        private readonly Int32 _totalVisuals = 0;
         private Int32 rows = 100;
         private Int32 cols = 100;
-
+        private Boolean _showGridLines;
         private readonly Polyline _gridLines = new Polyline();
-
-        private Boolean _showQuadTree = false;
-        private IStatusbarService _statusbarService;
+        private readonly IStatusbarService _statusbarService;
 
         public Boolean ShowContextRibbon => true;
 
@@ -199,13 +196,14 @@ namespace WiderRibbonDemo.ViewModels
             Graph.Backdrop.BorderThickness = new Thickness(t);
         }
 
+#warning fix status
+#if false
         private readonly Int32 lastTick = Environment.TickCount;
         private readonly Int32 addedPerSecond = 0;
         private readonly Int32 removedPerSecond = 0;
 
         void OnVisualsChanged(Object sender, VisualChangeEventArgs e)
         {
-#warning fix status
             //if (_animateStatus)
             //{
             //    StatusText.Text = string.Format(CultureInfo.InvariantCulture, "{0} live visuals of {1} total", grid.LiveVisualCount, _totalVisuals);
@@ -251,6 +249,7 @@ namespace WiderRibbonDemo.ViewModels
             //Destroyed.Width = 0;
             //DestroyedLabel.Text = "";
         }
+#endif
 
         public Boolean ShowGridLines
         {
