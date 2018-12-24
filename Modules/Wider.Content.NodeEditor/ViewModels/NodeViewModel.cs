@@ -10,16 +10,41 @@ namespace Wider.Content.NodeEditor.ViewModels
 {
     public class NodeViewModel : BindableBase, INode, IVirtualChild
     {
+        private Double _width = 255;
+        private Double _height = 128;
+
         public String Name { get; }
-        public Double X { get; }
-        public Double Y { get; }
+
+        public Rect Bounds => new Rect(X, Y, Width, Height);
+        public Double X { get; private set; }
+        public Double Y { get; private set; }
+        public Double Width
+        {
+            get => _width;
+            private set
+            {
+                if(SetProperty(ref _width, value))
+                {
+                    BoundsChanged?.Invoke(this, null);
+                }
+            }
+        }
+        public Double Height
+        {
+            get => _height;
+            private set
+            {
+                SetProperty(ref _height, value);
+                BoundsChanged?.Invoke(this, null);
+            }
+        }
+
+
         public Boolean IsSelected { get; }
         public IEnumerable<IConnection> Connections { get; }
         public IEnumerable<IConnector> Connectors { get; }
-        public Rect Bounds => new Rect(X, Y, UI?.Width ?? 100, UI?.Height ?? 100);
-        public UIElement Visual { get; }
 
-        Views.Node UI = null;
+        public UIElement Visual { get; set; }
 
         public NodeViewModel()
         {
@@ -32,21 +57,17 @@ namespace Wider.Content.NodeEditor.ViewModels
 
         public UIElement CreateVisual(VirtualCanvas.Controls.VirtualCanvas parent)
         {
-            if (UI == null)
+            if (Visual == null)
             {
-                UI = new Views.Node
+                Views.Node ui = new Views.Node
                 {
                     DataContext = this
                 };
-
-                BoundsChanged?.Invoke(this, null);
+                Visual = ui;
             }
-            return UI;
+            return Visual;
         }
 
-        public void DisposeVisual()
-        {
-            UI = null;
-        }
+        public void DisposeVisual() => Visual = null;
     }
 }

@@ -16,7 +16,7 @@ namespace WiderRibbonDemo.Models
     {
         // Handles data context for ribbon.
         private VirtualCanvasViewModel _canvasViewModel;
-
+        private NodeEditorViewModel _nodeEditorViewModel;
 
         /// <summary>
         /// This is needed for ribbon control
@@ -25,6 +25,11 @@ namespace WiderRibbonDemo.Models
         {
             get => _canvasViewModel;
             set => SetProperty(ref _canvasViewModel, value);
+        }
+
+        public NodeEditorViewModel NodeEditorViewModel {
+            get => _nodeEditorViewModel;
+            private set => SetProperty(ref _nodeEditorViewModel, value);
         }
 
         public ICommand OpenCanvasCommand => new DelegateCommand(() =>
@@ -55,9 +60,7 @@ namespace WiderRibbonDemo.Models
             ActiveDocument = NodeEditorViewModel;
         });
 
-        public NodeEditorViewModel NodeEditorViewModel { get; private set; }
-
-        public Workspace(IContainerExtension container) : base(container) => 
+        public Workspace(IContainerExtension container) : base(container) =>
             _eventAggregator.GetEvent<ActiveContentChangedEvent>().Subscribe(ActiveDocumentChanged);
 
         private void ActiveDocumentChanged(ContentViewModel obj)

@@ -6,6 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     Background="Red"
-    Width="100" Height="100">
+    Width="{Binding Width}" Height="{Binding Height}">
     <Grid/>
 </UserControl>

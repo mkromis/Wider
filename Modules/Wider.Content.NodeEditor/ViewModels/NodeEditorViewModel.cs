@@ -23,7 +23,7 @@ namespace Wider.Content.NodeEditor.ViewModels
 
         public NodeEditorViewModel(IContainerExtension container) : base(container)
         {
-            var node = new Views.NodeEditor();
+            Views.NodeEditor node = new Views.NodeEditor();
             Graph = node.GetGraph();
             View = node;
 
@@ -35,8 +35,6 @@ namespace Wider.Content.NodeEditor.ViewModels
             {
                 ZoomSelection = true
             };
-
-            Graph.AddVirtualChild(new NodeViewModel());
         }
     }
 }

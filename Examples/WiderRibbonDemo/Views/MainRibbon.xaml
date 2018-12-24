@@ -31,6 +31,7 @@
         <fluent:Ribbon.ContextualGroups>
             <!-- This will give our context menu a green look -->
             <fluent:RibbonContextualTabGroup x:Name="canvasGroup" Header="Virtual Canvas" Visibility="Visible" Background="Green" BorderBrush="Green" />
+            <fluent:RibbonContextualTabGroup x:Name="nodeEditorGroup" Header="Node Editor" Visibility="Visible" Background="Blue" BorderBrush="Green" />
         </fluent:Ribbon.ContextualGroups>
         
         <fluent:RibbonTabItem Header="Samples">
@@ -128,6 +129,22 @@
                     zoom in and out around the mouse position.<LineBreak/>
                 </TextBlock>
                 <fluent:Button Header="User Interface" Command="{Binding OnHelpCommand}" LargeIcon="{StaticResource appbar_question}"/>
+            </fluent:RibbonGroupBox>
+        </fluent:RibbonTabItem>
+        <fluent:RibbonTabItem 
+            Header="Nodes" Group="{Binding Source={x:Reference nodeEditorGroup}}" DataContext="{Binding NodeEditorViewModel}">
+            <fluent:RibbonTabItem.Style>
+                <Style TargetType="fluent:RibbonTabItem">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ShowContextRibbon}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </fluent:RibbonTabItem.Style>
+            <fluent:RibbonGroupBox Header="Test">
+                <fluent:Button Header="Add Node" Command="{Binding NewNode}" />
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
     </fluent:Ribbon>

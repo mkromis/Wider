@@ -653,12 +653,8 @@ namespace Wider.Content.VirtualCanvas.Controls
                 }
             }
 
-            #warning Causing an error with parent existing. Can do better than a catch?
-            try
-            {
-                c.Insert(max, e);
-            }
-            catch { }
+            // If this throws check your VirtualChildren is filling Visual property properly
+            c.Insert(max, e);
         }
 
 
