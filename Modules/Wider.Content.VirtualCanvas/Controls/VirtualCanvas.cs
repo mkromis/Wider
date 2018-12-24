@@ -653,8 +653,12 @@ namespace Wider.Content.VirtualCanvas.Controls
                 }
             }
 
-            c.Insert(max, e);
-
+            #warning Causing an error with parent existing. Can do better than a catch?
+            try
+            {
+                c.Insert(max, e);
+            }
+            catch { }
         }
 
 

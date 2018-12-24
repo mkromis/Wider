@@ -38,10 +38,15 @@ namespace WiderRibbonDemo.ViewModels
         private Int32 cols = 100;
         private Boolean _showGridLines;
         private Boolean _showQuadTree;
+        private Boolean _showContextRibbon = true;
         private readonly Polyline _gridLines = new Polyline();
         private readonly IStatusbarService _statusbarService;
 
-        public Boolean ShowContextRibbon => true;
+        public Boolean ShowContextRibbon
+        {
+            get => _showContextRibbon;
+            set => SetProperty(ref _showContextRibbon, value);
+        }
 
         public ICommand OnHelpCommand => new DelegateCommand(() =>
         {

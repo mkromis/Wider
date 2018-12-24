@@ -11,7 +11,7 @@ using Wider.Core.Services;
 
 namespace Wider.Content.NodeEditor.ViewModels
 {
-    public class NodeEditorViewModel : ContentViewModel
+    public class NodeEditorViewModel : ContentViewModel, INodeEditor
     {
         public MapZoom Zoom { get; private set; }
         public Pan Pan { get; private set; }
@@ -19,6 +19,7 @@ namespace Wider.Content.NodeEditor.ViewModels
         public AutoScroll AutoScroll { get; private set; }
 
         public VirtualCanvas.Controls.VirtualCanvas Graph { get; set; }
+        public IEnumerable<INode> Nodes { get; }
 
         public NodeEditorViewModel(IContainerExtension container) : base(container)
         {
@@ -34,6 +35,8 @@ namespace Wider.Content.NodeEditor.ViewModels
             {
                 ZoomSelection = true
             };
+
+            Graph.AddVirtualChild(new NodeViewModel());
         }
     }
 }

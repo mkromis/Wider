@@ -62,15 +62,18 @@ namespace WiderRibbonDemo.Models
 
         private void ActiveDocumentChanged(ContentViewModel obj)
         {
+            // reset defaults
+            if (CanvasViewModel != null) { CanvasViewModel.ShowContextRibbon = false; }
 
-            //switch (obj)
-            //{
-            //    case VirtualCanvasViewModel canvas:
-            //        CanvasVisibility = Visibility.Visible;
-            //        break;
-            //    default:
-            //        break;
-            //}
+            // enable on required items
+            switch (obj)
+            {
+                case VirtualCanvasViewModel canvas:
+                    canvas.ShowContextRibbon = true;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
