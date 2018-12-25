@@ -48,8 +48,8 @@ namespace Wider.Content.NodeEditor.ViewModels
 
         public NodeViewModel()
         {
-            X = 100;
-            Y = 100;
+            X = new Random().NextDouble() * 1000;
+            Y = new Random().NextDouble() * 1000;
             Name = "Test";
         }
 
