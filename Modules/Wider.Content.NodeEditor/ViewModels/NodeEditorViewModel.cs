@@ -29,7 +29,7 @@ namespace Wider.Content.NodeEditor.ViewModels
 
             Canvas target = Graph.ContentCanvas;
             Zoom = new MapZoom(target);
-            Pan = new Pan(target, Zoom);
+            Pan = new Pan(target, Zoom, false);
             AutoScroll = new AutoScroll(target, Zoom);
             RectZoom = new RectangleSelectionGesture(target, Zoom, ModifierKeys.Control)
             {

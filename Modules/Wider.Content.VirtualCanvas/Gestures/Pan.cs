@@ -33,7 +33,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         /// <param name="target">The target to be panned, must live inside a container Panel</param>
         /// <param name="zoom"></param>
-        public Pan(FrameworkElement target, MapZoom zoom) {
+        public Pan(FrameworkElement target, MapZoom zoom, Boolean useLeftDrag = true) {
             _target = target;
             _container = target.Parent as Panel;
             if (_container == null) {
@@ -41,8 +41,16 @@ namespace Wider.Content.VirtualCanvas.Gestures
                 throw new ArgumentException("Target object must live in a Panel");
             }
             _zoom = zoom;
-            _container.MouseLeftButtonDown += new MouseButtonEventHandler(OnMouseLeftButtonDown);
-            _container.MouseLeftButtonUp += new MouseButtonEventHandler(OnMouseLeftButtonUp);
+            if (useLeftDrag)
+            {
+                _container.MouseLeftButtonDown += new MouseButtonEventHandler(OnMouseButtonDown);
+                _container.MouseLeftButtonUp += new MouseButtonEventHandler(OnMouseButtonUp);
+            }
+            else
+            {
+                _container.MouseRightButtonDown += new MouseButtonEventHandler(OnMouseButtonDown);
+                _container.MouseRightButtonUp += new MouseButtonEventHandler(OnMouseButtonUp);
+            }
             _container.MouseMove += new MouseEventHandler(OnMouseMove);
         }
 
@@ -52,7 +60,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         /// <param name="sender">Container</param>
         /// <param name="e">Mouse information</param>
-        void OnMouseLeftButtonDown(Object sender, MouseButtonEventArgs e) {
+        void OnMouseButtonDown(Object sender, MouseButtonEventArgs e) {
 
             ModifierKeys mask = Keyboard.Modifiers & _mods;
             if (!e.Handled && mask == _mods && mask == Keyboard.Modifiers)
@@ -88,7 +96,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void OnMouseLeftButtonUp(Object sender, MouseButtonEventArgs e) {
+        void OnMouseButtonUp(Object sender, MouseButtonEventArgs e) {
 
             if (_captured) {
                 Mouse.Capture(_target, CaptureMode.None);
