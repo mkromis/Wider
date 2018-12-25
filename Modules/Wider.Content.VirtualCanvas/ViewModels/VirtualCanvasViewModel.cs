@@ -58,6 +58,8 @@ namespace Wider.Content.VirtualCanvas.ViewModels
                 ZoomSelection = true
             };
 
+            Graph.Background = SystemColors.ControlBrush;
+            Graph.ContentCanvas.Background = Brushes.White;
         }
     }
 }

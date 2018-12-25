@@ -140,9 +140,6 @@ namespace WiderRibbonDemo.ViewModels
             Graph.Scale.Changed += new EventHandler(OnScaleChanged);
             Graph.Translate.Changed += new EventHandler(OnScaleChanged);
 
-            Graph.Background = new SolidColorBrush(Color.FromRgb(0xd0, 0xd0, 0xd0));
-            Graph.ContentCanvas.Background = Brushes.White;
-
             AllocateNodes();
             _statusbarService.Text = "Ready";
         }
