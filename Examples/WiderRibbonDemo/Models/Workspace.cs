@@ -34,10 +34,9 @@ namespace WiderRibbonDemo.Models
 
         public ICommand OpenCanvasCommand => new DelegateCommand(() =>
         {
-            IEnumerable<ContentViewModel> docs = Documents.Where(x => x is VirtualCanvasViewModel);
-            if (docs.Count() > 0)
+            if (CanvasViewModel != null)
             {
-                ActiveDocument = docs.First();
+                ActiveDocument = CanvasViewModel;
                 return;
             }
 
@@ -49,10 +48,10 @@ namespace WiderRibbonDemo.Models
 
         public ICommand OpenNodeEditor => new DelegateCommand(() =>
         {
-            IEnumerable<ContentViewModel> docs = Documents.Where(x => x is NodeEditorViewModel);
-            if (docs.Count() > 0)
+            if (NodeEditorViewModel != null)
             {
-                ActiveDocument = docs.First();
+                ActiveDocument = NodeEditorViewModel;
+                return;
             }
 
             NodeEditorViewModel = _container.Resolve<NodeEditorViewModel>();
