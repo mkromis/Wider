@@ -12,18 +12,40 @@ namespace Wider.Content.NodeEditor.ViewModels
     {
         private Double _width = 255;
         private Double _height = 128;
+        private Double _x;
+        private Double _y;
 
         public String Name { get; }
 
         public Rect Bounds => new Rect(X, Y, Width, Height);
-        public Double X { get; private set; }
-        public Double Y { get; private set; }
+        public Double X
+        {
+            get => _x;
+            set
+            {
+                if (SetProperty(ref _x, value))
+                {
+                    BoundsChanged?.Invoke(this, null);
+                }
+            }
+        }
+        public Double Y
+        {
+            get => _y;
+            set
+            {
+                if (SetProperty(ref _y, value))
+                {
+                    BoundsChanged?.Invoke(this, null);
+                }
+            }
+        }
         public Double Width
         {
             get => _width;
             private set
             {
-                if(SetProperty(ref _width, value))
+                if (SetProperty(ref _width, value))
                 {
                     BoundsChanged?.Invoke(this, null);
                 }

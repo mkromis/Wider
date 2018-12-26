@@ -19,6 +19,13 @@ namespace Wider.Content.NodeEditor.ViewModels
         public AutoScroll AutoScroll { get; private set; }
 
         public VirtualCanvas.Controls.VirtualCanvas Graph { get; set; }
+
+        public ICommand NewNodeCommand => new DelegateCommand(() =>
+        {
+            System.Windows.Point point = Mouse.GetPosition(Graph.ContentCanvas);
+            Graph.AddVirtualChild(new NodeViewModel { X = point.X, Y = point.Y });
+        });
+
         public IEnumerable<INode> Nodes { get; }
 
         public NodeEditorViewModel(IContainerExtension container) : base(container)

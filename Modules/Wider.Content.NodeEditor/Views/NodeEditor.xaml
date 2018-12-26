@@ -8,6 +8,12 @@
         HorizontalScrollBarVisibility="Auto" 
         VerticalScrollBarVisibility="Auto" 
         CanContentScroll="True">
-        <vc:VirtualCanvas x:Name="Graph" />
+        <vc:VirtualCanvas x:Name="Graph">
+            <vc:VirtualCanvas.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="New Node" Command="{Binding NewNodeCommand}"/>
+                </ContextMenu>
+            </vc:VirtualCanvas.ContextMenu>
+        </vc:VirtualCanvas>
     </ScrollViewer>
 </UserControl>
