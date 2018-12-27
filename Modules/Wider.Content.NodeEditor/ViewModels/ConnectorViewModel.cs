@@ -12,6 +12,9 @@ namespace Wider.Content.NodeEditor.ViewModels
         public INode Parent { get; }
         public IConnection Connection { get; }
         public Point Hotspot { get; }
+
+        public event EventHandler HotspotUpdated;
+
         public ConnectorViewModel()
         {
 

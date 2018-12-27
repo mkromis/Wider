@@ -4,6 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:vc="clr-namespace:Wider.Content.VirtualCanvas.Controls;assembly=Wider.Content.VirtualCanvas"
     >
+    <UserControl.InputBindings>
+        <KeyBinding Key="Delete" Command="{Binding DeleteSelectedNodesCommand}" />
+    </UserControl.InputBindings>
     <ScrollViewer 
         HorizontalScrollBarVisibility="Auto" 
         VerticalScrollBarVisibility="Auto" 

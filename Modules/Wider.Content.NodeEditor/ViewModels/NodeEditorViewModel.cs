@@ -20,13 +20,22 @@ namespace Wider.Content.NodeEditor.ViewModels
 
         public VirtualCanvas.Controls.VirtualCanvas Graph { get; set; }
 
+        public ICommand DeleteSelectedNodesCommand => new DelegateCommand(() =>
+        {
+            foreach (INode item in Nodes.Where(x => x.IsSelected))
+            {
+                DeleteNode(item);
+            }
+        });
+
         public ICommand NewNodeCommand => new DelegateCommand(() =>
         {
             System.Windows.Point point = Mouse.GetPosition(Graph.ContentCanvas);
             Graph.AddVirtualChild(new NodeViewModel { X = point.X, Y = point.Y });
         });
 
-        public IEnumerable<INode> Nodes { get; }
+        public List<INode> Nodes { get; }
+        public List<IConnection> Connections { get; }
 
         public NodeEditorViewModel(IContainerExtension container) : base(container)
         {
@@ -42,6 +51,13 @@ namespace Wider.Content.NodeEditor.ViewModels
             {
                 ZoomSelection = true
             };
+        }
+        private void DeleteNode(INode node)
+        {
+            foreach (IConnection item in node.Connections)
+            {
+                Connections.Remove(item);
+            }
         }
     }
 }

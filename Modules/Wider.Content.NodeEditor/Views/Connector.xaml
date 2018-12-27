@@ -1,9 +1,19 @@
-﻿<UserControl x:Class="Wider.Content.NodeEditor.Views.Connector"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:prism="http://prismlibrary.com/"             
-             prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid>
-            
-    </Grid>
+﻿<UserControl 
+    x:Class="Wider.Content.NodeEditor.Views.Connector"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Width="12" Height="12">
+    <Rectangle
+        Stroke="Black"
+        Fill="White"
+        Cursor="Hand"
+        RadiusX="1"
+        RadiusY="1"
+        >
+        <!--<Rectangle.Style>
+            <Style>
+                <Setter Property="DataContext.Hotspot" Value="{Binding Hotspot, Mode=OneWayToSource}" />
+            </Style>
+        </Rectangle.Style>-->
+    </Rectangle>
 </UserControl>

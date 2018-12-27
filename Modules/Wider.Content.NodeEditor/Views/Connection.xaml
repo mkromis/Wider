@@ -3,7 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid>
-            
-    </Grid>
+    <Line
+        Stroke="Black"
+        X1="{Binding SourceConnecgtorHotspot.X}"
+        Y1="{Binding SourceConnecgtorHotspot.Y}"
+        X2="{Binding DestConnectorHotspot.X}"
+        Y2="{Binding DestConnectorHotspot.Y}"
+        IsHitTestVisible="False"
+        />
 </UserControl>

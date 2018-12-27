@@ -10,14 +10,19 @@ namespace Wider.Content.NodeEditor.ViewModels
 {
     public class NodeViewModel : BindableBase, INode, IVirtualChild
     {
-        private Double _width = 255;
-        private Double _height = 128;
+        private Double _width = 120;
+        private Double _height = 60;
         private Double _x;
         private Double _y;
 
         public String Name { get; }
 
+        #region Bounds Support
+        // Needed for virtual canvas support
         public Rect Bounds => new Rect(X, Y, Width, Height);
+        public event EventHandler BoundsChanged;
+
+        // following needed for easy bounds adjustments
         public Double X
         {
             get => _x;
@@ -60,22 +65,26 @@ namespace Wider.Content.NodeEditor.ViewModels
                 BoundsChanged?.Invoke(this, null);
             }
         }
-
+        #endregion
 
         public Boolean IsSelected { get; }
-        public IEnumerable<IConnection> Connections { get; }
-        public IEnumerable<IConnector> Connectors { get; }
+        public List<IConnection> Connections { get; }
+        public List<IConnector> Connectors { get; }
 
         public UIElement Visual { get; set; }
 
         public NodeViewModel()
         {
-            X = new Random().NextDouble() * 1000;
-            Y = new Random().NextDouble() * 1000;
             Name = "Test";
+            Connectors = new List<IConnector>
+            {
+                new ConnectorViewModel(),
+                new ConnectorViewModel(),
+                new ConnectorViewModel(),
+                new ConnectorViewModel(),
+            };
         }
 
-        public event EventHandler BoundsChanged;
 
         public UIElement CreateVisual(VirtualCanvas.Controls.VirtualCanvas parent)
         {

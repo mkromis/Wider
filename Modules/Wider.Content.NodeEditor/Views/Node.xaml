@@ -5,7 +5,39 @@
     xmlns:prism="http://prismlibrary.com/"             
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    Background="Red"
-    Width="{Binding Width}" Height="{Binding Height}">
-    <Grid/>
+    xmlns:views="clr-namespace:Wider.Content.NodeEditor.Views"
+    >
+    <Grid Width="120" Height="60">
+        <!-- This rectangle is the main visual for the node. -->
+        <Rectangle
+            Stroke="Black"
+            Fill="White"
+            RadiusX="4"
+            RadiusY="4"
+            />
+        <Grid Margin="-8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*" MinWidth="10" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*" MinHeight="10" />
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Column="1"
+                Grid.Row="1"
+                Text="{Binding Name}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                />
+            <!-- ...Define the nodes four connectors, one on each edge of the node -->
+            <views:Connector Grid.Row="0" Grid.Column="1" DataContext="{Binding Connectors[0]}" />
+            <views:Connector Grid.Row="1" Grid.Column="0" DataContext="{Binding Connectors[1]}" />
+            <views:Connector Grid.Row="1" Grid.Column="2" DataContext="{Binding Connectors[2]}" />
+            <views:Connector Grid.Row="2" Grid.Column="1" DataContext="{Binding Connectors[3]}" />
+        </Grid>
+    </Grid>
 </UserControl>

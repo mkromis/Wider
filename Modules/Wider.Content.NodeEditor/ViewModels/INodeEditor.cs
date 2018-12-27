@@ -4,6 +4,7 @@ namespace Wider.Content.NodeEditor.ViewModels
 {
     public interface INodeEditor 
     {
-        IEnumerable<INode> Nodes { get; }
+        List<INode> Nodes { get; }
+        List<IConnection> Connections { get; }
     }
 }

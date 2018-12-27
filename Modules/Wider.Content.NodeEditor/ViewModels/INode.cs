@@ -9,7 +9,7 @@ namespace Wider.Content.NodeEditor.ViewModels
         Double X { get; }
         Double Y { get; }
         Boolean IsSelected { get; }
-        IEnumerable<IConnection> Connections { get; }
-        IEnumerable<IConnector> Connectors { get; }
+        List<IConnection> Connections { get; }
+        List<IConnector> Connectors { get; }
     }
 }
