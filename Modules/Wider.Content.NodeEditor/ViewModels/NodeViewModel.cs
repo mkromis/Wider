@@ -75,7 +75,7 @@ namespace Wider.Content.NodeEditor.ViewModels
 
         public NodeViewModel()
         {
-            Name = "Test";
+            Name = "New Node!";
             Connectors = new List<IConnector>
             {
                 new ConnectorViewModel(),
