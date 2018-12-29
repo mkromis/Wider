@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,6 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -50,6 +52,22 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ConnectorItem.cs" />
+    <Compile Include="Controls\NetworkView.cs" />
+    <Compile Include="Controls\NetworkView_ConnectionDragging.cs" />
+    <Compile Include="Controls\NetworkView_DragSelection.cs" />
+    <Compile Include="Controls\NetworkView_NodeDragging.cs" />
+    <Compile Include="Controls\NodeItem.cs" />
+    <Compile Include="Controls\NodeItemsControl.cs" />
+    <Compile Include="Events\CollectionItemsChangedEventArgs.cs" />
+    <Compile Include="Events\CollectionItemsEventArgs.cs" />
+    <Compile Include="Events\ConnectionDragEvents.cs" />
+    <Compile Include="Events\ConnectorItemDragEvents.cs" />
+    <Compile Include="Events\NodeDragEvents.cs" />
+    <Compile Include="Helpers\AdornerPlacement.cs" />
+    <Compile Include="Helpers\FrameworkElementAdorner.cs" />
+    <Compile Include="Helpers\ImpObservableCollection.cs" />
+    <Compile Include="Helpers\WpfUtils.cs" />
     <Compile Include="NodeEditorModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -95,6 +113,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Connection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
