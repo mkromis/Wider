@@ -11,25 +11,11 @@ namespace Wider.Content.NodeEditor.Events
     /// </summary>
     public class CollectionItemsEventArgs : EventArgs
     {
-        /// <summary>
-        /// The list of items that were cleared from the list.
-        /// </summary>
-        private ICollection items = null;
-
-        public CollectionItemsEventArgs(ICollection items)
-        {
-            this.items = items;
-        }
+        public CollectionItemsEventArgs(ICollection items) => Items = items;
 
         /// <summary>
         /// The list of items that were cleared from the list.
         /// </summary>
-        public ICollection Items
-        {
-            get
-            {
-                return items;
-            }
-        }
+        public ICollection Items { get; } = null;
     }
 }

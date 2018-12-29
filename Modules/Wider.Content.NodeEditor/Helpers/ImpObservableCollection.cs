@@ -42,7 +42,7 @@ namespace Wider.Content.NodeEditor.Helper
         /// <summary>
         /// Inner list.
         /// </summary>
-        private List<T> inner = new List<T>();
+        private readonly List<T> inner = new List<T>();
 
         /// <summary>
         /// Set to 'true' when in a collection changed event.

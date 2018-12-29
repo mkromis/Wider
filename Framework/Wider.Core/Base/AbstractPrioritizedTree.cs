@@ -80,7 +80,7 @@ namespace Wider.Core
             {
                 return items.ElementAt(0);
             }
-            return default(T);
+            return default;
         }
 
         /// <summary>

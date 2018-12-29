@@ -7,9 +7,6 @@ namespace Wider.Content.NodeEditor.Views
     /// </summary>
     public partial class Connection : UserControl
     {
-        public Connection()
-        {
-            InitializeComponent();
-        }
+        public Connection() => InitializeComponent();
     }
 }
