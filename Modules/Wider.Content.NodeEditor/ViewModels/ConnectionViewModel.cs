@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Windows;
 using System.Windows.Media;
 
-namespace NetworkModel
+namespace Wider.Content.NodeEditor.ViewModels
 {
     /// <summary>
     /// Defines a connection between two connectors (aka connection points) of two nodes.
     /// </summary>
-    public sealed class ConnectionViewModel : AbstractModelBase
+    public sealed class ConnectionViewModel : BindableBase
     {
         #region Internal Data Members
 
@@ -62,7 +63,7 @@ namespace NetworkModel
                     SourceConnectorHotspot = sourceConnector.Hotspot;
                 }
 
-                OnPropertyChanged("SourceConnector");
+                RaisePropertyChanged("SourceConnector");
                 OnConnectionChanged();
             }
         }
@@ -95,7 +96,7 @@ namespace NetworkModel
                     DestConnectorHotspot = destConnector.Hotspot;
                 }
 
-                OnPropertyChanged("DestConnector");
+                RaisePropertyChanged("DestConnector");
                 OnConnectionChanged();
             }
         }
@@ -112,7 +113,7 @@ namespace NetworkModel
 
                 ComputeConnectionPoints();
 
-                OnPropertyChanged("SourceConnectorHotspot");
+                RaisePropertyChanged("SourceConnectorHotspot");
             }
         }
 
@@ -125,7 +126,7 @@ namespace NetworkModel
 
                 ComputeConnectionPoints();
 
-                OnPropertyChanged("DestConnectorHotspot");
+                RaisePropertyChanged("DestConnectorHotspot");
             }
         }
 
@@ -139,7 +140,7 @@ namespace NetworkModel
             {
                 points = value;
 
-                OnPropertyChanged("Points");
+                RaisePropertyChanged("Points");
             }
         }
 

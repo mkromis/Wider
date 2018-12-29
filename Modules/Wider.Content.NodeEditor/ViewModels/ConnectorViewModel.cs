@@ -1,13 +1,15 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Windows;
-using Utils;
+using Wider.Content.NodeEditor.Events;
+using Wider.Content.NodeEditor.Helper;
 
-namespace NetworkModel
+namespace Wider.Content.NodeEditor.ViewModels
 {
     /// <summary>
     /// Defines a connector (aka connection point) that can be attached to a node and is used to connect the node to another node.
     /// </summary>
-    public sealed class ConnectorViewModel : AbstractModelBase
+    public sealed class ConnectorViewModel : BindableBase
     {
         #region Internal Data Members
 
@@ -144,8 +146,8 @@ namespace NetworkModel
                 // The first connection has been added, notify the data-binding system that
                 // 'IsConnected' should be re-evaluated.
                 //
-                OnPropertyChanged("IsConnectionAttached");
-                OnPropertyChanged("IsConnected");
+                RaisePropertyChanged("IsConnectionAttached");
+                RaisePropertyChanged("IsConnected");
             }
         }
 
@@ -165,8 +167,8 @@ namespace NetworkModel
                 // No longer connected to anything, notify the data-binding system that
                 // 'IsConnected' should be re-evaluated.
                 //
-                OnPropertyChanged("IsConnectionAttached");
-                OnPropertyChanged("IsConnected");
+                RaisePropertyChanged("IsConnectionAttached");
+                RaisePropertyChanged("IsConnected");
             }
         }
 
@@ -175,8 +177,8 @@ namespace NetworkModel
         /// </summary>
         private void Connection_ConnectionChanged(Object sender, EventArgs e)
         {
-            OnPropertyChanged("IsConnectionAttached");
-            OnPropertyChanged("IsConnected");
+            RaisePropertyChanged("IsConnectionAttached");
+            RaisePropertyChanged("IsConnected");
         }
 
         /// <summary>
@@ -184,7 +186,7 @@ namespace NetworkModel
         /// </summary>
         private void OnHotspotUpdated()
         {
-            OnPropertyChanged("Hotspot");
+            RaisePropertyChanged("Hotspot");
 
             HotspotUpdated?.Invoke(this, EventArgs.Empty);
         }

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using Utils;
+using Wider.Content.NodeEditor.Helper;
+using Wider.Content.NodeEditor.ViewModels;
+using Wider.Content.NodeEditor.Events;
 
 namespace NetworkModel
 {

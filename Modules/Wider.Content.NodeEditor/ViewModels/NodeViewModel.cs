@@ -1,15 +1,17 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Windows;
-using Utils;
+using Wider.Content.NodeEditor.Events;
+using Wider.Content.NodeEditor.Helper;
 
-namespace NetworkModel
+namespace Wider.Content.NodeEditor.ViewModels
 {
     /// <summary>
     /// Defines a node in the view-model.
     /// Nodes are connected to other nodes through attached connectors (aka anchor/connection points).
     /// </summary>
-    public sealed class NodeViewModel : AbstractModelBase
+    public sealed class NodeViewModel : BindableBase
     {
         #region Private Data Members
 
@@ -73,17 +75,7 @@ namespace NetworkModel
         public String Name
         {
             get => name;
-            set
-            {
-                if (name == value)
-                {
-                    return;
-                }
-
-                name = value;
-
-                OnPropertyChanged("Name");
-            }
+            set => SetProperty(ref name, value);
         }
 
         /// <summary>
@@ -92,17 +84,7 @@ namespace NetworkModel
         public Double X
         {
             get => x;
-            set
-            {
-                if (x == value)
-                {
-                    return;
-                }
-
-                x = value;
-
-                OnPropertyChanged("X");
-            }
+            set => SetProperty(ref x, value);
         }
 
         /// <summary>
@@ -111,17 +93,7 @@ namespace NetworkModel
         public Double Y
         {
             get => y;
-            set
-            {
-                if (y == value)
-                {
-                    return;
-                }
-
-                y = value;
-
-                OnPropertyChanged("Y");
-            }
+            set => SetProperty(ref y, value);
         }
 
         /// <summary>
@@ -130,17 +102,7 @@ namespace NetworkModel
         public Int32 ZIndex
         {
             get => zIndex;
-            set
-            {
-                if (zIndex == value)
-                {
-                    return;
-                }
-
-                zIndex = value;
-
-                OnPropertyChanged("ZIndex");
-            }
+            set => SetProperty(ref zIndex, value);
         }
 
         /// <summary>
@@ -157,14 +119,10 @@ namespace NetworkModel
             get => size;
             set
             {
-                if (size == value)
+                if (SetProperty(ref size, value))
                 {
-                    return;
+                    SizeChanged?.Invoke(this, EventArgs.Empty);
                 }
-
-                size = value;
-
-                SizeChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -241,17 +199,7 @@ namespace NetworkModel
         public Boolean IsSelected
         {
             get => isSelected;
-            set
-            {
-                if (isSelected == value)
-                {
-                    return;
-                }
-
-                isSelected = value;
-
-                OnPropertyChanged("IsSelected");
-            }
+            set => SetProperty(ref isSelected, value);
         }
 
         #region Private Methods
