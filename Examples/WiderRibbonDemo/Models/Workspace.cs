@@ -47,18 +47,20 @@ namespace WiderRibbonDemo.Models
             ActiveDocument = CanvasViewModel;
         });
 
-        //public ICommand OpenNodeEditor => new DelegateCommand(() =>
-        //{
-        //    if (NodeEditorViewModel != null)
-        //    {
-        //        ActiveDocument = NodeEditorViewModel;
-        //        return;
-        //    }
+        public ICommand OpenNodeEditor => new DelegateCommand(() =>
+        {
+            var window = new Wider.Content.NodeEditor.Views.MainWindow();
+            window.Show();
+            //    if (NodeEditorViewModel != null)
+            //    {
+            //        ActiveDocument = NodeEditorViewModel;
+            //        return;
+            //    }
 
-        //    NodeEditorViewModel = _container.Resolve<NodeEditorViewModel>();
-        //    Documents.Add(NodeEditorViewModel);
-        //    ActiveDocument = NodeEditorViewModel;
-        //});
+            //    NodeEditorViewModel = _container.Resolve<NodeEditorViewModel>();
+            //    Documents.Add(NodeEditorViewModel);
+            //    ActiveDocument = NodeEditorViewModel;
+        });
 
         public Workspace(IContainerExtension container) : base(container) =>
             _eventAggregator.GetEvent<ActiveContentChangedEvent>().Subscribe(ActiveDocumentChanged);
