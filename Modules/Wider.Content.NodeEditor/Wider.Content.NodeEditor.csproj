@@ -83,25 +83,29 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ViewModels\ConnectionViewModel.cs" />
+    <Compile Include="ViewModels\ConnectorType.cs" />
     <Compile Include="ViewModels\ConnectorViewModel.cs" />
-    <Compile Include="ViewModels\IConnection.cs" />
-    <Compile Include="ViewModels\IConnector.cs" />
-    <Compile Include="ViewModels\INode.cs" />
-    <Compile Include="ViewModels\INodeEditor.cs" />
-    <Compile Include="ViewModels\NodeEditorViewModel.cs" />
+    <Compile Include="ViewModels\NetworkViewModel.cs" />
     <Compile Include="ViewModels\NodeViewModel.cs" />
-    <Compile Include="Views\Connection.xaml.cs">
-      <DependentUpon>Connection.xaml</DependentUpon>
+    <Compile Include="Views\App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Connector.xaml.cs">
-      <DependentUpon>Connector.xaml</DependentUpon>
+    <Compile Include="Views\ConnectionBadIndicator.cs" />
+    <Compile Include="Views\ConnectionOkIndicator.cs" />
+    <Compile Include="Views\CurvedArrow.cs" />
+    <Compile Include="Views\HelpTextWindow.xaml.cs">
+      <DependentUpon>HelpTextWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Node.xaml.cs">
-      <DependentUpon>Node.xaml</DependentUpon>
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NodeEditor.xaml.cs">
-      <DependentUpon>NodeEditor.xaml</DependentUpon>
+    <Compile Include="Views\MainWindowViewModel.cs" />
+    <Compile Include="Views\MainWindow_ZoomAndPan.cs" />
+    <Compile Include="Views\MouseHandlingMode.cs" />
+    <Compile Include="Views\OverviewWindow.xaml.cs">
+      <DependentUpon>OverviewWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ScaleToPercentConverter.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -111,27 +115,36 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Views\app.config" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Connection.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Views\App.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Connector.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Views\HelpText.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Node.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Views\HelpTextWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\NodeEditor.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OverviewWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SharedVisualTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
