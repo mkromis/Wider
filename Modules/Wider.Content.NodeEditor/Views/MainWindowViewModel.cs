@@ -1,15 +1,16 @@
 ﻿using NetworkModel;
+using Prism.Mvvm;
 using System;
 using System.Diagnostics;
 using System.Windows;
-using Utils;
+using Wider.Content.NodeEditor.ViewModels;
 
-namespace SampleCode
+namespace Wider.Content.NodeEditor.Views
 {
     /// <summary>
     /// The view-model for the main window.
     /// </summary>
-    public class MainWindowViewModel : AbstractModelBase
+    public class MainWindowViewModel : BindableBase
     {
         #region Internal Data Members
 
@@ -73,12 +74,7 @@ namespace SampleCode
         public NetworkViewModel Network
         {
             get => network;
-            set
-            {
-                network = value;
-
-                OnPropertyChanged("Network");
-            }
+            set => SetProperty(ref network, value);
         }
 
         ///
@@ -87,12 +83,7 @@ namespace SampleCode
         public Double ContentScale
         {
             get => contentScale;
-            set
-            {
-                contentScale = value;
-
-                OnPropertyChanged("ContentScale");
-            }
+            set => SetProperty(ref contentScale, value);
         }
 
         ///
@@ -101,12 +92,7 @@ namespace SampleCode
         public Double ContentOffsetX
         {
             get => contentOffsetX;
-            set
-            {
-                contentOffsetX = value;
-
-                OnPropertyChanged("ContentOffsetX");
-            }
+            set => SetProperty(ref contentOffsetX, value);
         }
 
         ///
@@ -115,12 +101,7 @@ namespace SampleCode
         public Double ContentOffsetY
         {
             get => contentOffsetY;
-            set
-            {
-                contentOffsetY = value;
-
-                OnPropertyChanged("ContentOffsetY");
-            }
+            set => SetProperty(ref contentOffsetY, value);
         }
 
         ///
@@ -129,12 +110,7 @@ namespace SampleCode
         public Double ContentWidth
         {
             get => contentWidth;
-            set
-            {
-                contentWidth = value;
-
-                OnPropertyChanged("ContentWidth");
-            }
+            set => SetProperty(ref contentWidth, value);
         }
 
         ///
@@ -143,12 +119,7 @@ namespace SampleCode
         public Double ContentHeight
         {
             get => contentHeight;
-            set
-            {
-                contentHeight = value;
-
-                OnPropertyChanged("ContentHeight");
-            }
+            set => SetProperty(ref contentHeight, value);
         }
 
         ///
@@ -159,12 +130,7 @@ namespace SampleCode
         public Double ContentViewportWidth
         {
             get => contentViewportWidth;
-            set
-            {
-                contentViewportWidth = value;
-
-                OnPropertyChanged("ContentViewportWidth");
-            }
+            set => SetProperty(ref contentViewportWidth, value);
         }
 
         ///
@@ -175,12 +141,7 @@ namespace SampleCode
         public Double ContentViewportHeight
         {
             get => contentViewportHeight;
-            set
-            {
-                contentViewportHeight = value;
-
-                OnPropertyChanged("ContentViewportHeight");
-            }
+            set => SetProperty(ref contentViewportHeight, value);
         }
 
         /// <summary>

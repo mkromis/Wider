@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
-namespace SampleCode
+namespace Wider.Content.NodeEditor.Views
 {
     /// <summary>
     /// Interaction logic for OverviewWindow.xaml

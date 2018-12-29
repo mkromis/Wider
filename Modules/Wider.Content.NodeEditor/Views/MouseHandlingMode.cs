@@ -1,4 +1,5 @@
-﻿namespace SampleCode
+﻿namespace Wider.Content.NodeEditor.Views
+
 {
     /// <summary>
     /// Defines the current state of the mouse handling logic.

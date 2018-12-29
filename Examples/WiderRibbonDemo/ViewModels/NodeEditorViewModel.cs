@@ -13,29 +13,30 @@ using WiderRibbonDemo.Models;
 
 namespace WiderRibbonDemo.ViewModels
 {
-    public class NodeEditorViewModel : Wider.Content.NodeEditor.ViewModels.NodeEditorViewModel
-    {
-        private Boolean _showContextRibbon = true;
+#warning fix view model
+    //public class NodeEditorViewModel : Wider.Content.NodeEditor.ViewModels.NodeEditorViewModel
+    //{
+    //    private Boolean _showContextRibbon = true;
 
-        public Boolean ShowContextRibbon
-        {
-            get => _showContextRibbon;
-            set => SetProperty(ref _showContextRibbon, value);
-        }
+    //    public Boolean ShowContextRibbon
+    //    {
+    //        get => _showContextRibbon;
+    //        set => SetProperty(ref _showContextRibbon, value);
+    //    }
 
-        public ICommand NewNode => new DelegateCommand(() =>
-        {
-            Graph.AddVirtualChild(new NodeViewModel());
-        });
+    //    public ICommand NewNode => new DelegateCommand(() =>
+    //    {
+    //        Graph.AddVirtualChild(new NodeViewModel());
+    //    });
 
-        public NodeEditorViewModel(IContainerExtension container) : base (container)
-        {
-            Model = new EmptyModel();
-            Title = "Node Editor";
+    //    public NodeEditorViewModel(IContainerExtension container) : base (container)
+    //    {
+    //        Model = new EmptyModel();
+    //        Title = "Node Editor";
 
-            Graph.Background = SystemColors.ControlBrush;
-            Graph.ContentCanvas.Background = Brushes.White;
-        }
-        
-    }
+    //        Graph.Background = SystemColors.ControlBrush;
+    //        Graph.ContentCanvas.Background = Brushes.White;
+    //    }
+
+    //}
 }

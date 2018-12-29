@@ -52,6 +52,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\AdornedControl.cs" />
+    <Compile Include="Events\AdornerEventArgs.cs" />
     <Compile Include="Controls\ConnectorItem.cs" />
     <Compile Include="Controls\NetworkView.cs" />
     <Compile Include="Controls\NetworkView_ConnectionDragging.cs" />
@@ -65,9 +67,12 @@
     <Compile Include="Events\ConnectorItemDragEvents.cs" />
     <Compile Include="Events\NodeDragEvents.cs" />
     <Compile Include="Helpers\AdornerPlacement.cs" />
+    <Compile Include="Helpers\AnimationHelper.cs" />
     <Compile Include="Helpers\FrameworkElementAdorner.cs" />
     <Compile Include="Helpers\ImpObservableCollection.cs" />
     <Compile Include="Helpers\WpfUtils.cs" />
+    <Compile Include="Helpers\ZoomAndPanControl.cs" />
+    <Compile Include="Helpers\ZoomAndPanControl_IScrollInfo.cs" />
     <Compile Include="NodeEditorModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -115,7 +120,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Views\app.config" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Themes\Generic.xaml">
@@ -135,8 +139,8 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Views\OverviewWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

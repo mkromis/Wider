@@ -4,9 +4,10 @@ using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ZoomAndPan;
+using Wider.Content.NodeEditor.Helper;
+using Wider.Content.NodeEditor.ViewModels;
 
-namespace SampleCode
+namespace Wider.Content.NodeEditor.Views
 {
     /// <summary>
     /// This is a partial implementation of MainWindow that just contains most of the zooming and panning functionality.

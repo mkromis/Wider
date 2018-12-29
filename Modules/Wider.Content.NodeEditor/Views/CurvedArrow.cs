@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace SampleCode
+namespace Wider.Content.NodeEditor.Views
 {
     /// <summary>
     /// Defines an arrow that has multiple points.

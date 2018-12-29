@@ -1,10 +1,10 @@
-﻿using NetworkModel;
-using NetworkUI;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using Wider.Content.NodeEditor.Events;
+using Wider.Content.NodeEditor.ViewModels;
 
-namespace SampleCode
+namespace Wider.Content.NodeEditor.Views
 {
     /// <summary>
     /// This is a Window that uses NetworkView to display a flow-chart.
