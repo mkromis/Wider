@@ -67,7 +67,7 @@ namespace Wider.Content.NodeEditor.ViewModels
         public NodeEditorViewModel(IContainerExtension container) : base(container)
         {
             View = new Views.NodeEditor();
-
+            Title = "Node Editor";
 
             // Add some test data to the view-model.
             PopulateWithTestData();
