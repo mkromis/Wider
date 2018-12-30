@@ -1,5 +1,5 @@
-﻿<Window 
-    x:Class="Wider.Content.NodeEditor.Views.MainWindow"
+﻿<UserControl 
+    x:Class="Wider.Content.NodeEditor.Views.NodeEditor"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:Wider.Content.NodeEditor.Views"
@@ -7,7 +7,6 @@
     xmlns:NetworkModel="clr-namespace:Wider.Content.NodeEditor.ViewModels"
     xmlns:ZoomAndPan="clr-namespace:Wider.Content.NodeEditor.Helper"
     xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
-    Title="Main Window" 
     x:Name="mainWindow"
     MinWidth="400"
     MinHeight="150"
@@ -16,31 +15,32 @@
 	Loaded="MainWindow_Loaded"
     FocusManager.FocusedElement="{Binding ElementName=networkControl}"
     >
-   
+    <!--Title="Main Window"-->
+
     <!-- 
     Including this in binding statements for diagnostics:
     diagnostics:PresentationTraceSources.TraceLevel=High
     -->
 
-    <Window.Resources>
+    <UserControl.Resources>
 
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>                
+            <ResourceDictionary.MergedDictionaries>
                 <!-- 
                 Merge in the resource dictionary that is shared between the main window and the overview window.
                 -->
                 <ResourceDictionary 
                     Source="SharedVisualTemplates.xaml"
                     />
-                
+
             </ResourceDictionary.MergedDictionaries>
 
             <!-- UI commands. -->
-            
+
             <RoutedUICommand x:Key="Commands.DeleteSelectedNodes" />
             <RoutedUICommand x:Key="Commands.CreateNode" />
             <RoutedUICommand x:Key="Commands.DeleteNode" />
-            <RoutedUICommand x:Key="Commands.DeleteConnection" />            
+            <RoutedUICommand x:Key="Commands.DeleteConnection" />
             <RoutedUICommand x:Key="Commands.ZoomOut" />
             <RoutedUICommand x:Key="Commands.ZoomIn" />
             <RoutedUICommand x:Key="Commands.JumpBackToPrevZoom" />
@@ -87,7 +87,7 @@
                         />
                 </Grid>
             </DataTemplate>
-                 
+
             <!-- 
             Define the visual style for a 'ConnectorItem'.
             -->
@@ -104,7 +104,7 @@
                     Property="Hotspot"
                     Value="{Binding Hotspot, Mode=OneWayToSource}"
                     />
-                
+
                 <!-- The visual template. -->
                 <Setter 
                     Property="Template"
@@ -121,8 +121,8 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-            </Style>     
-            
+            </Style>
+
             <!-- 
             Template for the button that is used to delete nodes and connections in the graph.
             This button is displayed in an adorner when the user hovers the mouse over a node or connection.
@@ -153,7 +153,7 @@
                                 X="1.5"
                                 Y="1.5"
                                 />
-                        </Ellipse.RenderTransform>                                                            
+                        </Ellipse.RenderTransform>
                     </Ellipse>
                     <Ellipse
                         x:Name="ellipse"
@@ -167,7 +167,7 @@
                         Margin="2"
                         />
                 </Grid>
-                <ControlTemplate.Triggers>                                
+                <ControlTemplate.Triggers>
                     <EventTrigger
                         RoutedEvent="Mouse.MouseEnter"
                         >
@@ -220,7 +220,7 @@
                 </ControlTemplate.Triggers>
 
             </ControlTemplate>
-            
+
             <!-- 
             Data-template for ConectionViewModel.
             
@@ -244,7 +244,7 @@
                     IsMouseOverShowEnabled="{Binding ElementName=networkControl, Path=IsNotDragging}"
                     >
 
-                    <!-- The connection is represented by a curved arrow. -->                                
+                    <!-- The connection is represented by a curved arrow. -->
                     <local:CurvedArrow
                         Stroke="{StaticResource connectionBrush}"
                         StrokeThickness="2"
@@ -290,7 +290,7 @@
                 </NetworkUI:AdornedControl>
             </DataTemplate>
 
-            <!-- Define a data-template for the 'NodeViewModel' class. -->    
+            <!-- Define a data-template for the 'NodeViewModel' class. -->
             <DataTemplate
                 DataType="{x:Type NetworkModel:NodeViewModel}"
                 >
@@ -307,9 +307,9 @@
                     AdornerOffsetY="8"
                     IsMouseOverShowEnabled="{Binding ElementName=networkControl, Path=IsNotDragging}"
                     >
-                    
+
                     <!-- The margin has been selected so that the selection rect nicely covers the entire node. -->
-                    
+
                     <Grid
                         MinWidth="120"
                         Margin="10,6,10,6"
@@ -317,7 +317,7 @@
                         >
 
                         <!-- This rectangle is the main visual for the node. -->
-                        
+
                         <Rectangle
                             Stroke="{StaticResource nodeBorderBrush}"
                             StrokeThickness="1.3"
@@ -341,11 +341,11 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <!-- spacer -->
-                                <RowDefinition Height="2" />                    
+                                <RowDefinition Height="2" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <!-- The name of the node. -->                
+                            <!-- The name of the node. -->
                             <TextBlock
                                 Grid.Column="0"
                                 Grid.ColumnSpan="3"
@@ -355,7 +355,7 @@
                                 VerticalAlignment="Center"
                                 />
 
-                            <!-- Displays the node's input connectors. -->                
+                            <!-- Displays the node's input connectors. -->
                             <ItemsControl
                                 Grid.Column="0"
                                 Grid.Row="2"
@@ -376,7 +376,7 @@
                     </Grid>
 
                     <NetworkUI:AdornedControl.AdornerContent>
-                        
+
                         <!-- 
                         This is the adorner that pops up when the user hovers the mouse over the node.
                         It displays a button that the user can click to delete the node.
@@ -408,19 +408,19 @@
                                 CommandParameter="{Binding}"
                                 Template="{StaticResource deleteButtonTemplate}"
                                 />
-                        </Canvas>                        
+                        </Canvas>
                     </NetworkUI:AdornedControl.AdornerContent>
-                </NetworkUI:AdornedControl>                    
-            </DataTemplate>            
-            
+                </NetworkUI:AdornedControl>
+            </DataTemplate>
+
         </ResourceDictionary>
-        
-    </Window.Resources>
-     
-    <Window.InputBindings>        
-        
+
+    </UserControl.Resources>
+
+    <UserControl.InputBindings>
+
         <!-- Bind input to commands. -->
-        
+
         <KeyBinding
 			Key="Del"
 			Command="{StaticResource Commands.DeleteSelectedNodes}"
@@ -440,14 +440,14 @@
         <KeyBinding
 			Key="Space"
 			Command="{StaticResource Commands.FitContent}"
-			/>        
-        
-    </Window.InputBindings>
-    
-    <Window.CommandBindings>
+			/>
+
+    </UserControl.InputBindings>
+
+    <UserControl.CommandBindings>
 
         <!-- Bind commands to event handlers.-->
-        
+
         <CommandBinding 
             Command="{StaticResource Commands.DeleteSelectedNodes}" 
             Executed="DeleteSelectedNodes_Executed" 
@@ -459,7 +459,7 @@
         <CommandBinding 
             Command="{StaticResource Commands.DeleteNode}" 
             Executed="DeleteNode_Executed" 
-            />       
+            />
         <CommandBinding 
             Command="{StaticResource Commands.DeleteConnection}" 
             Executed="DeleteConnection_Executed" 
@@ -490,20 +490,20 @@
             Executed="OneHundredPercent_Executed" 
             />
 
-    </Window.CommandBindings>
+    </UserControl.CommandBindings>
 
-    <Window.ContextMenu>
-        
+    <UserControl.ContextMenu>
+
         <ContextMenu>
-            
+
             <!-- Clicking this menu item creates a new node. -->
-            
+
             <MenuItem
                 Header="Create Node"
                 Command="{StaticResource Commands.CreateNode}"
                 ToolTip="Creates a new node"
                 />
-            
+
             <Separator />
 
             <MenuItem
@@ -541,25 +541,21 @@
                     />
 
         </ContextMenu>
-    </Window.ContextMenu>
-
-    <Window.DataContext>
-        <local:MainWindowViewModel />
-    </Window.DataContext>
+    </UserControl.ContextMenu>
 
     <DockPanel>
-        
+
         <!-- Grid placed below the zoom and pan control that contains the zoom slider, zoom label and some buttons. -->
-            
+
         <Grid
             Margin="5,5,5,5"
             DockPanel.Dock="Bottom"
             >
             <Grid.ColumnDefinitions>
-                
+
                 <!-- empty space -->
                 <ColumnDefinition Width="*" />
-                
+
                 <!-- the fit content button -->
                 <ColumnDefinition Width="40" />
 
@@ -607,7 +603,7 @@
 
                 <!-- resize grip -->
                 <ColumnDefinition Width="Auto" />
-                
+
             </Grid.ColumnDefinitions>
 
             <!-- 
@@ -631,7 +627,7 @@
                 >
                 Fill
             </Button>
-            
+
             <!-- 
             The 100% button.  Causes the content to be scaled to 100 percent.
             -->
@@ -653,7 +649,7 @@
                 HorizontalAlignment="Right"
                 Text="{Binding ElementName=zoomAndPanControl, Path=ContentScale, Converter={StaticResource scaleToPercentConverter}}"
                 />
-            
+
             <TextBlock
                 Grid.Column="8"
                 VerticalAlignment="Center"
@@ -692,7 +688,7 @@
                 >
                 +
             </Button>
-            
+
             <!-- Stick a resize grip in the bottom right corner of the window. -->
             <ResizeGrip
                 Grid.Column="16"
@@ -710,7 +706,7 @@
             HorizontalScrollBarVisibility="Visible"
             Focusable="False"
             >
-            
+
             <!-- 
             The ZoomAndPanControl displays the NetworkView as its content.
             We can use the mouse to zoom and pan about the NetworkView.
@@ -780,4 +776,4 @@
             </ZoomAndPan:ZoomAndPanControl>
         </ScrollViewer>
     </DockPanel>
-</Window>
+</UserControl>

@@ -1,16 +1,19 @@
 ﻿using NetworkModel;
+using Prism.Ioc;
 using Prism.Mvvm;
 using System;
 using System.Diagnostics;
 using System.Windows;
 using Wider.Content.NodeEditor.ViewModels;
+using Wider.Content.NodeEditor.Views;
+using Wider.Core.Services;
 
-namespace Wider.Content.NodeEditor.Views
+namespace Wider.Content.NodeEditor.ViewModels
 {
     /// <summary>
     /// The view-model for the main window.
     /// </summary>
-    public class MainWindowViewModel : BindableBase
+    public class NodeEditorViewModel : ContentViewModel
     {
         #region Internal Data Members
 
@@ -61,8 +64,11 @@ namespace Wider.Content.NodeEditor.Views
 
         #endregion Internal Data Members
 
-        public MainWindowViewModel()
+        public NodeEditorViewModel(IContainerExtension container) : base(container)
         {
+            View = new Views.NodeEditor();
+
+
             // Add some test data to the view-model.
             PopulateWithTestData();
         }

@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using Wider.Content.NodeEditor.ViewModels;
 
 namespace Wider.Content.NodeEditor.Views
 {
@@ -16,7 +17,7 @@ namespace Wider.Content.NodeEditor.Views
         /// <summary>
         /// Convenient accessor for the view-model.
         /// </summary>
-        public MainWindowViewModel ViewModel => (MainWindowViewModel)DataContext;
+        public NodeEditorViewModel ViewModel => (NodeEditorViewModel)DataContext;
 
         /// <summary>
         /// Event raised when the ZoomAndPanControl is loaded.

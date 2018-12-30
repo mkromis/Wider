@@ -12,7 +12,7 @@ namespace Wider.Content.NodeEditor.Views
     /// <summary>
     /// This is a partial implementation of MainWindow that just contains most of the zooming and panning functionality.
     /// </summary>
-    public partial class MainWindow
+    public partial class NodeEditor
     {
         /// <summary>
         /// Specifies the current state of the mouse handling logic.

@@ -3,42 +3,44 @@ using System.Windows;
 using System.Windows.Input;
 using Wider.Content.NodeEditor.Events;
 using Wider.Content.NodeEditor.ViewModels;
+using Wider.Core.Services;
 
 namespace Wider.Content.NodeEditor.Views
 {
     /// <summary>
     /// This is a Window that uses NetworkView to display a flow-chart.
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class NodeEditor : IContentView
     {
-        public MainWindow() => InitializeComponent();
+        public NodeEditor() => InitializeComponent();
 
         /// <summary>
         /// Convenient accessor for the view-model.
         /// </summary>
-        public MainWindowViewModel ViewModel => (MainWindowViewModel)DataContext;
+        public NodeEditorViewModel ViewModel => (NodeEditorViewModel)DataContext;
 
         /// <summary>
         /// Event raised when the Window has loaded.
         /// </summary>
         private void MainWindow_Loaded(Object sender, RoutedEventArgs e)
         {
+#warning fix window loading
             //
             // Display help text for the sample app.
             //
             HelpTextWindow helpTextWindow = new HelpTextWindow
             {
-                Left = Left + Width + 5,
-                Top = Top,
-                Owner = this
+                //Left = Left + Width + 5,
+                //Top = Top,
+                //Owner = this
             };
             helpTextWindow.Show();
 
             OverviewWindow overviewWindow = new OverviewWindow
             {
-                Left = Left,
-                Top = Top + Height + 5,
-                Owner = this,
+                //Left = Left,
+                //Top = Top + Height + 5,
+                //Owner = this,
                 DataContext = ViewModel // Pass the view model onto the overview window.
             };
             overviewWindow.Show();
