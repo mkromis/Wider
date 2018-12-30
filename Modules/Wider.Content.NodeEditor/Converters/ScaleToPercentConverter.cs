@@ -2,7 +2,8 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Wider.Content.NodeEditor.Views
+namespace Wider.Content.NodeEditor.Converters
+
 {
     /// <summary>
     /// Used in MainWindow.xaml to converts a scale value to a percentage.

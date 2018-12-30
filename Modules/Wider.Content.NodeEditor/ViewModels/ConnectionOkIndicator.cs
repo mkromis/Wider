@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Wider.Content.NodeEditor.Views
+namespace Wider.Content.NodeEditor.ViewModels
 {
     /// <summary>
     /// This class is just a place holder for showing a 'connection ok' indicator in the graph.

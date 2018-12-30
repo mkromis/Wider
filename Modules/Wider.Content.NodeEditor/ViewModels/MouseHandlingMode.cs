@@ -1,4 +1,4 @@
-﻿namespace Wider.Content.NodeEditor.Views
+﻿namespace Wider.Content.NodeEditor.ViewModels
 
 {
     /// <summary>

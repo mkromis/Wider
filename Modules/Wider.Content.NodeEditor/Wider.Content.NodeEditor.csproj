@@ -95,9 +95,9 @@
     <Compile Include="Views\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ConnectionBadIndicator.cs" />
-    <Compile Include="Views\ConnectionOkIndicator.cs" />
-    <Compile Include="Views\CurvedArrow.cs" />
+    <Compile Include="ViewModels\ConnectionBadIndicator.cs" />
+    <Compile Include="ViewModels\ConnectionOkIndicator.cs" />
+    <Compile Include="Controls\CurvedArrow.cs" />
     <Compile Include="Views\HelpTextWindow.xaml.cs">
       <DependentUpon>HelpTextWindow.xaml</DependentUpon>
     </Compile>
@@ -106,11 +106,11 @@
     </Compile>
     <Compile Include="ViewModels\NodeEditorViewModel.cs" />
     <Compile Include="Views\NodeEditor_ZoomAndPan.cs" />
-    <Compile Include="Views\MouseHandlingMode.cs" />
+    <Compile Include="ViewModels\MouseHandlingMode.cs" />
     <Compile Include="Views\OverviewWindow.xaml.cs">
       <DependentUpon>OverviewWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ScaleToPercentConverter.cs" />
+    <Compile Include="Converters\ScaleToPercentConverter.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
