@@ -63,7 +63,7 @@
 
                 <!-- The connection is represented by a curved arrow. -->
 
-                <local:CurvedArrow
+                <NetworkUI:CurvedArrow
                     Stroke="{StaticResource connectionBrush}"
                     StrokeThickness="2"
                     Fill="{StaticResource connectionBrush}"
