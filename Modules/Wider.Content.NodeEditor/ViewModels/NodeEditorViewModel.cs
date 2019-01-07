@@ -4,6 +4,7 @@ using Prism.Mvvm;
 using System;
 using System.Diagnostics;
 using System.Windows;
+using Wider.Content.NodeEditor.Controls;
 using Wider.Content.NodeEditor.ViewModels;
 using Wider.Content.NodeEditor.Views;
 using Wider.Core.Services;
@@ -23,10 +24,6 @@ namespace Wider.Content.NodeEditor.ViewModels
         /// </summary>
         public NetworkViewModel network = null;
 
-        ///
-        /// The current scale at which the content is being viewed.
-        /// 
-        private Double contentScale = 1;
 
         ///
         /// The X coordinate of the offset of the viewport onto the content (in content coordinates).
@@ -61,12 +58,15 @@ namespace Wider.Content.NodeEditor.ViewModels
         /// view-model so that the value can be shared with the overview window.
         /// 
         private Double contentViewportHeight = 0;
+        private Double contentScale;
 
         #endregion Internal Data Members
 
         public NodeEditorViewModel(IContainerExtension container) : base(container)
         {
-            View = new Views.NodeEditor();
+            Views.NodeEditor editor = new Views.NodeEditor();
+            NetworkControl = editor.networkControl;
+            View = editor;
             Title = "Node Editor";
 
             // Add some test data to the view-model.
@@ -149,6 +149,8 @@ namespace Wider.Content.NodeEditor.ViewModels
             get => contentViewportHeight;
             set => SetProperty(ref contentViewportHeight, value);
         }
+
+        public NetworkView NetworkControl { get; }
 
         /// <summary>
         /// Called when the user has started to drag out a connector, thus creating a new connection.
@@ -382,8 +384,9 @@ namespace Wider.Content.NodeEditor.ViewModels
         /// </summary>
         public NodeViewModel CreateNode(String name, Point nodeLocation, Boolean centerNode)
         {
-            NodeViewModel node = new NodeViewModel(name)
+            NodeViewModel node = new NodeViewModel
             {
+                Name = name,
                 X = nodeLocation.X,
                 Y = nodeLocation.Y
             };
@@ -419,20 +422,21 @@ namespace Wider.Content.NodeEditor.ViewModels
                     // Don't forget to unhook the event, after the initial centering of the node
                     // we don't need to be notified again of any size changes.
                     //
-                    node.SizeChanged -= sizeChangedEventHandler;
+                    node.BoundsChanged -= sizeChangedEventHandler;
                 }
 
                 //
                 // Now we hook the SizeChanged event so the anonymous method is called later
                 // when the size of the node has actually been determined.
                 //
-                node.SizeChanged += sizeChangedEventHandler;
+                node.BoundsChanged += sizeChangedEventHandler;
             }
 
             //
             // Add the node to the view-model.
             //
             Network.Nodes.Add(node);
+            NetworkControl.AddVirtualChild(node);
 
             return node;
         }

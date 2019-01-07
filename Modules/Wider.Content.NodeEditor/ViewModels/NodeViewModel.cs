@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Windows;
 using Wider.Content.NodeEditor.Events;
 using Wider.Content.NodeEditor.Helper;
+using Wider.Content.VirtualCanvas.Controls;
 
 namespace Wider.Content.NodeEditor.ViewModels
 {
@@ -11,7 +12,7 @@ namespace Wider.Content.NodeEditor.ViewModels
     /// Defines a node in the view-model.
     /// Nodes are connected to other nodes through attached connectors (aka anchor/connection points).
     /// </summary>
-    public sealed class NodeViewModel : BindableBase
+    public sealed class NodeViewModel : BindableBase, IVirtualChild
     {
         #region Private Data Members
 
@@ -44,7 +45,7 @@ namespace Wider.Content.NodeEditor.ViewModels
         ///     When the size is computed via the UI it is then pushed into the view-model
         ///     so that our application code has access to the size of a node.
         /// </summary>
-        private Size size = Size.Empty;
+        private Size size = new Size(160,100);
 
         /// <summary>
         /// List of input connectors (connections points) attached to the node.
@@ -63,12 +64,6 @@ namespace Wider.Content.NodeEditor.ViewModels
 
         #endregion Private Data Members
 
-        public NodeViewModel()
-        {
-        }
-
-        public NodeViewModel(String name) => this.name = name;
-
         /// <summary>
         /// The name of the node.
         /// </summary>
@@ -84,7 +79,13 @@ namespace Wider.Content.NodeEditor.ViewModels
         public Double X
         {
             get => x;
-            set => SetProperty(ref x, value);
+            set
+            {
+                if (SetProperty(ref x, value))
+                {
+                    BoundsChanged?.Invoke(this, null);
+                }
+            }
         }
 
         /// <summary>
@@ -93,7 +94,13 @@ namespace Wider.Content.NodeEditor.ViewModels
         public Double Y
         {
             get => y;
-            set => SetProperty(ref y, value);
+            set
+            {
+                if (SetProperty(ref y, value))
+                {
+                    BoundsChanged?.Invoke(this, null);
+                }
+            }
         }
 
         /// <summary>
@@ -121,7 +128,7 @@ namespace Wider.Content.NodeEditor.ViewModels
             {
                 if (SetProperty(ref size, value))
                 {
-                    SizeChanged?.Invoke(this, EventArgs.Empty);
+                    BoundsChanged?.Invoke(this, null);
                 }
             }
         }
@@ -132,7 +139,7 @@ namespace Wider.Content.NodeEditor.ViewModels
         /// of the nodes data-template.  It then pushes the size through to the view-model
         /// and this 'SizeChanged' event occurs.
         /// </summary>
-        public event EventHandler<EventArgs> SizeChanged;
+        public event EventHandler BoundsChanged;
 
         /// <summary>
         /// List of input connectors (connections points) attached to the node.
@@ -202,6 +209,9 @@ namespace Wider.Content.NodeEditor.ViewModels
             set => SetProperty(ref isSelected, value);
         }
 
+        public Rect Bounds => new Rect(X, Y, Size.Width, Size.Height);
+        public UIElement Visual { get; private set; }
+
         #region Private Methods
 
         /// <summary>
@@ -251,6 +261,21 @@ namespace Wider.Content.NodeEditor.ViewModels
                 connector.Type = ConnectorType.Undefined;
             }
         }
+
+        public UIElement CreateVisual(VirtualCanvas.Controls.VirtualCanvas parent)
+        {
+            if (Visual == null)
+            {
+                Views.Node item = new Views.Node
+                {
+                    DataContext = this
+                };
+                Size = new Size(item.Width, item.Height);
+                Visual = item;
+            }
+            return Visual;
+        }
+        public void DisposeVisual() { }
 
         #endregion Private Methods
     }

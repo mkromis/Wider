@@ -58,8 +58,9 @@ namespace Wider.Content.NodeEditor.Views
             Keyboard.Focus(networkControl);
 
             mouseButtonDown = e.ChangedButton;
-            origZoomAndPanControlMouseDownPoint = e.GetPosition(zoomAndPanControl);
-            origContentMouseDownPoint = e.GetPosition(networkControl);
+#warning MouseDown
+            //origZoomAndPanControlMouseDownPoint = e.GetPosition(zoomAndPanControl);
+            //origContentMouseDownPoint = e.GetPosition(networkControl);
 
             if ((Keyboard.Modifiers & ModifierKeys.Shift) != 0 &&
                 (e.ChangedButton == MouseButton.Left ||
@@ -147,20 +148,21 @@ namespace Wider.Content.NodeEditor.Views
         {
             if (mouseHandlingMode == MouseHandlingMode.Panning)
             {
-                Point curZoomAndPanControlMousePoint = e.GetPosition(zoomAndPanControl);
-                Vector dragOffset = curZoomAndPanControlMousePoint - origZoomAndPanControlMouseDownPoint;
-                Double dragThreshold = 10;
-                if (Math.Abs(dragOffset.X) > dragThreshold ||
-                    Math.Abs(dragOffset.Y) > dragThreshold)
-                {
-                    //
-                    // The user has dragged the cursor further than the threshold distance, initiate
-                    // drag panning.
-                    //
-                    mouseHandlingMode = MouseHandlingMode.DragPanning;
-                    networkControl.IsClearSelectionOnEmptySpaceClickEnabled = false;
-                    Mouse.OverrideCursor = Cursors.ScrollAll;
-                }
+#warning mouseMove
+                //Point curZoomAndPanControlMousePoint = e.GetPosition(zoomAndPanControl);
+                //Vector dragOffset = curZoomAndPanControlMousePoint - origZoomAndPanControlMouseDownPoint;
+                //Double dragThreshold = 10;
+                //if (Math.Abs(dragOffset.X) > dragThreshold ||
+                //    Math.Abs(dragOffset.Y) > dragThreshold)
+                //{
+                //    //
+                //    // The user has dragged the cursor further than the threshold distance, initiate
+                //    // drag panning.
+                //    //
+                //    mouseHandlingMode = MouseHandlingMode.DragPanning;
+                //    networkControl.IsClearSelectionOnEmptySpaceClickEnabled = false;
+                //    Mouse.OverrideCursor = Cursors.ScrollAll;
+                //}
 
                 e.Handled = true;
             }
@@ -173,29 +175,31 @@ namespace Wider.Content.NodeEditor.Views
                 Point curContentMousePoint = e.GetPosition(networkControl);
                 Vector dragOffset = curContentMousePoint - origContentMouseDownPoint;
 
-                zoomAndPanControl.ContentOffsetX -= dragOffset.X;
-                zoomAndPanControl.ContentOffsetY -= dragOffset.Y;
+#warning handle drag panning
+                //zoomAndPanControl.ContentOffsetX -= dragOffset.X;
+                //zoomAndPanControl.ContentOffsetY -= dragOffset.Y;
 
                 e.Handled = true;
             }
             else if (mouseHandlingMode == MouseHandlingMode.Zooming)
             {
-                Point curZoomAndPanControlMousePoint = e.GetPosition(zoomAndPanControl);
-                Vector dragOffset = curZoomAndPanControlMousePoint - origZoomAndPanControlMouseDownPoint;
-                Double dragThreshold = 10;
-                if (mouseButtonDown == MouseButton.Left &&
-                    (Math.Abs(dragOffset.X) > dragThreshold ||
-                    Math.Abs(dragOffset.Y) > dragThreshold))
-                {
-                    //
-                    // When Shift + left-down zooming mode and the user drags beyond the drag threshold,
-                    // initiate drag zooming mode where the user can drag out a rectangle to select the area
-                    // to zoom in on.
-                    //
-                    mouseHandlingMode = MouseHandlingMode.DragZooming;
-                    Point curContentMousePoint = e.GetPosition(networkControl);
-                    InitDragZoomRect(origContentMouseDownPoint, curContentMousePoint);
-                }
+#warning mousezoom
+                //Point curZoomAndPanControlMousePoint = e.GetPosition(zoomAndPanControl);
+                //Vector dragOffset = curZoomAndPanControlMousePoint - origZoomAndPanControlMouseDownPoint;
+                //Double dragThreshold = 10;
+                //if (mouseButtonDown == MouseButton.Left &&
+                //    (Math.Abs(dragOffset.X) > dragThreshold ||
+                //    Math.Abs(dragOffset.Y) > dragThreshold))
+                //{
+                //    //
+                //    // When Shift + left-down zooming mode and the user drags beyond the drag threshold,
+                //    // initiate drag zooming mode where the user can drag out a rectangle to select the area
+                //    // to zoom in on.
+                //    //
+                //    mouseHandlingMode = MouseHandlingMode.DragZooming;
+                //    Point curContentMousePoint = e.GetPosition(networkControl);
+                //    InitDragZoomRect(origContentMouseDownPoint, curContentMousePoint);
+                //}
 
                 e.Handled = true;
             }
@@ -239,7 +243,9 @@ namespace Wider.Content.NodeEditor.Views
             if ((Keyboard.Modifiers & ModifierKeys.Shift) == 0)
             {
                 Point doubleClickPoint = e.GetPosition(networkControl);
-                zoomAndPanControl.AnimatedSnapTo(doubleClickPoint);
+
+#warning MouseDoubleClick
+                //zoomAndPanControl.AnimatedSnapTo(doubleClickPoint);
             }
         }
 
@@ -250,13 +256,15 @@ namespace Wider.Content.NodeEditor.Views
         {
             Object o = networkControl.SelectedNode;
 
-            ZoomIn(new Point(zoomAndPanControl.ContentZoomFocusX, zoomAndPanControl.ContentZoomFocusY));
+#warning ZoomIn
+            //ZoomIn(new Point(zoomAndPanControl.ContentZoomFocusX, zoomAndPanControl.ContentZoomFocusY));
         }
 
         /// <summary>
         /// The 'ZoomOut' command (bound to the minus key) was executed.
         /// </summary>
-        private void ZoomOut_Executed(Object sender, ExecutedRoutedEventArgs e) => ZoomOut(new Point(zoomAndPanControl.ContentZoomFocusX, zoomAndPanControl.ContentZoomFocusY));
+        private void ZoomOut_Executed(Object sender, ExecutedRoutedEventArgs e) { }
+            //ZoomOut(new Point(zoomAndPanControl.ContentZoomFocusX, zoomAndPanControl.ContentZoomFocusY));
 
         /// <summary>
         /// The 'JumpBackToPrevZoom' command was executed.
@@ -298,7 +306,8 @@ namespace Wider.Content.NodeEditor.Views
             //
             actualContentRect.Inflate(networkControl.ActualWidth / 40, networkControl.ActualHeight / 40);
 
-            zoomAndPanControl.AnimatedZoomTo(actualContentRect);
+#warning FitContent
+            //zoomAndPanControl.AnimatedZoomTo(actualContentRect);
         }
 
         /// <summary>
@@ -325,7 +334,8 @@ namespace Wider.Content.NodeEditor.Views
         {
             SavePrevZoomRect();
 
-            zoomAndPanControl.AnimatedScaleToFit();
+#warning fill
+            //zoomAndPanControl.AnimatedScaleToFit();
         }
 
         /// <summary>
@@ -335,7 +345,8 @@ namespace Wider.Content.NodeEditor.Views
         {
             SavePrevZoomRect();
 
-            zoomAndPanControl.AnimatedZoomTo(1.0);
+#warning OnHunmdredPercent
+            //zoomAndPanControl.AnimatedZoomTo(1.0);
         }
 
         /// <summary>
@@ -343,7 +354,8 @@ namespace Wider.Content.NodeEditor.Views
         /// </summary>
         private void JumpBackToPrevZoom()
         {
-            zoomAndPanControl.AnimatedZoomTo(prevZoomScale, prevZoomRect);
+#warning JumpBackToPrevZoom
+            //zoomAndPanControl.AnimatedZoomTo(prevZoomScale, prevZoomRect);
 
             ClearPrevZoomRect();
         }
@@ -351,22 +363,25 @@ namespace Wider.Content.NodeEditor.Views
         /// <summary>
         /// Zoom the viewport out, centering on the specified point (in content coordinates).
         /// </summary>
-        private void ZoomOut(Point contentZoomCenter) => zoomAndPanControl.ZoomAboutPoint(zoomAndPanControl.ContentScale - 0.1, contentZoomCenter);
+        private void ZoomOut(Point contentZoomCenter) { }
+        //zoomAndPanControl.ZoomAboutPoint(zoomAndPanControl.ContentScale - 0.1, contentZoomCenter);
 
         /// <summary>
         /// Zoom the viewport in, centering on the specified point (in content coordinates).
         /// </summary>
-        private void ZoomIn(Point contentZoomCenter) => zoomAndPanControl.ZoomAboutPoint(zoomAndPanControl.ContentScale + 0.1, contentZoomCenter);
+        private void ZoomIn(Point contentZoomCenter) { }
+            //zoomAndPanControl.ZoomAboutPoint(zoomAndPanControl.ContentScale + 0.1, contentZoomCenter);
 
         /// <summary>
         /// Initialize the rectangle that the use is dragging out.
         /// </summary>
         private void InitDragZoomRect(Point pt1, Point pt2)
         {
+#warning InitDragZoomRect
             SetDragZoomRect(pt1, pt2);
 
-            dragZoomCanvas.Visibility = Visibility.Visible;
-            dragZoomBorder.Opacity = 0.5;
+            //dragZoomCanvas.Visibility = Visibility.Visible;
+            //dragZoomBorder.Opacity = 0.5;
         }
 
         /// <summary>
@@ -374,6 +389,7 @@ namespace Wider.Content.NodeEditor.Views
         /// </summary>
         private void SetDragZoomRect(Point pt1, Point pt2)
         {
+#warning SetDragZoomRect
             Double x, y, width, height;
 
             //
@@ -406,10 +422,10 @@ namespace Wider.Content.NodeEditor.Views
             // Update the coordinates of the rectangle that is being dragged out by the user.
             // The we offset and rescale to convert from content coordinates.
             //
-            Canvas.SetLeft(dragZoomBorder, x);
-            Canvas.SetTop(dragZoomBorder, y);
-            dragZoomBorder.Width = width;
-            dragZoomBorder.Height = height;
+            //Canvas.SetLeft(dragZoomBorder, x);
+            //Canvas.SetTop(dragZoomBorder, y);
+            //dragZoomBorder.Width = width;
+            //dragZoomBorder.Height = height;
         }
 
         /// <summary>
@@ -417,21 +433,22 @@ namespace Wider.Content.NodeEditor.Views
         /// </summary>
         private void ApplyDragZoomRect()
         {
-            //
-            // Record the previous zoom level, so that we can jump back to it when the backspace key is pressed.
-            //
-            SavePrevZoomRect();
+#warning ApplyDragZoomRect
+            ////
+            //// Record the previous zoom level, so that we can jump back to it when the backspace key is pressed.
+            ////
+            //SavePrevZoomRect();
 
-            //
-            // Retreive the rectangle that the user draggged out and zoom in on it.
-            //
-            Double contentX = Canvas.GetLeft(dragZoomBorder);
-            Double contentY = Canvas.GetTop(dragZoomBorder);
-            Double contentWidth = dragZoomBorder.Width;
-            Double contentHeight = dragZoomBorder.Height;
-            zoomAndPanControl.AnimatedZoomTo(new Rect(contentX, contentY, contentWidth, contentHeight));
+            ////
+            //// Retreive the rectangle that the user draggged out and zoom in on it.
+            ////
+            //Double contentX = Canvas.GetLeft(dragZoomBorder);
+            //Double contentY = Canvas.GetTop(dragZoomBorder);
+            //Double contentWidth = dragZoomBorder.Width;
+            //Double contentHeight = dragZoomBorder.Height;
+            //zoomAndPanControl.AnimatedZoomTo(new Rect(contentX, contentY, contentWidth, contentHeight));
 
-            FadeOutDragZoomRect();
+            //FadeOutDragZoomRect();
         }
 
         //
@@ -439,11 +456,12 @@ namespace Wider.Content.NodeEditor.Views
         //
         private void FadeOutDragZoomRect()
         {
-            AnimationHelper.StartAnimation(dragZoomBorder, Border.OpacityProperty, 0.0, 0.1,
-                delegate (Object sender, EventArgs e)
-                {
-                    dragZoomCanvas.Visibility = Visibility.Collapsed;
-                });
+#warning FadeOutDragZoomRect
+            //AnimationHelper.StartAnimation(dragZoomBorder, Border.OpacityProperty, 0.0, 0.1,
+            //    delegate (Object sender, EventArgs e)
+            //    {
+            //        dragZoomCanvas.Visibility = Visibility.Collapsed;
+            //    });
         }
 
         //
@@ -451,9 +469,10 @@ namespace Wider.Content.NodeEditor.Views
         //
         private void SavePrevZoomRect()
         {
-            prevZoomRect = new Rect(zoomAndPanControl.ContentOffsetX, zoomAndPanControl.ContentOffsetY, zoomAndPanControl.ContentViewportWidth, zoomAndPanControl.ContentViewportHeight);
-            prevZoomScale = zoomAndPanControl.ContentScale;
-            prevZoomRectSet = true;
+#warning SavePrevZoomRect
+            //prevZoomRect = new Rect(zoomAndPanControl.ContentOffsetX, zoomAndPanControl.ContentOffsetY, zoomAndPanControl.ContentViewportWidth, zoomAndPanControl.ContentViewportHeight);
+            //prevZoomScale = zoomAndPanControl.ContentScale;
+            //prevZoomRectSet = true;
         }
 
         /// <summary>

@@ -11,4 +11,6 @@
         Y2="{Binding DestConnectorHotspot.Y}"
         IsHitTestVisible="False"
         />
+    
+    
 </UserControl>

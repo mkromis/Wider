@@ -52,6 +52,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\IVirtualChild.cs" />
+    <Compile Include="Controls\VirtualCanvas_IScrollInfo.cs" />
+    <Compile Include="Controls\VisualChangeEventArgs.cs" />
     <Compile Include="Gestures\AutoScroll.cs" />
     <Compile Include="Gestures\ExponentialAnimation.cs" />
     <Compile Include="Gestures\MapZoom.cs" />

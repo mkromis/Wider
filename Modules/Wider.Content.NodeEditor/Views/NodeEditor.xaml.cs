@@ -28,22 +28,22 @@ namespace Wider.Content.NodeEditor.Views
             //
             // Display help text for the sample app.
             //
-            HelpTextWindow helpTextWindow = new HelpTextWindow
-            {
-                //Left = Left + Width + 5,
-                //Top = Top,
-                //Owner = this
-            };
-            helpTextWindow.Show();
+            //HelpTextWindow helpTextWindow = new HelpTextWindow
+            //{
+            //    //Left = Left + Width + 5,
+            //    //Top = Top,
+            //    //Owner = this
+            //};
+            //helpTextWindow.Show();
 
-            OverviewWindow overviewWindow = new OverviewWindow
-            {
-                //Left = Left,
-                //Top = Top + Height + 5,
-                //Owner = this,
-                DataContext = ViewModel // Pass the view model onto the overview window.
-            };
-            overviewWindow.Show();
+            //OverviewWindow overviewWindow = new OverviewWindow
+            //{
+            //    //Left = Left,
+            //    //Top = Top + Height + 5,
+            //    //Owner = this,
+            //    DataContext = ViewModel // Pass the view model onto the overview window.
+            //};
+            //overviewWindow.Show();
         }
 
         /// <summary>
@@ -51,19 +51,20 @@ namespace Wider.Content.NodeEditor.Views
         /// </summary>
         private void NetworkControl_ConnectionDragStarted(Object sender, ConnectionDragStartedEventArgs e)
         {
-            ConnectorViewModel draggedOutConnector = (ConnectorViewModel)e.ConnectorDraggedOut;
-            Point curDragPoint = Mouse.GetPosition(networkControl);
+#warning fix connection drag started
+            //ConnectorViewModel draggedOutConnector = (ConnectorViewModel)e.ConnectorDraggedOut;
+            //Point curDragPoint = Mouse.GetPosition(networkControl);
 
-            //
-            // Delegate the real work to the view model.
-            //
-            ConnectionViewModel connection = ViewModel.ConnectionDragStarted(draggedOutConnector, curDragPoint);
+            ////
+            //// Delegate the real work to the view model.
+            ////
+            //ConnectionViewModel connection = ViewModel.ConnectionDragStarted(draggedOutConnector, curDragPoint);
 
-            //
-            // Must return the view-model object that represents the connection via the event args.
-            // This is so that NetworkView can keep track of the object while it is being dragged.
-            //
-            e.Connection = connection;
+            ////
+            //// Must return the view-model object that represents the connection via the event args.
+            //// This is so that NetworkView can keep track of the object while it is being dragged.
+            ////
+            //e.Connection = connection;
         }
 
         /// <summary>
@@ -94,9 +95,10 @@ namespace Wider.Content.NodeEditor.Views
         /// </summary>
         private void NetworkControl_ConnectionDragging(Object sender, ConnectionDraggingEventArgs e)
         {
-            Point curDragPoint = Mouse.GetPosition(networkControl);
-            ConnectionViewModel connection = (ConnectionViewModel)e.Connection;
-            ViewModel.ConnectionDragging(curDragPoint, connection);
+#warning fix connection draging
+            //Point curDragPoint = Mouse.GetPosition(networkControl);
+            //ConnectionViewModel connection = (ConnectionViewModel)e.Connection;
+            //ViewModel.ConnectionDragging(curDragPoint, connection);
         }
 
         /// <summary>

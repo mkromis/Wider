@@ -173,10 +173,10 @@
                 x:Name="networkControl"
                 NodesSource="{Binding Network.Nodes}"
                 ConnectionsSource="{Binding Network.Connections}"
-                BorderBrush="Blue"
-                BorderThickness="1"
                 IsHitTestVisible="False"
                 />
+                <!--BorderBrush="Blue"
+                BorderThickness="1"-->
 
             <!--
             This Canvas and Border are used to draw the 'overview' zoom rect. 

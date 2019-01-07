@@ -98,8 +98,17 @@
     <Compile Include="ViewModels\ConnectionBadIndicator.cs" />
     <Compile Include="ViewModels\ConnectionOkIndicator.cs" />
     <Compile Include="Controls\CurvedArrow.cs" />
+    <Compile Include="Views\Connection.xaml.cs">
+      <DependentUpon>Connection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Connector.xaml.cs">
+      <DependentUpon>Connector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HelpTextWindow.xaml.cs">
       <DependentUpon>HelpTextWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Node.xaml.cs">
+      <DependentUpon>Node.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NodeEditor.xaml.cs">
       <DependentUpon>NodeEditor.xaml</DependentUpon>
@@ -130,11 +139,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Connection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Connector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\HelpText.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\HelpTextWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Node.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -192,10 +192,10 @@
                     TargetType="{x:Type local:NetworkView}"
                     >
                     <Border 
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
                         Background="{TemplateBinding Background}"
                         >
+                        <!--BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"-->
                         <Grid>
 
                             <!-- Control that presents the nodes. -->

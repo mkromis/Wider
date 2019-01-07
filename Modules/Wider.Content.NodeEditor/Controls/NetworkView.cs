@@ -8,13 +8,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Wider.Content.NodeEditor.Events;
 using Wider.Content.NodeEditor.Helper;
+using Wider.Content.VirtualCanvas.Controls;
 
 namespace Wider.Content.NodeEditor.Controls
 {
     /// <summary>
     /// The main class that implements the network/flow-chart control.
     /// </summary>
-    public partial class NetworkView : Control
+    public partial class NetworkView : Wider.Content.VirtualCanvas.Controls.VirtualCanvas
     {
         #region Dependency Property/Event Definitions
 
@@ -76,7 +77,11 @@ namespace Wider.Content.NodeEditor.Controls
         private static readonly DependencyPropertyKey IsNotDraggingPropertyKey =
             DependencyProperty.RegisterReadOnly("IsNotDragging", typeof(Boolean), typeof(NetworkView),
                 new FrameworkPropertyMetadata(true));
+
         public static readonly DependencyProperty IsNotDraggingProperty = IsNotDraggingPropertyKey.DependencyProperty;
+
+        public static readonly DependencyProperty TemplateProperty =
+            DependencyProperty.Register("Template", typeof(ControlTemplate), typeof(NetworkView));
 
         public static readonly DependencyProperty NodeItemTemplateProperty =
             DependencyProperty.Register("NodeItemTemplate", typeof(DataTemplate), typeof(NetworkView));
@@ -154,11 +159,6 @@ namespace Wider.Content.NodeEditor.Controls
             // Create a collection to contain connections.
             //
             Connections = new ImpObservableCollection<Object>();
-
-            //
-            // Default background is white.
-            //
-            Background = Brushes.White;
 
             //
             // Add handlers for node and connector drag events.
@@ -358,6 +358,12 @@ namespace Wider.Content.NodeEditor.Controls
         {
             get => (Boolean)GetValue(IsNotDraggingProperty);
             private set => SetValue(IsNotDraggingPropertyKey, value);
+        }
+
+        public ControlTemplate Template
+        {
+            get => (ControlTemplate)GetValue(TemplateProperty);
+            set => SetValue(TemplateProperty, value);
         }
 
         /// <summary>
@@ -867,50 +873,51 @@ namespace Wider.Content.NodeEditor.Controls
         /// </summary>
         public override void OnApplyTemplate()
         {
-            base.OnApplyTemplate();
+#warning fix template
+            //base.OnApplyTemplate();
 
-            //
-            // Cache the parts of the visual tree that we need access to later.
-            //
+            ////
+            //// Cache the parts of the visual tree that we need access to later.
+            ////
 
-            nodeItemsControl = (NodeItemsControl)Template.FindName("PART_NodeItemsControl", this);
-            if (nodeItemsControl == null)
-            {
-                throw new ApplicationException("Failed to find 'PART_NodeItemsControl' in the visual tree for 'NetworkView'.");
-            }
+            //nodeItemsControl = (NodeItemsControl)Template.FindName("PART_NodeItemsControl", this);
+            //if (nodeItemsControl == null)
+            //{
+            //    throw new ApplicationException("Failed to find 'PART_NodeItemsControl' in the visual tree for 'NetworkView'.");
+            //}
 
-            //
-            // Synchronize initial selected nodes to the NodeItemsControl.
-            //
-            if (initialSelectedNodes != null && initialSelectedNodes.Count > 0)
-            {
-                foreach (Object node in initialSelectedNodes)
-                {
-                    nodeItemsControl.SelectedItems.Add(node);
-                }
-            }
+            ////
+            //// Synchronize initial selected nodes to the NodeItemsControl.
+            ////
+            //if (initialSelectedNodes != null && initialSelectedNodes.Count > 0)
+            //{
+            //    foreach (Object node in initialSelectedNodes)
+            //    {
+            //        nodeItemsControl.SelectedItems.Add(node);
+            //    }
+            //}
 
-            initialSelectedNodes = null; // Don't need this any more.
+            //initialSelectedNodes = null; // Don't need this any more.
 
-            nodeItemsControl.SelectionChanged += new SelectionChangedEventHandler(NodeItemsControl_SelectionChanged);
+            //nodeItemsControl.SelectionChanged += new SelectionChangedEventHandler(NodeItemsControl_SelectionChanged);
 
-            connectionItemsControl = (ItemsControl)Template.FindName("PART_ConnectionItemsControl", this);
-            if (connectionItemsControl == null)
-            {
-                throw new ApplicationException("Failed to find 'PART_ConnectionItemsControl' in the visual tree for 'NetworkView'.");
-            }
+            //connectionItemsControl = (ItemsControl)Template.FindName("PART_ConnectionItemsControl", this);
+            //if (connectionItemsControl == null)
+            //{
+            //    throw new ApplicationException("Failed to find 'PART_ConnectionItemsControl' in the visual tree for 'NetworkView'.");
+            //}
 
-            dragSelectionCanvas = (FrameworkElement)Template.FindName("PART_DragSelectionCanvas", this);
-            if (dragSelectionCanvas == null)
-            {
-                throw new ApplicationException("Failed to find 'PART_DragSelectionCanvas' in the visual tree for 'NetworkView'.");
-            }
+            //dragSelectionCanvas = (FrameworkElement)Template.FindName("PART_DragSelectionCanvas", this);
+            //if (dragSelectionCanvas == null)
+            //{
+            //    throw new ApplicationException("Failed to find 'PART_DragSelectionCanvas' in the visual tree for 'NetworkView'.");
+            //}
 
-            dragSelectionBorder = (FrameworkElement)Template.FindName("PART_DragSelectionBorder", this);
-            if (dragSelectionBorder == null)
-            {
-                throw new ApplicationException("Failed to find 'PART_dragSelectionBorder' in the visual tree for 'NetworkView'.");
-            }
+            //dragSelectionBorder = (FrameworkElement)Template.FindName("PART_DragSelectionBorder", this);
+            //if (dragSelectionBorder == null)
+            //{
+            //    throw new ApplicationException("Failed to find 'PART_dragSelectionBorder' in the visual tree for 'NetworkView'.");
+            //}
         }
 
         /// <summary>

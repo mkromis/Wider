@@ -36,30 +36,16 @@ namespace Wider.Content.VirtualCanvas.ViewModels
     public class VirtualCanvasViewModel : ContentViewModel
 
     {
-        public MapZoom Zoom { get; private set; }
-        public Pan Pan { get; private set; }
-        public RectangleSelectionGesture RectZoom { get; private set; }
-        public AutoScroll AutoScroll { get; private set; }
-
         public Controls.VirtualCanvas Graph { get; set; }
+        public MapZoom Zoom { get; }
 
         public VirtualCanvasViewModel(IContainerExtension containerExtension) : base(containerExtension)
         {
             Views.VirtualCanvas canvas = new Views.VirtualCanvas();
-            Graph = canvas.Graph;
             View = canvas;
 
-            Canvas target = Graph.ContentCanvas;
-            Zoom = new MapZoom(target);
-            Pan = new Pan(target, Zoom);
-            AutoScroll = new AutoScroll(target, Zoom);
-            RectZoom = new RectangleSelectionGesture(target, Zoom, ModifierKeys.Control)
-            {
-                ZoomSelection = true
-            };
-
-            Graph.Background = SystemColors.ControlBrush;
-            Graph.ContentCanvas.Background = Brushes.White;
+            Graph = canvas.Graph;
+            Zoom = Graph.Zoom;
         }
     }
 }
