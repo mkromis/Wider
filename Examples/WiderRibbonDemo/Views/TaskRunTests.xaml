@@ -18,7 +18,7 @@
             <RowDefinition Height="29.333"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ProgressBar Grid.Column="1" Grid.Row="1" Value="{Binding Progress}"/>
+        <ProgressBar Grid.Column="1" Grid.Row="1" Value="{Binding Progress}" Maximum="1"/>
         <Button Grid.Column="1" Grid.Row="2" Command="{Binding StartRun}" Width="50" Content="Start"/>
 
     </Grid>

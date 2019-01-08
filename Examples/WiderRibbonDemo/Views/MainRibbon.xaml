@@ -36,7 +36,7 @@
         <fluent:RibbonTabItem Header="Samples">
             <fluent:RibbonGroupBox Header="Content ">
                 <fluent:Button Header="Virtual Content" Size="Middle" Command="{Binding OpenCanvasCommand}"/>
-                <fluent:Button Header="Task Run Test" Size="Middle" Command="{Binding OpenTaskRun}" />
+                <fluent:Button Header="Task Run Test" Size="Middle" Command="{Binding TaskRunCommand}" />
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
         <!-- Bind context group to tab item -->

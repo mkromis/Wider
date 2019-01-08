@@ -4,6 +4,7 @@ using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Wider.Core.Services;
@@ -31,11 +32,13 @@ namespace WiderRibbonDemo.ViewModels
 
         public ICommand StartRun => new DelegateCommand(() =>
         {
+            var t1 = SynchronizationContext.Current;
             Task.Run(async () =>
             {
-                for (Int32 x = 0; x < 10; ++x)
+                SynchronizationContext.SetSynchronizationContext(t1);
+                for (Int32 x = 0; x < 11; ++x)
                 {
-                    await Task.Delay(1000);
+                    await Task.Delay(250);
                     Progress = x / 10.0d;
                 }
             });
