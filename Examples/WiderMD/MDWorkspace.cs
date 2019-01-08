@@ -29,7 +29,7 @@ namespace WiderMD
 
         public MDWorkspace(IContainerExtension container) : base(container)
         {
-            IEventAggregator aggregator = _container.Resolve<IEventAggregator>();
+            IEventAggregator aggregator = Container.Resolve<IEventAggregator>();
             aggregator.GetEvent<ActiveContentChangedEvent>().Subscribe(ContentChanged);
             _document = "";
         }
@@ -55,7 +55,7 @@ namespace WiderMD
             {
                 if (_logger == null)
                 {
-                    _logger = _container.Resolve<ILoggerService>();
+                    _logger = Container.Resolve<ILoggerService>();
                 }
 
                 return _logger;

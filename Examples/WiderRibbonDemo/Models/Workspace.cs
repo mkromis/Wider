@@ -24,20 +24,23 @@ namespace WiderRibbonDemo.Models
             set => SetProperty(ref _canvasViewModel, value);
         }
 
-        public ICommand OpenCanvasCommand => new DelegateCommand(() =>
+        public ICommand OpenCanvasCommand => new DelegateCommand(() => OpenAndFocus<VirtualCanvasViewModel>());
+
+        public ICommand TaskRunCommand => new DelegateCommand(() => OpenAndFocus<TaskRunTestsViewModel>());
+
+        private T OpenAndFocus<T>() where T : ContentViewModel
         {
-            IEnumerable<ContentViewModel> docs = Documents.Where(x => x is VirtualCanvasViewModel);
-            if (docs.Count() > 0)
+            T vm = (T)Documents.Where(x => x is T).FirstOrDefault();
+            if (vm == null)
             {
-                ActiveDocument = docs.First();
-                return;
+                vm = Container.Resolve<T>();
+                Documents.Add(vm);
             }
 
             // if not exist
-            CanvasViewModel = _container.Resolve<VirtualCanvasViewModel>();
-            Documents.Add(CanvasViewModel);
-            ActiveDocument = CanvasViewModel;
-        });
+            ActiveDocument = vm;
+            return vm;
+        }
 
         public Workspace(IContainerExtension container) : base(container) => 
             _eventAggregator.GetEvent<ActiveContentChangedEvent>().Subscribe(ActiveDocumentChanged);
