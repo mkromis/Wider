@@ -62,7 +62,11 @@
     <Compile Include="Models\HlsColor.cs" />
     <Compile Include="Models\LogWriter.cs" />
     <Compile Include="Models\TestShape.cs" />
+    <Compile Include="ViewModels\TaskRunTestsViewModel.cs" />
     <Compile Include="ViewModels\VirtualCanvasViewModel.cs" />
+    <Compile Include="Views\TaskRunTests.xaml.cs">
+      <DependentUpon>TaskRunTests.xaml</DependentUpon>
+    </Compile>
     <Page Include="Views\MainRibbon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -75,6 +79,10 @@
     <Compile Include="Views\MainRibbon.xaml.cs">
       <DependentUpon>MainRibbon.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\TaskRunTests.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
