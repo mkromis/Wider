@@ -106,6 +106,7 @@ namespace WiderRibbonDemo.ViewModels
         public VirtualCanvasViewModel(IContainerExtension containerExtension, IStatusbarService statusbarService) : base(containerExtension)
         {
             Model = new EmptyModel();
+            Title = "Virtual Canvas Sample";
 
             _statusbarService = statusbarService;
             _statusbarService.Text = "Loading";

@@ -36,7 +36,6 @@ namespace Wider.Core.Services
         /// <summary>
         /// The injected container
         /// </summary>
-        protected readonly IContainerExtension _container;
 
         /// <summary>
         /// The injected event aggregator
@@ -80,19 +79,20 @@ namespace Wider.Core.Services
         /// <param name="eventAggregator">The event aggregator.</param>
         protected AbstractWorkspace(IContainerExtension container)
         {
-            _container = container;
-            _eventAggregator = _container.Resolve<IEventAggregator>();
+            Container = container;
+            _eventAggregator = Container.Resolve<IEventAggregator>();
             _docs = new ObservableCollection<ContentViewModel>();
             _docs.CollectionChanged += Docs_CollectionChanged;
             _tools = new ObservableCollection<ToolViewModel>();
-            _menus = _container.Resolve<IMenuService>();
-            _toolbarService = _container.Resolve<IToolbarService>();
-            _commandManager = _container.Resolve<ICommandManager>();
+            _menus = Container.Resolve<IMenuService>();
+            _toolbarService = Container.Resolve<IToolbarService>();
+            _commandManager = Container.Resolve<ICommandManager>();
         }
 
         #endregion
 
         #region IWorkspace Members
+        protected IContainerExtension Container { get; }
 
         /// <summary>
         /// The list of documents which are open in the workspace

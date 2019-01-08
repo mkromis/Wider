@@ -27,7 +27,7 @@ namespace WiderClipboard.Models
 
         private void LoadCommand()
         {
-            ICommandManager commandManager = _container.Resolve<ICommandManager>();
+            ICommandManager commandManager = Container.Resolve<ICommandManager>();
 
             ICommand selectionView = new DelegateCommand(() => Tools.Where(x => x.Title == "Selection").First().IsVisible = true);
             ICommand refreshCommand = new DelegateCommand(() => ((SelectionViewModel)Tools.Where(x => x.Title == "Selection").First()).Refresh());
@@ -40,8 +40,8 @@ namespace WiderClipboard.Models
 
         private void LoadMenu()
         {
-            ICommandManager commandManager = _container.Resolve<ICommandManager>();
-            IMenuService menuService = _container.Resolve<IMenuService>();
+            ICommandManager commandManager = Container.Resolve<ICommandManager>();
+            IMenuService menuService = Container.Resolve<IMenuService>();
 
             // Add file command
             menuService.Add(new MenuItemViewModel("_File", 1));
@@ -64,9 +64,9 @@ namespace WiderClipboard.Models
 
         private void LoadToolbar()
         {
-            ICommandManager commandManager = _container.Resolve<ICommandManager>();
-            IMenuService menuService = _container.Resolve<IMenuService>();
-            IToolbarService toolbarService = _container.Resolve<IToolbarService>();
+            ICommandManager commandManager = Container.Resolve<ICommandManager>();
+            IMenuService menuService = Container.Resolve<IMenuService>();
+            IToolbarService toolbarService = Container.Resolve<IToolbarService>();
 
             toolbarService.Add(new ToolbarViewModel("Standard", 1) { Band = 1, BandIndex = 1 });
             toolbarService.Get("Standard").Add(menuService.Get("_Refersh"));
@@ -75,7 +75,7 @@ namespace WiderClipboard.Models
 
         private void LoadTools()
         {
-            SelectionViewModel selectionViewModel = _container.Resolve<SelectionViewModel>();
+            SelectionViewModel selectionViewModel = Container.Resolve<SelectionViewModel>();
             Tools.Add(selectionViewModel);
         }
     }

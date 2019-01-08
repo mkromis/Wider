@@ -16,7 +16,7 @@ namespace WiderRibbonDemo
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             base.RegisterTypes(containerRegistry);
-            containerRegistry.Register<IWorkspace, Workspace>();
+            containerRegistry.RegisterSingleton<IWorkspace, Workspace>();
         }
 
         protected override void OnInitialized()
