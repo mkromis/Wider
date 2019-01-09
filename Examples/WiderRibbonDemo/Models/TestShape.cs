@@ -36,6 +36,8 @@ namespace WiderRibbonDemo.Models
             {
                 _bounds.Width *= 2;
                 _bounds.Height *= 2;
+                BoundsChanged?.Invoke(this, null);
+
                 _points = new Point[3];
 
                 bounds = new Rect(0, 0, _bounds.Width, _bounds.Height);
