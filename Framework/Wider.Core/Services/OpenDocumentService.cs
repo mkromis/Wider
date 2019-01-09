@@ -76,7 +76,7 @@ namespace Wider.Core.Services
             _workspace = container.Resolve<IWorkspace>();
             _handler = container.Resolve<IContentHandlerRegistry>() as ContentHandlerRegistry;
             _recentSettings = container.Resolve<IRecentViewSettings>() as RecentViewSettings;
-            //_dialog = new OpenFileDialog();
+            _dialog = new OpenFileDialog();
         }
 
         #region IOpenDocumentService Members
