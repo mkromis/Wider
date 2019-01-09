@@ -40,7 +40,10 @@ namespace Wider.Core.Views
             // Update toolbar if service changed.
             _toolbarService.PropertyChanged += (s, e) =>
             {
-                RefreshToolbar();
+                if (_toolbarService.Children.Count > 0)
+                {
+                    Application.Current.Dispatcher.Invoke(() => RefreshToolbar());
+                }
             };
 
             // Inital refresh
