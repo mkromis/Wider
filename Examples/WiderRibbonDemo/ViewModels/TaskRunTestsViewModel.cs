@@ -32,10 +32,8 @@ namespace WiderRibbonDemo.ViewModels
 
         public ICommand StartRun => new DelegateCommand(() =>
         {
-            var t1 = SynchronizationContext.Current;
             Task.Run(async () =>
             {
-                SynchronizationContext.SetSynchronizationContext(t1);
                 for (Int32 x = 0; x < 11; ++x)
                 {
                     await Task.Delay(250);
