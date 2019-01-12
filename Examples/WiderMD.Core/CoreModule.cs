@@ -120,14 +120,7 @@ namespace WiderMD.Core
                 .Publish(new SplashMessageUpdateEvent { Message = "Themes.." });
             IThemeManager manager = containerProvider.Resolve<IThemeManager>();
             IThemeSettings themeSettings = containerProvider.Resolve<IThemeSettings>();
-            Window win = containerProvider.Resolve<IShell>() as Window;
-            manager.Add(new DefaultTheme());
-            manager.Add(new CleanTheme());
-            manager.Add(new VS2010Theme());
-            manager.Add(new BlueTheme());
-            manager.Add(new LightTheme());
-            manager.Add(new DarkTheme());
-            win.Dispatcher.InvokeAsync(() => manager.SetCurrent(themeSettings.SelectedTheme));
+            manager.SetCurrent(themeSettings.SelectedTheme);
         }
 
         private void LoadCommands()

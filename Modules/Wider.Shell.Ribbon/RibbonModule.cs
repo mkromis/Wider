@@ -20,9 +20,7 @@ namespace Wider.Shell.Ribbon
             themneManager.SetCurrent("Default");
         }
 
-        public void RegisterTypes(IContainerRegistry containerRegistry)
-        {
+        public void RegisterTypes(IContainerRegistry containerRegistry) => 
             containerRegistry.Register<IShell, ShellView>();
-        }
     }
 }

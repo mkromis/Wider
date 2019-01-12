@@ -38,13 +38,19 @@ namespace Wider.Core.Services
         private readonly ILoggerService _logger;
 
         /// <summary>
+        /// The shell for async method
+        /// </summary>
+        private readonly IShell _shell;
+
+        /// <summary>
         /// The theme manager constructor
         /// </summary>
         /// <param name="eventAggregator">The injected event aggregator</param>
         /// <param name="logger">The injected logger</param>
-        public ThemeManager(IEventAggregator eventAggregator, ILoggerService logger)
+        public ThemeManager(IShell shell, IEventAggregator eventAggregator, ILoggerService logger)
         {
             Themes = new ObservableCollection<ITheme>();
+            _shell = shell;
             _eventAggregator = eventAggregator;
             _logger = logger;
         }
@@ -73,31 +79,36 @@ namespace Wider.Core.Services
             {
                 Current = newTheme;
 
-                // May need to delete merged dictionary from all windows
-
-                // Setup app style
-                ResourceDictionary appTheme =
-                    Application.Current.Resources.MergedDictionaries.Count > 0
-                    ? Application.Current.Resources.MergedDictionaries[0] : null;
-
-                if (appTheme == null)
+                if (_shell is Window win)
                 {
-                    appTheme = new ResourceDictionary();
-                    Application.Current.Resources.MergedDictionaries.Add(appTheme);
-                }
+                    win.Dispatcher.InvokeAsync(() =>
+                    {
+                        // Setup app style
+                        ResourceDictionary appTheme =
+                            Application.Current.Resources.MergedDictionaries.Count > 0
+                            ? Application.Current.Resources.MergedDictionaries[0] : null;
 
-                appTheme.MergedDictionaries.Clear();
-                appTheme.BeginInit();
+                        if (appTheme == null)
+                        {
+                            appTheme = new ResourceDictionary();
+                            Application.Current.Resources.MergedDictionaries.Add(appTheme);
+                        }
 
-                foreach (Uri uri in newTheme.UriList)
-                {
-                    ResourceDictionary newDict = new ResourceDictionary {Source = uri};
-                    appTheme.MergedDictionaries.Add(newDict);
+                        appTheme.MergedDictionaries.Clear();
+                        appTheme.BeginInit();
+
+                        foreach (Uri uri in newTheme.UriList)
+                        {
+                            ResourceDictionary newDict = new ResourceDictionary { Source = uri };
+                            appTheme.MergedDictionaries.Add(newDict);
+                        }
+                        appTheme.EndInit();
+
+                        _logger.Log($"Theme set to {name}", Category.Info, Priority.None);
+                        _eventAggregator.GetEvent<ThemeChangeEvent>().Publish(newTheme);
+                    });
                 }
-                appTheme.EndInit();
-                
-                _logger.Log($"Theme set to {name}", Category.Info, Priority.None);
-                _eventAggregator.GetEvent<ThemeChangeEvent>().Publish(newTheme);
+                return true;
             }
             return false;
         }

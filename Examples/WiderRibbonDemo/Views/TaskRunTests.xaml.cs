@@ -8,9 +8,6 @@ namespace WiderRibbonDemo.Views
     /// </summary>
     public partial class TaskRunTests : UserControl, IContentView
     {
-        public TaskRunTests()
-        {
-            InitializeComponent();
-        }
+        public TaskRunTests() => InitializeComponent();
     }
 }
