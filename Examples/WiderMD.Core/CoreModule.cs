@@ -121,12 +121,12 @@ namespace WiderMD.Core
             IThemeManager manager = containerProvider.Resolve<IThemeManager>();
             IThemeSettings themeSettings = containerProvider.Resolve<IThemeSettings>();
             Window win = containerProvider.Resolve<IShell>() as Window;
-            manager.AddTheme(new DefaultTheme());
-            manager.AddTheme(new CleanTheme());
-            manager.AddTheme(new VS2010Theme());
-            manager.AddTheme(new BlueTheme());
-            manager.AddTheme(new LightTheme());
-            manager.AddTheme(new DarkTheme());
+            manager.Add(new DefaultTheme());
+            manager.Add(new CleanTheme());
+            manager.Add(new VS2010Theme());
+            manager.Add(new BlueTheme());
+            manager.Add(new LightTheme());
+            manager.Add(new DarkTheme());
             win.Dispatcher.InvokeAsync(() => manager.SetCurrent(themeSettings.SelectedTheme));
         }
 
@@ -331,7 +331,7 @@ namespace WiderMD.Core
             }
 
 
-            if (manager.CurrentTheme?.Name != s)
+            if (manager.Current?.Name != s)
             {
                 if (themeMenu.Get(s) is MenuItemViewModel mvm)
                 {

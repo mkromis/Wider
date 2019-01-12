@@ -49,17 +49,6 @@ namespace Wider.Shell.Ribbon.Views
 
             // save initial resolved items
             _eventAggregator = container.Resolve<IEventAggregator>();
-
-            IThemeManager themeManager = container.Resolve<IThemeManager>();
-            // Set an inital theme if not set by workspace
-            if (themeManager.Themes.Count == 0)
-            {
-                DefaultTheme defaultTheme = new DefaultTheme();
-                themeManager.AddTheme(defaultTheme);
-                themeManager.SetCurrent(defaultTheme.Name);
-            }
-
-            // MahApps specific
         }
 
         #region IShell Members

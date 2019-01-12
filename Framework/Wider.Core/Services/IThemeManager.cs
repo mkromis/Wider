@@ -31,7 +31,14 @@ namespace Wider.Core.Services
         /// </summary>
         /// <param name="theme">The theme to add</param>
         /// <returns><c>true</c> if successful, <c>false</c> otherwise</returns>
-        Boolean AddTheme(ITheme theme);
+        Boolean Add(ITheme theme);
+
+        Boolean Remove(String theme);
+
+        /// <summary>
+        /// Resets the theme manager to a new empty state
+        /// </summary>
+        void Clear();
 
         /// <summary>
         /// Called to set the current theme from the list of themes
@@ -44,6 +51,6 @@ namespace Wider.Core.Services
         /// Returns the current theme set in the theme manager
         /// </summary>
         /// <value>The current theme.</value>
-        ITheme CurrentTheme { get; }
+        ITheme Current { get; }
     }
 }
