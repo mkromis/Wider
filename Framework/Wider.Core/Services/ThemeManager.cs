@@ -15,6 +15,7 @@ using Prism.Logging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using Wider.Core.Events;
 using Wider.Core.Services;
@@ -26,11 +27,6 @@ namespace Wider.Core.Services
     /// </summary>
     internal sealed class ThemeManager : IThemeManager
     {
-        /// <summary>
-        /// Dictionary of different themes
-        /// </summary>
-        private static readonly Dictionary<String, ITheme> ThemeDictionary = new Dictionary<String, ITheme>();
-
         /// <summary>
         /// The injected event aggregator
         /// </summary>
@@ -72,9 +68,9 @@ namespace Wider.Core.Services
         /// <returns>true if the new theme is set, false otherwise</returns>
         public Boolean SetCurrent(String name)
         {
-            if (ThemeDictionary.ContainsKey(name))
+            ITheme newTheme = Themes.Where(x => x.Name == name).FirstOrDefault();
+            if (newTheme != null)
             {
-                ITheme newTheme = ThemeDictionary[name];
                 CurrentTheme = newTheme;
 
                 // May need to delete merged dictionary from all windows
@@ -113,9 +109,8 @@ namespace Wider.Core.Services
         /// <returns>true, if successful - false, otherwise</returns>
         public Boolean AddTheme(ITheme theme)
         {
-            if (!ThemeDictionary.ContainsKey(theme.Name))
+            if (Themes.Any(x => x.Name == theme.Name))
             {
-                ThemeDictionary.Add(theme.Name, theme);
                 Themes.Add(theme);
                 return true;
             }
