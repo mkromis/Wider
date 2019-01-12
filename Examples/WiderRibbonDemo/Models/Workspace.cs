@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -8,6 +9,7 @@ using Prism.Events;
 using Prism.Ioc;
 using Wider.Core.Events;
 using Wider.Core.Services;
+using Wider.Shell.Ribbon.Themes;
 using WiderRibbonDemo.ViewModels;
 
 namespace WiderRibbonDemo.Models
@@ -16,7 +18,7 @@ namespace WiderRibbonDemo.Models
     {
         // Handles data context for ribbon.
         private VirtualCanvasViewModel _canvasViewModel;
-
+        private IThemeManager _themneManager;
 
         public VirtualCanvasViewModel CanvasViewModel
         {
@@ -42,8 +44,22 @@ namespace WiderRibbonDemo.Models
             return vm;
         }
 
-        public Workspace(IContainerExtension container) : base(container) => 
+        public Workspace(IContainerExtension container) : base(container)
+        {
             _eventAggregator.GetEvent<ActiveContentChangedEvent>().Subscribe(ActiveDocumentChanged);
+            _themneManager = Container.Resolve<IThemeManager>();
+            _themneManager.AddTheme(new BlueTheme());
+            _themneManager.AddTheme(new DarkTheme());
+            _themneManager.AddTheme(new LightTheme());
+        }
+
+        public IEnumerable<String> ThemeList => _themneManager.Themes.Select(x => x.Name);
+
+        public String SelectedTheme
+        {
+            set => _themneManager.SetCurrent(value);
+            get => _themneManager.CurrentTheme.Name;
+        }
 
         private void ActiveDocumentChanged(ContentViewModel obj)
         {
