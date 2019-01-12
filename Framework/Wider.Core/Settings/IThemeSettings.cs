@@ -17,5 +17,6 @@ namespace Wider.Core.Settings
     public interface IThemeSettings
     {
         String SelectedTheme { get; }
+        String GetSystemTheme();
     }
 }
