@@ -52,14 +52,14 @@ namespace Wider.Core.Services
         /// <summary>
         /// The current theme set in the theme manager
         /// </summary>
-        public ITheme CurrentTheme { get; internal set; }
+        public ITheme Current { get; private set; }
 
         #region IThemeManager Members
 
         /// <summary>
         /// The collection of themes
         /// </summary>
-        public ObservableCollection<ITheme> Themes { get; internal set; }
+        public ObservableCollection<ITheme> Themes { get; private set; }
 
         /// <summary>
         /// Set the current theme
@@ -71,7 +71,7 @@ namespace Wider.Core.Services
             ITheme newTheme = Themes.Where(x => x.Name == name).FirstOrDefault();
             if (newTheme != null)
             {
-                CurrentTheme = newTheme;
+                Current = newTheme;
 
                 // May need to delete merged dictionary from all windows
 
@@ -107,9 +107,9 @@ namespace Wider.Core.Services
         /// </summary>
         /// <param name="theme">The theme to add</param>
         /// <returns>true, if successful - false, otherwise</returns>
-        public Boolean AddTheme(ITheme theme)
+        public Boolean Add(ITheme theme)
         {
-            if (Themes.Any(x => x.Name == theme.Name))
+            if (!Themes.Any(x => x.Name == theme.Name))
             {
                 Themes.Add(theme);
                 return true;
@@ -117,6 +117,26 @@ namespace Wider.Core.Services
             return false;
         }
 
+        /// <summary>
+        /// Remove theme based on name of theme
+        /// </summary>
+        /// <param name="theme">name of theme to remove</param>
+        /// <returns></returns>
+        public Boolean Remove (String theme)
+        {
+            if (Themes.Any(x => x.Name == theme))
+            {
+                Themes.Clear();
+                Themes.AddRange(Themes.Where(x => x.Name != theme));
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Sets the theme manager to a known empty state
+        /// </summary>
+        public void Clear() => Themes.Clear();
         #endregion
     }
 }
