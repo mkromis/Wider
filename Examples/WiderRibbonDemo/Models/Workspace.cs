@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -8,6 +9,8 @@ using Prism.Events;
 using Prism.Ioc;
 using Wider.Core.Events;
 using Wider.Core.Services;
+using Wider.Core.Settings;
+using Wider.Shell.Ribbon.Themes;
 using WiderRibbonDemo.ViewModels;
 
 namespace WiderRibbonDemo.Models
@@ -16,7 +19,8 @@ namespace WiderRibbonDemo.Models
     {
         // Handles data context for ribbon.
         private VirtualCanvasViewModel _canvasViewModel;
-
+        private readonly IThemeSettings _themeSettings;
+        private readonly IThemeManager _themneManager;
 
         public VirtualCanvasViewModel CanvasViewModel
         {
@@ -42,19 +46,26 @@ namespace WiderRibbonDemo.Models
             return vm;
         }
 
-        public Workspace(IContainerExtension container) : base(container) => 
-            _eventAggregator.GetEvent<ActiveContentChangedEvent>().Subscribe(ActiveDocumentChanged);
-
-        private void ActiveDocumentChanged(ContentViewModel obj)
+        public Workspace(IContainerExtension container) : base(container)
         {
-            //switch (obj)
-            //{
-            //    case VirtualCanvasViewModel canvas:
-            //        CanvasVisibility = Visibility.Visible;
-            //        break;
-            //    default:
-            //        break;
-            //}
+            _themeSettings = Container.Resolve<IThemeSettings>();
+            _themneManager = Container.Resolve<IThemeManager>();
+
+
+            String themeName = _themeSettings.SelectedTheme;
+            if (themeName == "Default")
+            {
+                themeName = _themeSettings.GetSystemTheme();
+            }
+            _themneManager.SetCurrent(themeName);
+        }
+
+        public IEnumerable<String> ThemeList => _themneManager.Themes.Select(x => x.Name);
+
+        public String SelectedTheme
+        {
+            set => _themneManager.SetCurrent(value);
+            get => _themneManager.Current.Name;
         }
     }
 }
