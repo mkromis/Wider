@@ -10,6 +10,7 @@
 
 #endregion
 
+using Microsoft.Win32;
 using Prism.Events;
 using System;
 using System.Configuration;
@@ -21,6 +22,7 @@ namespace Wider.Core.Settings
 {
     internal class ThemeSettings : AbstractSettings, IThemeSettings
     {
+        #region Event ThemeChangedEvent
         public ThemeSettings(IEventAggregator eventAggregator) => eventAggregator.GetEvent<ThemeChangeEvent>().Subscribe(NewSelectedTheme);
 
         private void NewSelectedTheme(ITheme theme)
@@ -28,6 +30,7 @@ namespace Wider.Core.Settings
             SelectedTheme = theme.Name;
             Save();
         }
+        #endregion
 
         [UserScopedSetting()]
         [DefaultSettingValue("Default")]
@@ -35,6 +38,18 @@ namespace Wider.Core.Settings
         {
             get => (String)this["SelectedTheme"];
             set => this["SelectedTheme"] = value;
+        }
+
+        /// <summary>
+        /// Try to deterimine what windows theme is applied in settings
+        /// </summary>
+        /// <returns></returns>
+        public String GetSystemTheme()
+        {
+            String key = $@"{Registry.CurrentUser}\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
+            Object value = Registry.GetValue(key, "AppsUseLightTheme", null);
+            if (value == null) { return "Default";  };
+            return (Int32)value == 0 ? "Dark" : "Light";
         }
     }
 }
