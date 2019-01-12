@@ -14,26 +14,30 @@ using System;
 using System.Collections.Generic;
 using Wider.Core.Services;
 
-namespace Wider.Shell.Themes
+namespace Wider.Shell.Ribbon.Themes
 {
     /// <summary>
     /// Class DefaultTheme
     /// </summary>
-    public sealed class DefaultTheme : ITheme
+    public sealed class LightTheme : ITheme
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DefaultTheme"/> class.
         /// </summary>
-        public DefaultTheme()
+        public LightTheme()
         {
             UriList = new List<Uri>
             {
-                new Uri("pack://application:,,,/Xceed.Wpf.AvalonDock.Themes.Aero;component/Theme.xaml"),
+                new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"),
                 new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"),
                 new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml"),
-                new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"),
-                new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml"),
                 new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"),
+
+                new Uri("pack://application:,,,/Fluent;Component/Themes/Generic.xaml"),
+                new Uri("pack://application:,,,/Fluent;component/Themes/Accents/Cobalt.xaml"),
+                new Uri("pack://application:,,,/Fluent;component/Themes/Colors/BaseLight.xaml"),
+
+                new Uri("pack://application:,,,/Xceed.Wpf.AvalonDock.Themes.VS2013;component/LightTheme.xaml"),
             };
         }
 
@@ -49,7 +53,7 @@ namespace Wider.Shell.Themes
         /// The name of the theme - "Default"
         /// </summary>
         /// <value>The name.</value>
-        public String Name => "Default";
+        public String Name => "Light";
 
         #endregion
     }

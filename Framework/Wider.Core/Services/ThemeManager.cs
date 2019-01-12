@@ -15,6 +15,7 @@ using Prism.Logging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using Wider.Core.Events;
 using Wider.Core.Services;
@@ -27,11 +28,6 @@ namespace Wider.Core.Services
     internal sealed class ThemeManager : IThemeManager
     {
         /// <summary>
-        /// Dictionary of different themes
-        /// </summary>
-        private static readonly Dictionary<String, ITheme> ThemeDictionary = new Dictionary<String, ITheme>();
-
-        /// <summary>
         /// The injected event aggregator
         /// </summary>
         private readonly IEventAggregator _eventAggregator;
@@ -42,13 +38,19 @@ namespace Wider.Core.Services
         private readonly ILoggerService _logger;
 
         /// <summary>
+        /// The shell for async method
+        /// </summary>
+        private readonly IShell _shell;
+
+        /// <summary>
         /// The theme manager constructor
         /// </summary>
         /// <param name="eventAggregator">The injected event aggregator</param>
         /// <param name="logger">The injected logger</param>
-        public ThemeManager(IEventAggregator eventAggregator, ILoggerService logger)
+        public ThemeManager(IShell shell, IEventAggregator eventAggregator, ILoggerService logger)
         {
             Themes = new ObservableCollection<ITheme>();
+            _shell = shell;
             _eventAggregator = eventAggregator;
             _logger = logger;
         }
@@ -56,14 +58,14 @@ namespace Wider.Core.Services
         /// <summary>
         /// The current theme set in the theme manager
         /// </summary>
-        public ITheme CurrentTheme { get; internal set; }
+        public ITheme Current { get; private set; }
 
         #region IThemeManager Members
 
         /// <summary>
         /// The collection of themes
         /// </summary>
-        public ObservableCollection<ITheme> Themes { get; internal set; }
+        public ObservableCollection<ITheme> Themes { get; private set; }
 
         /// <summary>
         /// Set the current theme
@@ -72,36 +74,41 @@ namespace Wider.Core.Services
         /// <returns>true if the new theme is set, false otherwise</returns>
         public Boolean SetCurrent(String name)
         {
-            if (ThemeDictionary.ContainsKey(name))
+            ITheme newTheme = Themes.Where(x => x.Name == name).FirstOrDefault();
+            if (newTheme != null)
             {
-                ITheme newTheme = ThemeDictionary[name];
-                CurrentTheme = newTheme;
+                Current = newTheme;
 
-                // May need to delete merged dictionary from all windows
-
-                // Setup app style
-                ResourceDictionary appTheme =
-                    Application.Current.Resources.MergedDictionaries.Count > 0
-                    ? Application.Current.Resources.MergedDictionaries[0] : null;
-
-                if (appTheme == null)
+                if (_shell is Window win)
                 {
-                    appTheme = new ResourceDictionary();
-                    Application.Current.Resources.MergedDictionaries.Add(appTheme);
-                }
+                    win.Dispatcher.InvokeAsync(() =>
+                    {
+                        // Setup app style
+                        ResourceDictionary appTheme =
+                            Application.Current.Resources.MergedDictionaries.Count > 0
+                            ? Application.Current.Resources.MergedDictionaries[0] : null;
 
-                appTheme.MergedDictionaries.Clear();
-                appTheme.BeginInit();
+                        if (appTheme == null)
+                        {
+                            appTheme = new ResourceDictionary();
+                            Application.Current.Resources.MergedDictionaries.Add(appTheme);
+                        }
 
-                foreach (Uri uri in newTheme.UriList)
-                {
-                    ResourceDictionary newDict = new ResourceDictionary {Source = uri};
-                    appTheme.MergedDictionaries.Add(newDict);
+                        appTheme.MergedDictionaries.Clear();
+                        appTheme.BeginInit();
+
+                        foreach (Uri uri in newTheme.UriList)
+                        {
+                            ResourceDictionary newDict = new ResourceDictionary { Source = uri };
+                            appTheme.MergedDictionaries.Add(newDict);
+                        }
+                        appTheme.EndInit();
+
+                        _logger.Log($"Theme set to {name}", Category.Info, Priority.None);
+                        _eventAggregator.GetEvent<ThemeChangeEvent>().Publish(newTheme);
+                    });
                 }
-                appTheme.EndInit();
-                
-                _logger.Log($"Theme set to {name}", Category.Info, Priority.None);
-                _eventAggregator.GetEvent<ThemeChangeEvent>().Publish(newTheme);
+                return true;
             }
             return false;
         }
@@ -111,17 +118,36 @@ namespace Wider.Core.Services
         /// </summary>
         /// <param name="theme">The theme to add</param>
         /// <returns>true, if successful - false, otherwise</returns>
-        public Boolean AddTheme(ITheme theme)
+        public Boolean Add(ITheme theme)
         {
-            if (!ThemeDictionary.ContainsKey(theme.Name))
+            if (!Themes.Any(x => x.Name == theme.Name))
             {
-                ThemeDictionary.Add(theme.Name, theme);
                 Themes.Add(theme);
                 return true;
             }
             return false;
         }
 
+        /// <summary>
+        /// Remove theme based on name of theme
+        /// </summary>
+        /// <param name="theme">name of theme to remove</param>
+        /// <returns></returns>
+        public Boolean Remove (String theme)
+        {
+            if (Themes.Any(x => x.Name == theme))
+            {
+                Themes.Clear();
+                Themes.AddRange(Themes.Where(x => x.Name != theme));
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Sets the theme manager to a known empty state
+        /// </summary>
+        public void Clear() => Themes.Clear();
         #endregion
     }
 }
