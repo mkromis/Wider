@@ -49,7 +49,7 @@ namespace Wider.Shell.Themes
         /// The name of the theme - "Default"
         /// </summary>
         /// <value>The name.</value>
-        public String Name => "DefaultMetro";
+        public String Name => "Default";
 
         #endregion
     }

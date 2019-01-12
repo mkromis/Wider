@@ -19,8 +19,8 @@ namespace WiderRibbonDemo.Models
     {
         // Handles data context for ribbon.
         private VirtualCanvasViewModel _canvasViewModel;
-        private IThemeSettings _themeSettings;
-        private IThemeManager _themneManager;
+        private readonly IThemeSettings _themeSettings;
+        private readonly IThemeManager _themneManager;
 
         public VirtualCanvasViewModel CanvasViewModel
         {
@@ -48,7 +48,6 @@ namespace WiderRibbonDemo.Models
 
         public Workspace(IContainerExtension container) : base(container)
         {
-            _eventAggregator.GetEvent<ActiveContentChangedEvent>().Subscribe(ActiveDocumentChanged);
             _themeSettings = Container.Resolve<IThemeSettings>();
             _themneManager = Container.Resolve<IThemeManager>();
 
@@ -67,18 +66,6 @@ namespace WiderRibbonDemo.Models
         {
             set => _themneManager.SetCurrent(value);
             get => _themneManager.Current.Name;
-        }
-
-        private void ActiveDocumentChanged(ContentViewModel obj)
-        {
-            //switch (obj)
-            //{
-            //    case VirtualCanvasViewModel canvas:
-            //        CanvasVisibility = Visibility.Visible;
-            //        break;
-            //    default:
-            //        break;
-            //}
         }
     }
 }
