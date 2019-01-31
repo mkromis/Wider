@@ -6,5 +6,5 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="userControl" mc:Ignorable="d" 
     x:Class="WiderClipboard.Views.HexViewer" d:DesignWidth="402.667" d:DesignHeight="348"
     >
-    <hexa:HexEditor Stream="{Binding DataContext.MemoryStreamItem, ElementName=userControl}"/>
+    <hexa:HexEditor x:Name="editor" Stream="{Binding DataContext.MemoryStreamItem, ElementName=userControl}"/>
 </UserControl>
