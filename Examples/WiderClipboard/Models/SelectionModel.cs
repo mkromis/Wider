@@ -23,6 +23,10 @@ namespace WiderClipboard.Models
             IWorkspace workspace = _container.Resolve<IWorkspace>();
 
             workspace.Documents.Clear();
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
             return Clipboard.GetDataObject().GetFormats(false);
         }
 

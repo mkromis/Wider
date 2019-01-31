@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Input;
 using Wider.Core.Services;
 using WiderClipboard.Models;
 using WiderClipboard.Views;
@@ -25,5 +26,11 @@ namespace WiderClipboard.ViewModels
             get => _memoryStream;
             set => SetProperty(ref _memoryStream, value);
         }
+
+        public override ICommand CloseCommand => new DelegateCommand(() =>
+        {
+            ((HexViewer)View).Dispose();
+            Close(this);
+        });
     }
 }
