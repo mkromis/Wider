@@ -23,6 +23,10 @@ namespace WiderClipboard.Models
             IWorkspace workspace = _container.Resolve<IWorkspace>();
 
             workspace.Documents.Clear();
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
             return Clipboard.GetDataObject().GetFormats(false);
         }
 
@@ -51,6 +55,15 @@ namespace WiderClipboard.Models
                     case String[] stringArray:
                         {
                             TextDocument(format, workspace, String.Join("\n", stringArray));
+                            return;
+                        }
+                    case System.IO.MemoryStream memory:
+                        {
+                            HexViewerViewModel viewModel = _container.Resolve<HexViewerViewModel>();
+                            viewModel.Title = format;
+                            viewModel.MemoryStreamItem = memory;
+                            workspace.Documents.Add(viewModel);
+                            workspace.ActiveDocument = viewModel;
                             return;
                         }
                     case System.Windows.Interop.InteropBitmap bitmap:
