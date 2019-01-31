@@ -1,0 +1,10 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:hexa="clr-namespace:WpfHexaEditor;assembly=WPFHexaEditor"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="userControl" mc:Ignorable="d" 
+    x:Class="WiderClipboard.Views.HexViewer" d:DesignWidth="402.667" d:DesignHeight="348"
+    >
+    <hexa:HexEditor x:Name="editor" Stream="{Binding DataContext.MemoryStreamItem, ElementName=userControl}"/>
+</UserControl>
