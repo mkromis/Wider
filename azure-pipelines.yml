@@ -44,6 +44,15 @@ steps:
     versioningScheme: 'byEnvVar' # Options: off, byPrereleaseNumber, byEnvVar, byBuildNumber
     versionEnvVar: GitVersion.NuGetVersion
 
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/copy-files?view=azure-devops&tabs=yaml
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+  inputs:
+    Contents: |
+     Examples\WiderClipboard\bin\Release\!(*.pdb|*.config)
+     Examples\WiderClipboard\bin\Release\*\*.dll
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\Examples\WiderClipboard'
+
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/build/artifacts?view=vsts
 - task: PublishBuildArtifacts@1
   inputs:
