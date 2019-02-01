@@ -40,6 +40,7 @@ steps:
   inputs:
     command: pack
     packagesToPack: 'Framework/**/*.csproj;Modules/**/*.csproj' # Required when command == Pack
+    packDestination: '$(Build.ArtifactStagingDirectory)/Nugets'
     versioningScheme: 'byEnvVar' # Options: off, byPrereleaseNumber, byEnvVar, byBuildNumber
     versionEnvVar: GitVersion.NuGetVersion
 
