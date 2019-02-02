@@ -40,7 +40,7 @@ steps:
   inputs:
     command: pack
     packagesToPack: 'Framework/**/*.csproj;Modules/**/*.csproj' # Required when command == Pack
-    packDestination: '$(Build.ArtifactStagingDirectory)/Nugets'
+    packDestination: '(Build.BinariesDirectory)\Wider-$(Build.BuildId)/Nugets'
     versioningScheme: 'byEnvVar' # Options: off, byPrereleaseNumber, byEnvVar, byBuildNumber
     versionEnvVar: GitVersion.NuGetVersion
 
@@ -53,7 +53,7 @@ steps:
      *.exe
      *.dll
      *\*.dll
-    TargetFolder: '$(Build.ArtifactStagingDirectory)\Examples\WiderClipboard'
+    TargetFolder: '$(Build.BinariesDirectory)\Wider-$(Build.BuildId)\Examples\WiderClipboard'
 
 - task: CopyFiles@2
   displayName: 'Copy WiderMD Files'
@@ -63,7 +63,7 @@ steps:
      *.exe
      *.dll
      *\*.dll
-    TargetFolder: '$(Build.ArtifactStagingDirectory)\Examples\WiderMD'
+    TargetFolder: '$(Build.BinariesDirectory)\Wider-$(Build.BuildId)\Examples\WiderMD'
 
 - task: CopyFiles@2
   displayName: 'Copy WiderRibbonDemo Files'
@@ -73,7 +73,26 @@ steps:
      *.exe
      *.dll
      *\*.dll
-    TargetFolder: '$(Build.ArtifactStagingDirectory)\Examples\WiderRibbonDemo'
+    TargetFolder: '$(Build.BinariesDirectory)\Wider-$(Build.BuildId)\Examples\WiderRibbonDemo'
+
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/archive-files?view=azure-devops
+# Archive files using compression formats such as .7z, .rar, .tar.gz, and .zip.
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.BinariesDirectory)\Wider-$(Build.BuildId)' 
+    includeRootFolder: true 
+    archiveType: '7z' # Options: zip, 7z, tar, wim
+    archiveFile: '$(Build.ArtifactStagingDirectory)/Wider-$(Build.BuildId).zip' 
+    #verbose: # Optional
+    #quiet: # Optional
+
+# copy the Nuget to output
+- task: CopyFiles@2
+  displayName: 'Copy Nuget Files'
+  inputs:
+    sourceFolder: (Build.BinariesDirectory)\Wider-$(Build.BuildId)\Nuget
+    Contents: *.nupkg
+    TargetFolder: '$(Build.ArtifactStagingDirectory)' 
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/build/artifacts?view=vsts
 - task: PublishBuildArtifacts@1
