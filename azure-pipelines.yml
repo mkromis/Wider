@@ -40,7 +40,7 @@ steps:
   inputs:
     command: pack
     packagesToPack: 'Framework/**/*.csproj;Modules/**/*.csproj' # Required when command == Pack
-    packDestination: '(Build.BinariesDirectory)\Wider-$(Build.BuildId)/Nugets'
+    packDestination: '$(Build.BinariesDirectory)\Wider-$(GitVersion.NuGetVersion)/Nugets'
     versioningScheme: 'byEnvVar' # Options: off, byPrereleaseNumber, byEnvVar, byBuildNumber
     versionEnvVar: GitVersion.NuGetVersion
 
@@ -53,7 +53,7 @@ steps:
      *.exe
      *.dll
      *\*.dll
-    TargetFolder: '$(Build.BinariesDirectory)\Wider-$(Build.BuildId)\Examples\WiderClipboard'
+    TargetFolder: '$(Build.BinariesDirectory)\Wider-$(GitVersion.NuGetVersion)\Examples\WiderClipboard'
 
 - task: CopyFiles@2
   displayName: 'Copy WiderMD Files'
@@ -63,7 +63,7 @@ steps:
      *.exe
      *.dll
      *\*.dll
-    TargetFolder: '$(Build.BinariesDirectory)\Wider-$(Build.BuildId)\Examples\WiderMD'
+    TargetFolder: '$(Build.BinariesDirectory)\Wider-$(GitVersion.NuGetVersion)\Examples\WiderMD'
 
 - task: CopyFiles@2
   displayName: 'Copy WiderRibbonDemo Files'
@@ -73,16 +73,16 @@ steps:
      *.exe
      *.dll
      *\*.dll
-    TargetFolder: '$(Build.BinariesDirectory)\Wider-$(Build.BuildId)\Examples\WiderRibbonDemo'
+    TargetFolder: '$(Build.BinariesDirectory)\Wider-$(GitVersion.NuGetVersion)\Examples\WiderRibbonDemo'
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/archive-files?view=azure-devops
 # Archive files using compression formats such as .7z, .rar, .tar.gz, and .zip.
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.BinariesDirectory)\Wider-$(Build.BuildId)' 
+    rootFolderOrFile: '$(Build.BinariesDirectory)\Wider-$(GitVersion.NuGetVersion)' 
     includeRootFolder: true 
     archiveType: '7z' # Options: zip, 7z, tar, wim
-    archiveFile: '$(Build.ArtifactStagingDirectory)/Wider-$(Build.BuildId).zip' 
+    archiveFile: '$(Build.ArtifactStagingDirectory)/Wider-$(GitVersion.NuGetVersion).zip' 
     #verbose: # Optional
     #quiet: # Optional
 
@@ -90,7 +90,7 @@ steps:
 - task: CopyFiles@2
   displayName: 'Copy Nuget Files'
   inputs:
-    sourceFolder: '$(Build.BinariesDirectory)\Wider-$(Build.BuildId)\Nuget'
+    sourceFolder: '$(Build.BinariesDirectory)\Wider-$(GitVersion.NuGetVersion)\Nugets'
     Contents: |
       *.*
     TargetFolder: '$(Build.ArtifactStagingDirectory)' 
