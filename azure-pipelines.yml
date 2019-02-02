@@ -82,7 +82,7 @@ steps:
     rootFolderOrFile: '$(Build.BinariesDirectory)\Wider-$(GitVersion.NuGetVersion)' 
     includeRootFolder: true 
     archiveType: '7z' # Options: zip, 7z, tar, wim
-    archiveFile: '$(Build.ArtifactStagingDirectory)/Wider-$(GitVersion.NuGetVersion).zip' 
+    archiveFile: '$(Build.ArtifactStagingDirectory)/Wider-$(GitVersion.NuGetVersion).7z' 
     #verbose: # Optional
     #quiet: # Optional
 
