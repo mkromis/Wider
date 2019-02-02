@@ -90,8 +90,8 @@ steps:
 - task: CopyFiles@2
   displayName: 'Copy Nuget Files'
   inputs:
-    sourceFolder: (Build.BinariesDirectory)\Wider-$(Build.BuildId)\Nuget
-    Contents: *.nupkg
+    sourceFolder: '$(Build.BinariesDirectory)\Wider-$(Build.BuildId)\Nuget'
+    Contents: *
     TargetFolder: '$(Build.ArtifactStagingDirectory)' 
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/build/artifacts?view=vsts
