@@ -20,7 +20,7 @@ namespace WiderRibbonDemo.Models
         // Handles data context for ribbon.
         private VirtualCanvasViewModel _canvasViewModel;
         private readonly IThemeSettings _themeSettings;
-        private readonly IThemeManager _themneManager;
+        private readonly IThemeManager _themeManager;
 
         public VirtualCanvasViewModel CanvasViewModel
         {
@@ -49,23 +49,22 @@ namespace WiderRibbonDemo.Models
         public Workspace(IContainerExtension container) : base(container)
         {
             _themeSettings = Container.Resolve<IThemeSettings>();
-            _themneManager = Container.Resolve<IThemeManager>();
-
+            _themeManager = Container.Resolve<IThemeManager>();
 
             String themeName = _themeSettings.SelectedTheme;
             if (themeName == "Default")
             {
                 themeName = _themeSettings.GetSystemTheme();
             }
-            _themneManager.SetCurrent(themeName);
+            _themeManager.SetCurrent(themeName);
         }
 
-        public IEnumerable<String> ThemeList => _themneManager.Themes.Select(x => x.Name);
+        public IEnumerable<String> ThemeList => _themeManager.Themes.Select(x => x.Name);
 
         public String SelectedTheme
         {
-            set => _themneManager.SetCurrent(value);
-            get => _themneManager.Current.Name;
+            set => _themeManager.SetCurrent(value);
+            get => _themeManager.Current.Name;
         }
     }
 }
