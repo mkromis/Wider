@@ -12,7 +12,6 @@ namespace Wider.Content.VirtualCanvas.Models
     /// </summary>
     public class QuadNode<T>
     {
-        Rect _bounds;
 
         /// <summary>
         /// Construct new QuadNode to wrap the given node with given bounds
@@ -22,7 +21,7 @@ namespace Wider.Content.VirtualCanvas.Models
         public QuadNode(T node, Rect bounds)
         {
             Node = node;
-            _bounds = bounds;
+            Bounds = bounds;
         }
 
         /// <summary>
@@ -33,7 +32,7 @@ namespace Wider.Content.VirtualCanvas.Models
         /// <summary>
         /// The Rect bounds of the node
         /// </summary>
-        public Rect Bounds => _bounds;
+        public Rect Bounds { get; }
 
         /// <summary>
         /// QuadNodes form a linked list in the Quadrant.
