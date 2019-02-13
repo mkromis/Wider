@@ -10,10 +10,7 @@ namespace WiderClipboard.Views
     /// </summary>
     public partial class HexViewer : IContentView, IDisposable
     {
-        public HexViewer()
-        {
-            InitializeComponent();
-        }
+        public HexViewer() => InitializeComponent();
 
         public void Dispose()
         {

@@ -12,21 +12,12 @@ namespace Wider.Splash.Tests
     public class SplashModuleTests
     {
         [TestMethod()]
-        public void SplashModuleTest()
-        {
-            Assert.Inconclusive();
-        }
+        public void SplashModuleTest() => Assert.Inconclusive();
 
         [TestMethod()]
-        public void RegisterTypesTest()
-        {
-            Assert.Inconclusive();
-        }
+        public void RegisterTypesTest() => Assert.Inconclusive();
 
         [TestMethod()]
-        public void OnInitializedTest()
-        {
-            Assert.Inconclusive();
-        }
+        public void OnInitializedTest() => Assert.Inconclusive();
     }
 }

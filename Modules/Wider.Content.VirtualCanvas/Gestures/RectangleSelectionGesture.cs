@@ -25,7 +25,6 @@ namespace Wider.Content.VirtualCanvas.Gestures
         private readonly MapZoom _zoom;
         private readonly Panel _container;
         private Point _mouseDownPoint;
-        private Rect _selectionRect;
         private readonly Int32 _selectionThreshold = 5; // allow some mouse wiggle on mouse down without actually selecting stuff!
         private readonly ModifierKeys _mods;
 
@@ -54,7 +53,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <summary>
         /// Get the rectangle the user drew on the target object.
         /// </summary>
-        public Rect SelectionRectangle => _selectionRect;
+        public Rect SelectionRectangle { get; private set; }
 
         /// <summary>
         /// Get/Set whether to also zoom the selected rectangle.
@@ -128,7 +127,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
                 Point pos = e.GetPosition(_container);
                 Double f = Math.Min(Math.Abs(pos.X - _mouseDownPoint.X), Math.Abs(pos.Y - _mouseDownPoint.Y));
                 Rect r = GetSelectionRect(pos);
-                _selectionRect = r;
+                SelectionRectangle = r;
 
                 Selected?.Invoke(this, EventArgs.Empty);
 
