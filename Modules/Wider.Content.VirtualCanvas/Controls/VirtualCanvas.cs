@@ -643,7 +643,6 @@ namespace Wider.Content.VirtualCanvas.Controls
             if (max == c.Count - 1)
             {
                 UIElement v = c[max];
-                Int32 maxpos = position;
                 if (!(v.GetValue(VirtualChildProperty) is IVirtualChild maxchild) || position > _visualPositions[maxchild])
                 {
                     // Then we have a new last child!

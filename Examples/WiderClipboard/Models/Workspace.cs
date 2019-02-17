@@ -64,7 +64,6 @@ namespace WiderClipboard.Models
 
         private void LoadToolbar()
         {
-            ICommandManager commandManager = Container.Resolve<ICommandManager>();
             IMenuService menuService = Container.Resolve<IMenuService>();
             IToolbarService toolbarService = Container.Resolve<IToolbarService>();
 
