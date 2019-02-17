@@ -200,7 +200,7 @@ namespace Wider.Core
         /// <returns><c>true</c> if this instance can execute close document; otherwise, <c>false</c>.</returns>
         private Boolean CanExecuteCloseDocument(Object obj)
         {
-            if (obj is ContentViewModel vm)
+            if (obj is ContentViewModel)
             {
                 return true;
             }
@@ -237,9 +237,6 @@ namespace Wider.Core
                 {
                     if (!workspace.ActiveDocument.Handler.SaveContent(workspace.ActiveDocument))
                     {
-                        //Failed to save - return cancel
-                        res = MessageBoxResult.Cancel;
-
                         //Cancel was pressed - so, we cant close
                         if (e != null)
                         {
