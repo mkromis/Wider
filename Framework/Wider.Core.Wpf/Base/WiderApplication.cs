@@ -63,5 +63,11 @@ namespace Wider.Core
             }
             return main;
         }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            coreModule.LoadDefaultTheme();
+        }
     }
 }

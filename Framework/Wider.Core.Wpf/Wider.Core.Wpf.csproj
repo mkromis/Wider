@@ -68,6 +68,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Base\LayoutInitializer.cs" />
+    <Compile Include="Themes\DarkTheme.cs" />
+    <Compile Include="Themes\LightTheme.cs" />
+    <Compile Include="Themes\BlueTheme.cs" />
     <Compile Include="Views\ContentManager.xaml.cs">
       <DependentUpon>ContentManager.xaml</DependentUpon>
     </Compile>

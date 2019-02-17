@@ -13,7 +13,7 @@ namespace Wider.Core.Views
     /// </summary>
     public partial class MainMenu : UserControl
     { 
-        public MainMenu(IMenuService menuService, IEventAggregator eventAggregator)
+        public MainMenu(IMenuService menuService)
         {
             InitializeComponent();
             DataContext = menuService;
