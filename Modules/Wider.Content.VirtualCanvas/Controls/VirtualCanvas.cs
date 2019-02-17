@@ -78,8 +78,6 @@ namespace Wider.Content.VirtualCanvas.Controls
         Size _viewPortSize;
         public QuadTree<IVirtualChild> Index { get; private set; }
         ObservableCollection<IVirtualChild> _children;
-        Size _smallScrollIncrement = new Size(10, 10);
-        Size _extent;
         readonly IList<Rect> _dirtyRegions = new List<Rect>();
         readonly IList<Rect> _visibleRegions = new List<Rect>();
         IDictionary<IVirtualChild, Int32> _visualPositions;
@@ -280,8 +278,8 @@ namespace Wider.Content.VirtualCanvas.Controls
         void CalculateExtent()
         {
             Boolean rebuild = false;
-            if (Index == null || _extent.Width == 0 || _extent.Height == 0 ||
-                Double.IsNaN(_extent.Width) || Double.IsNaN(_extent.Height))
+            if (Index == null || Extent.Width == 0 || Extent.Height == 0 ||
+                Double.IsNaN(Extent.Width) || Double.IsNaN(Extent.Height))
             {
                 rebuild = true;
                 Boolean first = true;
@@ -311,7 +309,7 @@ namespace Wider.Content.VirtualCanvas.Controls
                         }
                     }
                 }
-                _extent = extent.Size;
+                Extent = extent.Size;
                 // Ok, now we know the size we can create the index.
                 Index = new QuadTree<IVirtualChild>
                 {
@@ -327,8 +325,8 @@ namespace Wider.Content.VirtualCanvas.Controls
             }
 
             // Make sure we honor the min width & height.
-            Double w = Math.Max(ContentCanvas.MinWidth, _extent.Width);
-            Double h = Math.Max(ContentCanvas.MinHeight, _extent.Height);
+            Double w = Math.Max(ContentCanvas.MinWidth, Extent.Width);
+            Double h = Math.Max(ContentCanvas.MinHeight, Extent.Height);
             ContentCanvas.Width = w;
             ContentCanvas.Height = h;
 
@@ -381,7 +379,7 @@ namespace Wider.Content.VirtualCanvas.Controls
             }
             if (Double.IsInfinity(availableSize.Width))
             {
-                return _extent;
+                return Extent;
             }
             else
             {
@@ -645,7 +643,6 @@ namespace Wider.Content.VirtualCanvas.Controls
             if (max == c.Count - 1)
             {
                 UIElement v = c[max];
-                Int32 maxpos = position;
                 if (!(v.GetValue(VirtualChildProperty) is IVirtualChild maxchild) || position > _visualPositions[maxchild])
                 {
                     // Then we have a new last child!
@@ -783,7 +780,7 @@ namespace Wider.Content.VirtualCanvas.Controls
         /// <summary>
         /// Return the full size of this canvas.
         /// </summary>
-        public Size Extent => _extent;
+        public Size Extent { get; private set; }
 
         #region IScrollInfo Members
 
@@ -800,12 +797,12 @@ namespace Wider.Content.VirtualCanvas.Controls
         /// <summary>
         /// The height of the canvas to be scrolled.
         /// </summary>
-        public Double ExtentHeight => _extent.Height * Scale.ScaleY;
+        public Double ExtentHeight => Extent.Height * Scale.ScaleY;
 
         /// <summary>
         /// The width of the canvas to be scrolled.
         /// </summary>
-        public Double ExtentWidth => _extent.Width * Scale.ScaleX;
+        public Double ExtentWidth => Extent.Width * Scale.ScaleX;
 
         /// <summary>
         /// Scroll down one small scroll increment.
@@ -929,7 +926,7 @@ namespace Wider.Content.VirtualCanvas.Controls
         /// </summary>
         public Double ViewportWidth => _viewPortSize.Width;
 
-        public Size SmallScrollIncrement1 { get => _smallScrollIncrement; set => _smallScrollIncrement = value; }
+        public Size SmallScrollIncrement1 { get; set; } = new Size(10, 10);
         public Int32 Removed { get; set; }
 
         #endregion

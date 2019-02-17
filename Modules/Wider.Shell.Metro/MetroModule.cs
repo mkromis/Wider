@@ -13,14 +13,15 @@ namespace Wider.Shell.Metro
         {
             IThemeManager themeManager = containerProvider.Resolve<IThemeManager>();
             themeManager.Clear();
-            themeManager.Add(new DefaultTheme());
-            themeManager.Add(new CleanTheme());
-            themeManager.Add(new VS2010Theme());
+#warning Theme issue with Xceed 3.5.0 Use only Blue Light and Dark.
+            //themeManager.Add(new DefaultTheme());
+            //themeManager.Add(new CleanTheme());
+            //themeManager.Add(new VS2010Theme());
             themeManager.Add(new BlueTheme());
             themeManager.Add(new LightTheme());
             themeManager.Add(new DarkTheme());
 
-            themeManager.SetCurrent("Default");
+            themeManager.SetCurrent("Blue");
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry) => 

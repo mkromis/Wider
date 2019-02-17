@@ -23,8 +23,6 @@ namespace Wider.Content.VirtualCanvas.Gestures
         private const Double _dashRepeatLength = 8;
         private readonly TileBrush _horizontalDashBrush;
         private readonly TileBrush _verticalDashBrush;
-
-        private Point _firstPoint;
         private Point _secondPoint;
         private readonly DrawingVisual _visualForRect;
 
@@ -58,7 +56,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
             _verticalDashBrush = drawingBrush.Clone();
             _verticalDashBrush.Transform = new RotateTransform(90);
 
-            _firstPoint = firstPointP;
+            FirstPoint = firstPointP;
             _secondPoint = secondPointP;
             Zoom = zoomP;
             _visualForRect = new DrawingVisual();
@@ -69,11 +67,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <summary>
         /// Get/Set the first point in the rectangle (could be before or after second point).
         /// </summary>
-        public Point FirstPoint
-        {
-            get => _firstPoint;
-            set => _firstPoint = value;
-        }
+        public Point FirstPoint { get; set; }
 
         /// <summary>
         /// Get/Set the second point in the rectangle (could be before or after first point).
@@ -154,6 +148,6 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <summary>
         /// Get the actual Rectangle of the rubber band.
         /// </summary>
-        internal Rect SelectedRect => new Rect(_firstPoint, SecondPoint);
+        internal Rect SelectedRect => new Rect(FirstPoint, SecondPoint);
     }
 }

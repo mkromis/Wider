@@ -320,7 +320,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <param name="y">The y-coordinate</param>
         void Translate(Double x, Double y)
         {
-            if (_target is IScrollInfo si)
+            if (_target is IScrollInfo)
             {
                 // If the target object is smaller than the current viewport size then ignore this request.
                 Size s = ContainerSize;
