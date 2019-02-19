@@ -29,6 +29,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         private readonly ModifierKeys _mods;
 
         public event EventHandler Selected;
+        public event EventHandler ZoomReset;
 
         /// <summary>
         /// Construct new RectangleSelectionGesture object for selecting things in the given target object.
@@ -139,6 +140,14 @@ namespace Wider.Content.VirtualCanvas.Gestures
                 _container.Children.Remove(_selectionRectVisual);
                 _selectionRectVisual = null;
             }
+            else
+            {
+                if (e.GetPosition(_container) == _start)
+                {
+                    ZoomReset?.Invoke(this, EventArgs.Empty);
+                }
+            }
+
         }
 
         /// <summary>
