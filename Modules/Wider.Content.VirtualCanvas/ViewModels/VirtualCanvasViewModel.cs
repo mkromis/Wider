@@ -53,11 +53,7 @@ namespace Wider.Content.VirtualCanvas.ViewModels
             Zoom = new MapZoom(target);
             Pan = new Pan(target, Zoom);
             AutoScroll = new AutoScroll(target, Zoom);
-            RectZoom = new RectangleSelectionGesture(target, Zoom, ModifierKeys.Control)
-            {
-                ZoomSelection = true
-            };
-
+            RectZoom = new RectangleSelectionGesture(target, Zoom, ModifierKeys.Control);
         }
     }
 }
