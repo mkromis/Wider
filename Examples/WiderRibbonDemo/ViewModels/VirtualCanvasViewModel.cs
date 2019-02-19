@@ -116,6 +116,12 @@ namespace WiderRibbonDemo.ViewModels
             _statusbarService = statusbarService;
             _statusbarService.Text = "Loading";
 
+            // Override ctrl with alt.
+            RectZoom = new RectangleSelectionGesture(Graph.ContentCanvas, Zoom, ModifierKeys.Alt)
+            {
+                ZoomSelection = true
+            };
+
             Zoom.ZoomChanged += (s, e) =>
             {
                 RaisePropertyChanged("ZoomValue");
@@ -130,6 +136,7 @@ namespace WiderRibbonDemo.ViewModels
 
             Graph.Background = new SolidColorBrush(Color.FromRgb(0xd0, 0xd0, 0xd0));
             Graph.ContentCanvas.Background = Brushes.White;
+
 
             AllocateNodes();
             _statusbarService.Text = "Ready";
