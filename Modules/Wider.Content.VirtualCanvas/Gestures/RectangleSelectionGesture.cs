@@ -26,7 +26,6 @@ namespace Wider.Content.VirtualCanvas.Gestures
         private readonly Panel _container;
         private Point _mouseDownPoint;
         private readonly Int32 _selectionThreshold = 5; // allow some mouse wiggle on mouse down without actually selecting stuff!
-        private readonly ModifierKeys _mods;
 
         public event EventHandler Selected;
         public event EventHandler ZoomReset;
@@ -36,9 +35,8 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// </summary>
         /// <param name="target">A FrameworkElement</param>
         /// <param name="zoom">The MapZoom object that wraps this same target object</param>
-        public RectangleSelectionGesture(FrameworkElement target, MapZoom zoom, ModifierKeys mods)
+        public RectangleSelectionGesture(FrameworkElement target, MapZoom zoom)
         {
-            _mods = mods;
             _target = target;
             _container = target.Parent as Panel;
             if (_container == null)
@@ -68,7 +66,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <param name="e">Mouse down information</param>
         void OnMouseLeftButtonDown(Object sender, MouseButtonEventArgs e)
         {
-            if (!e.Handled && (Keyboard.Modifiers & _mods) == _mods)
+            if (!e.Handled && (Keyboard.Modifiers & ModifierKeys) == ModifierKeys)
             {
                 _start = e.GetPosition(_container);
                 _watching = true;
@@ -82,6 +80,11 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// without trigging an almost infinite zoom out to a very smalle piece of real-estate.
         /// </summary>
         public Int32 ZoomSizeThreshold { get; set; } = 20;
+
+        /// <summary>
+        /// Specify modifier keys for mouse manipulation
+        /// </summary>
+        public ModifierKeys ModifierKeys { get; set; } = ModifierKeys.Control;
 
         /// <summary>
         /// Handle Mouse Move event.  Here we detect whether we've exceeded the _selectionThreshold
