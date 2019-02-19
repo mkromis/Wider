@@ -59,7 +59,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <summary>
         /// Get/Set whether to also zoom the selected rectangle.
         /// </summary>
-        public Boolean ZoomSelection { get; set; }
+        public Boolean ZoomSelection { get; set; } = true;
 
         /// <summary>
         /// Handle the mouse left button down event

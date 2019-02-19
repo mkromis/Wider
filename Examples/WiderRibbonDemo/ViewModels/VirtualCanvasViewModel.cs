@@ -117,10 +117,7 @@ namespace WiderRibbonDemo.ViewModels
             _statusbarService.Text = "Loading";
 
             // Override ctrl with alt.
-            RectZoom = new RectangleSelectionGesture(Graph.ContentCanvas, Zoom, ModifierKeys.Alt)
-            {
-                ZoomSelection = true
-            };
+            RectZoom = new RectangleSelectionGesture(Graph.ContentCanvas, Zoom, ModifierKeys.Alt);
 
             Zoom.ZoomChanged += (s, e) =>
             {
