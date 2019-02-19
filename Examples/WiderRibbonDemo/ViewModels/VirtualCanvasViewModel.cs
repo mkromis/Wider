@@ -116,8 +116,8 @@ namespace WiderRibbonDemo.ViewModels
             _statusbarService = statusbarService;
             _statusbarService.Text = "Loading";
 
-            // Override ctrl with alt.
-            RectZoom.ModifierKeys = ModifierKeys.Alt;
+            // Override ctrl with alt. (Test code)
+            // RectZoom.ModifierKeys = ModifierKeys.Alt;
 
             Zoom.ZoomChanged += (s, e) =>
             {
