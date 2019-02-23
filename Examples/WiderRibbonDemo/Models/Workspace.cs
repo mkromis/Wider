@@ -21,7 +21,7 @@ namespace WiderRibbonDemo.Models
         private VirtualCanvasViewModel _canvasViewModel;
         private readonly ISettingsManager _settingsManager;
         private readonly IThemeSettings _themeSettings;
-        private readonly IThemeManager _themneManager;
+        private readonly IThemeManager _themeManager;
 
         public VirtualCanvasViewModel CanvasViewModel
         {
@@ -29,7 +29,11 @@ namespace WiderRibbonDemo.Models
             set => SetProperty(ref _canvasViewModel, value);
         }
 
-        public ICommand OpenCanvasCommand => new DelegateCommand(() => OpenAndFocus<VirtualCanvasViewModel>());
+        public ICommand OpenCanvasCommand => new DelegateCommand(() =>
+        {
+            CanvasViewModel = OpenAndFocus<VirtualCanvasViewModel>();
+            CanvasViewModel.IsClosing += (s, e) => CanvasViewModel = null;
+        });
 
         public ICommand TaskRunCommand => new DelegateCommand(() => OpenAndFocus<TaskRunTestsViewModel>());
 
@@ -53,7 +57,7 @@ namespace WiderRibbonDemo.Models
         {
             _settingsManager = Container.Resolve<ISettingsManager>();
             _themeSettings = Container.Resolve<IThemeSettings>();
-            _themneManager = Container.Resolve<IThemeManager>();
+            _themeManager = Container.Resolve<IThemeManager>();
 
             // Setup theme
             String themeName = _themeSettings.SelectedTheme;
@@ -61,19 +65,18 @@ namespace WiderRibbonDemo.Models
             {
                 themeName = _themeSettings.GetSystemTheme();
             }
-            _themneManager.SetCurrent(themeName);
+            _themeManager.SetCurrent(themeName);
 
             // Setup settings
-            
             _settingsManager.Add(new SettingsItem("General", Container.Resolve<GeneralSettings>()));
         }
 
-        public IEnumerable<String> ThemeList => _themneManager.Themes.Select(x => x.Name);
+        public IEnumerable<String> ThemeList => _themeManager.Themes.Select(x => x.Name);
 
         public String SelectedTheme
         {
-            set => _themneManager.SetCurrent(value);
-            get => _themneManager.Current.Name;
+            set => _themeManager.SetCurrent(value);
+            get => _themeManager.Current.Name;
         }
     }
 }
