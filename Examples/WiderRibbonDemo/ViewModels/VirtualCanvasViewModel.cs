@@ -2,18 +2,13 @@
 using Prism.Commands;
 using Prism.Ioc;
 using System;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Wider.Content.VirtualCanvas.Controls;
-using Wider.Content.VirtualCanvas.Gestures;
-using Wider.Content.VirtualCanvas.Models;
 using Wider.Core.Services;
 using WiderRibbonDemo.Extensions;
 using WiderRibbonDemo.Models;
@@ -38,6 +33,8 @@ namespace WiderRibbonDemo.ViewModels
         private Boolean _showGridLines;
         private readonly Polyline _gridLines = new Polyline();
         private readonly IStatusbarService _statusbarService;
+
+        public EventHandler IsClosing;
 
         public Boolean ShowContextRibbon => true;
 
@@ -169,6 +166,12 @@ namespace WiderRibbonDemo.ViewModels
                 Graph.AddVirtualChild(shape);
                 count--;
             }
+        }
+
+        protected override void Close(Object obj)
+        {
+            IsClosing?.Invoke(this, null);
+            base.Close(obj);
         }
 
         private readonly String[] _colorNames = new String[10];
