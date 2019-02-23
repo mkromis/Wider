@@ -20,6 +20,7 @@ using System.Xml;
 using System.Globalization;
 using Wider.Content.VirtualCanvas.Gestures;
 using Wider.Content.VirtualCanvas.Models;
+using System.Linq;
 
 namespace Wider.Content.VirtualCanvas.Controls
 {
@@ -282,38 +283,35 @@ namespace Wider.Content.VirtualCanvas.Controls
                 Double.IsNaN(Extent.Width) || Double.IsNaN(Extent.Height))
             {
                 rebuild = true;
-                Boolean first = true;
-                Rect extent = new Rect();
                 _visualPositions = new Dictionary<IVirtualChild, Int32>();
+
+                //Boolean first = true;
                 Int32 index = 0;
                 foreach (IVirtualChild c in _children)
                 {
                     _visualPositions[c] = index++;
 
+                    // Sanity check
                     Rect childBounds = c.Bounds;
                     if (childBounds.Width != 0 && childBounds.Height != 0)
                     {
                         if (Double.IsNaN(childBounds.Width) || Double.IsNaN(childBounds.Height))
                         {
-                            throw new InvalidOperationException(String.Format(System.Globalization.CultureInfo.CurrentUICulture,
+                            throw new InvalidOperationException(String.Format(CultureInfo.CurrentUICulture,
                                 "Child type '{0}' returned NaN bounds", c.GetType().Name));
-                        }
-                        if (first)
-                        {
-                            extent = childBounds;
-                            first = false;
-                        }
-                        else
-                        {
-                            extent = Rect.Union(extent, childBounds);
                         }
                     }
                 }
-                Extent = extent.Size;
+
+                // Get extents
+                Extent = new Size(
+                    _children.Max(x => x.Bounds.Right),
+                    _children.Max(x => x.Bounds.Bottom));
+
                 // Ok, now we know the size we can create the index.
                 Index = new QuadTree<IVirtualChild>
                 {
-                    Bounds = new Rect(0, 0, extent.Width, extent.Height)
+                    Bounds = new Rect(0, 0, Extent.Width, Extent.Height)
                 };
                 foreach (IVirtualChild n in _children)
                 {
