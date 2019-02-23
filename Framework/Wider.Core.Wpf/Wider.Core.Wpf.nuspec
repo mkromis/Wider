@@ -1,21 +1,22 @@
 <?xml version="1.0"?>
 <package >
-    <metadata>
-        <id>$id$</id>
-        <version>$version$</version>
-        <title>$title$</title>
-        <authors>Mark Kromis</authors>
-        <owners>Mark Kromis</owners>
-        <licenseUrl>https://github.com/TorisanKitsune/Wider/blob/master/LICENSE.txt</licenseUrl>
-        <projectUrl>https://github.com/TorisanKitsune/Wider</projectUrl>
-        <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>Core Wpf assembly for Wider</description>
-        <releaseNotes>Initial Alpha release</releaseNotes>
-        <copyright>Copyright 2018</copyright>
-        <tags>IDE Framework Core</tags>
-        <dependencies>
-            <dependency id="Extended.Wpf.Toolkit" version="[3.4.0,4)" />
-            <dependency id="Prism.DryIoc" version="[7.1.0.431, 8)" />
-        </dependencies>
-    </metadata>
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Mark Kromis</authors>
+    <owners>Mark Kromis</owners>
+    <licenseUrl>https://github.com/TorisanKitsune/Wider/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/TorisanKitsune/Wider</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Core Wpf assembly for Wider</description>
+    <releaseNotes>Initial Alpha release</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>IDE Framework Core</tags>
+    <dependencies>
+      <dependency id="Extended.Wpf.Toolkit" version="3.5.0" />
+      <dependency id="Prism.DryIoc" version="7.1.0.431" />
+      <dependency id="Xceed.Wpf.AvalonDock.Themes.VS2013" version="2.9.0.1" />
+    </dependencies>
+  </metadata>
 </package>

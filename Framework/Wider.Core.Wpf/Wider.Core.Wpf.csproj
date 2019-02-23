@@ -68,6 +68,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Base\LayoutInitializer.cs" />
+    <Compile Include="Themes\DarkTheme.cs" />
+    <Compile Include="Themes\LightTheme.cs" />
+    <Compile Include="Themes\BlueTheme.cs" />
     <Compile Include="Views\ContentManager.xaml.cs">
       <DependentUpon>ContentManager.xaml</DependentUpon>
     </Compile>
@@ -138,7 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit">
-      <Version>3.4.0</Version>
+      <Version>3.5.0</Version>
     </PackageReference>
     <PackageReference Include="GitVersionTask">
       <Version>4.0.0</Version>

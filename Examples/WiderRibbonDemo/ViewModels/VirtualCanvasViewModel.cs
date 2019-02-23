@@ -85,10 +85,7 @@ namespace WiderRibbonDemo.ViewModels
         {
             if (x == "Fit")
             {
-                Double scaleX = Graph.ViewportWidth / Graph.Extent.Width;
-                Double scaleY = Graph.ViewportHeight / Graph.Extent.Height;
-                Zoom.Zoom = Math.Min(scaleX, scaleY);
-                Zoom.Offset = new Point(0, 0);
+                ResetZoom();
             }
             else {
                 Double value = Double.Parse(x);
@@ -96,6 +93,14 @@ namespace WiderRibbonDemo.ViewModels
                 _statusbarService.Text = $"Zoom is {value}";
             }
         });
+
+        private void ResetZoom()
+        {
+            Double scaleX = Graph.ViewportWidth / Graph.Extent.Width;
+            Double scaleY = Graph.ViewportHeight / Graph.Extent.Height;
+            Zoom.Zoom = Math.Min(scaleX, scaleY);
+            Zoom.Offset = new Point(0, 0);
+        }
 
         public Double ZoomValue
         {
@@ -111,11 +116,16 @@ namespace WiderRibbonDemo.ViewModels
             _statusbarService = statusbarService;
             _statusbarService.Text = "Loading";
 
+            // Override ctrl with alt. (Test code)
+            // RectZoom.ModifierKeys = ModifierKeys.Alt;
+
             Zoom.ZoomChanged += (s, e) =>
             {
                 RaisePropertyChanged("ZoomValue");
                 _statusbarService.Text = $"Zoom:{ZoomValue}";
             };
+
+            RectZoom.ZoomReset += (s, e) => ResetZoom();
 
             Graph.SmallScrollIncrement = new Size(_tileWidth + _tileMargin, _tileHeight + _tileMargin);
             Graph.Scale.Changed += new EventHandler(OnScaleChanged);
@@ -123,6 +133,7 @@ namespace WiderRibbonDemo.ViewModels
 
             Graph.Background = new SolidColorBrush(Color.FromRgb(0xd0, 0xd0, 0xd0));
             Graph.ContentCanvas.Background = Brushes.White;
+
 
             AllocateNodes();
             _statusbarService.Text = "Ready";

@@ -15,8 +15,11 @@ namespace WiderClipboard.Models
 {
     internal class Workspace : AbstractWorkspace
     {
-        public Workspace(IContainerExtension container) : base(container)
+        readonly IThemeManager _themeManager;
+
+        public Workspace(IContainerExtension container, IThemeManager themeManager) : base(container)
         {
+            _themeManager = themeManager;
             Title = "Wider Clipboard Viewer";
 
             LoadCommand();
@@ -32,9 +35,11 @@ namespace WiderClipboard.Models
             ICommand selectionView = new DelegateCommand(() => Tools.Where(x => x.Title == "Selection").First().IsVisible = true);
             ICommand refreshCommand = new DelegateCommand(() => ((SelectionViewModel)Tools.Where(x => x.Title == "Selection").First()).Refresh());
             ICommand exitCommand = new DelegateCommand(() => App.Current.MainWindow.Close());
+            ICommand themeCommand = new DelegateCommand<String>((x) => _themeManager.SetCurrent(x));
 
             commandManager.RegisterCommand("SelectionView", selectionView);
             commandManager.RegisterCommand("RefreshCommand", refreshCommand);
+            commandManager.RegisterCommand("ThemeCommand", themeCommand);
             commandManager.RegisterCommand("ExitCommand", exitCommand);
         }
 
@@ -60,11 +65,21 @@ namespace WiderClipboard.Models
             menuService.Add(new MenuItemViewModel("_Tools", 3));
             menuService.Get("_Tools").Add(new MenuItemViewModel("_Selection", 401, null,
                 commandManager.GetCommand("SelectionView"), new KeyGesture(Key.F9)));
+
+            menuService.Add(new MenuItemViewModel("T_hemes", 4));
+            Int32 themeCount = 500;
+            foreach (ITheme theme in _themeManager.Themes)
+            {
+                menuService.Get("T_hemes")
+                    .Add(new MenuItemViewModel(theme.Name, ++themeCount, null, commandManager.GetCommand("ThemeCommand"))
+                    {
+                        CommandParameter = theme.Name,
+                    });
+            }
         }
 
         private void LoadToolbar()
         {
-            ICommandManager commandManager = Container.Resolve<ICommandManager>();
             IMenuService menuService = Container.Resolve<IMenuService>();
             IToolbarService toolbarService = Container.Resolve<IToolbarService>();
 

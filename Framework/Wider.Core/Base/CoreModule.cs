@@ -28,6 +28,7 @@ using Wider.Core.Controls;
 using Wider.Core.Events;
 using Wider.Core.Services;
 using Wider.Core.Settings;
+using Wider.Core.Themes;
 using Wider.Core.Views;
 using CommandManager = Wider.Core.Services.CommandManager;
 
@@ -112,6 +113,7 @@ namespace Wider.Core
             SetRegions(containerProvider);
             AppCommands(containerProvider);
             LoadSettings();
+            LoadThemes();
         }
 
         #endregion
@@ -142,6 +144,37 @@ namespace Wider.Core
             manager.RegisterCommand("NEW", registry.NewCommand);
         }
 
+        public void LoadThemes()
+        {
+            IThemeManager manager = _container.Resolve<IThemeManager>();
+            manager.Add(new BlueTheme());
+            manager.Add(new LightTheme());
+            manager.Add(new DarkTheme());
+        }
+
+        public void LoadDefaultTheme()
+        {
+            IThemeSettings settings = _container.Resolve<IThemeSettings>();
+            IThemeManager manager = _container.Resolve<IThemeManager>();
+
+            if (settings.SelectedTheme == "Default")
+            {
+                String newTheme = settings.GetSystemTheme();
+                if (newTheme == "Default")
+                {
+                    manager.SetCurrent("Blue");
+                }
+                else
+                {
+                    manager.SetCurrent(newTheme);
+                }
+            }
+            else
+            {
+                manager.SetCurrent(settings.SelectedTheme);
+            }
+        }
+
         public void LoadSettings()
         {
             //Resolve to get the last used theme from the settings
@@ -167,7 +200,7 @@ namespace Wider.Core
         /// <returns><c>true</c> if this instance can execute close document; otherwise, <c>false</c>.</returns>
         private Boolean CanExecuteCloseDocument(Object obj)
         {
-            if (obj is ContentViewModel vm)
+            if (obj is ContentViewModel)
             {
                 return true;
             }
@@ -204,9 +237,6 @@ namespace Wider.Core
                 {
                     if (!workspace.ActiveDocument.Handler.SaveContent(workspace.ActiveDocument))
                     {
-                        //Failed to save - return cancel
-                        res = MessageBoxResult.Cancel;
-
                         //Cancel was pressed - so, we cant close
                         if (e != null)
                         {
