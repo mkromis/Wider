@@ -71,7 +71,7 @@ namespace WiderRibbonDemo.ViewModels
             }
         });
 
-        public ICommand RowColChange => new DelegateCommand<Object>((x) => 
+        public ICommand RowColChange => new DelegateCommand<Object>((x) =>
         {
             Int32 value = Int32.Parse(x.ToString());
             rows = cols = value;
@@ -84,7 +84,8 @@ namespace WiderRibbonDemo.ViewModels
             {
                 ResetZoom();
             }
-            else {
+            else
+            {
                 Double value = Double.Parse(x);
                 Zoom.Zoom = value / 100;
                 _statusbarService.Text = $"Zoom is {value}";
@@ -141,7 +142,7 @@ namespace WiderRibbonDemo.ViewModels
             Zoom.Zoom = 1;
             Zoom.Offset = new Point(0, 0);
 
-            // Fill a sparse grid of rectangular color palette nodes with each tile being 50x30.    
+            // Fill a sparse grid of rectangular color palette nodes with each tile being 50x30.
             // with hue across x-axis and saturation on y-axis, brightness is fixed at 100;
             Random r = new Random(Environment.TickCount);
             Graph.VirtualChildren.Clear();
@@ -160,7 +161,7 @@ namespace WiderRibbonDemo.ViewModels
                                     r.Next((Int32)_tileHeight, (Int32)_tileHeight * 5));
                 TestShapeType type = (TestShapeType)r.Next(0, (Int32)TestShapeType.Last);
 
-                //Color color = HlsColor.ColorFromHLS((x * 240) / cols, 100, 240 - ((y * 240) / rows));                    
+                //Color color = HlsColor.ColorFromHLS((x * 240) / cols, 100, 240 - ((y * 240) / rows));
                 TestShape shape = new TestShape(new Rect(pos, s), type, r);
                 SetRandomBrushes(shape, r);
                 Graph.AddVirtualChild(shape);
