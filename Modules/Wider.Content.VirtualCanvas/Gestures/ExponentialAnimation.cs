@@ -134,11 +134,10 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <param name="power">The rate of exponental growth</param>
         /// <returns></returns>
         private static Double EaseIn(Double timeFraction, Double start, Double delta, Double power) {
-            Double returnValue = 0.0;
             // math magic: simple exponential growth
-            returnValue = Math.Pow(timeFraction, power);
+            Double returnValue = Math.Pow(timeFraction, power);
             returnValue *= delta;
-            returnValue = returnValue + start;
+            returnValue += start;
             return returnValue;
         }
 
@@ -152,12 +151,10 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <returns></returns>
         private static Double EaseOut(Double timeFraction, Double start, Double delta, Double power)
         {
-            Double returnValue = 0.0;
-
             // math magic: simple exponential decay
-            returnValue = Math.Pow(timeFraction, 1 / power);
+            Double returnValue = Math.Pow(timeFraction, 1 / power);
             returnValue *= delta;
-            returnValue = returnValue + start;
+            returnValue += start;
             return returnValue;
         }
 
@@ -172,7 +169,7 @@ namespace Wider.Content.VirtualCanvas.Gestures
         /// <returns></returns>
         private static Double EaseInOut(Double timeFraction, Double start, Double delta, Double power)
         {
-            Double returnValue = 0.0;
+            Double returnValue;
 
             // we cut each effect in half by multiplying the time fraction by two and halving the distance.
             if (timeFraction <= 0.5) {

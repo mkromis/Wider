@@ -87,14 +87,12 @@ namespace WiderMD.Core
         /// <returns>True, if the file exists and has a .md extension - false otherwise</returns>
         public Boolean ValidateContentType(Object info)
         {
-            String extension = "";
-
             if (!(info is String location))
             {
                 return false;
             }
 
-            extension = Path.GetExtension(location);
+            String extension = Path.GetExtension(location);
             return File.Exists(location) && extension == ".md";
         }
 
