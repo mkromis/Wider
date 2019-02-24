@@ -19,6 +19,7 @@ namespace WiderRibbonDemo.Models
     {
         // Handles data context for ribbon.
         private VirtualCanvasViewModel _canvasViewModel;
+        private readonly ISettingsManager _settingsManager;
         private readonly IThemeSettings _themeSettings;
         private readonly IThemeManager _themeManager;
 
@@ -28,9 +29,15 @@ namespace WiderRibbonDemo.Models
             set => SetProperty(ref _canvasViewModel, value);
         }
 
-        public ICommand OpenCanvasCommand => new DelegateCommand(() => OpenAndFocus<VirtualCanvasViewModel>());
+        public ICommand OpenCanvasCommand => new DelegateCommand(() =>
+        {
+            CanvasViewModel = OpenAndFocus<VirtualCanvasViewModel>();
+            CanvasViewModel.IsClosing += (s, e) => CanvasViewModel = null;
+        });
 
         public ICommand TaskRunCommand => new DelegateCommand(() => OpenAndFocus<TaskRunTestsViewModel>());
+
+        public ICommand SettingsCommand => _settingsManager.SettingsCommand;
 
         private T OpenAndFocus<T>() where T : ContentViewModel
         {
@@ -48,15 +55,20 @@ namespace WiderRibbonDemo.Models
 
         public Workspace(IContainerExtension container) : base(container)
         {
+            _settingsManager = Container.Resolve<ISettingsManager>();
             _themeSettings = Container.Resolve<IThemeSettings>();
             _themeManager = Container.Resolve<IThemeManager>();
 
+            // Setup theme
             String themeName = _themeSettings.SelectedTheme;
             if (themeName == "Default")
             {
                 themeName = _themeSettings.GetSystemTheme();
             }
             _themeManager.SetCurrent(themeName);
+
+            // Setup settings
+            _settingsManager.Add(new SettingsItem("General", Container.Resolve<GeneralSettings>()));
         }
 
         public IEnumerable<String> ThemeList => _themeManager.Themes.Select(x => x.Name);
