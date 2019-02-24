@@ -301,6 +301,12 @@ namespace Wider.Content.VirtualCanvas.Controls
                                 "Child type '{0}' returned NaN bounds", c.GetType().Name));
                         }
                     }
+
+                    // This is an expensive solution, need to re-visit this later.
+                    c.BoundsChanged += (s, e) =>
+                    {
+                        RebuildVisuals();
+                    };
                 }
 
                 // Get extents

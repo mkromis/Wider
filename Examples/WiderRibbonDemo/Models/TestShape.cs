@@ -171,6 +171,17 @@ namespace WiderRibbonDemo.Models
                                 VerticalAlignment = VerticalAlignment.Center,
                                 HorizontalAlignment = HorizontalAlignment.Center
                             };
+
+                            // Testing for BoundsChanged event.
+                            b.MouseRightButtonDown += (s, e) =>
+                            {
+                                _bounds = new Rect(
+                                    Bounds.X + 10,
+                                    Bounds.Y + 10,
+                                    b.Width,
+                                    b.Height);
+                                BoundsChanged?.Invoke(this, null);
+                            };
                             b.Child = text;
                             b.Background = Fill;
                             //DropShadowBitmapEffect effect = new DropShadowBitmapEffect();
