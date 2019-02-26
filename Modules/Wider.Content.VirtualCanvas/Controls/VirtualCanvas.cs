@@ -278,6 +278,15 @@ namespace Wider.Content.VirtualCanvas.Controls
         /// </summary>
         void CalculateExtent()
         {
+            if (_children.Count() == 0)
+            {
+                ContentCanvas.Width = 0;
+                ContentCanvas.Height = 0;
+                Backdrop.Width = 0;
+                Backdrop.Height = 0;
+                return;
+            }
+
             Boolean rebuild = false;
             if (Index == null || Extent.Width == 0 || Extent.Height == 0 ||
                 Double.IsNaN(Extent.Width) || Double.IsNaN(Extent.Height))
