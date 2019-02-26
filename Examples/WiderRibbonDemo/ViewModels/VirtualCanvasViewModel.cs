@@ -28,8 +28,8 @@ namespace WiderRibbonDemo.ViewModels
         private readonly Double _tileWidth = 50;
         private readonly Double _tileHeight = 30;
         private readonly Double _tileMargin = 10;
-        private Int32 rows = 100;
-        private Int32 cols = 100;
+        private Int32 rows;
+        private Int32 cols;
         private Boolean _showGridLines;
         private readonly Polyline _gridLines = new Polyline();
         private readonly IStatusbarService _statusbarService;
@@ -132,8 +132,10 @@ namespace WiderRibbonDemo.ViewModels
             Graph.Background = new SolidColorBrush(Color.FromRgb(0xd0, 0xd0, 0xd0));
             Graph.ContentCanvas.Background = Brushes.White;
 
+            // Origianlly 100 x 100 nodes
+            //AllocateNodes();
 
-            AllocateNodes();
+            // Update info 
             _statusbarService.Text = "Ready";
         }
 
