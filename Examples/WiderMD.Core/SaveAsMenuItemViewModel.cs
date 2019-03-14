@@ -52,7 +52,7 @@ namespace Wider.Interfaces.Controls
         }
         #endregion
 
-        private void SaveAs(ContentViewModel cvm)
+        private void SaveAs(ContentViewModel<ContentModel> cvm)
         {
             if (cvm != null)
             {

@@ -124,7 +124,7 @@ namespace Wider.Core.Views
                 {
                     IOpenDocumentService fileService =
                         _container.Resolve<IOpenDocumentService>();
-                    ContentViewModel model =
+                    ContentViewModel<ContentModel> model =
                         fileService.OpenFromID(e.Model.ContentId);
                     if (model != null)
                     {

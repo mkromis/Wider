@@ -145,14 +145,14 @@ namespace Wider.Core.Services
         /// </summary>
         /// <param name="info">The object which needs to be displayed as a document in Wider</param>
         /// <returns>The content view model for the given info</returns>
-        public ContentViewModel GetViewModel(Object info)
+        public ContentViewModel<ContentModel> GetViewModel(Object info)
         {
             for (Int32 i = ContentHandlers.Count - 1; i >= 0; i--)
             {
                 IContentHandler opener = ContentHandlers[i];
                 if (opener.ValidateContentType(info))
                 {
-                    ContentViewModel vm = opener.OpenContent(info);
+                    ContentViewModel<ContentModel> vm = opener.OpenContent(info);
                     vm.Handler = opener;
                     return vm;
                 }
@@ -166,14 +166,14 @@ namespace Wider.Core.Services
         /// </summary>
         /// <param name="contentId">The contentID which needs to be displayed as a document in Wider</param>
         /// <returns>The content view model for the given info</returns>
-        public ContentViewModel GetViewModelFromContentId(String contentId)
+        public ContentViewModel<ContentModel> GetViewModelFromContentId(String contentId)
         {
             for (Int32 i = ContentHandlers.Count - 1; i >= 0; i--)
             {
                 IContentHandler opener = ContentHandlers[i];
                 if (opener.ValidateContentFromId(contentId))
                 {
-                    ContentViewModel vm = opener.OpenContentFromId(contentId);
+                    ContentViewModel<ContentModel> vm = opener.OpenContentFromId(contentId);
                     vm.Handler = opener;
                     return vm;
                 }
@@ -196,7 +196,7 @@ namespace Wider.Core.Services
             if (_availableNewContent.Count == 1)
             {
                 IContentHandler handler = _dictionary[_availableNewContent[0]];
-                ContentViewModel openValue = handler.NewContent(_availableNewContent[0]);
+                ContentViewModel<ContentModel> openValue = handler.NewContent(_availableNewContent[0]);
                 _workspace.Documents.Add(openValue);
                 _workspace.ActiveDocument = openValue;
             }
@@ -222,7 +222,7 @@ namespace Wider.Core.Services
                     if (newContent != null)
                     {
                         IContentHandler handler = _dictionary[newContent];
-                        ContentViewModel openValue = handler.NewContent(newContent);
+                        ContentViewModel<ContentModel> openValue = handler.NewContent(newContent);
                         _workspace.Documents.Add(openValue);
                         _workspace.ActiveDocument = openValue;
                     }

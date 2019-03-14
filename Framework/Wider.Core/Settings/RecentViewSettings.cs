@@ -67,7 +67,7 @@ namespace Wider.Core.Settings
             }
         }
 
-        public void Update(ContentViewModel viewModel)
+        public void Update(ContentViewModel<ContentModel> viewModel)
         {
             RecentViewItem item = new RecentViewItem
             {

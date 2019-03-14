@@ -62,7 +62,7 @@ namespace Wider.Content.Services
 
         #region IContentHandler Members
 
-        public ContentViewModel NewContent(Object parameter)
+        public ContentViewModel<ContentModel> NewContent(Object parameter)
         {
             TextViewModel vm = _container.Resolve<TextViewModel>();
             TextModel model = _container.Resolve<TextModel>();
@@ -124,7 +124,7 @@ namespace Wider.Content.Services
         /// </summary>
         /// <param name="info">The string location of the file</param>
         /// <returns>The <see cref="TextViewModel"/> for the file.</returns>
-        public ContentViewModel OpenContent(Object info)
+        public ContentViewModel<ContentModel> OpenContent(Object info)
         {
             if (info is String location)
             {
@@ -166,7 +166,7 @@ namespace Wider.Content.Services
         /// </summary>
         /// <param name="contentId">The content ID</param>
         /// <returns></returns>
-        public ContentViewModel OpenContentFromId(String contentId)
+        public ContentViewModel<ContentModel> OpenContentFromId(String contentId)
         {
             String[] split = Regex.Split(contentId, ":##:");
             if (split.Count() == 2)
@@ -187,7 +187,7 @@ namespace Wider.Content.Services
         /// <param name="contentViewModel">This needs to be a TextViewModel that needs to be saved</param>
         /// <param name="saveAs">Pass in true if you need to Save As?</param>
         /// <returns>true, if successful - false, otherwise</returns>
-        public virtual Boolean SaveContent(ContentViewModel contentViewModel, Boolean saveAs = false)
+        public virtual Boolean SaveContent(ContentViewModel<ContentModel> contentViewModel, Boolean saveAs = false)
         {
 
             if (!(contentViewModel is TextViewModel textViewModel))

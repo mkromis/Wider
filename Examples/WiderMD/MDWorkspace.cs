@@ -62,7 +62,7 @@ namespace WiderMD
             }
         }
 
-        private void ContentChanged(ContentViewModel model)
+        private void ContentChanged(ContentViewModel<ContentModel> model)
         {
             _document = model == null ? "" : model.Title;
             RaisePropertyChanged("Title");

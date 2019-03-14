@@ -24,7 +24,7 @@ namespace Wider.Core.Services
         /// </summary>
         /// <param name="location">The location.</param>
         /// <returns>ContentViewModel.</returns>
-        ContentViewModel Open(Object location = null);
+        ContentViewModel<ContentModel> Open(Object location = null);
 
         /// <summary>
         /// Opens from content from an ID.
@@ -32,6 +32,6 @@ namespace Wider.Core.Services
         /// <param name="contentID">The content ID.</param>
         /// <param name="makeActive">if set to <c>true</c> makes the new document as the active document.</param>
         /// <returns>ContentViewModel.</returns>
-        ContentViewModel OpenFromID(String contentID, Boolean makeActive = false);
+        ContentViewModel<ContentModel> OpenFromID(String contentID, Boolean makeActive = false);
     }
 }

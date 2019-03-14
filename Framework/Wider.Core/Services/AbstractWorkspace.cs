@@ -45,7 +45,7 @@ namespace Wider.Core.Services
         /// <summary>
         /// The active document
         /// </summary>
-        private ContentViewModel _activeDocument;
+        private ContentViewModel<ContentModel> _activeDocument;
 
         /// <summary>
         /// The injected command manager
@@ -55,7 +55,7 @@ namespace Wider.Core.Services
         /// <summary>
         /// The list of documents
         /// </summary>
-        protected ObservableCollection<ContentViewModel> _docs = new ObservableCollection<ContentViewModel>();
+        protected ObservableCollection<ContentViewModel<ContentModel>> _docs = new ObservableCollection<ContentViewModel<ContentModel>>();
 
         /// <summary>
         /// The toolbar service
@@ -81,7 +81,7 @@ namespace Wider.Core.Services
         {
             Container = container;
             _eventAggregator = Container.Resolve<IEventAggregator>();
-            _docs = new ObservableCollection<ContentViewModel>();
+            _docs = new ObservableCollection<ContentViewModel<ContentModel>>();
             _docs.CollectionChanged += Docs_CollectionChanged;
             _tools = new ObservableCollection<ToolViewModel>();
             _menus = Container.Resolve<IMenuService>();
@@ -98,7 +98,7 @@ namespace Wider.Core.Services
         /// The list of documents which are open in the workspace
         /// </summary>
         /// <value>The documents.</value>
-        public virtual ObservableCollection<ContentViewModel> Documents
+        public virtual ObservableCollection<ContentViewModel<ContentModel>> Documents
         {
             get => _docs;
             set => _docs = value;
@@ -118,7 +118,7 @@ namespace Wider.Core.Services
         /// The current document which is active in the workspace
         /// </summary>
         /// <value>The active document.</value>
-        public virtual ContentViewModel ActiveDocument
+        public virtual ContentViewModel<ContentModel> ActiveDocument
         {
             get => _activeDocument;
             set
@@ -156,7 +156,7 @@ namespace Wider.Core.Services
         {
             for (Int32 i = 0; i < Documents.Count; i++)
             {
-                ContentViewModel vm = Documents[i];
+                ContentViewModel<ContentModel> vm = Documents[i];
                 if (vm.Model.IsDirty)
                 {
                     ActiveDocument = vm;

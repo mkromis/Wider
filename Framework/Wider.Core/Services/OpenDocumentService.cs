@@ -86,10 +86,10 @@ namespace Wider.Core.Services
         /// </summary>
         /// <param name="location">The optional object to open</param>
         /// <returns>A document which was added to the workspace as a content view model</returns>
-        public ContentViewModel Open(Object location = null)
+        public ContentViewModel<ContentModel> Open(Object location = null)
         {
             Boolean? result;
-            ContentViewModel returnValue = null;
+            ContentViewModel<ContentModel> returnValue = null;
 
             if (location == null)
             {
@@ -121,7 +121,7 @@ namespace Wider.Core.Services
                 //Let the handler figure out which view model to return
                 if (_handler != null)
                 {
-                    ContentViewModel openValue = _handler.GetViewModel(location);
+                    ContentViewModel<ContentModel> openValue = _handler.GetViewModel(location);
 
                     if (openValue != null)
                     {
@@ -176,15 +176,15 @@ namespace Wider.Core.Services
         /// <param name="contentID">The contentID to open</param>
         /// <param name="makeActive">if set to <c>true</c> makes the new document as the active document.</param>
         /// <returns>A document which was added to the workspace as a content view model</returns>
-        public ContentViewModel OpenFromID(String contentID, Boolean makeActive = false)
+        public ContentViewModel<ContentModel> OpenFromID(String contentID, Boolean makeActive = false)
         {
             //Let the handler figure out which view model to return
-            ContentViewModel openValue = _handler.GetViewModelFromContentId(contentID);
+            ContentViewModel<ContentModel> openValue = _handler.GetViewModelFromContentId(contentID);
 
             if (openValue != null)
             {
                 //Check if the document is already open
-                foreach (ContentViewModel contentViewModel in _workspace.Documents)
+                foreach (ContentViewModel<ContentModel> contentViewModel in _workspace.Documents)
                 {
                     if (contentViewModel.Model.Location != null)
                     {

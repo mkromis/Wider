@@ -19,10 +19,14 @@ using Wider.Core.Services;
 
 namespace Wider.Core.Services
 {
+    public abstract class ToolViewModel : ToolViewModel<Object>
+    {
+    }
+
     /// <summary>
     /// The abstract class which has to be inherited if you want to create a tool
     /// </summary>
-    public abstract class ToolViewModel : BindableBase, ITool
+    public abstract class ToolViewModel<T> : BindableBase, ITool
     {
         #region Members
 
@@ -71,7 +75,7 @@ namespace Wider.Core.Services
         /// The content model
         /// </summary>
         /// <value>The model.</value>
-        public virtual Object Model { get; set; }
+        public virtual T Model { get; set; }
 
         /// <summary>
         /// The content view

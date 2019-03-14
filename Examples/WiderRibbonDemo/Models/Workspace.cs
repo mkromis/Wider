@@ -35,11 +35,22 @@ namespace WiderRibbonDemo.Models
             CanvasViewModel.IsClosing += (s, e) => CanvasViewModel = null;
         });
 
-        public ICommand TaskRunCommand => new DelegateCommand(() => OpenAndFocus<TaskRunTestsViewModel>());
+        public ICommand TaskRunCommand => new DelegateCommand(() =>
+        {
+            ContentViewModel<ContentModel> vm = (ContentViewModel<ContentModel>)Documents.Where(x => x.GetType() == typeof(TaskRunTestsViewModel)).FirstOrDefault();
+            if (vm == null)
+            {
+                TaskRunTestsViewModel model = Container.Resolve<TaskRunTestsViewModel>();
+                Documents.Add(model);
+            }
+
+            // if not exist
+            ActiveDocument = vm;
+        });
 
         public ICommand SettingsCommand => _settingsManager.SettingsCommand;
 
-        private T OpenAndFocus<T>() where T : ContentViewModel
+        private T OpenAndFocus<T>() where T : ContentViewModel<ContentModel>
         {
             T vm = (T)Documents.Where(x => x is T).FirstOrDefault();
             if (vm == null)
@@ -52,6 +63,7 @@ namespace WiderRibbonDemo.Models
             ActiveDocument = vm;
             return vm;
         }
+
 
         public Workspace(IContainerExtension container) : base(container)
         {

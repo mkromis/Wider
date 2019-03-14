@@ -39,7 +39,7 @@ namespace Wider.Core.Services
         /// </summary>
         /// <param name="info">The object which needs to be displayed as a document in Wider</param>
         /// <returns>The content view model for the given info</returns>
-        ContentViewModel GetViewModel(Object info);
+        ContentViewModel<ContentModel> GetViewModel(Object info);
 
         /// <summary>
         /// Returns a content view model for the specified contentID which needs to be displayed as a document
@@ -47,7 +47,7 @@ namespace Wider.Core.Services
         /// </summary>
         /// <param name="contentId">The contentID which needs to be displayed as a document in Wider</param>
         /// <returns>The content view model for the given info</returns>
-        ContentViewModel GetViewModelFromContentId(String contentId);
+        ContentViewModel<ContentModel> GetViewModelFromContentId(String contentId);
 
         /// <summary>
         /// Gets the command which provides the option to create a new document.

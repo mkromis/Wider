@@ -22,7 +22,7 @@ namespace Wider.Core.Services
         /// <summary>
         /// The list of documents which are open in the workspace
         /// </summary>
-        ObservableCollection<ContentViewModel> Documents { get; set; }
+        ObservableCollection<ContentViewModel<ContentModel>> Documents { get; set; }
 
         /// <summary>
         /// The list of tools that are available in the workspace
@@ -32,7 +32,7 @@ namespace Wider.Core.Services
         /// <summary>
         /// The current document which is active in the workspace
         /// </summary>
-        ContentViewModel ActiveDocument { get; set; }
+        ContentViewModel<ContentModel> ActiveDocument { get; set; }
 
         /// <summary>
         /// Gets the title of the application.

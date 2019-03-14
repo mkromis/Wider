@@ -56,7 +56,7 @@ namespace WiderMD.Core
 
         #region IContentHandler Members
 
-        public ContentViewModel NewContent(Object parameter)
+        public ContentViewModel<ContentModel> NewContent(Object parameter)
         {
             MDViewModel vm = _container.Resolve<MDViewModel>();
             MDModel model = _container.Resolve<MDModel>();
@@ -101,7 +101,7 @@ namespace WiderMD.Core
         /// </summary>
         /// <param name="info">The string location of the file</param>
         /// <returns>The <see cref="MDViewModel"/> for the file.</returns>
-        public ContentViewModel OpenContent(Object info)
+        public ContentViewModel<ContentModel> OpenContent(Object info)
         {
             if (info is String location)
             {
@@ -138,7 +138,7 @@ namespace WiderMD.Core
             return null;
         }
 
-        public ContentViewModel OpenContentFromId(String contentId)
+        public ContentViewModel<ContentModel> OpenContentFromId(String contentId)
         {
             String[] split = Regex.Split(contentId, ":##:");
             if (split.Count() == 2)
@@ -159,7 +159,7 @@ namespace WiderMD.Core
         /// <param name="contentViewModel">This needs to be a TextViewModel that needs to be saved</param>
         /// <param name="saveAs">Pass in true if you need to Save As?</param>
         /// <returns>true, if successful - false, otherwise</returns>
-        public virtual Boolean SaveContent(ContentViewModel contentViewModel, Boolean saveAs = false)
+        public virtual Boolean SaveContent(ContentViewModel<ContentModel> contentViewModel, Boolean saveAs = false)
         {
             if (!(contentViewModel is MDViewModel mdViewModel))
             {

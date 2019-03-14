@@ -7,7 +7,7 @@ using Wider.Core.Services;
 
 namespace WiderRibbonDemo.Models
 {
-    class EmptyModel : ContentModel
+    public class EmptyModel : ContentModel
     {
     }
 }

@@ -18,7 +18,7 @@ namespace Wider.Core.Events
     /// <summary>
     /// Class OpenContentEvent - This event happens when a new document is opened.
     /// </summary>
-    public class OpenContentEvent : PubSubEvent<ContentViewModel>
+    public class OpenContentEvent : PubSubEvent<ContentViewModel<ContentModel>>
     {
     }
 }

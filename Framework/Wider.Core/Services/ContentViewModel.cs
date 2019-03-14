@@ -24,10 +24,15 @@ using Wider.Core.Services;
 
 namespace Wider.Core.Services
 {
+    public abstract class ContentViewModel : ContentViewModel<ContentModel>
+    {
+        protected ContentViewModel(IContainerExtension container) : base(container) { }
+    }
+
     /// <summary>
     /// The abstract class which has to be inherited if you want to create a document
     /// </summary>
-    public abstract class ContentViewModel : BindableBase
+    public abstract class ContentViewModel<T> : BindableBase where T : ContentModel
     {
         #region Members
 
@@ -39,7 +44,7 @@ namespace Wider.Core.Services
         /// <summary>
         /// The model
         /// </summary>
-        protected ContentModel _model;
+        protected T _model;
 
         /// <summary>
         /// The command manager
@@ -107,7 +112,7 @@ namespace Wider.Core.Services
         /// The content model
         /// </summary>
         /// <value>The model.</value>
-        public virtual ContentModel Model
+        public virtual T Model
         {
             get => _model;
             set

@@ -220,7 +220,7 @@ namespace Wider.Core
 
             System.ComponentModel.CancelEventArgs e = obj as System.ComponentModel.CancelEventArgs;
 
-            if (!(obj is ContentViewModel activeDocument))
+            if (!(obj is ContentViewModel<ContentModel> activeDocument))
             {
                 activeDocument = workspace.ActiveDocument;
             }

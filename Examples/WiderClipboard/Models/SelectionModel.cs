@@ -40,7 +40,7 @@ namespace WiderClipboard.Models
 
                 if (workspace.Documents.Any(x => x.Title == format))
                 {
-                    ContentViewModel document = workspace.Documents.Where(x => x.Title == format).First();
+                    ContentViewModel<ContentModel> document = workspace.Documents.Where(x => x.Title == format).First();
                     workspace.ActiveDocument = document;
                     return;
                 }

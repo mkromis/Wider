@@ -13,7 +13,7 @@ using WiderRibbonDemo.Views;
 
 namespace WiderRibbonDemo.ViewModels
 {
-    public class TaskRunTestsViewModel : ContentViewModel
+    public class TaskRunTestsViewModel : ContentViewModel<EmptyModel>
     {
         private Double _progress;
 
