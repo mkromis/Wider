@@ -70,12 +70,12 @@
             </fluent:RibbonGroupBox>
             <fluent:RibbonGroupBox Header="Dimension">
                 <!-- Click=OnRowColChange -->
+                <fluent:Button Header="0" Size="Middle" CommandParameter="0" Command="{Binding RowColChange}" />
                 <fluent:Button Header="10" Size="Middle" CommandParameter="10" Command="{Binding RowColChange}" />
                 <fluent:Button Header="50" Size="Middle" CommandParameter="50" Command="{Binding RowColChange}" />
                 <fluent:Button Header="100" Size="Middle" CommandParameter="100" Command="{Binding RowColChange}" />
                 <fluent:Button Header="250" Size="Middle" CommandParameter="250" Command="{Binding RowColChange}" />
                 <fluent:Button Header="500" Size="Middle" CommandParameter="500" Command="{Binding RowColChange}" />
-                <fluent:Button Header="1000" Size="Middle" CommandParameter="1000" Command="{Binding RowColChange}" />
             </fluent:RibbonGroupBox>
             <fluent:RibbonGroupBox Header="View">
                 <fluent:CheckBox Header="Show Grid Lines" IsChecked="{Binding ShowGridLines}"/>
