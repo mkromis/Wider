@@ -555,34 +555,36 @@ namespace Wider.Content.VirtualCanvas.Controls
                 _visibleRegions.RemoveAt(0);
                 regionCount++;
 
-                // Iterate over the visible range of nodes and make sure they have visuals.
-                foreach (IVirtualChild n in Index.GetNodesInside(r))
+                if (Index != null && Index.Root != null)
                 {
-                    if (n.Visual == null)
+                    // Iterate over the visible range of nodes and make sure they have visuals.
+                    foreach (IVirtualChild n in Index.GetNodesInside(r))
                     {
-                        EnsureVisual(n);
-                        _added++;
-                    }
-
-                    count++;
-
-                    if (count >= quantum)
-                    {
-                        // This region is too big, so subdivide it into smaller slices.
-                        if (regionCount == 1)
+                        if (n.Visual == null)
                         {
-                            // We didn't even complete 1 region, so we better split it.
-                            SplitRegion(r, _visibleRegions);
+                            EnsureVisual(n);
+                            _added++;
                         }
-                        else
+
+                        count++;
+
+                        if (count >= quantum)
                         {
-                            _visibleRegions.Add(r); // put it back since we're not done!
+                            // This region is too big, so subdivide it into smaller slices.
+                            if (regionCount == 1)
+                            {
+                                // We didn't even complete 1 region, so we better split it.
+                                SplitRegion(r, _visibleRegions);
+                            }
+                            else
+                            {
+                                _visibleRegions.Add(r); // put it back since we're not done!
+                            }
+                            IsDone = false;
+                            break;
                         }
-                        IsDone = false;
-                        break;
                     }
                 }
-
             }
             return count;
         }
