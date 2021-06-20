@@ -1,4 +1,6 @@
-# Wide
+# Wider
+This project is archived. No further updates are planned for this project.
+Please contact me if you want to take over this project.
 
 ## Status Badge
 [![Build Status](https://dev.azure.com/TorisanKitsune/Wider/_apis/build/status/TorisanKitsune.Wider)](https://dev.azure.com/TorisanKitsune/Wider/_build/latest?definitionId=1)
